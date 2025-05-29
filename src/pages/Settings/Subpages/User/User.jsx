@@ -44,7 +44,9 @@ const User = () => {
   const currentUser = getCurrentUser();
   const authuser = JSON.parse(localStorage.getItem("authUser"));
 
-  const fetchAllUser = async (URI = "user-list") => {
+  const fetchAllUser = async (params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    const URI = `user-list?${query}`;    
     try {
       setIsLoading(true);
       const response = await getApi(URI);
@@ -82,14 +84,7 @@ const User = () => {
   const debouncedFetchSearchResults = useMemo(
     () =>
       createDebouncedSearch((params) => {
-        fetchSearchResults(
-          "/user-list",
-          params,
-          setFilteredUsers,
-          setIsLoading,
-          setFilteredLength,
-          setPageIndex
-        );
+        fetchAllUser(params);
       }, 300),
     []
   );
@@ -262,7 +257,7 @@ const User = () => {
                 //     ))}
                 //   </tr>
                 // ))
-                <Loader rows={6} cols={7}/>
+                <Loader rows={6} cols={7} />
               ) : filteredUsers?.length > 0 ? (
                 filteredUsers?.map((users, index) => (
                   <tr key={users?.id || index}>
