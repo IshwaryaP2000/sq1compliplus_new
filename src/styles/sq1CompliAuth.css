@@ -1,0 +1,753 @@
+* {
+  margin: 0;
+}
+
+body {
+  background-color: #fff;
+  font-family: "Open Sans", serif;
+}
+
+.mb-40 {
+  margin-bottom: 40px;
+}
+
+.fs-18 {
+  font-size: 18px;
+}
+
+.fs-16 {
+  font-size: 16px;
+}
+
+.fs-22 {
+  font-size: 22px !important;
+}
+
+.w-70 {
+  width: 70% !important;
+}
+
+.w-30 {
+  width: 30% !important;
+}
+
+.gray-block {
+  color: #333333;
+}
+
+.skip-btn {
+  border: 1px solid #37c650;
+  color: #37c650;
+}
+
+.color-green {
+  color: #37c650;
+}
+
+.form-card {
+  padding: 40px 60px;
+  box-shadow: 0px 5px 18px 0px #28293d12;
+  border-radius: 40px;
+  border: 0;
+}
+
+.form-card-022 {
+  padding: 20px 60px;
+  box-shadow: 0px 5px 18px 0px #28293d12;
+  border-radius: 40px;
+  border: 0;
+}
+
+.form-heading {
+  font-size: 32px;
+  font-weight: 600;
+  color: #333333;
+  text-align: center;
+}
+
+.bg-color-gradiend {
+  width: 350px;
+  height: 350px;
+  background: linear-gradient(
+    90deg,
+    rgba(99, 198, 17, 0.2) 0.04%,
+    rgba(11, 198, 143, 0.2) 100.03%
+  );
+  border-radius: 9999px;
+  -webkit-filter: blur(108px);
+  filter: blur(108px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.bg-color-gradiend-02 {
+  width: 350px;
+  height: 350px;
+  background: linear-gradient(
+    90deg,
+    rgba(99, 198, 17, 0.2) 0.04%,
+    rgba(11, 198, 143, 0.2) 100.03%
+  );
+  border-radius: 9999px;
+  -webkit-filter: blur(108px);
+  filter: blur(108px);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.microsoft--login-p {
+  font-size: 20px;
+  color: #202020;
+  border: 1.31px solid #0000000a;
+  box-shadow: 0px 5.23px 5.23px 0px #00000012;
+  padding: 10px 20px 15px;
+  border-radius: 10px;
+}
+
+/* login page input animation */
+
+/* Input form Style */
+
+.form--input {
+  border: 1px solid #bbbbbb;
+  border-radius: 8px;
+  height: 47px;
+  width: 100%;
+  color: #333333;
+  font-size: 18px;
+  padding-left: 20px;
+  box-shadow: none;
+}
+
+.form--input:-webkit-autofill,
+.form--input:-webkit-autofill:hover,
+.form--input:-webkit-autofill:focus,
+.form--input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+/* Label style after Input feild is in focus. Can also use input:focus ~ label to select sibling. */
+
+/* .auth-log input:focus + label,
+input:valid + label {
+  font-size: 12px;
+  color: #afbdcf;
+  top: -5px;
+  left: 10px;
+  background: #ffffff;
+  padding: 0px 5px 0px 5px;
+} */
+
+/* .input-wrap {
+  width: auto;
+  height: auto;
+  position: relative;
+}
+
+.input-wrap label {
+  font-family: arial;
+  font-size: 16px;
+  color: #afbdcf;
+  padding: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+  pointer-events: none;
+} */
+
+.form--input:focus {
+  outline: none;
+}
+
+/* login page input animation */
+
+/* file dark and light images upload */
+
+.image-upload-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.image-upload-container .upload-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #d3d3d3;
+  border-radius: 8px;
+  background-color: #f0f4ff;
+  padding: 6px 15px;
+  position: relative;
+  cursor: pointer;
+}
+
+.image-upload-container .upload-box input[type="file"] {
+  display: none;
+}
+
+.image-upload-container .file-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.image-upload-container .file-preview img {
+  width: 50px;
+  height: 30px;
+  border-radius: 4px;
+  object-fit: cover;
+  background-color: #ccc;
+}
+
+.image-upload-container .file-name {
+  color: #777;
+  font-size: 14px;
+}
+
+.image-upload-container .upload-icon {
+  width: 30px;
+  height: 30px;
+  /* border: 2px dashed #ccc; */
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.image-upload-container .upload-icon:hover {
+  background-color: #e7e7e7;
+}
+
+.image-upload-container .checkmark {
+  width: 20px;
+  height: 20px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Hide checkmark initially */
+.image-upload-container .hidden {
+  display: none;
+}
+
+.files-image-uploads {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-left: 10px;
+}
+
+/* file dark and light images upload */
+
+.domain--email {
+  border: 1px solid #bbbbbb;
+  border-radius: 0 10px 10px 0;
+  height: 47px;
+  color: #333333;
+  font-size: 18px;
+  padding-left: 10px;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+}
+
+.domain--email label {
+  color: #afbdcf;
+}
+
+.Domain--name {
+  border-radius: 10px 0 0 10px !important;
+}
+
+.btn-auth {
+  background-color: #37c650;
+  color: #fff;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.btn-auth:hover {
+  /* border: 1px solid #37C650; */
+  background-color: #37c650;
+}
+
+.forgot-pagelink {
+  color: #37c650;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.signup-p {
+  color: #757281;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.logo_image_svg {
+  margin-bottom: 20px;
+}
+
+.grid-content {
+  padding: 0 9%;
+  height: 100vh;
+  align-content: center;
+}
+
+.yourtTrust {
+  color: #000000;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.yourtTrust span {
+  color: #63c611;
+}
+
+.form-card02 {
+  padding: 40px 70px;
+  border-radius: 40px;
+  background-color: #ffffff52;
+  height: 350px;
+  border: 0;
+}
+
+.grid-content02 {
+  padding: 0 5%;
+  height: 100vh;
+  align-content: center;
+  background-image: url("../Images/bg-image-auth.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.card--position {
+  margin: 0;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+}
+
+.authenticator-p {
+  font-size: 18px;
+  color: #333333;
+}
+
+.help-link-cont {
+  color: #37c650;
+  text-align: center;
+}
+
+.mfq-name-span {
+  color: #8280ff;
+}
+
+.otp-input-fields {
+  margin: auto;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 0;
+}
+
+.otp-input-fields input {
+  height: 45px;
+  width: 45px;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #d3d1d1;
+  text-align: center;
+  outline: none;
+  font-size: 16px;
+  margin: 0 4px;
+}
+
+.otp-input-fields input:focus {
+  border-width: 2px;
+  border-color: #37c650;
+  font-size: 20px;
+}
+
+.otp-digit.filled {
+  border-color: #28a745;
+  /* Green color */
+  color: #000;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.mfa-link {
+  color: #37c650;
+}
+
+.powered-by-sq1 {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+}
+
+.short-name-pencil {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+}
+
+.main-containent {
+  display: flex;
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Queshion page */
+
+.color-light-gray {
+  color: #9291a5;
+  font-size: 14px;
+}
+
+.total-que {
+  color: #1e1b39;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.logo--stfack-f {
+  width: 150px;
+}
+
+.question-cont {
+  color: #848484;
+  font-size: 22px;
+}
+
+.question-cont span {
+  color: #1e1e1e;
+  font-weight: 600;
+}
+
+.width--25 {
+  width: 25%;
+}
+
+/* progess bar css */
+
+.progress-container {
+  width: 100%;
+  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 12.5px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #37c650;
+  position: relative;
+  transition: width 0.3s ease;
+}
+
+.progress-count {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  background-color: #30bc48;
+  padding: 2px 6px;
+  border-radius: 50px;
+  white-space: nowrap;
+  width: 40px;
+  height: 40px;
+  left: 86%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 6px solid #37c650;
+}
+
+.progress-bar--count {
+  padding: 10px 0;
+  position: relative;
+}
+
+.data-protect {
+  color: #1e1b39;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.data-protect span {
+  color: #37c650;
+}
+
+.asking-que {
+  font-size: 20px;
+}
+
+.info--icon {
+  padding: 10px;
+  background-color: #37c6501a;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.organization-info {
+  background-color: #37c65026;
+  padding: 15px 30px;
+  border-radius: 20px;
+  margin-left: 55px;
+  font-size: 14px;
+}
+
+.organization-info span {
+  color: #37c650;
+}
+
+.select--questions {
+  padding: 5px 15px;
+  background-color: transparent;
+  border: 1px solid #37c650;
+  margin-right: 15px;
+  border-radius: 5px;
+}
+
+.sub-ques {
+  font-size: 20px;
+}
+
+.sub-ques span {
+  font-weight: 600;
+}
+
+.next--button {
+  padding: 5px 15px;
+  background-color: #1e1e1e;
+
+  border-radius: 5px;
+  color: #fff;
+}
+
+.select-radio {
+  padding: 8px 10px;
+  background: #fff;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid #d3d1d1;
+}
+
+.select-radio input {
+  cursor: pointer;
+}
+
+.ml-50 {
+  margin-left: 55px;
+}
+
+.progress-bgcolor-gr {
+  background-color: #37c650;
+}
+
+.progress-bgcolor-ag {
+  background-color: #94c637;
+}
+
+.progress-bgcolor-tg {
+  background-color: #21af85;
+}
+
+.w-10 {
+  width: 100px;
+}
+
+.h-15px {
+  height: 15px;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.switch-orgination {
+  background-color: #37c6508f;
+  border-radius: 10px;
+  padding: 0 20px;
+}
+
+.bg-lightgreen-07 {
+  background-color: #37c6508f;
+}
+
+/* progess bar css */
+
+/* Queshion page */
+
+@media screen and (max-width: 1300px) {
+  .grid-content {
+    padding: 0 5%;
+  }
+
+  .form-card02 {
+    padding: 40px 40px;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .grid-content {
+    padding: 0 15%;
+  }
+
+  .grid-content02 {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .grid-content {
+    padding: 0 5%;
+  }
+
+  .form-card {
+    padding: 30px;
+  }
+
+  .form-heading {
+    font-size: 24px;
+  }
+
+  .mb-40 {
+    margin-bottom: 24px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .form-card-022 {
+    padding: 20px 30px;
+  }
+}
+
+.select--questions-active {
+  padding: 5px 15px;
+  background-color: #37c65033;
+  border: 1px solid #37c650;
+  margin-right: 15px;
+  border-radius: 5px;
+}
+
+.disabled-question {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.disabled-section {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Style for Dropdowns */
+.styled-dropdown {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  color: #333;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.styled-dropdown:focus {
+  border-color: #007bff;
+  background-color: #fff;
+}
+
+/* Style for Navigation Buttons */
+.custom-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.custom-btn:focus {
+  outline: none;
+}
+
+.btn-secondary.custom-btn {
+  background-color: #6c757d;
+  border: none;
+  color: #fff;
+}
+
+.btn-secondary.custom-btn:hover {
+  background-color: #5a6268;
+}
+
+.btn-primary.custom-btn {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+}
+
+.btn-primary.custom-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Style for Radio Buttons */
+.radio-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+  margin-right: 8px;
+}
+
+.custom-btn {
+  display: block;
+  /* Ensure the button is visible */
+  width: 100%;
+  /* Or any specific width */
+}
