@@ -37,7 +37,7 @@ function UserInviteModel({ data, fetchAllUser }) {
       if (err.response?.data?.errors) {
         setErrors(err.response?.data?.errors);
       }
-      console.log(err.response?.data?.message);
+      console.error(err.response?.data?.message);
     } finally {
       setIsLoading(false);
     }

@@ -35,7 +35,7 @@ const Dashboard = () => {
       setVendorquestion(response?.data?.data?.vendor_question);
       setPolicyCount(response?.data?.data?.policy);
     } catch (error) {
-      console.log("error");
+      console.error("error");
     } finally {
       setIsLoading(false);
     }
