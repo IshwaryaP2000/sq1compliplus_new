@@ -40,7 +40,9 @@ const Organization = () => {
   const currentUser = getCurrentUser();
   const navigate = useNavigate();
 
-  const fetchAllOrganizations = async (URI = "user-organizations-list") => {
+  const fetchAllOrganizations = async (params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    const URI = `user-organizations-list?${query}`;
     try {
       setIsLoading(true);
       const response = await getApi(URI);
@@ -128,14 +130,15 @@ const Organization = () => {
   const debouncedFetchSearchResults = useMemo(
     () =>
       createDebouncedSearch((params) => {
-        fetchSearchResults(
-          "/user-organizations-list",
-          params,
-          setFilteredUsers,
-          setIsLoading,
-          setFilteredLength,
-          setPageIndex
-        );
+        // fetchSearchResults(
+        //   "/user-organizations-list",
+        //   params,
+        //   setFilteredUsers,
+        //   setIsLoading,
+        //   setFilteredLength,
+        //   setPageIndex
+        // );
+        fetchAllOrganizations(params);
       }, 300),
     []
   );

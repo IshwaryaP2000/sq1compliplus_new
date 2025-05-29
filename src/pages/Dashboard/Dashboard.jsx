@@ -54,9 +54,6 @@ const Dashboard = () => {
     <>
       <div>
         {isloading ? (
-          // <div className="stackflo-loadert " role="status">
-          //   <span className="custom-loader "></span>
-          // </div>
           <Spinner />
         ) : (
           <div className="row">
