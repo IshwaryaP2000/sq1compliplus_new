@@ -20,8 +20,8 @@ import Layout from "../Layout/Layouts";
 import User from "../pages/Settings/Subpages/User/User";
 import MFAQr from "../pages/Authentication/MFAQr";
 import Organization from "../pages/Settings/Subpages/Organizations/Organization";
-import AuditLogs from "../pages/Settings/Subpages/logs/AuditLogs";
-import ActivityLogs from "../pages/Settings/Subpages/logs/ActivityLogs";
+// import AuditLogs from "../pages/Settings/Subpages/logs/AuditLogs";
+// import ActivityLogs from "../pages/Settings/Subpages/logs/ActivityLogs";
 
 function MainRoutes() {
   const navigate = useNavigate();
@@ -68,8 +68,8 @@ function MainRoutes() {
             </RoleAccessMiddleware>
           }
         />
-        <Route path="/settings/audit-logs" element={<AuditLogs />} />
-        <Route path="/settings/activity-logs" element={<ActivityLogs />} />
+        {/* <Route path="/settings/audit-logs" element={<AuditLogs />} />
+        <Route path="/settings/activity-logs" element={<ActivityLogs />} /> */}
       </Route>
 
       <Route
