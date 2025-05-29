@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { hasRole } from "../utils/UtilsGlobalData";
-import { TasksIcon } from "../components/Icons/Icons";
+import { SidenavbarIcons, TasksIcon } from "../components/Icons/Icons";
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true); // Default state: collapsed
@@ -35,7 +35,7 @@ const Sidebar = () => {
       }`}
     >
       <button className="hamburger-menu d-none" onClick={toggleMobileMenu}>
-        <i className="fa-solid fa-bars"></i>
+        <SidenavbarIcons />
       </button>
 
       <aside
@@ -141,7 +141,6 @@ const Sidebar = () => {
                       onClick={closeMobileMenu}
                     >
                       <span className="menu-icon">
-                        {/* <i className="fa-solid fa-clipboard"></i> */}
                         <img
                           src="/images/sidenavbar-img/assets.svg"
                           alt="Logo"

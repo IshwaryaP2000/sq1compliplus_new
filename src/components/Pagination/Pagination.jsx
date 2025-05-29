@@ -8,7 +8,6 @@ const Pagination = ({
   sort_direction,
   limit,
 }) => {
-
   if (!dataPaginationLinks || filteredLength <= 10) {
     return null;
   }
@@ -21,24 +20,48 @@ const Pagination = ({
   });
 
   // Function to parse and handle pagination URL
+  // const paginateUrlParse = (parseUrl) => {
+  //   if (parseUrl) {
+  //     let relativeURI = parseUrl.replace(
+  //       process.env.REACT_APP_BACKEND_BASE_URL + "/",
+  //       ""
+  //     );
+
+  //     const separator = relativeURI.includes("?") ? "&" : "?";
+
+  //     // Append query parameters
+  //     relativeURI = `${relativeURI}${separator}${params.toString()}`;
+  //     // Check if `id` is provided, if so, include it in the fetch URL with '/'
+  //     if (id) {
+  //       relativeURI = `/${relativeURI}&id=${id}`; // Prepend the `id` with '/'
+  //       dataFetchFunction(relativeURI);
+  //     } else {
+  //       // Just call the fetch function normally
+  //       dataFetchFunction(relativeURI);
+  //     }
+  //   }
+  // };
+
   const paginateUrlParse = (parseUrl) => {
     if (parseUrl) {
-      let relativeURI = parseUrl.replace(
-        process.env.REACT_APP_BACKEND_BASE_URL + "/",
-        ""
-      );
+      try {
+        const url = new URL(parseUrl);
+        const urlParams = Object.fromEntries(url.searchParams.entries());
 
-      const separator = relativeURI.includes("?") ? "&" : "?";
+        const mergedParams = {
+          ...urlParams,
+          search: search || "",
+          sort_by: sort_by || "",
+          sort_direction: sort_direction || "",
+          limit: limit || "",
+        };
 
-      // Append query parameters
-      relativeURI = `${relativeURI}${separator}${params.toString()}`;
-      // Check if `id` is provided, if so, include it in the fetch URL with '/'
-      if (id) {
-        relativeURI = `/${relativeURI}&id=${id}`; // Prepend the `id` with '/'
-        dataFetchFunction(relativeURI);
-      } else {
-        // Just call the fetch function normally
-        dataFetchFunction(relativeURI);
+        if (id) {
+          mergedParams.id = id;
+        }
+        dataFetchFunction(mergedParams);
+      } catch (error) {
+        console.error("Error parsing pagination URL:", error);
       }
     }
   };

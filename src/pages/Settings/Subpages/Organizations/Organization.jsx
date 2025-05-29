@@ -20,6 +20,7 @@ import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 import OrganizationDelete from "../../../../components/Modal/OrganizationDelete";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Loader } from "../../../../components/Table/Loader";
+import { EyeIcon } from "../../../../components/Icons/Icons";
 
 const Organization = () => {
   usePageTitle("Organizations");
@@ -376,7 +377,7 @@ const Organization = () => {
                           className="btn btn-sm py-0 my-1 tableborder-right"
                           onClick={() => handleShow(organization?.id)}
                         >
-                          <i className="fa-solid fa-eye text-secondary" />
+                          <EyeIcon />
                         </button>
                       </OverlayTrigger>
                     </div>

@@ -14,3 +14,4 @@ export const BanIconNotallowed = () =><i className="fa-solid fa-ban not-allowed"
 export const TrashIcon = () =><i className="fa-solid fa-trash text-danger"/>
 export const RepeatIcon = () =><i className="fa-solid fa-repeat"/>
 export const BanIcon = () =><i className="fa-solid fa-ban"/>
+export const SidenavbarIcons = () =><i className="fa-solid fa-bars"/>
