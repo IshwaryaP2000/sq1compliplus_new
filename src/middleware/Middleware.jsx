@@ -74,7 +74,6 @@ export const GuestMiddleware = ({ children }) => {
 
 export const RoleAccessMiddleware = ({ children, requiredRoles }) => {
   const userHasAccess = hasRole(requiredRoles);
-  console.log(userHasAccess, "userHasAccess");
 
   if (!userHasAccess) {
     return <Navigate to="/unauthorized" replace />;

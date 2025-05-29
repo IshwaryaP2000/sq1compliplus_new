@@ -66,7 +66,7 @@ const MFA = () => {
         navigate("/dashboard");
       }
     } catch {
-      console.log("error");
+      console.error("error");
     }
   };
 

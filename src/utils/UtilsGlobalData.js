@@ -99,8 +99,6 @@ export const logout = () => {
   removeAuthToken();
   const orgInfo = async () => {
     try {
-      console.log("coming");
-      
       const response = await getApi("organization-info");
       setCurrentOrganization(response?.data?.data?.current_organization);
     } catch {}
