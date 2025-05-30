@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { PenToSquareIcon } from "../Icons/Icons";
 import { postApi } from "../../services/apiService";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -17,7 +18,6 @@ function UserEditModel({ data, fetchAllUser, userRolesGet }) {
     name: "",
   });
 
-  // const hasFetchedRoles = useRef(false);
   const validationSchema = Yup.object({
     email: email,
     name: Yup.string()
@@ -25,11 +25,10 @@ function UserEditModel({ data, fetchAllUser, userRolesGet }) {
       .required("Name is required"),
   });
 
-  // Handle modal open and close
   const handleClose = () => setShow(false);
+
   const handleShow = () => {
     setShow(true);
-
     setInitialValues({
       id: data.id,
       email: data.email,
@@ -48,7 +47,7 @@ function UserEditModel({ data, fetchAllUser, userRolesGet }) {
       };
       await postApi("user-update", payload); // API call to update the user
       handleClose();
-      fetchAllUser(); // Fetch all users again after update
+      fetchAllUser(); 
     } catch (err) {
       if (err.response?.data?.errors) {
         setErrors(err.response?.data?.errors);
@@ -73,7 +72,7 @@ function UserEditModel({ data, fetchAllUser, userRolesGet }) {
             justifyContent: "center", // Horizontal centering
           }}
         >
-          <i className="fa-regular fa-pen-to-square"></i>
+          <PenToSquareIcon />
         </button>
       </OverlayTrigger>
 

@@ -34,7 +34,6 @@ function AssignReadinessQuestionModal({ organization, complianceTypes }) {
     navigate("/settings/add-question");
   };
 
-  // Validation schema using Yup
   const validationSchema = Yup.object({
     type_id: typeId
   });

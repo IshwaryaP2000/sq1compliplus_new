@@ -10,6 +10,7 @@ import {
   setCurrentUser,
 } from "../../utils/UtilsGlobalData";
 import { useAuthOrganization } from "../../hooks/OrganizationUserProvider";
+import { EyeIcon, EyeslashIcon } from "../../components/Icons/Icons";
 
 const Registration = () => {
   usePageTitle("Registration");
@@ -166,9 +167,9 @@ const Registration = () => {
                           }
                         >
                           {showPassword ? (
-                            <i className="fa-solid fa-eye-slash text-secondary" />
+                           <EyeslashIcon/>
                           ) : (
-                            <i className="fa-solid fa-eye text-secondary" />
+                            <EyeIcon/>
                           )}
                         </button>
                       )}
@@ -212,9 +213,9 @@ const Registration = () => {
                           }
                         >
                           {showConfirmPassword ? (
-                            <i className="fa-solid fa-eye-slash text-secondary" />
+                            <EyeslashIcon/>
                           ) : (
-                            <i className="fa-solid fa-eye text-secondary" />
+                            <EyeIcon/>
                           )}
                         </button>
                       )}

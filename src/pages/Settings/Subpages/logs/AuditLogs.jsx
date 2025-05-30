@@ -2,30 +2,29 @@ import { useEffect, useState, useMemo } from "react";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { getApi, postApi } from "../../../../services/apiService";
-import FormattedDateTime from "../../../../utils/FormattedDateTime";
 import Button from "react-bootstrap/Button";
 import { FaEye } from "react-icons/fa";
+import { getApi, postApi } from "../../../../services/apiService";
+import FormattedDateTime from "../../../../utils/FormattedDateTime";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import Badge from "react-bootstrap/Badge";
 import AuditLogModal from "../../../../components/Modal/AuditLogModal";
+import usePageTitle from "../../../../utils/usePageTitle";
+import moment from "moment/moment";
+import Pagination from "../../../../components/Pagination/Pagination";
+import usePreserveQueryParams from "../../../../hooks/UsePreserveQueryParams";
+import useQueryFilters from "../../../../hooks/UseQueryFilters";
+import {
+  LimitSelector,
+  createDebouncedSearch,
+  fetchSearchResults,
+} from "../../../../components/Search/useSearchAndSort";
 import {
   getBrowserIcon,
   getBrowserVersion,
   getOSIcon,
   getOSVersion,
 } from "../../../../utils/BrowserUtils";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import usePageTitle from "../../../../utils/usePageTitle";
-import moment from "moment/moment";
-import {
-  LimitSelector,
-  createDebouncedSearch,
-  fetchSearchResults,
-} from "../../../../components/Search/useSearchAndSort";
-import Pagination from "../../../../components/Pagination/Pagination";
-import Badge from "react-bootstrap/Badge";
-import { useSearchParams } from "react-router-dom";
-import usePreserveQueryParams from "../../../../hooks/UsePreserveQueryParams";
-import useQueryFilters from "../../../../hooks/UsePreserveQueryParams";
 
 const AuditLogs = () => {
   usePageTitle("Audit Logs");
@@ -41,7 +40,10 @@ const AuditLogs = () => {
   const [show, setShow] = useState(false);
   const [logDetails, setLogDetails] = useState(null);
   const [limit, setLimit] = useState(10);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedOrg, setSelectedOrg] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedVendor, setSelectedVendor] = useState(null);
+  const authuser = JSON.parse(localStorage.getItem("authUser"));
   const [filters, setFilters] = useQueryFilters([
     "org_id",
     "user_id",
@@ -49,11 +51,6 @@ const AuditLogs = () => {
     "from_date",
     "to_date",
   ]);
-
-  const [selectedOrg, setSelectedOrg] = useState(null);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [selectedVendor, setSelectedVendor] = useState(null);
-  const authuser = JSON.parse(localStorage.getItem("authUser"));
 
   usePreserveQueryParams([
     "from_date",
@@ -63,12 +60,10 @@ const AuditLogs = () => {
     "vendor_id",
   ]);
 
-
   const handleClose = () => {
     setShow(false);
     setLogDetails(null);
   };
-
 
   useEffect(() => {
     getOrganizationList();
@@ -113,7 +108,6 @@ const AuditLogs = () => {
 
   const handleDateChange = (update) => {
     setDateRange(update);
-
     const [start, end] = update;
 
     const newFilters = {
@@ -133,7 +127,6 @@ const AuditLogs = () => {
     const org_id = selectedOption.value;
     setSelectedOrg(selectedOption);
     const response = await postApi("organization/users-list", { org_id });
-
     const users = response?.data?.data?.users.map((u) => ({
       value: u.id,
       label: u.email,
@@ -142,12 +135,10 @@ const AuditLogs = () => {
       value: v.id,
       label: v.email,
     }));
-
     SetUsers(users);
     SetVendors(vendors);
     const newFilters = { ...filters, org_id };
     setFilters(newFilters);
-
     fetchLogs(newFilters);
   };
 
@@ -158,12 +149,10 @@ const AuditLogs = () => {
       const user = selectedOption.value;
       const newFilters = { ...filters, user_id: user, vendor_id: null }; // Clear vendor if needed
       setFilters(newFilters);
-
       fetchLogs(newFilters);
     } else {
       const newFilters = { ...filters, user_id: null };
       setFilters(newFilters);
-
       fetchLogs(newFilters);
     }
   };
@@ -287,8 +276,6 @@ const AuditLogs = () => {
     setSelectedOrg(null);
     setSelectedUser(null);
     setSelectedVendor(null);
-    // Clear URL query params
-    setSearchParams({});
     fetchLogs(clearedFilters);
   };
 
@@ -327,7 +314,6 @@ const AuditLogs = () => {
           </h5>
         </div>
         <div className=" row width-fill justify-content-end">
-          {/* Show Select Organization only for sq1_super_admin */}
           {authuser?.user_role === "sq1_super_admin" && (
             <div className="col-md-3">
               <Select
@@ -415,17 +401,18 @@ const AuditLogs = () => {
             </thead>
             <tbody className="tablescrolling-tbody">
               {isLoading ? (
-                Array.from({ length: 6 }).map((_, rowIndex) => (
-                  <tr key={rowIndex}>
-                    {Array.from({ length: 8 }).map((_, colIndex) => (
-                      <td key={colIndex}>
-                        <p className="placeholder-glow">
-                          <span className="placeholder col-12 bg-secondary"></span>
-                        </p>
-                      </td>
-                    ))}
-                  </tr>
-                ))
+                // Array.from({ length: 6 }).map((_, rowIndex) => (
+                //   <tr key={rowIndex}>
+                //     {Array.from({ length: 8 }).map((_, colIndex) => (
+                //       <td key={colIndex}>
+                //         <p className="placeholder-glow">
+                //           <span className="placeholder col-12 bg-secondary"></span>
+                //         </p>
+                //       </td>
+                //     ))}
+                //   </tr>
+                // ))
+                <Loader rows={6} cols={8} />
               ) : filteredUsers?.length > 0 ? (
                 filteredUsers.map((data, index) => (
                   <tr key={index}>
@@ -437,7 +424,9 @@ const AuditLogs = () => {
                     </th>
                     <td>{data?.model_name}</td>
                     <td>{data?.user?.email}</td>
-                    <td ><p className="logs-message">{data?.message}</p></td>
+                    <td>
+                      <p className="logs-message">{data?.message}</p>
+                    </td>
                     <td>
                       <BrowserAndOS
                         ipAddress={data.ip_address}

@@ -15,3 +15,5 @@ export const TrashIcon = () =><i className="fa-solid fa-trash text-danger"/>
 export const RepeatIcon = () =><i className="fa-solid fa-repeat"/>
 export const BanIcon = () =><i className="fa-solid fa-ban"/>
 export const SidenavbarIcons = () =><i className="fa-solid fa-bars"/>
+export const TriangleExclamationIcon = () => <i className="fa-solid text-danger fa-triangle-exclamation"/>
+export const PenToSquareIcon = () => <i className="fa-regular fa-pen-to-square"/>

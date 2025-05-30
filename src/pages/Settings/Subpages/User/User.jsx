@@ -12,7 +12,6 @@ import { getCurrentUser, ucFirst } from "../../../../utils/UtilsGlobalData";
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 import {
   createDebouncedSearch,
-  fetchSearchResults,
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
@@ -40,7 +39,6 @@ const User = () => {
   const [filteredLength, setFilteredLength] = useState([]);
   const [limit, setLimit] = useState(10);
   const [pageIndex, setPageIndex] = useState([]);
-  const [activeMenuId, setActiveMenuId] = useState(null);
   const currentUser = getCurrentUser();
   const authuser = JSON.parse(localStorage.getItem("authUser"));
 
@@ -132,7 +130,6 @@ const User = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setActiveMenuId(null);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);

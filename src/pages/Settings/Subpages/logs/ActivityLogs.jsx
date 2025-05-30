@@ -2,22 +2,21 @@ import { useEffect, useState } from "react";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import usePageTitle from "../../../utils/usePageTitle";
-import { getApi } from "../../../services/apiService";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { Badge, Button } from "react-bootstrap";
+import usePageTitle from "../../../../utils/usePageTitle";
+import { getApi } from "../../../../services/apiService";
 import {
   getBrowserIcon,
   getBrowserVersion,
   getOSIcon,
   getOSVersion,
-} from "../../../utils/BrowserUtils";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Badge, Button } from "react-bootstrap";
+} from "../../../../utils/BrowserUtils";
 
 const ActivityLogs = () => {
   usePageTitle("Activity Logs");
   const [activityLog, setActivityLog] = useState();
   const [dateRange, setDateRange] = useState([null, null]);
-
   const [startDate, endDate] = dateRange;
 
   const customStyles = {
@@ -110,7 +109,7 @@ const ActivityLogs = () => {
             </span>
           )}
         </h5>
-     
+
         <div className=" row width-fill justify-content-end">
           <div className="col-md-3">
             <Select

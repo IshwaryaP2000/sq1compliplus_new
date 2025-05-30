@@ -32,3 +32,9 @@ export const password = Yup.string()
 export const confirm_password = Yup.string()
   .oneOf([Yup.ref("password"), null], "Passwords must match")
   .required("Confirm password is required");
+
+export const logo = Yup.mixed();
+
+export const shortName = Yup.string()
+      .required("Short Name is required")
+      .max(3, "Short Name should be 3 characters max")

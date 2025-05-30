@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   getAuthToken,
@@ -53,13 +52,11 @@ export const AuthUserMiddleware = ({ children }) => {
       return <Navigate to="/dashboard" replace />;
     }
   } else {
-    // Avoid redirect loop if already on login page
     if (location.pathname !== "/login") {
       logout();
       return <Navigate to="/login" replace />;
     }
   }
-  // return children;
   return children ? children : <Outlet />;
 };
 

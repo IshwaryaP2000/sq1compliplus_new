@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { postApi, getApi } from "../../services/apiService";
 import ButtonWithLoader from "../Button/ButtonLoader";
@@ -10,6 +10,7 @@ function OrganizationConfirmationModal({ data, type, fetchAllOrganizations }) {
   const [actionType, setActionType] = useState(null);
 
   const handleClose = () => setShow(false);
+
   const handleShow = (action) => {
     setActionType(action);
     setShow(true);
@@ -33,10 +34,7 @@ function OrganizationConfirmationModal({ data, type, fetchAllOrganizations }) {
   const actionUser = async (orgId, orgStatus) => {
     try {
       setIsLoading(true);
-
-      // Toggle status: if active, send inactive, and vice versa
       const newStatus = orgStatus === "active" ? "inactive" : "active";
-
       await getApi(
         `organization-change-status?status=${newStatus}&id=${orgId}`
       );
@@ -51,7 +49,6 @@ function OrganizationConfirmationModal({ data, type, fetchAllOrganizations }) {
   return (
     <>
       <div>
-    
         {data?.level !== 1 ? (
           <OverlayTrigger
             overlay={
@@ -79,7 +76,7 @@ function OrganizationConfirmationModal({ data, type, fetchAllOrganizations }) {
           >
             <span className="d-inline-block tableborder-right">
               <button className="btn btn-sm  py-1 mt-1 border-0 " disabled>
-                <BanIcon/>
+                <BanIcon />
               </button>
             </span>
           </OverlayTrigger>
@@ -95,7 +92,7 @@ function OrganizationConfirmationModal({ data, type, fetchAllOrganizations }) {
                 onClick={() => handleShow("resend")}
                 disabled={false}
               >
-               <RepeatIcon/>
+                <RepeatIcon />
               </button>
             </span>
           </OverlayTrigger>
@@ -105,13 +102,11 @@ function OrganizationConfirmationModal({ data, type, fetchAllOrganizations }) {
           >
             <span className="d-inline-block tableborder-right">
               <button className="btn btn-sm  py-1 mt-1 border-0 " disabled>
-               <BanIcon/>
+                <BanIcon />
               </button>
             </span>
           </OverlayTrigger>
         )}
-
-      
       </div>
 
       <Modal

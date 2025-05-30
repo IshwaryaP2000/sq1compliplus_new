@@ -3,7 +3,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { deleteApi } from "../../services/apiService";
-import { BanIcon } from "../Icons/Icons";
+import { BanIcon, TrashIcon, TriangleExclamationIcon } from "../Icons/Icons";
 
 function OrganizationDelete({ dataId, title, data, fetchAllOrganizations }) {
   //DELETE API
@@ -37,14 +37,14 @@ function OrganizationDelete({ dataId, title, data, fetchAllOrganizations }) {
             className="btn btn-sm tableborder-right"
             onClick={() => handleShowDelete(dataId)}
           >
-            <i className="fa-solid fa-trash text-danger "></i>
+            <TrashIcon />
           </button>
         </OverlayTrigger>
       ) : (
         <OverlayTrigger overlay={<Tooltip id="tooltip-banned">Delete</Tooltip>}>
           <span className="d-inline-block tableborder-right">
             <button className="btn btn-sm  py-1 mt-1 border-0 " disabled>
-            <BanIcon/>
+              <BanIcon />
             </button>
           </span>
         </OverlayTrigger>
@@ -55,7 +55,7 @@ function OrganizationDelete({ dataId, title, data, fetchAllOrganizations }) {
           <div className="text-center">
             <div className="mb-3">
               <div className="warning-icon-wrapper">
-                <i className="fa-solid text-danger fa-triangle-exclamation"></i>
+                <TriangleExclamationIcon/>
               </div>
             </div>
             <h5 className="fw-bold mb-2 text-muted">Delete {title}</h5>
