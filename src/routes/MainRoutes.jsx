@@ -9,6 +9,9 @@ import { useEffect } from "react";
 import Login from "../pages/Authentication/Login";
 import MFA from "../pages/Authentication/MFA";
 import NoPage from "../pages/Errorpage/NoPage";
+import ForbiddenPage from "../pages/Errorpage/ForbiddenPage";
+import TooManyRequests from "../pages/Errorpage/TooManyRequests";
+import Unavailable from "../pages/Errorpage/unavailable";
 import {
   AuthUserMiddleware,
   AuthUserProtectedMiddleware,
@@ -20,6 +23,10 @@ import Layout from "../Layout/Layouts";
 import User from "../pages/Settings/Subpages/User/User";
 import MFAQr from "../pages/Authentication/MFAQr";
 import Organization from "../pages/Settings/Subpages/Organizations/Organization";
+import Registration from "../pages/Authentication/Registration";
+import ForgotPassword from "../pages/Authentication/ForgotPassword";
+import UpdateForgotPassword from "../pages/Authentication/UpdateForgotPassword";
+import VerifyAndRedirect from "../pages/Authentication/VerifyAndRedirect";
 // import AuditLogs from "../pages/Settings/Subpages/logs/AuditLogs";
 // import ActivityLogs from "../pages/Settings/Subpages/logs/ActivityLogs";
 
@@ -39,6 +46,7 @@ function MainRoutes() {
           </GuestMiddleware>
         }
       />
+
       <Route
         path="/login"
         element={
@@ -49,6 +57,7 @@ function MainRoutes() {
           </>
         }
       />
+
       <Route
         element={
           <AuthUserProtectedMiddleware>
@@ -90,10 +99,28 @@ function MainRoutes() {
         }
       />
 
+      <Route element={<GuestMiddleware />}>
+        <Route
+          path="/user/registration/:verify_token?"
+          element={<Registration />}
+        />
+        <Route path="/user/forgot-password" element={<ForgotPassword />} />
+        <Route
+          path="/user/update/forgot-password/:verify_token?"
+          element={<UpdateForgotPassword />}
+        />
+        <Route path="/user/verify-link" element={<VerifyAndRedirect />} />
+      </Route>
+
+      {/* Error Routes */}
       <Route
         path="/500-internal-server-error"
         element={<InternalserverPage />}
       />
+      <Route path="/forbidden" element={<ForbiddenPage />} />
+      <Route path="/too-many-request" element={<TooManyRequests />} />
+      <Route path="/service-unavailable" element={<Unavailable />} />
+
       <Route path="*" element={<NoPage />} />
     </Routes>
   );

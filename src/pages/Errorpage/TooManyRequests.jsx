@@ -24,7 +24,7 @@ const TooManyRequests = () => {
     >
       <center>
         <img
-          src="/images/InternalServerImg.svg"
+          src="/images/error-images/InternalServerImg.svg"
           alt="Registration Not Found"
           style={{ maxWidth: "100%", height: "auto", marginTop: "40px" }}
         />
