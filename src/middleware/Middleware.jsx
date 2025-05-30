@@ -60,7 +60,7 @@ export const AuthUserMiddleware = ({ children }) => {
     }
   }
   // return children;
-    return children ? children : <Outlet />;
+  return children ? children : <Outlet />;
 };
 
 export const GuestMiddleware = ({ children }) => {
@@ -69,7 +69,7 @@ export const GuestMiddleware = ({ children }) => {
   if (currentUser && authToken) {
     return <Navigate to="/dashboard" replace />;
   }
-  return children;
+  return children ? children : <Outlet />;
 };
 
 export const RoleAccessMiddleware = ({ children, requiredRoles }) => {

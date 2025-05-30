@@ -2,7 +2,8 @@ import * as Yup from "yup";
 
 export const email = Yup.string()
   .email("Invalid email format")
-  .required("Email is required");
+  .required("Email is required")
+  .max(50, "Email must be below 50 character");
 
 export const role = Yup.string().required("Role is required");
 
@@ -23,3 +24,11 @@ export const domain = Yup.string()
     /^[a-z0-9.]*$/,
     "Domain Name should only contain lowercase letters, numbers, and dots"
   );
+
+export const password = Yup.string()
+  .min(8, "Password must be at least 8 characters")
+  .required("Password is required");
+
+export const confirm_password = Yup.string()
+  .oneOf([Yup.ref("password"), null], "Passwords must match")
+  .required("Confirm password is required");
