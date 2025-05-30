@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { getApi, postApi } from "../../api/apiClient";
 import { ucFirst } from "../../utils/UtilsGlobalData";
 import Pagination from "../../components/Pagination";
@@ -7,22 +10,18 @@ import AssignUserModal from "../../models/AssignUsermodal";
 import EditRoleModal from "../../models/EditRoleModal";
 import { getCurrentUser } from "../../utils/UtilsGlobalData";
 import Searchbar from "../../components/Searchbar";
+import usePageTitle from "../includes/usePageTitle";
+import { PenToSquareIcon, TriangleExclamationIcon } from "../../../../components/Icons/Icons";
 import {
   createDebouncedSearch,
   fetchSearchResults,
   highlightText,
   LimitSelector,
 } from "../../components/useSearchAndSort";
-import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import usePageTitle from "../includes/usePageTitle";
-import Button from "react-bootstrap/Button";
 
 const NewUser = () => {
   usePageTitle("Organization Users");
   const { id: organizationId } = useParams(); // Get the organization ID from the route
-
-  // const [user_name, setUserName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [userType, setUserType] = useState("new_user");
   const [email, setEmail] = useState(""); // New user's email
@@ -46,11 +45,7 @@ const NewUser = () => {
   const [filteredLength, setFilteredLength] = useState([]);
   const [limit, setLimit] = useState(10);
   const [pageIndex, setPageIndex] = useState([]);
-
-  // Role selected in the modal
-
   const [selectedRole, setSelectedRole] = useState("");
-
   const [showAssignUserModal, setShowAssignUserModal] = useState(false);
   const currentUser = getCurrentUser();
   const isSuperAdmin = currentUser?.user_role === "sq1_super_admin";
@@ -92,7 +87,6 @@ const NewUser = () => {
     if (!selectedUserForRole || selectedUserForRole.role === selectedRole) {
       return;
     }
-
     const roleId = organizationRoles.find(
       (role) => role.name === selectedRole
     )?.id;
@@ -100,7 +94,6 @@ const NewUser = () => {
       console.error("Invalid role selected. Role ID not found.");
       return;
     }
-
     const payload = {
       org_id: organizationId,
       user_id: selectedUserForRole.id,
@@ -111,8 +104,8 @@ const NewUser = () => {
       const response = await postApi("update-role", payload);
 
       if (response?.status === 200 && response?.data?.success) {
-        fetchUsers(); // Refresh user list
-        setIsRoleModalOpen(false); // Close modal
+        fetchUsers();
+        setIsRoleModalOpen(false);
       } else {
         console.error("Failed to update role:", response?.data?.message);
         alert(response?.data?.message || "Failed to update role.");
@@ -128,15 +121,10 @@ const NewUser = () => {
     try {
       setIsLoading(true);
       const response = await getApi(URI);
-
       setOrgName(response?.data?.data);
-      // setUserName(response.data.data.name);
-      // delete response.data.data.name;
-      // response.data.data = Object.values(response.data.data);
       setFilteredUsers(response?.data?.data?.data);
       setFilteredLength(response?.data?.data?.meta?.total);
       setPageIndex(response?.data?.data);
-      // setUsers(response?.data?.data?.users?.data || []);
     } catch (error) {
       console.error("Error fetching users:", error);
     } finally {
@@ -157,6 +145,7 @@ const NewUser = () => {
     setUserToDelete(user);
     setIsDeleteModalOpen(true);
   };
+
   const handleFormSubmit = async () => {
     // Reset error states before validation
     setEmailError("");
@@ -189,7 +178,6 @@ const NewUser = () => {
 
     try {
       const response = await postApi("assign-user", payload);
-
       if (response?.status === 200 && response?.data?.success) {
         // Handle success response
         if (response.data.message === "User already assigned") {
@@ -233,20 +221,6 @@ const NewUser = () => {
   useEffect(() => {
     fetchExistingUsers(); // Fetch existing users when the component mounts
   }, []);
-
-  // const debouncedFetchSearchResults = useCallback(
-  //   createDebouncedSearch((params) => {
-  //     fetchSearchResults(
-  //       `organization-users`,
-  //       params,
-  //       setFilteredUsers,
-  //       setIsLoading,
-  //       setFilteredLength,
-  //       setPageIndex
-  //     );
-  //   }, 300),
-  //   []
-  // );
 
   const debouncedFetchSearchResults = useMemo(
     () =>
@@ -311,11 +285,7 @@ const NewUser = () => {
       <div className="d-flex justify-content-between mb-3 flex-wrap">
         <h5>
           {orgName?.organization_name}
-          {/* {isLoading || users.length === 0 ? null : (
-            
-          )} */}
           <span className="badge user-active text-white ms-2">
-            {/* {orgName?.data?.meta?.total} */}
             {orgName?.meta?.total}
           </span>
         </h5>
@@ -404,7 +374,6 @@ const NewUser = () => {
           </thead>
           <tbody className="tablescrolling-tbody">
             {isLoading ? (
-              // If loading, show a loading placeholder row
               Array.from({ length: 7 }).map((_, rowIndex) => (
                 <tr key={rowIndex}>
                   {Array.from({ length: 6 }).map((_, colIndex) => (
@@ -416,16 +385,9 @@ const NewUser = () => {
                   ))}
                 </tr>
               ))
-            ) : //  : users.length > 0 ? (
-            //   // If not loading, display user data
-            //   users.map((user, index) => (
-            filteredUsers?.length > 0 ? (
-              // If not loading, display user data
+            ) : filteredUsers?.length > 0 ? (
               filteredUsers?.map((user, index) => (
                 <tr key={index}>
-                  {/* <th scope="row">{index + 1}</th> */}
-                  {/* <td>{user.name || "N/A"}</td>
-                  <td>{user.email}</td> */}
                   <th scope="row">
                     {(pageIndex?.meta?.current_page - 1) *
                       pageIndex?.meta?.per_page +
@@ -453,7 +415,7 @@ const NewUser = () => {
                           onClick={() => openRoleModal(user)}
                           title="Edit Role"
                         >
-                          <i className="fa-regular fa-pen-to-square"></i>
+                         <PenToSquareIcon/>
                         </button>
                       </div>
                     </OverlayTrigger>
@@ -489,7 +451,6 @@ const NewUser = () => {
                 </tr>
               ))
             ) : (
-              // If no users, show a message
               <tr>
                 <td colSpan="6" className="text-center">
                   No users found.
@@ -508,11 +469,6 @@ const NewUser = () => {
           handleUpdateRole={handleUpdateRole}
         />
       </div>
-      {/* <Pagination
-        dataFetchFunction={fetchUsers}
-        dataPaginationLinks={orgName?.users?.meta}
-        id={organizationId}
-      /> */}
 
       <div className="d-flex flex-row bd-highlight mb-3 ">
         <div className=" bd-highlight pagennation-list">
@@ -524,7 +480,6 @@ const NewUser = () => {
         <div className="p-2 bd-highlight w-100">
           <Pagination
             dataFetchFunction={fetchUsers}
-            // dataPaginationLinks={orgName?.users?.meta}
             filteredLength={filteredLength}
             id={organizationId}
             dataPaginationLinks={pageIndex?.meta}
@@ -548,12 +503,10 @@ const NewUser = () => {
           <div className="modal-dialog modal-dialog-centered modal-md">
             <div className="modal-content p-3">
               <div className="modal-body text-center">
-                {/* Are you sure you want to discard the user
-                <b>{userToDelete?.name}</b>? */}
                 <div className="text-center">
                   <div className="mb-3">
                     <div className="warning-icon-wrapper">
-                      <i className="fa-solid text-danger fa-triangle-exclamation"></i>
+                      <TriangleExclamationIcon />
                     </div>
                   </div>
                   <h5 className="fw-bold mb-2 text-muted">Discard the user?</h5>

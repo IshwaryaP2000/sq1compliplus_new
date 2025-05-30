@@ -14,8 +14,10 @@ function OrganizationMfaUnlockModal({ data, organizationId }) {
       await postApi(`mfa-regenerate`, payload);
       handleClose();
     } catch (err) {
+      console.error("Error in handleMfaAccept:", err);
     }
   };
+
   return (
     <>
       {data?.status === "mfa_request" ? (

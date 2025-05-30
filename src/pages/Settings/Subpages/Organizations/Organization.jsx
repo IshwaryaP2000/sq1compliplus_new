@@ -130,14 +130,6 @@ const Organization = () => {
   const debouncedFetchSearchResults = useMemo(
     () =>
       createDebouncedSearch((params) => {
-        // fetchSearchResults(
-        //   "/user-organizations-list",
-        //   params,
-        //   setFilteredUsers,
-        //   setIsLoading,
-        //   setFilteredLength,
-        //   setPageIndex
-        // );
         fetchAllOrganizations(params);
       }, 300),
     []

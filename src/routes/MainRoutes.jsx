@@ -27,8 +27,9 @@ import Registration from "../pages/Authentication/Registration";
 import ForgotPassword from "../pages/Authentication/ForgotPassword";
 import UpdateForgotPassword from "../pages/Authentication/UpdateForgotPassword";
 import VerifyAndRedirect from "../pages/Authentication/VerifyAndRedirect";
-// import AuditLogs from "../pages/Settings/Subpages/logs/AuditLogs";
-// import ActivityLogs from "../pages/Settings/Subpages/logs/ActivityLogs";
+import AuditLogs from "../pages/Settings/Subpages/logs/AuditLogs";
+import ActivityLogs from "../pages/Settings/Subpages/logs/ActivityLogs";
+import OrganizationInitialSetup from "../pages/Authentication/OrganizationInitialSetup";
 
 function MainRoutes() {
   const navigate = useNavigate();
@@ -77,8 +78,8 @@ function MainRoutes() {
             </RoleAccessMiddleware>
           }
         />
-        {/* <Route path="/settings/audit-logs" element={<AuditLogs />} />
-        <Route path="/settings/activity-logs" element={<ActivityLogs />} /> */}
+        <Route path="/settings/audit-logs" element={<AuditLogs />} />
+        <Route path="/settings/activity-logs" element={<ActivityLogs />} />
       </Route>
 
       <Route
@@ -99,6 +100,15 @@ function MainRoutes() {
         }
       />
 
+      <Route
+        path="/organization/initial-setup"
+        element={
+          <>
+            <AuthUserProtectedMiddleware /> <OrganizationInitialSetup />
+          </>
+        }
+      />
+
       <Route element={<GuestMiddleware />}>
         <Route
           path="/user/registration/:verify_token?"
@@ -112,7 +122,7 @@ function MainRoutes() {
         <Route path="/user/verify-link" element={<VerifyAndRedirect />} />
       </Route>
 
-      {/* Error Routes */}
+      {/* Error Routes starts*/}
       <Route
         path="/500-internal-server-error"
         element={<InternalserverPage />}
@@ -120,6 +130,7 @@ function MainRoutes() {
       <Route path="/forbidden" element={<ForbiddenPage />} />
       <Route path="/too-many-request" element={<TooManyRequests />} />
       <Route path="/service-unavailable" element={<Unavailable />} />
+      {/* Error Routes Ends*/}
 
       <Route path="*" element={<NoPage />} />
     </Routes>

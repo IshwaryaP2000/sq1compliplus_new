@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import ButtonWithLoader from "../Button/ButtonLoader";
 import { domain, email } from "../Validationschema/commonSchema";
+import { PenToSquareIcon } from "../Icons/Icons";
 
 function OrganizationEditModal({ organization, fetchAllOrganizations }) {
   const [show, setShow] = useState(false);
@@ -58,7 +59,7 @@ function OrganizationEditModal({ organization, fetchAllOrganizations }) {
           className="btn btn-sm py-0 my-1 tableborder-right"
           onClick={handleShow}
         >
-          <i className="fa-regular fa-pen-to-square"></i>
+          <PenToSquareIcon/>
         </button>
       </OverlayTrigger>
 

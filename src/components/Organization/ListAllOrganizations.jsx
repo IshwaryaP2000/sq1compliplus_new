@@ -12,13 +12,13 @@ import { useNavigate } from "react-router-dom";
 const ListAllOrganizations = () => {
   const navigate = useNavigate();
   const { organization, setOrganization, setAuthUser } = useAuthOrganization();
-  const [allOrganizations, setAllOrganizations] = useState([]); // List of all organizations
-  const [isLoading, setIsLoading] = useState(true); // Loader state
-  const [error, setError] = useState(null); // Error state
+  const [allOrganizations, setAllOrganizations] = useState([]); 
+  const [isLoading, setIsLoading] = useState(true); 
+  const [error, setError] = useState(null); 
 
   const fetchAllOrganizations = async () => {
     try {
-      setIsLoading(true); // Ensure loader starts
+      setIsLoading(true); 
       const response = await getApi("user-organizations-list");
       setAllOrganizations(response?.data?.data?.data || []); 
       setError(null); // Clear previous errors
@@ -30,13 +30,10 @@ const ListAllOrganizations = () => {
     }
   };
 
-  // Fetch organizations on component mount
   useEffect(() => {
     fetchAllOrganizations();
   }, []);
 
-
-  // Handle organization selection
   const handleOrganizationClick = async (listOrganization) => {
     try {
       const response = await getApi("current-user-organization", {
@@ -47,7 +44,6 @@ const ListAllOrganizations = () => {
 
       if (response?.data?.success) {
         const currentOrganization = response?.data?.data?.current_organization;
-
         setDomain(currentOrganization?.domain_name); // Set domain globally
         setCurrentUser(currentOrganization?.user); // Set current user globally
         setAuthUser(currentOrganization?.user); // Update user context
@@ -73,10 +69,8 @@ const ListAllOrganizations = () => {
           Loading organizations...
         </div>
       ) : error ? (
-        // Error message
         <p className="text-danger">{error}</p>
       ) : (
-        // Organization list
         <ul className="list-unstyled ">
           {allOrganizations.map((listOrganization) => (
             <li
