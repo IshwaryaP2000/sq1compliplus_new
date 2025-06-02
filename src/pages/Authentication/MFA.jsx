@@ -28,28 +28,25 @@ const MFA = () => {
   const [showLogoutModalMfa, setShowLogoutModalMfa] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogoutClick = () => {
-    setShowLogoutModal(true);
-  };
-  const handleLogoutClickMfa = () => {
-    setShowLogoutModalMfa(true);
-  };
+  useEffect(() => {
+    inputRefs.current[0].focus();
+  }, [inputRefs]);
 
-  const handleCloseModal = () => {
-    setShowLogoutModal(false);
-  };
-  const handleCloseModalMfa = () => {
-    setShowLogoutModalMfa(false);
-  };
+  useEffect(() => {
+    if (!organization) logout();
+  }, [organization]);
+
+  const handleLogoutClick = () => setShowLogoutModal(true);
+  const handleLogoutClickMfa = () => setShowLogoutModalMfa(true);
+  const handleCloseModal = () => setShowLogoutModal(false);
+  const handleCloseModalMfa = () => setShowLogoutModalMfa(false);
 
   const handleLogoutConfirm = () => {
     setShowLogoutModal(false);
     Logout();
   };
 
-  const handleInputChange_mfa = (e) => {
-    setInputValue(e.target.value);
-  };
+  const handleInputChange_mfa = (e) => setInputValue(e.target.value);
 
   const handleSkip = async () => {
     try {
@@ -69,14 +66,6 @@ const MFA = () => {
       console.error("error");
     }
   };
-
-  useEffect(() => {
-    inputRefs.current[0].focus();
-  }, [inputRefs]);
-
-  if (!organization) {
-    logout();
-  }
 
   const handle_mfa_qr = async (e) => {
     e.preventDefault();
@@ -102,7 +91,6 @@ const MFA = () => {
       const newOtp = [...otp];
       newOtp[index] = value;
       setOtp(newOtp);
-
       // Focus the next input
       if (index < 5 && inputRefs.current[index + 1]) {
         inputRefs.current[index + 1].focus();
@@ -200,10 +188,10 @@ const MFA = () => {
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      handleLogoutClick(); 
+                      handleLogoutClick();
                     }}
                   >
-                    <PoweroffIcon/>
+                    <PoweroffIcon />
                   </a>
                 </span>
               </OverlayTrigger>

@@ -19,11 +19,9 @@ const OrganizationInfo = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const currentPath = location.pathname;
-
-  const getLastSegment = () => {
-    const segments = currentPath.split("/");
-    return segments[segments.length - 1];
-  };
+  const domain = localStorage.getItem("organization");
+  const domain_name = JSON.parse(domain)?.domain_name;
+  const getLastSegment = () => currentPath.split("/").pop();
 
   const handleLogoChange = (event, logoType) => {
     const file = event.target.files[0];
@@ -105,9 +103,6 @@ const OrganizationInfo = () => {
   const handleUploadBoxClick = (inputId) => {
     document.getElementById(inputId).click();
   };
-
-  const domain = localStorage.getItem("organization");
-  const domain_name = JSON.parse(domain)?.domain_name;
 
   return (
     <div className="auth-log">

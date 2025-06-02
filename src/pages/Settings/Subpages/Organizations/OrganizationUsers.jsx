@@ -11,7 +11,10 @@ import EditRoleModal from "../../models/EditRoleModal";
 import { getCurrentUser } from "../../utils/UtilsGlobalData";
 import Searchbar from "../../components/Searchbar";
 import usePageTitle from "../includes/usePageTitle";
-import { PenToSquareIcon, TriangleExclamationIcon } from "../../../../components/Icons/Icons";
+import {
+  PenToSquareIcon,
+  TriangleExclamationIcon,
+} from "../../../../components/Icons/Icons";
 import {
   createDebouncedSearch,
   fetchSearchResults,
@@ -49,11 +52,9 @@ const NewUser = () => {
   const [showAssignUserModal, setShowAssignUserModal] = useState(false);
   const currentUser = getCurrentUser();
   const isSuperAdmin = currentUser?.user_role === "sq1_super_admin";
-
+  const roles = ["Admin", "User"];
   const toggleAssignUserModal = () =>
     setShowAssignUserModal(!showAssignUserModal);
-
-  const roles = ["Admin", "User"];
 
   const formatRole = (role) => {
     if (!role) return "";
@@ -102,7 +103,6 @@ const NewUser = () => {
 
     try {
       const response = await postApi("update-role", payload);
-
       if (response?.status === 200 && response?.data?.success) {
         fetchUsers();
         setIsRoleModalOpen(false);
@@ -415,11 +415,11 @@ const NewUser = () => {
                           onClick={() => openRoleModal(user)}
                           title="Edit Role"
                         >
-                         <PenToSquareIcon/>
+                          <PenToSquareIcon />
                         </button>
                       </div>
                     </OverlayTrigger>
-                    {formatRole(user.role)}{" "}
+                    {formatRole(user.role)}
                   </td>
                   <td>
                     <span

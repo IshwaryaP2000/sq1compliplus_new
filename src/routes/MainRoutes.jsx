@@ -31,6 +31,9 @@ import AuditLogs from "../pages/Settings/Subpages/Logs/AuditLogs";
 import ActivityLogs from "../pages/Settings/Subpages/Logs/ActivityLogs";
 import OrganizationInitialSetup from "../pages/Authentication/OrganizationInitialSetup";
 import Organizationinfo from "../pages/Settings/Subpages/Info/Organizationinfo";
+import Controls from "../pages/Settings/Subpages/compliance/Controls";
+import AddQuestion from "../pages/Settings/Subpages/readiness/AddQuestion";
+import ComplexIntegration from "../pages/Settings/Subpages/compliances/ComplianceIntegration";
 
 function MainRoutes() {
   const navigate = useNavigate();
@@ -93,6 +96,9 @@ function MainRoutes() {
             </>
           }
         />
+        <Route path="/compli-integration" element={<ComplexIntegration />} />
+        <Route path="/settings/controls" element={<Controls />} />
+        <Route path="/settings/add-question" element={<AddQuestion />} />
       </Route>
 
       <Route

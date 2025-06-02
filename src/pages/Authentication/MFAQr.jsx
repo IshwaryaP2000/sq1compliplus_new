@@ -9,13 +9,13 @@ import { end } from "@popperjs/core";
 
 const MFAQr = () => {
   usePageTitle("MFA QR");
-  // Initialize Formik
   const [qrImg, setQrImg] = useState("");
   const [qrCode, setQrCode] = useState("");
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(qrImg)}`;
+
   useEffect(() => {
     const fetchQRCode = async () => {
       try {
@@ -34,8 +34,6 @@ const MFAQr = () => {
       fetchQRCode();
     }
   }, []);
-
-  const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(qrImg)}`;
 
   return (
     <section className="overflow-hidden">

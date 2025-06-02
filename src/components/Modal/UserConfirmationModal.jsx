@@ -1,9 +1,15 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { postApi } from "../../services/apiService";
 import { toast } from "react-toastify";
 import ButtonWithLoader from "../Button/ButtonLoader";
-import { BanIconNotallowed, RepeatIcon, TrashIcon, TriangleExclamationIcon } from "../Icons/Icons";
+import {
+  BanIconNotallowed,
+  RepeatIcon,
+  RepeatNotAllowedIcon,
+  TrashIcon,
+  TriangleExclamationIcon,
+} from "../Icons/Icons";
 
 function ConfirmationModel({
   data,
@@ -39,7 +45,7 @@ function ConfirmationModel({
       console.error("Error in handleDelete:", err);
     }
   };
-  
+
   const handleDeleteReadiness = async () => {
     try {
       const payload = {
@@ -132,13 +138,11 @@ function ConfirmationModel({
                     className="btn btn-sm my-1"
                     onClick={() => handleShow("resend")}
                   >
-                    <i
-                      className={
-                        data?.status === "invited"
-                          ? <RepeatIcon/>
-                          : "fa-solid fa-repeat not-allowed"
-                      }
-                    ></i>
+                    {data?.status === "invited" ? (
+                      <RepeatIcon />
+                    ) : (
+                      <RepeatNotAllowedIcon />
+                    )}
                   </button>
                 </span>
               </OverlayTrigger>
@@ -148,7 +152,7 @@ function ConfirmationModel({
               >
                 <span className="tableborder-right ">
                   <button className="btn btn-sm my-1">
-                    <BanIconNotallowed/>
+                    <BanIconNotallowed />
                   </button>
                 </span>
               </OverlayTrigger>
@@ -161,7 +165,7 @@ function ConfirmationModel({
                 className="btn btn-sm py-0 my-1 tableborder-right"
                 onClick={() => handleShow("delete")}
               >
-               <TrashIcon/>
+                <TrashIcon />
               </button>
             </OverlayTrigger>
           </>
@@ -191,7 +195,7 @@ function ConfirmationModel({
               className="btn btn-sm py-0 my-1 "
               onClick={() => handleShow("deleteReadiness")}
             >
-              <TrashIcon/>
+              <TrashIcon />
             </button>
           </OverlayTrigger>
         )}
@@ -214,7 +218,7 @@ function ConfirmationModel({
             <div className="text-center">
               <div className="mb-3">
                 <div className="warning-icon-wrapper">
-                 <TriangleExclamationIcon/>
+                  <TriangleExclamationIcon />
                 </div>
               </div>
               <h5 className="fw-bold mb-2 text-muted">Delete user?</h5>
@@ -228,7 +232,7 @@ function ConfirmationModel({
             <div className="text-center">
               <div className="mb-3">
                 <div className="warning-icon-wrapper">
-                  <TriangleExclamationIcon/>
+                  <TriangleExclamationIcon />
                 </div>
               </div>
               <h5 className="fw-bold mb-2 text-muted">Remove this question?</h5>
@@ -248,7 +252,7 @@ function ConfirmationModel({
             <div className="text-center">
               <div className="mb-3">
                 <div className="warning-icon-wrapper">
-                  <TriangleExclamationIcon/>
+                  <TriangleExclamationIcon />
                 </div>
               </div>
               <h5 className="fw-bold mb-2 text-muted">
@@ -262,7 +266,6 @@ function ConfirmationModel({
           )}
         </Modal.Body>
         <Modal.Footer className="justify-content-center border-0 m-0 p-2">
-
           <Button
             onClick={handleClose}
             className="bg-light border-1 text-dark px-4"
