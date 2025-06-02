@@ -152,9 +152,9 @@ const Navbar = () => {
                                   <p className="fs-16  mb-1 text-gray-light text-wrap">
                                     <span className="fw-bold text-black">
                                       Jessica Taylor :
-                                    </span>{" "}
+                                    </span>
                                     New vendor questionnaire submitted for
-                                    review{" "}
+                                    review
                                   </p>
 
                                   <p className="fs-14 text-gray-light mb-0">
@@ -173,7 +173,6 @@ const Navbar = () => {
                                   closeNotification();
                                 }}
                               >
-                                {" "}
                                 View All
                               </Link>
                             </li>
