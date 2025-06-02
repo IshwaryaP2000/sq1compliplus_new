@@ -29,6 +29,7 @@
     "react-router-dom": "^7.6.0",
     "react-select": "^5.10.1",
     "react-toastify": "^11.0.5",
+    "web-vitals": "^5.0.2",
     "yup": "^1.6.1"
   },
   "devDependencies": {
