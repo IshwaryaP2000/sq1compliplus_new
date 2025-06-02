@@ -27,9 +27,10 @@ import Registration from "../pages/Authentication/Registration";
 import ForgotPassword from "../pages/Authentication/ForgotPassword";
 import UpdateForgotPassword from "../pages/Authentication/UpdateForgotPassword";
 import VerifyAndRedirect from "../pages/Authentication/VerifyAndRedirect";
-import AuditLogs from "../pages/Settings/Subpages/logs/AuditLogs";
-import ActivityLogs from "../pages/Settings/Subpages/logs/ActivityLogs";
+import AuditLogs from "../pages/Settings/Subpages/Logs/AuditLogs";
+import ActivityLogs from "../pages/Settings/Subpages/Logs/ActivityLogs";
 import OrganizationInitialSetup from "../pages/Authentication/OrganizationInitialSetup";
+import Organizationinfo from "../pages/Settings/Subpages/Info/Organizationinfo";
 
 function MainRoutes() {
   const navigate = useNavigate();
@@ -80,6 +81,18 @@ function MainRoutes() {
         />
         <Route path="/settings/audit-logs" element={<AuditLogs />} />
         <Route path="/settings/activity-logs" element={<ActivityLogs />} />
+        <Route
+          path="/settings/organization-info"
+          element={
+            <>
+              <RoleAccessMiddleware
+                requiredRoles={["sq1_super_admin", "sq1_admin", "admin"]}
+              >
+                <Organizationinfo />
+              </RoleAccessMiddleware>
+            </>
+          }
+        />
       </Route>
 
       <Route

@@ -24,8 +24,16 @@ export const menus = {
     { path: "/compliance/soc", label: "SOC", icon: "fas fa-clipboard-check" },
   ],
   logs: [
-    { path: "/logs/activity-logs", label: "Activity Logs", icon: "fas fa-certificate" },
-    { path: "/logs/audit-logs", label: "Audit Logs", icon: "fas fa-shield-alt" },
+    {
+      path: "/logs/activity-logs",
+      label: "Activity Logs",
+      icon: "fas fa-certificate",
+    },
+    {
+      path: "/logs/audit-logs",
+      label: "Audit Logs",
+      icon: "fas fa-shield-alt",
+    },
   ],
   settings: [
     {
@@ -66,7 +74,10 @@ export const menus = {
       icon: "fa-solid fa-box",
       dropdown: [
         { path: "/settings/question", label: "Questions" },
-        { path: "/settings/add-pre-approved-vendor", label: "Pre-Approved Vendors" },
+        {
+          path: "/settings/add-pre-approved-vendor",
+          label: "Pre-Approved Vendors",
+        },
       ],
       rolesAllowed: ["sq1_admin", "admin"],
     },
@@ -105,8 +116,16 @@ export const menus = {
     },
   ],
   employee: [
-    { path: "/employee/all-policy", label: "All Policy", icon: "fas fa-shield-alt" },
-    { path: "/employee/accepted-policy", label: "Accepted Policy", icon: "fas fa-users" },
+    {
+      path: "/employee/all-policy",
+      label: "All Policy",
+      icon: "fas fa-shield-alt",
+    },
+    {
+      path: "/employee/accepted-policy",
+      label: "Accepted Policy",
+      icon: "fas fa-users",
+    },
   ],
 };
 
@@ -117,16 +136,17 @@ const Subnavbar = () => {
   const currentRoute = location.pathname.startsWith("/compliance")
     ? "compliance"
     : location.pathname.startsWith("/settings")
-      ? "settings"
-      : location.pathname.startsWith("/policy") || location.pathname.startsWith("/employees")
-        ? "policy"
-        : location.pathname.startsWith("/employee")
-          ? "employee"
-          : location.pathname.startsWith("/logs")
-            ? "logs" :
-            location.pathname.startsWith("/organizations")
-              ? "settings"
-              : null;
+    ? "settings"
+    : location.pathname.startsWith("/policy") ||
+      location.pathname.startsWith("/employees")
+    ? "policy"
+    : location.pathname.startsWith("/employee")
+    ? "employee"
+    : location.pathname.startsWith("/logs")
+    ? "logs"
+    : location.pathname.startsWith("/organizations")
+    ? "settings"
+    : null;
 
   const menuItems = menus[currentRoute] || [];
 
@@ -135,9 +155,8 @@ const Subnavbar = () => {
     if (!currentUser || !currentUser.user_role) return false;
 
     const parentAllowed = hasRole(item.rolesAllowed);
-    const dropdownAllowed = item.dropdown?.some(
-      (sub) => hasRole(sub.rolesAllowed)
-
+    const dropdownAllowed = item.dropdown?.some((sub) =>
+      hasRole(sub.rolesAllowed)
     );
     return parentAllowed || dropdownAllowed;
   });
@@ -154,9 +173,15 @@ const Subnavbar = () => {
 
   return (
     <div className="subnavbar-menu">
-      <ul className="mb-0 px-0 d-flex flex-wrap" style={{ alignItems: "center" }}>
+      <ul
+        className="mb-0 px-0 d-flex flex-wrap"
+        style={{ alignItems: "center" }}
+      >
         {filteredMenuItems.map((item) => (
-          <li key={item.path} className={`menu-item ${isMainItemActive(item) ? "active" : ""}`}>
+          <li
+            key={item.path}
+            className={`menu-item ${isMainItemActive(item) ? "active" : ""}`}
+          >
             <NavLink
               to={item.path}
               className={({ isActive }) =>
@@ -174,4 +199,3 @@ const Subnavbar = () => {
 };
 
 export default Subnavbar;
-

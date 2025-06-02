@@ -25,6 +25,7 @@ import {
   getOSIcon,
   getOSVersion,
 } from "../../../../utils/BrowserUtils";
+import { Loader } from "../../../../components/Table/Loader";
 
 const AuditLogs = () => {
   usePageTitle("Audit Logs");
