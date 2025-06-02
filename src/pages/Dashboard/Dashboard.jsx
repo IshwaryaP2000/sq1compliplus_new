@@ -23,7 +23,6 @@ const Dashboard = () => {
   const authuser = localStorage.getItem("authUser");
   const rolename = JSON.parse(authuser);
 
-  
   const GetDetails = async () => {
     try {
       setIsLoading(true);
@@ -35,7 +34,7 @@ const Dashboard = () => {
       setVendorquestion(response?.data?.data?.vendor_question);
       setPolicyCount(response?.data?.data?.policy);
     } catch (error) {
-      console.error("error");
+      console.error("Error fetching dashboard data", error);
     } finally {
       setIsLoading(false);
     }
@@ -45,10 +44,7 @@ const Dashboard = () => {
     GetDetails();
   }, []);
 
-  function roundOff(total) {
-    total = total / 1000;
-    return Math.round(total * 10) / 10;
-  }
+  const roundOff = (total) => Math.round((total / 1000) * 10) / 10;
 
   return (
     <>

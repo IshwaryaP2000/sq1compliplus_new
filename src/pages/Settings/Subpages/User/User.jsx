@@ -28,6 +28,9 @@ import {
 const User = () => {
   const menuRef = useRef();
   usePageTitle("Users");
+
+
+
   const [allUsers, setAllUsers] = useState([]);
   const [userRoles, setUserRoles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,11 +38,20 @@ const User = () => {
   const [sortColumn, setSortColumn] = useState("name");
   const [sortDirection, setSortDirection] = useState("desc");
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const [filteredLength, setFilteredLength] = useState([]);
+  const [filteredLength, setFilteredLength] = useState(0);
   const [limit, setLimit] = useState(10);
   const [pageIndex, setPageIndex] = useState([]);
   const currentUser = getCurrentUser();
   const authuser = JSON.parse(localStorage.getItem("authUser"));
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const fetchAllUser = async (params = {}) => {
     const query = new URLSearchParams(params).toString();
@@ -48,10 +60,11 @@ const User = () => {
       setIsLoading(true);
       const response = await getApi(URI);
       setAllUsers(response?.data?.data);
-      setFilteredUsers(response?.data?.data?.data);
-      setFilteredLength(response?.data?.data?.meta?.total);
-      setPageIndex(response?.data?.data);
+      setFilteredUsers(response?.data?.data?.data || []); //filtered searchlist
+      setFilteredLength(response?.data?.data?.meta?.total || 0); //get total length for limit and pagination
+      setPageIndex(response?.data?.data || []); //state for get meta links and total
     } catch (error) {
+      console.error("Error fetching users", error);
       setIsLoading(false);
     } finally {
       setIsLoading(false);
@@ -63,13 +76,13 @@ const User = () => {
       const response = await getApi("get-roles");
       const roles = response?.data?.data?.map((role) => role.name) || [];
       setUserRoles(roles);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching roles", error);
+    }
   };
 
   useEffect(() => {
     fetchAllUser();
-  }, []);
-  useEffect(() => {
     fetchUserRole();
   }, []);
 
@@ -338,7 +351,7 @@ const User = () => {
           {allUsers?.data?.length === 1 ? "User" : "Users"}
           {allUsers?.data?.length > 0 && (
             <Badge className="badge user-active text-white" marginClass="ms-1">
-              {allUsers?.meta?.total ?? 0}
+              {allUsers?.meta?.total || 0}
             </Badge>
           )}
         </h5>

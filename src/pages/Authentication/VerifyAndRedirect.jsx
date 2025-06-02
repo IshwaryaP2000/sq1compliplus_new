@@ -27,7 +27,6 @@ const VerifyAndRedirect = () => {
       try {
         const response = await getApi(`verify-link?_token=${token}`);
         const res = response?.data?.data;
-
         if (res?.access_email && res?.access_token) {
           const tokenUrl = `_token=${res?.access_token}&access_email=${res?.access_email}`;
           setMessage(response?.data?.message || "Email verified successfully!");
@@ -50,10 +49,13 @@ const VerifyAndRedirect = () => {
           }
         }
       } catch (err) {
-        console.error(err.response?.data?.message, "err.response?.data?.message");
+        console.error(
+          err.response?.data?.message,
+          "err.response?.data?.message"
+        );
         setError(
           err.response?.data?.message ||
-          "An error occurred while verifying the email."
+            "An error occurred while verifying the email."
         );
       } finally {
         setLoading(false);

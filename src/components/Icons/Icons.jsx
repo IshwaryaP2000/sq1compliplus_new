@@ -12,7 +12,8 @@ export const BellIcon = () =><i className="fa-regular fa-bell fs-3" />
 export const QrcodeIcon = () =><i className="fa-solid fa-qrcode"/>
 export const BanIconNotallowed = () =><i className="fa-solid fa-ban not-allowed"/>
 export const TrashIcon = () =><i className="fa-solid fa-trash text-danger"/>
-export const RepeatIcon = () =><i className="fa-solid fa-repeat"/>
+export const RepeatIcon = () => <i className="fa-solid fa-repeat" />
+export const RepeatNotAllowedIcon = () =><i className="fa-solid fa-repeat not-allowed"/>
 export const BanIcon = () =><i className="fa-solid fa-ban"/>
 export const SidenavbarIcons = () =><i className="fa-solid fa-bars"/>
 export const TriangleExclamationIcon = () => <i className="fa-solid text-danger fa-triangle-exclamation"/>

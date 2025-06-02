@@ -9,14 +9,14 @@ import {
 } from "../../utils/UtilsGlobalData";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/Stackflo.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { loginValidationSchema } from "../../components/Validationschema/loginSchema";
 import { EyeIcon, EyeslashIcon } from "../../components/Icons/Icons";
 
 const Login = () => {
   localStorage.setItem("portal", "");
-  const [showPassword, setShowPassword] = useState(false);
   usePageTitle("Login");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const authType = localStorage.getItem("organization");
   const type = JSON.parse(authType);
