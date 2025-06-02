@@ -36,7 +36,6 @@ const Organization = () => {
   const [filteredLength, setFilteredLength] = useState([]);
   const [pageIndex, setPageIndex] = useState([]);
   const [title, setTitle] = useState("Organization");
-
   const currentUser = getCurrentUser();
   const navigate = useNavigate();
 

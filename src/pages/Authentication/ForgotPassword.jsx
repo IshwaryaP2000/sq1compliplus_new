@@ -9,6 +9,7 @@ import { email } from "../../components/Validationschema/commonSchema";
 const ForgotPassword = () => {
   usePageTitle("Forgot Password");
   const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: "",

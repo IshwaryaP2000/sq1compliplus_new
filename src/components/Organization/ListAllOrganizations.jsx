@@ -12,21 +12,21 @@ import { useNavigate } from "react-router-dom";
 const ListAllOrganizations = () => {
   const navigate = useNavigate();
   const { organization, setOrganization, setAuthUser } = useAuthOrganization();
-  const [allOrganizations, setAllOrganizations] = useState([]); 
-  const [isLoading, setIsLoading] = useState(true); 
-  const [error, setError] = useState(null); 
+  const [allOrganizations, setAllOrganizations] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const fetchAllOrganizations = async () => {
     try {
-      setIsLoading(true); 
+      setIsLoading(true);
       const response = await getApi("user-organizations-list");
-      setAllOrganizations(response?.data?.data?.data || []); 
+      setAllOrganizations(response?.data?.data?.data || []);
       setError(null); // Clear previous errors
     } catch (err) {
       setError("Failed to fetch organizations. Please try again later.");
       console.error("Error in fetchAllOrganizations:", err);
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 

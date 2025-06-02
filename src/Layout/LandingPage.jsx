@@ -54,8 +54,8 @@ const LandingPage = () => {
 
       if (response?.data?.success) {
         const currentOrganization = response?.data?.data?.current_organization;
-        setDomain(currentOrganization?.domain_name); 
-        setCurrentOrganization(currentOrganization); 
+        setDomain(currentOrganization?.domain_name);
+        setCurrentOrganization(currentOrganization);
         navigate("/login");
       } else {
         setError("Failed to fetch organization details.");
@@ -65,7 +65,6 @@ const LandingPage = () => {
       setError("Failed to fetch organization details.");
     }
   };
-
 
   useEffect(() => {
     if (selectedDomain || !newDomain.trim()) {
@@ -80,8 +79,8 @@ const LandingPage = () => {
 
   const handleDomainSelect = (domainName) => {
     setNewDomain(domainName);
-    setSearchResults([]); 
-    setSelectedDomain(true); 
+    setSearchResults([]);
+    setSelectedDomain(true);
   };
 
   const handleInputChange = (value) => {
@@ -131,6 +130,7 @@ const LandingPage = () => {
                     </div>
 
                     {loading && <p>Loading...</p>}
+
                     {searchResults.length > 0 && !selectedDomain && (
                       <ul className="list-group">
                         {searchResults.map((domain) => (
