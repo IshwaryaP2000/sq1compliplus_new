@@ -13,6 +13,7 @@ import Searchbar from "../../components/Searchbar";
 import usePageTitle from "../includes/usePageTitle";
 import {
   PenToSquareIcon,
+  PlusIcon,
   TriangleExclamationIcon,
 } from "../../../../components/Icons/Icons";
 import {
@@ -296,7 +297,7 @@ const NewUser = () => {
               className="ms-2 primary-btn btn btn-sm"
               onClick={toggleAssignUserModal}
             >
-              <i className="fa-solid fa-plus me-2"></i>
+              <PlusIcon />
               Assign User
             </button>
             <AssignUserModal

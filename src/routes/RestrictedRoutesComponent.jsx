@@ -3,7 +3,7 @@ import { hasRole } from "../utils/UtilsGlobalData";
 
 // This component will restrict routes based on user role
 // If user is sq1_super_admin, they can only access dashboard and settings
-const RestrictedRouteWrapper = ({ element, path }) => {
+const RestrictedRouteWrapper = ({ element, path, children }) => {
   // Check if user is sq1_super_admin
   const location = useLocation();
   const isSq1SuperAdmin = hasRole(["sq1_super_admin"]);
@@ -29,9 +29,10 @@ const RestrictedRouteWrapper = ({ element, path }) => {
       return <Navigate to="/UnAuthorized" replace />;
     }
   }
+  console.log(children, "element");
 
-  // For all other roles or allowed paths, render the component
-  return element ? element : <Outlet />;
+  // For all other roles or alloswed paths, render the component
+  return children ? children : <Outlet />;
 };
 
 export default RestrictedRouteWrapper;

@@ -17,7 +17,7 @@ import {
   AuthUserProtectedMiddleware,
   GuestMiddleware,
   RoleAccessMiddleware,
-} from "../middleware/Middleware";
+} from "../Middleware/Middleware";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Layout from "../Layout/Layouts";
 import User from "../pages/Settings/Subpages/User/User";
@@ -39,9 +39,10 @@ import Index from "../pages/Settings/Subpages/Compliances/Index";
 import Hipaa from "../pages/Settings/Subpages/Compliances/Hipaa";
 import Soc from "../pages/Settings/Subpages/Compliances/Soc";
 import Assets from "../pages/Settings/Subpages/Assets/Assets";
-import Readiness from "../pages/Settings/Subpages/complianceReadiness/Readiness";
+import Readiness from "../pages/Settings/Subpages/ComplianceReadiness/Readiness";
 import DepartmentsPage from "../pages/Settings/Subpages/Compliances/DepartmentAdd";
 import QuestionsImport from "../pages/Settings/Subpages/Compliances/QuestionsImport";
+import SsoSetup from "../pages/Settings/Subpages/SSO/SsoSetup";
 
 function MainRoutes() {
   const navigate = useNavigate();
@@ -110,6 +111,19 @@ function MainRoutes() {
         />
         <Route path="/settings/controls" element={<Controls />} />
         <Route path="/settings/add-question" element={<AddQuestion />} />
+        <Route path="/settings/sso-setup" element={<SsoSetup />} />
+
+        <Route element={<RestrictedRouteWrapper />}>
+          <Route path="/assets" element={<Assets />} />
+          <Route path="/compliance/iso" element={<Index />} />
+          <Route path="/compliance/hipaa" element={<Hipaa />} />
+          <Route path="/compliance/soc" element={<Soc />} />
+          <Route path="/readiness" element={<Readiness />} />
+          <Route path="/integration" element={<ComplexIntegration />} />
+          <Route path="/departments" element={<DepartmentsPage />} />
+          <Route path="/questions-import" element={<QuestionsImport />} />
+          <Route path="/readiness" element={<Readiness />} />
+        </Route>
       </Route>
 
       <Route
@@ -150,22 +164,6 @@ function MainRoutes() {
           element={<UpdateForgotPassword />}
         />
         <Route path="/user/verify-link" element={<VerifyAndRedirect />} />
-      </Route>
-
-      <Route
-        path="/assets"
-        element={<RestrictedRouteWrapper path="/assets" element={<Assets />} />}
-      />
-
-      <Route element={<RestrictedRouteWrapper />}>
-        <Route path="/compliance/iso" element={<Index />} />
-        <Route path="/compliance/hipaa" element={<Hipaa />} />
-        <Route path="/compliance/soc" element={<Soc />} />
-        <Route path="/readiness" element={<Readiness />} />
-        <Route path="/integration" element={<ComplexIntegration />} />
-        <Route path="/departments" element={<DepartmentsPage />} />
-        <Route path="/questions-import" element={<QuestionsImport />} />
-        <Route path="/readiness" element={<Readiness />} />
       </Route>
 
       {/* Error Routes starts*/}

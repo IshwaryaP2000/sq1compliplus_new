@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getApi } from "../../services/apiService";
-import { useAuthOrganization } from "../../hooks/OrganizationUserProvider";
+import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
 import {
   setCurrentOrganization,
   setCurrentUser,

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getApi } from "../../services/apiService";
 import { setCurrentOrganization, setDomain } from "../../utils/UtilsGlobalData";
-import { useAuthOrganization } from "../../hooks/OrganizationUserProvider";
+import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
 import usePageTitle from "../../utils/usePageTitle";
 
 const VerifyAndRedirect = () => {

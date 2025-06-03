@@ -5,6 +5,7 @@ import Select from "react-select";
 import { Modal, Button } from "react-bootstrap";
 import usePageTitle from "../../../../utils/usePageTitle";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
+import { TriangleExclamationIcon } from "../../../../components/Icons/Icons";
 
 function AddQuestion() {
   usePageTitle("Readiness Questions");
@@ -719,7 +720,7 @@ function AddQuestion() {
           <div className="text-center">
             <div className="mb-3">
               <div className="warning-icon-wrapper">
-                <i className="fa-solid text-danger fa-triangle-exclamation"></i>
+                <TriangleExclamationIcon/>
               </div>
             </div>
             <h5 className="fw-bold mb-2 text-muted">Delete Question</h5>

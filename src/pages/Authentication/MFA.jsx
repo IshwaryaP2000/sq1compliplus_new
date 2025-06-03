@@ -12,7 +12,7 @@ import {
   setAuthToken,
   setCurrentUser,
 } from "../../utils/UtilsGlobalData";
-import { useAuthOrganization } from "../../hooks/OrganizationUserProvider";
+import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
 import { toast } from "react-toastify";
 import usePageTitle from "../../utils/usePageTitle";
 import { PoweroffIcon } from "../../components/Icons/Icons";
