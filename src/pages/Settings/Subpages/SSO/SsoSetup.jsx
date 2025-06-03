@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { Form as BootstrapForm } from "react-bootstrap";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Modal from "react-bootstrap/Modal";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import { postApi, getApi } from "../../../../services/apiService";
 import {
   setCurrentOrganization,
@@ -13,17 +11,17 @@ import {
 } from "../../../../utils/UtilsGlobalData";
 import usePageTitle from "../../../../utils/usePageTitle";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
+import { SSOValidationSchema } from "../../../../components/Validationschema/ssoSchema";
+import { PencilIcon } from "../../../../components/Icons/Icons";
 
 const SsoSetup = () => {
   usePageTitle("SSO Setup");
   const [show, setShow] = useState(false);
   const [modalHeader, setModalHeader] = useState("");
-  const [loginType, setLoginType] = useState("");
   const [azure, setAzure] = useState("");
   const [google, setGoogle] = useState("");
   const [ssoType, setSsoType] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
   const [formInitialValues, setFormInitialValues] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [isCheckedAzure, setIsCheckedAzure] = useState(false);
@@ -34,12 +32,7 @@ const SsoSetup = () => {
     setShow(true); // Open the modal
   };
 
-  const validationSchema = Yup.object({
-    client_id: Yup.string().required("Client ID is required"),
-    client_secret: Yup.string().required("Client Secret is required"),
-    redirect_url: Yup.string().required("Redirect URL is required"),
-    tenant_id: Yup.string().notRequired(),
-  });
+  const validationSchema = SSOValidationSchema;
 
   const handleChange = async () => {
     await postApi(`sso-activate`, {
@@ -133,9 +126,6 @@ const SsoSetup = () => {
     const getAuthType = localStorage.getItem("organization");
     const authTypeFromStorage = JSON.parse(getAuthType)?.auth_type;
     if (authTypeFromStorage) {
-      setLoginType(
-        ucFirst(authTypeFromStorage !== "login" ? "SSO" : authTypeFromStorage)
-      );
     }
   }, []);
 
@@ -156,7 +146,6 @@ const SsoSetup = () => {
       ucFirst(authTypeFromStorage) === "Google" ||
       ucFirst(authTypeFromStorage) === "Azure"
     ) {
-      setCurrentStep(6);
     }
   }, []);
 
@@ -240,7 +229,7 @@ const SsoSetup = () => {
                       className="btn btn-secondary btn-sm"
                     >
                       {azure === "azure" ? (
-                        <i className="fa-solid fa-pencil"></i>
+                        <PencilIcon />
                       ) : (
                         <i className="fa-solid fa-plus"></i>
                       )}
@@ -283,7 +272,7 @@ const SsoSetup = () => {
                       className="btn btn-secondary btn-sm"
                     >
                       {google === "google" ? (
-                        <i className="fa-solid fa-pencil"></i>
+                        <PencilIcon />
                       ) : (
                         <i className="fa-solid fa-plus"></i>
                       )}
