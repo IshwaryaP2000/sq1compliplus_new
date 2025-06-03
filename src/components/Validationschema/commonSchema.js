@@ -36,5 +36,15 @@ export const confirm_password = Yup.string()
 export const logo = Yup.mixed();
 
 export const shortName = Yup.string()
-      .required("Short Name is required")
-      .max(3, "Short Name should be 3 characters max")
+  .required("Short Name is required")
+  .max(3, "Short Name should be 3 characters max");
+
+export const departmentName = Yup.string().required(
+  "Please enter the department name"
+);
+
+export const toolValidation = Yup.object().shape({
+  credentials: Yup.array()
+    .of(Yup.string().required("Credential cannot be empty"))
+    .min(1, "At least one credential is required"),
+});

@@ -7,7 +7,6 @@ import EditQuestions from "../../../models/EditQuestions";
 import Pagination from "../../../components/Pagination";
 import Searchbar from "../../../components/Searchbar";
 import { getCurrentUser, hasRole } from "../../../utils/UtilsGlobalData";
-// import { useCallback } from "react";
 import {
   createDebouncedSearch,
   fetchSearchResults,
@@ -45,7 +44,7 @@ const ReadinessView = () => {
       setFilteredLength(response?.data?.data?.meta?.total);
       setPageIndex(response?.data?.data);
     } catch {
-      console.log("error getting a data");
+      console.error("error getting a data");
     } finally {
       setIsLoading(false);
     }
@@ -100,20 +99,6 @@ const ReadinessView = () => {
     });
   };
 
-  // const debouncedFetchSearchResults = useCallback(
-  //   createDebouncedSearch((params) => {
-  //     fetchSearchResults(
-  //       "/get-questions",
-  //       params,
-  //       setFilteredUsers,
-  //       setIsLoading,
-  //       setFilteredLength,
-  //       setPageIndex
-  //     );
-  //   }, 300),
-  //   []
-  // );
-
   const debouncedFetchSearchResults = useMemo(
     () =>
       createDebouncedSearch((params) => {
@@ -157,7 +142,7 @@ const ReadinessView = () => {
     <>
       <div className="d-flex justify-content-between mb-3 flex-wrap">
         <h5>
-          Readiness{" "}
+          Readiness
           {data?.meta?.total !== 0 ? (
             <span className="badge user-active text-white">
               {data?.meta?.total}

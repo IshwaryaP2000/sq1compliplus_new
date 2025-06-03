@@ -1,4 +1,4 @@
-import usePageTitle from "../includes/usePageTitle";
+import usePageTitle from "../../../../utils/usePageTitle";
 
 const Soc = () => {
   usePageTitle("Compliance-SOC");
