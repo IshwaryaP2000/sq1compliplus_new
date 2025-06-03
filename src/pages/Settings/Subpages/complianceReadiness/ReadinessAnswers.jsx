@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getApi } from "../../api/apiClient";
 import { Accordion, Button, Modal } from "react-bootstrap";
-import usePageTitle from "../includes/usePageTitle";
+import { getApi } from "../../../../services/apiService";
+import usePageTitle from "../../../../utils/usePageTitle";
 
 const ReadinessAnswers = () => {
   usePageTitle("Readiness Answers");
@@ -13,7 +13,7 @@ const ReadinessAnswers = () => {
   const fetchAnswers = async () => {
     try {
       const response = await getApi("/get-answers", {});
-      setAnswers(response.data.data); // Access the 'data' object inside response
+      setAnswers(response.data.data);
     } catch (error) {
       console.error("Error fetching answers:", error);
     } finally {
@@ -26,7 +26,6 @@ const ReadinessAnswers = () => {
   }, []);
 
   const handleViewEvidence = (evidenceUrl) => {
-    // Fix the URL by replacing escaped slashes
     const formattedUrl = evidenceUrl;
     setEvidenceImage(formattedUrl);
     setShowModal(true);
