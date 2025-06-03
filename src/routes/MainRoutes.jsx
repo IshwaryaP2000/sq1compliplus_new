@@ -17,7 +17,7 @@ import {
   AuthUserProtectedMiddleware,
   GuestMiddleware,
   RoleAccessMiddleware,
-} from "../Middleware/Middleware";
+} from "../middleware/Middleware";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Layout from "../Layout/Layouts";
 import User from "../pages/Settings/Subpages/User/User";
@@ -43,6 +43,8 @@ import Readiness from "../pages/Settings/Subpages/ComplianceReadiness/Readiness"
 import DepartmentsPage from "../pages/Settings/Subpages/Compliances/DepartmentAdd";
 import QuestionsImport from "../pages/Settings/Subpages/Compliances/QuestionsImport";
 import SsoSetup from "../pages/Settings/Subpages/SSO/SsoSetup";
+import ReadinessAnswers from "../pages/Settings/Subpages/ComplianceReadiness/ReadinessAnswers";
+import ReadinessView from "../pages/settings/Subpages/readiness/ReadinessViewTable";
 
 function MainRoutes() {
   const navigate = useNavigate();
@@ -81,6 +83,12 @@ function MainRoutes() {
       >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/settings/users" element={<User />} />
+        <Route
+          path="/settings/readiness-answers"
+          element={<ReadinessAnswers />}
+        />
+        <Route path="/settings/readiness" element={<ReadinessView />} />
+
         <Route
           path="/settings/organizations"
           element={

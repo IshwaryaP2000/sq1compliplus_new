@@ -1,20 +1,20 @@
 import { useMemo } from "react";
 import { useState, useEffect } from "react";
-import { getApi } from "../../../api/apiClient";
-import ConfirmationModel from "../../../models/UserConfirmationModal";
 import { Link } from "react-router-dom";
-import EditQuestions from "../../../models/EditQuestions";
-import Pagination from "../../../components/Pagination";
-import Searchbar from "../../../components/Searchbar";
-import { getCurrentUser, hasRole } from "../../../utils/UtilsGlobalData";
+import { getApi } from "../../../../services/apiService";
+import ConfirmationModel from "../../../../components/Modal/UserConfirmationModal";
+import EditQuestions from "../../../../components/Modal/EditQuestions";
+import Pagination from "../../../../components/Pagination/Pagination";
+import Searchbar from "../../../../components/Search/Searchbar";
+import { getCurrentUser, hasRole } from "../../../../utils/UtilsGlobalData";
 import {
   createDebouncedSearch,
   fetchSearchResults,
   highlightText,
   LimitSelector,
-} from "../../../components/useSearchAndSort";
+} from "../../../../components/Search/useSearchAndSort";
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
-import usePageTitle from "../../includes/usePageTitle";
+import usePageTitle from "../../../../utils/usePageTitle";
 import { PlusIcon } from "../../../../components/Icons/Icons";
 
 const ReadinessView = () => {
@@ -34,6 +34,7 @@ const ReadinessView = () => {
   const currentUser = getCurrentUser();
   const DESCRIPTION_MAX_LENGTH = 50; // Changed to 50 to match your previous code
   const COLUMN_WIDTH = "200px";
+  const isSuperAdmin = currentUser && hasRole(["sq1_super_admin"]);
 
   const GetQuestions = async (URI = "get-questions") => {
     try {
@@ -90,7 +91,6 @@ const ReadinessView = () => {
 
     setSortDirection(newSortDirection);
     setSortColumn(columnName);
-
     debouncedFetchSearchResults({
       search: searchVal,
       sort_by: columnName,
@@ -135,8 +135,6 @@ const ReadinessView = () => {
       [id]: !prev[id],
     }));
   };
-
-  const isSuperAdmin = currentUser && hasRole(["sq1_super_admin"]);
 
   return (
     <>
