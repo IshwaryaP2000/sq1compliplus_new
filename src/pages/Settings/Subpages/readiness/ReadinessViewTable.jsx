@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useState, useEffect } from "react";
 import { getApi } from "../../../api/apiClient";
 import ConfirmationModel from "../../../models/UserConfirmationModal";
@@ -31,7 +31,6 @@ const ReadinessView = () => {
   const [limit, setLimit] = useState(10);
   const [pageIndex, setPageIndex] = useState([]);
   const [expandedDescriptions, setExpandedDescriptions] = useState({}); // Changed to match your previous state name
-
   const currentUser = getCurrentUser();
   const DESCRIPTION_MAX_LENGTH = 50; // Changed to 50 to match your previous code
   const COLUMN_WIDTH = "200px";
