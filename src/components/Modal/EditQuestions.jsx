@@ -5,6 +5,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { postApi } from "../../services/apiService";
+import { PenToSquareIcon } from "../Icons/Icons";
 
 const validationSchema = Yup.object({
   question: Yup.string().required("Question is required"),
@@ -90,7 +91,7 @@ function EditQuestions({ data, category, question, GetQuestions }) {
           className="btn btn-sm py-0 my-1 tableborder-right"
           onClick={handleShow}
         >
-          <i className="fa-regular fa-pen-to-square"></i>
+          <PenToSquareIcon />
         </button>
       </OverlayTrigger>
 

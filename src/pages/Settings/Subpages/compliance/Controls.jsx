@@ -14,6 +14,7 @@ import {
 } from "../../../../components/Search/useSearchAndSort";
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 import usePageTitle from "../../../../utils/usePageTitle";
+import { PlusIcon } from "../../../../components/Icons/Icons";
 
 const Controls = () => {
   usePageTitle("Controls");
@@ -134,7 +135,7 @@ const Controls = () => {
           <Searchbar onSearch={handleSearch} placeHolder={"Search"} />
           <Link to={"/settings/add-question"}>
             <button type="button" className="btn primary-btn ms-2">
-              <i className="fa-solid fa-plus me-2"></i>
+              <PlusIcon />
               Add Controls
             </button>
           </Link>

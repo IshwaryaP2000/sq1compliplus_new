@@ -15,6 +15,7 @@ import {
 } from "../../../components/useSearchAndSort";
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 import usePageTitle from "../../includes/usePageTitle";
+import { PlusIcon } from "../../../../components/Icons/Icons";
 
 const ReadinessView = () => {
   usePageTitle("Readiness");
@@ -156,7 +157,7 @@ const ReadinessView = () => {
           {isSuperAdmin && (
             <Link to={"/settings/add-question"}>
               <button type="button" className="ms-2 btn primary-btn btn">
-                <i className="fa-solid fa-plus me-2"></i>
+                <PlusIcon />
                 Add questions
               </button>
             </Link>

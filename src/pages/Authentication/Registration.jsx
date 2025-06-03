@@ -9,7 +9,7 @@ import {
   setCurrentOrganization,
   setCurrentUser,
 } from "../../utils/UtilsGlobalData";
-import { useAuthOrganization } from "../../hooks/OrganizationUserProvider";
+import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
 import { EyeIcon, EyeslashIcon } from "../../components/Icons/Icons";
 
 const Registration = () => {
