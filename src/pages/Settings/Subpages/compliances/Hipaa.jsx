@@ -1,5 +1,5 @@
-import React from "react";
-import usePageTitle from "../includes/usePageTitle";
+import usePageTitle from "../../../../utils/usePageTitle";
+
 const Hipaa = () => {
   usePageTitle("Compliance-Hipaa");
   return <div>Hipaa</div>;

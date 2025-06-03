@@ -1,5 +1,5 @@
-import React from "react";
-import usePageTitle from "../includes/usePageTitle";
+import usePageTitle from "../../../../utils/usePageTitle";
+
 const Index = () => {
   usePageTitle("Compliance-ISO");
   return <div>Iso</div>;

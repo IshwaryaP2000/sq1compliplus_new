@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { postApi } from "../../../api/apiClient";
 import { toast } from "react-toastify";
 
@@ -41,8 +41,7 @@ function AddQuestion() {
       setError("");
       document.getElementById("fileInput").value = null;
     } catch (error) {
-      // toast.error("Error while uploading questions");
-      console.log("Error while uploading questions");
+      console.error("Error while uploading questions");
     }
   };
 
@@ -53,7 +52,6 @@ function AddQuestion() {
           <h4 className="text-center mb-2">Upload Questions</h4>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              {/* <label htmlFor="fileInput ">Upload File</label> */}
               <label className="form-label">Upload File</label>
               <input
                 type="file"

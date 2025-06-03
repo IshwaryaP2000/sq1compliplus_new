@@ -38,7 +38,7 @@ const Controls = () => {
       setFilteredLength(response?.data?.data?.meta?.total);
       setPageIndex(response?.data?.data);
     } catch {
-      console.log("error getting a data");
+      console.error("error getting a data");
     } finally {
       setIsLoading(false);
     }

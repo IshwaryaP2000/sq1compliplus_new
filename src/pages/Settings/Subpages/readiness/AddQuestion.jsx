@@ -91,7 +91,7 @@ function AddQuestion() {
         setUploadedQuestions(flatQuestions);
       }
     } catch (error) {
-      console.log("Error fetching uploaded questions:", error);
+      console.error("Error fetching uploaded questions:", error);
       toast.error("Error fetching uploaded questions");
     } finally {
       setIsLoading(false);
@@ -250,7 +250,7 @@ function AddQuestion() {
         })) || []
       );
     } catch (error) {
-      console.log("Error fetching categories:", error);
+      console.error("Error fetching categories:", error);
     }
   };
 
@@ -274,7 +274,7 @@ function AddQuestion() {
         })) || [];
       setFieldTypes(formattedFieldTypes);
     } catch (error) {
-      console.log("Error fetching field types:", error);
+      console.error("Error fetching field types:", error);
     }
   };
 
@@ -288,7 +288,7 @@ function AddQuestion() {
         })) || []
       );
     } catch (error) {
-      console.log("Error fetching compliance types:", error);
+      console.error("Error fetching compliance types:", error);
     }
   };
 
@@ -309,7 +309,7 @@ function AddQuestion() {
       fetchUploadedQuestions();
       setIsValidated(false);
     } catch (error) {
-      console.log("Error while uploading questions:", error);
+      console.error("Error while uploading questions:", error);
     }
   };
 
@@ -351,7 +351,7 @@ function AddQuestion() {
       }
       fetchUploadedQuestions();
     } catch (error) {
-      console.log("Error deleting question:", error);
+      console.error("Error deleting question:", error);
       fetchUploadedQuestions();
     } finally {
       setIsLoading(false);
@@ -427,7 +427,7 @@ function AddQuestion() {
   }, []);
 
   useEffect(() => {
-    console.log("Uploaded questions updated:", uploadedQuestions);
+    console.error("Uploaded questions updated:", uploadedQuestions);
   }, [uploadedQuestions]);
 
   // Helper function to check if field type allows dropdown options
