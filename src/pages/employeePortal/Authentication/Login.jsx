@@ -81,6 +81,7 @@ const Login = () => {
     } catch (errorLogin) {
       console.log(errorLogin);
     } finally {
+      console.log("SSO Link fetched successfully");
     }
   };
 
@@ -128,11 +129,10 @@ const Login = () => {
                             type="text"
                             id="email"
                             name="email"
-                            className={`form--input ${
-                              formik.touched.email && formik.errors.email
+                            className={`form--input ${formik.touched.email && formik.errors.email
                                 ? "is-invalid"
                                 : ""
-                            }`}
+                              }`}
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -150,11 +150,10 @@ const Login = () => {
                           <input
                             autoComplete="new-password"
                             type={showPassword ? "text" : "password"}
-                            className={`form--input ${
-                              formik.touched.password && formik.errors.password
+                            className={`form--input ${formik.touched.password && formik.errors.password
                                 ? "is-invalid"
                                 : ""
-                            }`}
+                              }`}
                             id="password"
                             name="password"
                             value={formik.values.password}

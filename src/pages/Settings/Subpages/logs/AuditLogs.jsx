@@ -102,6 +102,7 @@ const AuditLogs = () => {
       SetOrganizations(selectOrganization);
     } catch (error) {
       setIsLoading(false);
+      console.error("Error fetching organizations:", error);
     } finally {
       setIsLoading(false);
     }

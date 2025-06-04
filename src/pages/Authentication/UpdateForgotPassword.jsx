@@ -46,7 +46,7 @@ const UpdateForgotPassword = () => {
           localStorage.removeItem("access_token");
           navigate(`/login`);
         }
-      } catch (errorLogin) {}
+      } catch (errorLogin) { console.error("Error updating password:", errorLogin); }
     },
   });
 
@@ -94,11 +94,10 @@ const UpdateForgotPassword = () => {
                       <div className="input-wrap mb-4">
                         <input
                           type="password"
-                          className={`form--input ${
-                            formik.touched.password && formik.errors.password
+                          className={`form--input ${formik.touched.password && formik.errors.password
                               ? "is-invalid"
                               : ""
-                          }`}
+                            }`}
                           id="password"
                           name="password"
                           value={formik.values.password}
@@ -117,12 +116,11 @@ const UpdateForgotPassword = () => {
                       <div className="input-wrap mb-4">
                         <input
                           type="password"
-                          className={`form--input ${
-                            formik.touched.confirm_password &&
-                            formik.errors.confirm_password
+                          className={`form--input ${formik.touched.confirm_password &&
+                              formik.errors.confirm_password
                               ? "is-invalid"
                               : ""
-                          }`}
+                            }`}
                           id="confirm_password"
                           name="confirm_password"
                           value={formik.values.confirm_password}

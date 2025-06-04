@@ -82,7 +82,7 @@ const SsoSetup = () => {
           setGoogle("google");
         }
       });
-    } catch {}
+    } catch (error) { console.error("Error fetching SSO lists:", error); }
   };
 
   const orgInfo = async () => {
@@ -108,6 +108,7 @@ const SsoSetup = () => {
       resetForm();
       setIsEditing(true);
     } finally {
+      setIsEditing(true);
     }
   };
 
@@ -122,30 +123,12 @@ const SsoSetup = () => {
 
   //Get auth_type for login type
 
-  useEffect(() => {
-    const getAuthType = localStorage.getItem("organization");
-    const authTypeFromStorage = JSON.parse(getAuthType)?.auth_type;
-    if (authTypeFromStorage) {
-    }
-  }, []);
-
   //Get auth_type for sso type
   useEffect(() => {
     const getAuthType = localStorage.getItem("organization");
     const authTypeFromStorage = JSON.parse(getAuthType)?.auth_type;
     if (authTypeFromStorage) {
       setSsoType(ucFirst(authTypeFromStorage));
-    }
-  }, []);
-
-  //set current set 6 when ssotype Google or Azure
-  useEffect(() => {
-    const getAuthType = localStorage.getItem("organization");
-    const authTypeFromStorage = JSON.parse(getAuthType)?.auth_type;
-    if (
-      ucFirst(authTypeFromStorage) === "Google" ||
-      ucFirst(authTypeFromStorage) === "Azure"
-    ) {
     }
   }, []);
 

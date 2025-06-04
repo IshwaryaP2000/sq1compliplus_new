@@ -35,7 +35,7 @@ const OrganizationUserProvider = ({ children }) => {
       setCurrentOrganization(response?.data?.data?.current_organization || []);
       setOrganization(getCurrentOrganization());
     } catch (responseErr) {
-      console.error("Error fetching organization user:", error);
+      console.error("Error fetching organization user:", responseErr);
     }
   };
 

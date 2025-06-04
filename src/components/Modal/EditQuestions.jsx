@@ -117,7 +117,7 @@ function EditQuestions({ data, category, question, GetQuestions }) {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({ setFieldValue, values, touched, errors }) => (
+            {({ values, touched, errors }) => (
               <Form>
                 <div className="form-group">
                   <label htmlFor="complianceType" className="mb-2">
@@ -173,9 +173,8 @@ function EditQuestions({ data, category, question, GetQuestions }) {
                     id="question"
                     name="question"
                     type="text"
-                    className={`form-control ${
-                      errors.question && touched.question ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${errors.question && touched.question ? "is-invalid" : ""
+                      }`}
                   />
                   <ErrorMessage
                     name="question"
@@ -204,9 +203,8 @@ function EditQuestions({ data, category, question, GetQuestions }) {
                     id="yes_score"
                     name="yes_score"
                     type="number"
-                    className={`form-control ${
-                      errors.yes_score && touched.yes_score ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${errors.yes_score && touched.yes_score ? "is-invalid" : ""
+                      }`}
                   />
                   <ErrorMessage
                     name="yes_score"
@@ -223,9 +221,8 @@ function EditQuestions({ data, category, question, GetQuestions }) {
                     id="no_score"
                     name="no_score"
                     type="number"
-                    className={`form-control ${
-                      errors.no_score && touched.no_score ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${errors.no_score && touched.no_score ? "is-invalid" : ""
+                      }`}
                   />
                   <ErrorMessage
                     name="no_score"

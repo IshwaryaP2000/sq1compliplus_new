@@ -11,6 +11,7 @@ import {
 } from "../../utils/UtilsGlobalData";
 import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
 import { EyeIcon, EyeslashIcon } from "../../components/Icons/Icons";
+import { registrationValidationSchema } from "../../components/Validationschema/registrationSchema";
 
 const Registration = () => {
   usePageTitle("Registration");

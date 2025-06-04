@@ -19,6 +19,7 @@ function MfaUnlockModel({ data }) {
       logout();
       navigate("/login");
     } catch (err) {
+      console.error("Error in mfa unlock:", err);
     }
   };
 

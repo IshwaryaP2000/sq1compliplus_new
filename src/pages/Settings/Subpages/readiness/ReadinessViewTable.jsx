@@ -55,14 +55,14 @@ const ReadinessView = () => {
     try {
       const response = await getApi("compliance-types");
       setType(response?.data || []);
-    } catch (error) {}
+    } catch (error) { console.error("Error fetching types:", error); }
   };
 
   const GetCategory = async () => {
     try {
       const response = await getApi("compliance-category");
       setCategory(response?.data || []);
-    } catch (error) {}
+    } catch (error) { console.error("Error fetching categories:", error); }
   };
 
   useEffect(() => {
@@ -295,32 +295,32 @@ const ReadinessView = () => {
                       dangerouslySetInnerHTML={{
                         __html: expandedDescriptions[readiness?.id || index]
                           ? highlightText(
+                            readiness?.description || "",
+                            searchVal
+                          )
+                          : truncateText(
+                            highlightText(
                               readiness?.description || "",
                               searchVal
-                            )
-                          : truncateText(
-                              highlightText(
-                                readiness?.description || "",
-                                searchVal
-                              ),
-                              DESCRIPTION_MAX_LENGTH
                             ),
+                            DESCRIPTION_MAX_LENGTH
+                          ),
                       }}
                     />
                     {readiness?.description?.length >
                       DESCRIPTION_MAX_LENGTH && (
-                      <button
-                        className="btn btn-link p-0 mt-1 text-decoration-none"
-                        onClick={() =>
-                          toggleDescription(readiness?.id || index)
-                        }
-                        style={{ fontSize: "0.8rem" }}
-                      >
-                        {expandedDescriptions[readiness?.id || index]
-                          ? "View Less"
-                          : "View More"}
-                      </button>
-                    )}
+                        <button
+                          className="btn btn-link p-0 mt-1 text-decoration-none"
+                          onClick={() =>
+                            toggleDescription(readiness?.id || index)
+                          }
+                          style={{ fontSize: "0.8rem" }}
+                        >
+                          {expandedDescriptions[readiness?.id || index]
+                            ? "View Less"
+                            : "View More"}
+                        </button>
+                      )}
                   </td>
                   <td>{readiness?.yes_score}</td>
                   <td>{readiness?.no_score}</td>

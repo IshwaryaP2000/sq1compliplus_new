@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { postApi } from "../../../api/apiClient";
 import { toast } from "react-toastify";
+import usePageTitle from "../../../../utils/usePageTitle";
 
 function AddQuestion() {
   usePageTitle("Add Questions");
@@ -41,7 +42,7 @@ function AddQuestion() {
       setError("");
       document.getElementById("fileInput").value = null;
     } catch (error) {
-      console.error("Error while uploading questions");
+      console.error("Error while uploading questions",error);
     }
   };
 

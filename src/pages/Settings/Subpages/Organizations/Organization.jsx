@@ -12,7 +12,6 @@ import OrganizationMfaUnlockModal from "../../../../components/Modal/Organizatio
 import AssignReadinessQuestionModal from "../../../../components/Modal/AssignReadinessQuestionModal";
 import {
   createDebouncedSearch,
-  fetchSearchResults,
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";

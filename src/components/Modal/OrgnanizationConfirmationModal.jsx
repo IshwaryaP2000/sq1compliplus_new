@@ -4,7 +4,7 @@ import { postApi, getApi } from "../../services/apiService";
 import ButtonWithLoader from "../Button/ButtonLoader";
 import { BanIcon, RepeatIcon } from "../Icons/Icons";
 
-function OrganizationConfirmationModal({ data, type, fetchAllOrganizations }) {
+function OrganizationConfirmationModal({ data, fetchAllOrganizations }) {
   const [isLoading, setIsLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [actionType, setActionType] = useState(null);

@@ -104,14 +104,14 @@ const Controls = () => {
     try {
       const response = await getApi("compliance-types");
       setType(response?.data || []);
-    } catch {}
+    } catch (error) { console.error("error getting types", error); }
   };
 
   const GetCategory = async () => {
     try {
       const response = await getApi("compliance-category");
       setCategory(response?.data || []);
-    } catch {}
+    } catch (error) { console.error("error getting category", error); }
   };
 
   useEffect(() => {
@@ -226,64 +226,64 @@ const Controls = () => {
                 </tr>
               ))
             ) : // data?.data?.length > 0 ? (
-            //   data?.data?.map((readiness, index) => (
-            filteredUsers?.length > 0 ? (
-              filteredUsers?.map((readiness, index) => (
-                <tr key={readiness?.id || index}>
-                  {/* <th scope="row">{index + 1}</th> */}
-                  {/* <td>{readiness?.type}</td>
+              //   data?.data?.map((readiness, index) => (
+              filteredUsers?.length > 0 ? (
+                filteredUsers?.map((readiness, index) => (
+                  <tr key={readiness?.id || index}>
+                    {/* <th scope="row">{index + 1}</th> */}
+                    {/* <td>{readiness?.type}</td>
                   <td>{readiness?.category}</td>
                   <td>{readiness?.question}</td> */}
-                  <th scope="row">
-                    {(pageIndex?.meta?.current_page - 1) *
-                      pageIndex?.meta?.per_page +
-                      index +
-                      1}
-                  </th>
-                  <td
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(readiness?.type || "", searchVal),
-                    }}
-                  ></td>
-                  <td
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(
-                        readiness?.category || "",
-                        searchVal
-                      ),
-                    }}
-                  ></td>
-                  <td
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(
-                        readiness?.question || "",
-                        searchVal
-                      ),
-                    }}
-                  ></td>
-                  <td>
-                    <div className="users-crud d-flex">
-                      <EditQuestions
-                        data={type}
-                        category={category}
-                        question={readiness}
-                      />
-                      <ConfirmationModel
-                        type={"readiness"}
-                        readinessData={readiness}
-                        GetQuestions={GetQuestions}
-                      />
-                    </div>
+                    <th scope="row">
+                      {(pageIndex?.meta?.current_page - 1) *
+                        pageIndex?.meta?.per_page +
+                        index +
+                        1}
+                    </th>
+                    <td
+                      dangerouslySetInnerHTML={{
+                        __html: highlightText(readiness?.type || "", searchVal),
+                      }}
+                    ></td>
+                    <td
+                      dangerouslySetInnerHTML={{
+                        __html: highlightText(
+                          readiness?.category || "",
+                          searchVal
+                        ),
+                      }}
+                    ></td>
+                    <td
+                      dangerouslySetInnerHTML={{
+                        __html: highlightText(
+                          readiness?.question || "",
+                          searchVal
+                        ),
+                      }}
+                    ></td>
+                    <td>
+                      <div className="users-crud d-flex">
+                        <EditQuestions
+                          data={type}
+                          category={category}
+                          question={readiness}
+                        />
+                        <ConfirmationModel
+                          type={"readiness"}
+                          readinessData={readiness}
+                          GetQuestions={GetQuestions}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="8" className="text-center">
+                    No Users Available
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="8" className="text-center">
-                  No Users Available
-                </td>
-              </tr>
-            )}
+              )}
           </tbody>
         </table>
       </div>
