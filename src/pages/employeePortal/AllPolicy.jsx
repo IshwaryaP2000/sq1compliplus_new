@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getApi } from "../../api/apiClient";
+import { getApi } from "../../services/apiService";
 import { ucFirst } from "../../utils/UtilsGlobalData";
 import Searchbar from "../../components/Search/Searchbar";
 import {
