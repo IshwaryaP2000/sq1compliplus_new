@@ -27,6 +27,7 @@ export const domain = Yup.string()
 
 export const password = Yup.string()
   .min(8, "Password must be at least 8 characters")
+  .max(20, "Password must be below 20 characters")
   .required("Password is required");
 
 export const confirm_password = Yup.string()
