@@ -16,6 +16,7 @@ import {
   email,
   password,
 } from "../../../components/Validationschema/commonSchema";
+import { EyeIcon, EyeslashIcon } from "../../../components/Icons/Icons";
 
 const Login = () => {
   usePageTitle("Employee-Login");
@@ -174,11 +175,7 @@ const Login = () => {
                                 showPassword ? "Hide password" : "Show password"
                               }
                             >
-                              {showPassword ? (
-                                <i className="fa-solid fa-eye-slash text-secondary" />
-                              ) : (
-                                <i className="fa-solid fa-eye text-secondary" />
-                              )}
+                              {showPassword ? <EyeslashIcon /> : <EyeIcon />}
                             </button>
                           )}
 
