@@ -3,14 +3,14 @@ import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { getApi, postApi } from "../../api/apiClient";
-import { ucFirst } from "../../utils/UtilsGlobalData";
-import Pagination from "../../components/Pagination";
-import AssignUserModal from "../../models/AssignUsermodal";
-import EditRoleModal from "../../models/EditRoleModal";
-import { getCurrentUser } from "../../utils/UtilsGlobalData";
-import Searchbar from "../../components/Searchbar";
-import usePageTitle from "../includes/usePageTitle";
+import { getApi, postApi } from "../../../../services/apiService";
+import { ucFirst } from "../../../../utils/UtilsGlobalData";
+import Pagination from "../../../../components/Pagination/Pagination";
+import AssignUserModal from "../../../../components/Modal/AssignUsermodal";
+import EditRoleModal from "../../../../components/Modal/EditRoleModal";
+import { getCurrentUser } from "../../../../utils/UtilsGlobalData";
+import Searchbar from "../../../../components/Search/Searchbar";
+import usePageTitle from "../../../../utils/usePageTitle";
 import {
   PenToSquareIcon,
   PlusIcon,
@@ -21,7 +21,7 @@ import {
   fetchSearchResults,
   highlightText,
   LimitSelector,
-} from "../../components/useSearchAndSort";
+} from "../../../../components/Search/useSearchAndSort";
 
 const NewUser = () => {
   usePageTitle("Organization Users");
@@ -424,13 +424,12 @@ const NewUser = () => {
                   </td>
                   <td>
                     <span
-                      className={`badge badge-fixedwidth ${
-                        user.status === "active"
-                          ? " user-active"
-                          : user.status === "invited"
+                      className={`badge badge-fixedwidth ${user.status === "active"
+                        ? " user-active"
+                        : user.status === "invited"
                           ? " user-invit"
                           : "bg-secondary"
-                      }`}
+                        }`}
                     >
                       {ucFirst(user.status)}
                     </span>

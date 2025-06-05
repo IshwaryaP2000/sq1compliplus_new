@@ -45,6 +45,8 @@ import QuestionsImport from "../pages/Settings/Subpages/Compliances/QuestionsImp
 import SsoSetup from "../pages/Settings/Subpages/SSO/SsoSetup";
 import ReadinessAnswers from "../pages/Settings/Subpages/ComplianceReadiness/ReadinessAnswers";
 import ReadinessView from "../pages/settings/Subpages/readiness/ReadinessViewTable";
+import UserOrganization from "../pages/Settings/Subpages/User/UserOrganization";
+import NewUser from "../pages/Settings/Subpages/Organizations/OrganizationUsers";
 
 function MainRoutes() {
   const navigate = useNavigate();
@@ -99,6 +101,9 @@ function MainRoutes() {
             </RoleAccessMiddleware>
           }
         />
+        <Route path="/settings/user-organization/:id" element={<UserOrganization />} />
+        <Route path="/settings/organization/users/:id" element={<NewUser />} />
+
         <Route path="/settings/audit-logs" element={<AuditLogs />} />
         <Route path="/settings/activity-logs" element={<ActivityLogs />} />
         <Route
