@@ -79,7 +79,7 @@ const NewUser = () => {
       );
       setSelectedUserForRole(user); // Store the user whose role is being edited
       setSelectedRole(user.role); // Set the current role of the user being edited
-      setIsRoleModalOpen(true); // Open the modal
+      setIsRoleModalOpen(true);
     } catch (error) {
       console.error("Error fetching roles:", error);
     }

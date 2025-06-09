@@ -6,7 +6,6 @@ import { deleteApi } from "../../services/apiService";
 import { BanIcon, TrashIcon, TriangleExclamationIcon } from "../Icons/Icons";
 
 function OrganizationDelete({ dataId, title, data, fetchAllOrganizations }) {
-  //DELETE API
   const [showDelete, setShowDelete] = useState(false);
   const [idToDelete, setIdToDelete] = useState(null);
 

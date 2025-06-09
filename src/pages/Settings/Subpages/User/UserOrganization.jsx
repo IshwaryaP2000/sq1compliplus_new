@@ -10,7 +10,6 @@ import AssignOrganizationModel from "../../../../components/Modal/AssignOrganiza
 import { getCurrentUser, ucFirst } from "../../../../utils/UtilsGlobalData";
 import {
   createDebouncedSearch,
-  fetchSearchResults,
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
@@ -35,7 +34,6 @@ function UserOrganization() {
     try {
       setIsLoading(true);
       const response = await getApi(URI);
-
       setUserName(response.data.data.user_name);
       setData(response?.data?.data?.data);
       setFilteredUsers(response?.data?.data?.data);
@@ -81,31 +79,10 @@ function UserOrganization() {
     });
   };
 
-  // const debouncedFetchSearchResults = useCallback(
-  //   createDebouncedSearch((params) => {
-  //     fetchSearchResults(
-  //       "/user-organizations",
-  //       params,
-  //       setFilteredUsers,
-  //       setIsLoading,
-  //       setFilteredLength,
-  //       setPageIndex
-  //     );
-  //   }, 300),
-  //   []
-  // );
-
   const debouncedFetchSearchResults = useMemo(
     () =>
       createDebouncedSearch((params) => {
-        fetchSearchResults(
-          "/user-organizations",
-          params,
-          setFilteredUsers,
-          setIsLoading,
-          setFilteredLength,
-          setPageIndex
-        );
+        getUserOrg(params);
       }, 300),
     []
   );

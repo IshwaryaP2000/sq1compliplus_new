@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { postApi, getApi } from "../../services/apiService";
+import { role } from "../Validationschema/commonSchema";
 
 function AssignOrganizationModel({ userId, getUserOrg }) {
   const [show, setShow] = useState(false);
@@ -12,7 +13,7 @@ function AssignOrganizationModel({ userId, getUserOrg }) {
 
   const validationSchema = Yup.object({
     org_id: Yup.string().required("Organization is required"), 
-    role: Yup.string().required("Role is required"),
+    role: role
   });
 
   const handleAssign = async (values, { setSubmitting }) => {
