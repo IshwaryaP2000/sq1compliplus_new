@@ -7,6 +7,7 @@ import usePageTitle from "../../../utils/usePageTitle";
 import { logoPath } from "../../../utils/UtilsGlobalData";
 import { useAuthOrganization } from "../../../hooks/OrganizationUserProvider";
 import { confirm_password } from "../../../components/Validationschema/commonSchema";
+import Logo from "../../../components/Logo/Logo";
 
 const NewPassword = () => {
   usePageTitle("Change Password");
@@ -28,7 +29,7 @@ const NewPassword = () => {
     }),
     onSubmit: async (values, { resetForm, setErrors }) => {
       try {
-        setIsLoading(true); 
+        setIsLoading(true);
         const payload = {
           new_password: values.newPassword,
           confirm_new_password: values.confirmPassword,
@@ -59,11 +60,12 @@ const NewPassword = () => {
           <div className="col-lg-5 grid-content02 position-relative">
             <div className="card--position">
               <div className="text-center">
-                <img
+                {/* <img
                   src={logoPath()?.product_logo}
                   alt="logo"
                   className="logo-image-svg"
-                />
+                /> */}
+                <Logo />
               </div>
 
               <div className="card form-card02">
@@ -94,9 +96,9 @@ const NewPassword = () => {
                           type="password"
                           name="newPassword"
                           className={`form--input ${changePasswordFormik.touched.newPassword &&
-                              changePasswordFormik.errors.newPassword
-                              ? "input-error"
-                              : ""
+                            changePasswordFormik.errors.newPassword
+                            ? "input-error"
+                            : ""
                             }`}
                           onChange={changePasswordFormik.handleChange}
                           onBlur={changePasswordFormik.handleBlur}
@@ -117,9 +119,9 @@ const NewPassword = () => {
                           type="password"
                           name="confirmPassword"
                           className={`form--input ${changePasswordFormik.touched.confirmPassword &&
-                              changePasswordFormik.errors.confirmPassword
-                              ? "input-error"
-                              : ""
+                            changePasswordFormik.errors.confirmPassword
+                            ? "input-error"
+                            : ""
                             }`}
                           onChange={changePasswordFormik.handleChange}
                           onBlur={changePasswordFormik.handleBlur}

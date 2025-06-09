@@ -16,6 +16,7 @@ import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
 import { toast } from "react-toastify";
 import usePageTitle from "../../utils/usePageTitle";
 import { PoweroffIcon } from "../../components/Icons/Icons";
+import Logo from "../../components/Logo/Logo";
 
 const MFA = () => {
   usePageTitle("MFA-Verify");
@@ -162,11 +163,12 @@ const MFA = () => {
           <div className="col-lg-5 grid-content02 position-relative">
             <div className="card--position">
               <div className="text-center">
-                <img
+                {/* <img
                   src={logoPath()?.product_logo}
                   alt=" logo"
                   className="logo-image-svg"
-                />
+                /> */}
+                <Logo />
               </div>
 
               <div className="card form-card02">

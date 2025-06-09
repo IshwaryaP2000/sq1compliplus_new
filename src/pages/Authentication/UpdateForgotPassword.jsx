@@ -9,6 +9,7 @@ import {
   confirm_password,
   password,
 } from "../../components/Validationschema/commonSchema";
+import Logo from "../../components/Logo/Logo";
 
 const UpdateForgotPassword = () => {
   usePageTitle("Update Password");
@@ -57,11 +58,12 @@ const UpdateForgotPassword = () => {
           <div className="col-lg-5 grid-content02 position-relative">
             <div className="card--position">
               <div className="text-center">
-                <img
+                {/* <img
                   src={"../" + logoPath()?.product_logo}
                   alt=" logo"
                   className="logo-image-svg"
-                />
+                /> */}
+                <Logo />
               </div>
 
               <div className="card form-card02">
@@ -95,8 +97,8 @@ const UpdateForgotPassword = () => {
                         <input
                           type="password"
                           className={`form--input ${formik.touched.password && formik.errors.password
-                              ? "is-invalid"
-                              : ""
+                            ? "is-invalid"
+                            : ""
                             }`}
                           id="password"
                           name="password"
@@ -117,9 +119,9 @@ const UpdateForgotPassword = () => {
                         <input
                           type="password"
                           className={`form--input ${formik.touched.confirm_password &&
-                              formik.errors.confirm_password
-                              ? "is-invalid"
-                              : ""
+                            formik.errors.confirm_password
+                            ? "is-invalid"
+                            : ""
                             }`}
                           id="confirm_password"
                           name="confirm_password"
