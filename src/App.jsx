@@ -1,16 +1,18 @@
 import { BrowserRouter } from "react-router-dom";
 import MainRoutes from "./routes/MainRoutes";
-import OrganizationProvider from "./hooks/OrganizationUserProvider";
 import { ToastContainer } from "react-toastify";
+import OrganizationUserProvider from "./Hooks/OrganizationUserProvider";
+import EmployeePortalRoute from "./routes/EmployeePortalRoute";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <OrganizationProvider>
+        <OrganizationUserProvider>
           <ToastContainer />
           <MainRoutes />
-        </OrganizationProvider>
+          <EmployeePortalRoute />
+        </OrganizationUserProvider>
       </BrowserRouter>
     </>
   );

@@ -13,10 +13,8 @@ function AssignReadinessQuestionModal({ organization, complianceTypes }) {
   const [show, setShow] = useState(false);
   const [showNoQuestionsModal, setShowNoQuestionsModal] = useState(false);
   const navigate = useNavigate();
-
   const handleClose = () => setShow(false);
   const handleShow = () => {
-    // Check if at least one compliance type has questions
     const hasQuestions = complianceTypes.some(
       (type) => type.questions_count > 0
     );
@@ -55,7 +53,7 @@ function AssignReadinessQuestionModal({ organization, complianceTypes }) {
           className="btn btn-sm py-0 my-1 tableborder-right"
           onClick={handleShow}
         >
-         <TasksIcon/>
+          <TasksIcon />
         </button>
       </OverlayTrigger>
 

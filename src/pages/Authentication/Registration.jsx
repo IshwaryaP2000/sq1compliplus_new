@@ -9,8 +9,10 @@ import {
   setCurrentOrganization,
   setCurrentUser,
 } from "../../utils/UtilsGlobalData";
-import { useAuthOrganization } from "../../hooks/OrganizationUserProvider";
+import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
 import { EyeIcon, EyeslashIcon } from "../../components/Icons/Icons";
+import { registrationValidationSchema } from "../../components/Validationschema/registrationSchema";
+import Logo from "../../components/Logo/Logo";
 
 const Registration = () => {
   usePageTitle("Registration");
@@ -81,11 +83,12 @@ const Registration = () => {
         <div className="col-lg-5 grid-content02 position-relative">
           <div className="card--position">
             <div className="text-center">
-              <img
+              {/* <img
                 src={logoPath()?.product_logo}
                 alt="Stackflo Logo"
                 className="logo-image-svg"
-              />
+              /> */}
+              <Logo />
             </div>
             <div className="card form-card02">
               <p className="yourtTrust">
@@ -119,11 +122,10 @@ const Registration = () => {
                     <div className="input-wrap mb-4">
                       <input
                         type="text"
-                        className={`form--input ${
-                          formik.touched.name && formik.errors.name
+                        className={`form--input ${formik.touched.name && formik.errors.name
                             ? "is-invalid"
                             : ""
-                        }`}
+                          }`}
                         id="name"
                         name="name"
                         value={formik.values.name}
@@ -143,11 +145,10 @@ const Registration = () => {
                     <div className="input-wrap mb-4 position-relative">
                       <input
                         type={showPassword ? "text" : "password"}
-                        className={`form--input ${
-                          formik.touched.password && formik.errors.password
+                        className={`form--input ${formik.touched.password && formik.errors.password
                             ? "is-invalid"
                             : ""
-                        }`}
+                          }`}
                         id="password"
                         name="password"
                         value={formik.values.password}
@@ -167,9 +168,9 @@ const Registration = () => {
                           }
                         >
                           {showPassword ? (
-                           <EyeslashIcon/>
+                            <EyeslashIcon />
                           ) : (
-                            <EyeIcon/>
+                            <EyeIcon />
                           )}
                         </button>
                       )}
@@ -184,12 +185,11 @@ const Registration = () => {
                     <div className="input-wrap mb-4 position-relative">
                       <input
                         type={showConfirmPassword ? "text" : "password"}
-                        className={`form--input ${
-                          formik.touched.confirm_password &&
-                          formik.errors.confirm_password
+                        className={`form--input ${formik.touched.confirm_password &&
+                            formik.errors.confirm_password
                             ? "is-invalid"
                             : ""
-                        }`}
+                          }`}
                         id="confirm_password"
                         name="confirm_password"
                         value={formik.values.confirm_password}
@@ -213,9 +213,9 @@ const Registration = () => {
                           }
                         >
                           {showConfirmPassword ? (
-                            <EyeslashIcon/>
+                            <EyeslashIcon />
                           ) : (
-                            <EyeIcon/>
+                            <EyeIcon />
                           )}
                         </button>
                       )}

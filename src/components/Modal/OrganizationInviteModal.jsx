@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import ButtonWithLoader from "../Button/ButtonLoader";
 import { domain, email, name } from "../Validationschema/commonSchema";
+import { PlusIcon } from "../Icons/Icons";
 
 function OrganizationInviteModal({ data, fetchAllOrganizations }) {
   const [show, setShow] = useState(false);
@@ -48,7 +49,7 @@ function OrganizationInviteModal({ data, fetchAllOrganizations }) {
   return (
     <>
       <button onClick={handleShow} className="ms-2 primary-btn btn">
-        <i className="fa-solid fa-plus me-2"></i>
+        <PlusIcon/>
         Invite Organization
       </button>
 

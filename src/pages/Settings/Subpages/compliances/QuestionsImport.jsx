@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
-import apiClient from "../../api/apiClient";
-import usePageTitle from "../includes/usePageTitle";
+import apiClient from "../../../../services/apiService";
+import usePageTitle from "../../../../utils/usePageTitle";
 
 const ImportQuestions = () => {
   usePageTitle("Questions Import");
@@ -8,7 +8,7 @@ const ImportQuestions = () => {
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const fileInputRef = useRef(null); // Reference to the file input element
+  const fileInputRef = useRef(null);
 
   // Handle file selection
   const handleFileChange = (e) => {
@@ -23,7 +23,6 @@ const ImportQuestions = () => {
       setError("Please select a file to upload.");
       return;
     }
-
     setLoading(true);
     setError("");
     setUploadSuccess(false);
@@ -31,7 +30,6 @@ const ImportQuestions = () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-
       const response = await apiClient.post("/questions-import", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -50,8 +48,8 @@ const ImportQuestions = () => {
     } catch (error) {
       setError(
         error.response?.data?.data ||
-        error.response?.data?.message ||
-        "An error occurred during the upload."
+          error.response?.data?.message ||
+          "An error occurred during the upload."
       );
     } finally {
       setLoading(false);

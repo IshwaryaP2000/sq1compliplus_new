@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { postApi } from "../../services/apiService";
-import { useAuthOrganization } from "../../hooks/OrganizationUserProvider";
+import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
 import { getCurrentOrganization } from "../../utils/UtilsGlobalData";
 import ButtonWithLoader from "../Button/ButtonLoader";
 import { logo, shortName } from "../Validationschema/commonSchema";

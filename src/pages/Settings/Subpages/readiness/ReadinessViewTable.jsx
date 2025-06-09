@@ -1,21 +1,21 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useState, useEffect } from "react";
-import { getApi } from "../../../api/apiClient";
-import ConfirmationModel from "../../../models/UserConfirmationModal";
 import { Link } from "react-router-dom";
-import EditQuestions from "../../../models/EditQuestions";
-import Pagination from "../../../components/Pagination";
-import Searchbar from "../../../components/Searchbar";
-import { getCurrentUser, hasRole } from "../../../utils/UtilsGlobalData";
-// import { useCallback } from "react";
+import { getApi } from "../../../../services/apiService";
+import ConfirmationModel from "../../../../components/Modal/UserConfirmationModal";
+import EditQuestions from "../../../../components/Modal/EditQuestions";
+import Pagination from "../../../../components/Pagination/Pagination";
+import Searchbar from "../../../../components/Search/Searchbar";
+import { getCurrentUser, hasRole } from "../../../../utils/UtilsGlobalData";
 import {
   createDebouncedSearch,
   fetchSearchResults,
   highlightText,
   LimitSelector,
-} from "../../../components/useSearchAndSort";
+} from "../../../../components/Search/useSearchAndSort";
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
-import usePageTitle from "../../includes/usePageTitle";
+import usePageTitle from "../../../../utils/usePageTitle";
+import { PlusIcon } from "../../../../components/Icons/Icons";
 
 const ReadinessView = () => {
   usePageTitle("Readiness");
@@ -31,10 +31,10 @@ const ReadinessView = () => {
   const [limit, setLimit] = useState(10);
   const [pageIndex, setPageIndex] = useState([]);
   const [expandedDescriptions, setExpandedDescriptions] = useState({}); // Changed to match your previous state name
-
   const currentUser = getCurrentUser();
   const DESCRIPTION_MAX_LENGTH = 50; // Changed to 50 to match your previous code
   const COLUMN_WIDTH = "200px";
+  const isSuperAdmin = currentUser && hasRole(["sq1_super_admin"]);
 
   const GetQuestions = async (URI = "get-questions") => {
     try {
@@ -45,7 +45,7 @@ const ReadinessView = () => {
       setFilteredLength(response?.data?.data?.meta?.total);
       setPageIndex(response?.data?.data);
     } catch {
-      console.log("error getting a data");
+      console.error("error getting a data");
     } finally {
       setIsLoading(false);
     }
@@ -55,14 +55,14 @@ const ReadinessView = () => {
     try {
       const response = await getApi("compliance-types");
       setType(response?.data || []);
-    } catch (error) {}
+    } catch (error) { console.error("Error fetching types:", error); }
   };
 
   const GetCategory = async () => {
     try {
       const response = await getApi("compliance-category");
       setCategory(response?.data || []);
-    } catch (error) {}
+    } catch (error) { console.error("Error fetching categories:", error); }
   };
 
   useEffect(() => {
@@ -91,7 +91,6 @@ const ReadinessView = () => {
 
     setSortDirection(newSortDirection);
     setSortColumn(columnName);
-
     debouncedFetchSearchResults({
       search: searchVal,
       sort_by: columnName,
@@ -99,20 +98,6 @@ const ReadinessView = () => {
       limit: limit,
     });
   };
-
-  // const debouncedFetchSearchResults = useCallback(
-  //   createDebouncedSearch((params) => {
-  //     fetchSearchResults(
-  //       "/get-questions",
-  //       params,
-  //       setFilteredUsers,
-  //       setIsLoading,
-  //       setFilteredLength,
-  //       setPageIndex
-  //     );
-  //   }, 300),
-  //   []
-  // );
 
   const debouncedFetchSearchResults = useMemo(
     () =>
@@ -151,13 +136,11 @@ const ReadinessView = () => {
     }));
   };
 
-  const isSuperAdmin = currentUser && hasRole(["sq1_super_admin"]);
-
   return (
     <>
       <div className="d-flex justify-content-between mb-3 flex-wrap">
         <h5>
-          Readiness{" "}
+          Readiness
           {data?.meta?.total !== 0 ? (
             <span className="badge user-active text-white">
               {data?.meta?.total}
@@ -171,7 +154,7 @@ const ReadinessView = () => {
           {isSuperAdmin && (
             <Link to={"/settings/add-question"}>
               <button type="button" className="ms-2 btn primary-btn btn">
-                <i className="fa-solid fa-plus me-2"></i>
+                <PlusIcon />
                 Add questions
               </button>
             </Link>
@@ -312,32 +295,32 @@ const ReadinessView = () => {
                       dangerouslySetInnerHTML={{
                         __html: expandedDescriptions[readiness?.id || index]
                           ? highlightText(
+                            readiness?.description || "",
+                            searchVal
+                          )
+                          : truncateText(
+                            highlightText(
                               readiness?.description || "",
                               searchVal
-                            )
-                          : truncateText(
-                              highlightText(
-                                readiness?.description || "",
-                                searchVal
-                              ),
-                              DESCRIPTION_MAX_LENGTH
                             ),
+                            DESCRIPTION_MAX_LENGTH
+                          ),
                       }}
                     />
                     {readiness?.description?.length >
                       DESCRIPTION_MAX_LENGTH && (
-                      <button
-                        className="btn btn-link p-0 mt-1 text-decoration-none"
-                        onClick={() =>
-                          toggleDescription(readiness?.id || index)
-                        }
-                        style={{ fontSize: "0.8rem" }}
-                      >
-                        {expandedDescriptions[readiness?.id || index]
-                          ? "View Less"
-                          : "View More"}
-                      </button>
-                    )}
+                        <button
+                          className="btn btn-link p-0 mt-1 text-decoration-none"
+                          onClick={() =>
+                            toggleDescription(readiness?.id || index)
+                          }
+                          style={{ fontSize: "0.8rem" }}
+                        >
+                          {expandedDescriptions[readiness?.id || index]
+                            ? "View Less"
+                            : "View More"}
+                        </button>
+                      )}
                   </td>
                   <td>{readiness?.yes_score}</td>
                   <td>{readiness?.no_score}</td>

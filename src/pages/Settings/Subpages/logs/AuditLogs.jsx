@@ -12,8 +12,8 @@ import AuditLogModal from "../../../../components/Modal/AuditLogModal";
 import usePageTitle from "../../../../utils/usePageTitle";
 import moment from "moment/moment";
 import Pagination from "../../../../components/Pagination/Pagination";
-import usePreserveQueryParams from "../../../../hooks/UsePreserveQueryParams";
-import useQueryFilters from "../../../../hooks/UseQueryFilters";
+import usePreserveQueryParams from "../../../../Hooks/UsePreserveQueryParams";
+import useQueryFilters from "../../../../Hooks/UseQueryFilters";
 import {
   LimitSelector,
   createDebouncedSearch,
@@ -102,6 +102,7 @@ const AuditLogs = () => {
       SetOrganizations(selectOrganization);
     } catch (error) {
       setIsLoading(false);
+      console.error("Error fetching organizations:", error);
     } finally {
       setIsLoading(false);
     }

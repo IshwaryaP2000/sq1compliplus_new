@@ -2,6 +2,7 @@ import OrganizationInfo from "../../components/Organization/OrganizationInfo";
 import { getCurrentOrganization, logoPath } from "../../utils/UtilsGlobalData";
 import { useNavigate } from "react-router-dom";
 import usePageTitle from "../../utils/usePageTitle";
+import Logo from "../../components/Logo/Logo";
 
 const OrganizationInitialSetup = () => {
   usePageTitle("Setup Organization");
@@ -16,11 +17,12 @@ const OrganizationInitialSetup = () => {
           <div className="col-lg-5 grid-content02 position-relative">
             <div className="card--position">
               <div className="text-center">
-                <img
+                {/* <img
                   src={logoPath()?.product_logo}
                   alt="Stackflo Logo"
                   className="logo-image-svg"
-                />
+                /> */}
+                <Logo />
               </div>
               <div className="card form-card02">
                 <p className="yourtTrust">

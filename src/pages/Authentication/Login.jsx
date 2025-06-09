@@ -12,6 +12,7 @@ import "../../styles/Stackflo.css";
 import { useState } from "react";
 import { loginValidationSchema } from "../../components/Validationschema/loginSchema";
 import { EyeIcon, EyeslashIcon } from "../../components/Icons/Icons";
+import Logo from "../../components/Logo/Logo";
 
 const Login = () => {
   localStorage.setItem("portal", "");
@@ -58,11 +59,12 @@ const Login = () => {
           <div className="col-lg-5 grid-content02 position-relative">
             <div className="card--position">
               <div className="text-center">
-                <img
+                {/* <img
                   src={logoPath()?.product_logo}
                   alt=" logo"
                   className="logo-image-svg"
-                />
+                /> */}
+                <Logo />
               </div>
 
               <div className="card form-card02">
@@ -96,11 +98,10 @@ const Login = () => {
                             type="text"
                             id="email"
                             name="email"
-                            className={`form--input ${
-                              formik.touched.email && formik.errors.email
+                            className={`form--input ${formik.touched.email && formik.errors.email
                                 ? "is-invalid"
                                 : ""
-                            }`}
+                              }`}
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -118,11 +119,10 @@ const Login = () => {
                           <input
                             autoComplete="new-password"
                             type={showPassword ? "text" : "password"}
-                            className={`form--input ${
-                              formik.touched.password && formik.errors.password
+                            className={`form--input ${formik.touched.password && formik.errors.password
                                 ? "is-invalid"
                                 : ""
-                            }`}
+                              }`}
                             id="password"
                             name="password"
                             value={formik.values.password}

@@ -5,6 +5,7 @@ import Select from "react-select";
 import { Modal, Button } from "react-bootstrap";
 import usePageTitle from "../../../../utils/usePageTitle";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
+import { TriangleExclamationIcon } from "../../../../components/Icons/Icons";
 
 function AddQuestion() {
   usePageTitle("Readiness Questions");
@@ -91,7 +92,7 @@ function AddQuestion() {
         setUploadedQuestions(flatQuestions);
       }
     } catch (error) {
-      console.log("Error fetching uploaded questions:", error);
+      console.error("Error fetching uploaded questions:", error);
       toast.error("Error fetching uploaded questions");
     } finally {
       setIsLoading(false);
@@ -142,8 +143,8 @@ function AddQuestion() {
           field_type: fieldTypeMapping[sub.field_type] || sub.field_type || "",
           dropdown_options: sub.dropdown_options
             ? sub.dropdown_options.filter(
-                (opt) => opt !== "self" && opt !== "others"
-              )
+              (opt) => opt !== "self" && opt !== "others"
+            )
             : [],
           parent_id: parentId,
           displayOrder: displayOrder,
@@ -181,8 +182,8 @@ function AddQuestion() {
                   "",
                 dropdown_options: nestedSub.dropdown_options
                   ? nestedSub.dropdown_options.filter(
-                      (opt) => opt !== "self" && opt !== "others"
-                    )
+                    (opt) => opt !== "self" && opt !== "others"
+                  )
                   : [],
                 parent_id: subId,
                 displayOrder: `${displayOrder}.${nestedCounter}`,
@@ -250,7 +251,7 @@ function AddQuestion() {
         })) || []
       );
     } catch (error) {
-      console.log("Error fetching categories:", error);
+      console.error("Error fetching categories:", error);
     }
   };
 
@@ -274,7 +275,7 @@ function AddQuestion() {
         })) || [];
       setFieldTypes(formattedFieldTypes);
     } catch (error) {
-      console.log("Error fetching field types:", error);
+      console.error("Error fetching field types:", error);
     }
   };
 
@@ -288,7 +289,7 @@ function AddQuestion() {
         })) || []
       );
     } catch (error) {
-      console.log("Error fetching compliance types:", error);
+      console.error("Error fetching compliance types:", error);
     }
   };
 
@@ -309,7 +310,7 @@ function AddQuestion() {
       fetchUploadedQuestions();
       setIsValidated(false);
     } catch (error) {
-      console.log("Error while uploading questions:", error);
+      console.error("Error while uploading questions:", error);
     }
   };
 
@@ -351,7 +352,7 @@ function AddQuestion() {
       }
       fetchUploadedQuestions();
     } catch (error) {
-      console.log("Error deleting question:", error);
+      console.error("Error deleting question:", error);
       fetchUploadedQuestions();
     } finally {
       setIsLoading(false);
@@ -427,7 +428,7 @@ function AddQuestion() {
   }, []);
 
   useEffect(() => {
-    console.log("Uploaded questions updated:", uploadedQuestions);
+    console.error("Uploaded questions updated:", uploadedQuestions);
   }, [uploadedQuestions]);
 
   // Helper function to check if field type allows dropdown options
@@ -447,7 +448,7 @@ function AddQuestion() {
       } else {
         throw new Error("Invalid URL provided for downloading.");
       }
-    } catch (error) {}
+    } catch (error) { console.error("Error downloading sample file:", error); }
   };
 
   return (
@@ -515,129 +516,110 @@ function AddQuestion() {
                   <tbody>
                     {isLoading
                       ? Array.from({ length: 3 }).map((_, rowIndex) => (
-                          <tr key={rowIndex}>
-                            {Array.from({ length: 10 }).map((_, colIndex) => (
-                              <td key={colIndex}>
-                                <p className="placeholder-glow">
-                                  <span className="placeholder col-12 bg-secondary"></span>
-                                </p>
-                              </td>
-                            ))}
-                          </tr>
-                        ))
+                        <tr key={rowIndex}>
+                          {Array.from({ length: 10 }).map((_, colIndex) => (
+                            <td key={colIndex}>
+                              <p className="placeholder-glow">
+                                <span className="placeholder col-12 bg-secondary"></span>
+                              </p>
+                            </td>
+                          ))}
+                        </tr>
+                      ))
                       : uploadedQuestions.map((question, index) => (
-                          <tr key={question.id || index}>
-                            <td>{question.displayOrder}</td>
-                            <td
-                              style={{
-                                whiteSpace: "normal",
-                                wordBreak: "break-word",
-                                maxWidth: "150px",
-                              }}
-                            >
-                              {question.question_type}
-                            </td>
-                            <td>{question.header}</td>
-                            <td style={{ maxWidth: "200px" }}>
-                              {question.question_type === "Main" ? (
-                                <Select
-                                  options={complianceTypes}
-                                  value={complianceTypes.find(
-                                    (type) =>
-                                      type.value === question.compliance_type_id
-                                  )}
-                                  onChange={(selectedOption) =>
-                                    handleComplianceTypeChange(
-                                      selectedOption?.value || null,
-                                      index
-                                    )
-                                  }
-                                  isSearchable={false}
-                                  placeholder="Select..."
-                                  isDisabled={isLoading}
-                                />
-                              ) : (
-                                "-"
-                              )}
-                            </td>
-                            <td style={{ maxWidth: "150px" }}>
-                              {question.question_type === "Main" ? (
-                                <Select
-                                  options={categories}
-                                  value={categories.find(
-                                    (cat) =>
-                                      cat.value ===
-                                      question.compliance_category_id
-                                  )}
-                                  onChange={(selectedOption) =>
-                                    handleCategoryChange(
-                                      selectedOption?.value || null,
-                                      index
-                                    )
-                                  }
-                                  isSearchable={false}
-                                  placeholder="Select..."
-                                  isDisabled={isLoading}
-                                />
-                              ) : (
-                                "-"
-                              )}
-                            </td>
-                            <td>
-                              <input
-                                type="text"
-                                value={question.question || ""}
-                                onChange={(e) => handleQuestionChange(e, index)}
-                                className="form-control"
-                                style={{ width: "300px" }}
-                                disabled={isLoading}
-                              />
-                            </td>
-                            <td>
-                              <textarea
-                                value={question.description || ""}
-                                onChange={(e) =>
-                                  handleDescriptionChange(e, index)
-                                }
-                                className="form-control"
-                                rows="2"
-                                style={{ width: "250px", resize: "vertical" }}
-                                disabled={isLoading}
-                              />
-                            </td>
-                            <td
-                              className="add-question_field-type"
-                              style={{ maxWidth: "150px" }}
-                            >
-                              {question.question_type === "Sub" ? (
-                                question.field_type ===
-                                "radio with sub action" ? (
-                                  question.hasSubQuestions ? (
-                                    <input
-                                      type="text"
-                                      value="radio with sub action"
-                                      className="form-control"
-                                      disabled={true}
-                                    />
-                                  ) : (
-                                    <Select
-                                      options={fieldTypes}
-                                      value={fieldTypes.find(
-                                        (type) =>
-                                          type.value === question.field_type
-                                      )}
-                                      onChange={(selectedOption) =>
-                                        handleFieldTypeChange(
-                                          selectedOption?.value || null,
-                                          index
-                                        )
-                                      }
-                                      isSearchable={false}
-                                      placeholder="Select..."
-                                      isClearable={false}
-                                      isDisabled={isLoading}
-                                    />
+                        <tr key={question.id || index}>
+                          <td>{question.displayOrder}</td>
+                          <td
+                            style={{
+                              whiteSpace: "normal",
+                              wordBreak: "break-word",
+                              maxWidth: "150px",
+                            }}
+                          >
+                            {question.question_type}
+                          </td>
+                          <td>{question.header}</td>
+                          <td style={{ maxWidth: "200px" }}>
+                            {question.question_type === "Main" ? (
+                              <Select
+                                options={complianceTypes}
+                                value={complianceTypes.find(
+                                  (type) =>
+                                    type.value === question.compliance_type_id
+                                )}
+                                onChange={(selectedOption) =>
+                                  handleComplianceTypeChange(
+                                    selectedOption?.value || null,
+                                    index
                                   )
+                                }
+                                isSearchable={false}
+                                placeholder="Select..."
+                                isDisabled={isLoading}
+                              />
+                            ) : (
+                              "-"
+                            )}
+                          </td>
+                          <td style={{ maxWidth: "150px" }}>
+                            {question.question_type === "Main" ? (
+                              <Select
+                                options={categories}
+                                value={categories.find(
+                                  (cat) =>
+                                    cat.value ===
+                                    question.compliance_category_id
+                                )}
+                                onChange={(selectedOption) =>
+                                  handleCategoryChange(
+                                    selectedOption?.value || null,
+                                    index
+                                  )
+                                }
+                                isSearchable={false}
+                                placeholder="Select..."
+                                isDisabled={isLoading}
+                              />
+                            ) : (
+                              "-"
+                            )}
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              value={question.question || ""}
+                              onChange={(e) => handleQuestionChange(e, index)}
+                              className="form-control"
+                              style={{ width: "300px" }}
+                              disabled={isLoading}
+                            />
+                          </td>
+                          <td>
+                            <textarea
+                              value={question.description || ""}
+                              onChange={(e) =>
+                                handleDescriptionChange(e, index)
+                              }
+                              className="form-control"
+                              rows="2"
+                              style={{ width: "250px", resize: "vertical" }}
+                              disabled={isLoading}
+                            />
+                          </td>
+                          <td
+                            className="add-question_field-type"
+                            style={{ maxWidth: "150px" }}
+                          >
+                            {question.question_type === "Sub" ? (
+                              question.field_type ===
+                                "radio with sub action" ? (
+                                question.hasSubQuestions ? (
+                                  <input
+                                    type="text"
+                                    value="radio with sub action"
+                                    className="form-control"
+                                    disabled={true}
+                                  />
                                 ) : (
                                   <Select
                                     options={fieldTypes}
@@ -658,43 +640,62 @@ function AddQuestion() {
                                   />
                                 )
                               ) : (
-                                "-"
-                              )}
-                            </td>
-                            <td>
-                              {question.question_type === "Sub" &&
-                              isDropdownFieldType(question.field_type) ? (
-                                <textarea
-                                  value={
-                                    question.dropdown_options?.length > 0
-                                      ? question.dropdown_options.join(", ")
-                                      : ""
+                                <Select
+                                  options={fieldTypes}
+                                  value={fieldTypes.find(
+                                    (type) =>
+                                      type.value === question.field_type
+                                  )}
+                                  onChange={(selectedOption) =>
+                                    handleFieldTypeChange(
+                                      selectedOption?.value || null,
+                                      index
+                                    )
                                   }
-                                  onChange={(e) =>
-                                    handleDropdownOptionsChange(e, index)
-                                  }
-                                  className="form-control"
-                                  rows="2"
-                                  style={{ width: "250px", resize: "vertical" }}
-                                  placeholder="-"
-                                  disabled={isLoading}
+                                  isSearchable={false}
+                                  placeholder="Select..."
+                                  isClearable={false}
+                                  isDisabled={isLoading}
                                 />
-                              ) : (
-                                "-"
-                              )}
-                            </td>
-                            <td>
-                              <button
-                                type="button"
-                                className="btn btn-sm btn-danger"
-                                onClick={() => handleDelete(question.id)}
+                              )
+                            ) : (
+                              "-"
+                            )}
+                          </td>
+                          <td>
+                            {question.question_type === "Sub" &&
+                              isDropdownFieldType(question.field_type) ? (
+                              <textarea
+                                value={
+                                  question.dropdown_options?.length > 0
+                                    ? question.dropdown_options.join(", ")
+                                    : ""
+                                }
+                                onChange={(e) =>
+                                  handleDropdownOptionsChange(e, index)
+                                }
+                                className="form-control"
+                                rows="2"
+                                style={{ width: "250px", resize: "vertical" }}
+                                placeholder="-"
                                 disabled={isLoading}
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
+                              />
+                            ) : (
+                              "-"
+                            )}
+                          </td>
+                          <td>
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-danger"
+                              onClick={() => handleDelete(question.id)}
+                              disabled={isLoading}
+                            >
+                              <i className="fa-solid fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
                 <div className="d-flex justify-content-center mt-3">
@@ -719,7 +720,7 @@ function AddQuestion() {
           <div className="text-center">
             <div className="mb-3">
               <div className="warning-icon-wrapper">
-                <i className="fa-solid text-danger fa-triangle-exclamation"></i>
+                <TriangleExclamationIcon />
               </div>
             </div>
             <h5 className="fw-bold mb-2 text-muted">Delete Question</h5>

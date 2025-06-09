@@ -1,5 +1,5 @@
 import Logout from "../pages/Authentication/Logout";
-import { useAuthOrganization } from "../hooks/OrganizationUserProvider";
+import { useAuthOrganization } from "../Hooks/OrganizationUserProvider";
 import ListAllOrganizations from "../components/Organization/ListAllOrganizations";
 import { useState, useEffect, useRef } from "react";
 import {
@@ -21,8 +21,6 @@ const Navbar = () => {
   const [showOrganizations, setShowOrganizations] = useState(false);
   const [fetchError, setFetchError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [newMessage, setNewMessage] = useState("");
-  const [messages, setMessages] = useState([]);
   const containerRef = useRef(null);
   const dropdownRef = useRef(null);
 
@@ -39,8 +37,6 @@ const Navbar = () => {
       if (domain === data?.domain_name) {
         toast.warning(data.message);
       }
-      setNewMessage(data.message);
-      setMessages((prevMessages) => [...prevMessages, data.message]);
     });
     return () => {
       pusher.unsubscribe("notifications");

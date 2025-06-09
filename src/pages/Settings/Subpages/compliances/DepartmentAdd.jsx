@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
 import * as Yup from "yup";
-import { getApi, postApi } from "../../api/apiClient";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import usePageTitle from "../includes/usePageTitle";
+import { toast } from "react-toastify";
+import { getApi, postApi } from "../../../../services/apiService";
+import usePageTitle from "../../../../utils/usePageTitle";
+import {
+  departmentName,
+  toolValidation,
+} from "../../../../components/Validationschema/commonSchema";
 
 const DepartmentsPage = () => {
   usePageTitle("Departments and Tools");
@@ -48,7 +52,6 @@ const DepartmentsPage = () => {
       tool.name.toLowerCase().startsWith(inputValue.toLowerCase())
     );
     setFilteredTools(matches);
-
     if (matches.length === 0 && inputValue.trim() !== "") {
       setIsNewToolMode(true);
     } else {
@@ -66,8 +69,6 @@ const DepartmentsPage = () => {
       const errorMessage =
         error.response?.data?.message || "Something went wrong!";
       actions.setErrors(apiErrors);
-
-      // Show error in toaster
       toast.error(errorMessage);
     }
   };
@@ -88,23 +89,15 @@ const DepartmentsPage = () => {
       const errorMessage =
         error.response?.data?.message || "Something went wrong!";
       actions.setErrors(apiErrors);
-
-      // Show error in toaster
       toast.error(errorMessage);
     }
   };
 
-  // Validation schema for Formik
   const departmentValidationSchema = Yup.object().shape({
-    departmentName: Yup.string().required("Please enter the department name"),
+    departmentName: departmentName,
   });
 
-  const toolValidationSchema = Yup.object().shape({
-    // toolName: Yup.string().required("Tool name is required"),
-    credentials: Yup.array()
-      .of(Yup.string().required("Credential cannot be empty"))
-      .min(1, "At least one credential is required"),
-  });
+  const toolValidationSchema = toolValidation;
 
   return (
     <div className="container my-4">
@@ -137,8 +130,9 @@ const DepartmentsPage = () => {
                       name="departmentName"
                       type="text"
                       maxLength="20"
-                      className={`form-control ${errors.departmentName ? "is-invalid" : ""
-                        }`}
+                      className={`form-control ${
+                        errors.departmentName ? "is-invalid" : ""
+                      }`}
                     />
                     {errors.departmentName && (
                       <div className="invalid-feedback">
@@ -203,8 +197,9 @@ const DepartmentsPage = () => {
                       id="toolName"
                       name="toolName"
                       type="text"
-                      className={`form-control ${errors.toolName && touched.toolName ? "is-invalid" : ""
-                        }`}
+                      className={`form-control ${
+                        errors.toolName && touched.toolName ? "is-invalid" : ""
+                      }`}
                       placeholder="Type tool name"
                       onChange={(e) => {
                         handleChange(e);
@@ -247,13 +242,14 @@ const DepartmentsPage = () => {
                               <Field
                                 name={`credentials[${index}]`}
                                 type="text"
-                                className={`form-control ${errors.credentials &&
+                                className={`form-control ${
+                                  errors.credentials &&
                                   errors.credentials[index] &&
                                   touched.credentials &&
                                   touched.credentials[index]
-                                  ? "is-invalid"
-                                  : ""
-                                  }`}
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
                                 placeholder={`Credential Key ${index + 1}`}
                               />
                               {errors.credentials &&

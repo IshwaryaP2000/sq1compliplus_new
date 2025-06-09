@@ -37,7 +37,7 @@ function UserEditModel({ data, fetchAllUser, userRolesGet }) {
     });
   };
 
-  const editUser = async (values, { resetForm, setErrors }) => {
+  const editUser = async (values, { setErrors }) => {
     try {
       setIsLoading(true);
       const payload = {

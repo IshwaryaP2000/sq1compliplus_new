@@ -6,6 +6,7 @@ import usePageTitle from "../../utils/usePageTitle";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Accordion from "react-bootstrap/Accordion";
 import { end } from "@popperjs/core";
+import Logo from "../../components/Logo/Logo";
 
 const MFAQr = () => {
   usePageTitle("MFA QR");
@@ -42,11 +43,12 @@ const MFAQr = () => {
           <div className="col-lg-5 grid-content02 position-relative">
             <div className="card--position">
               <div className="text-center">
-                <img
+                {/* <img
                   src={logoPath()?.product_logo}
                   alt=" logo"
                   className="logo-image-svg"
-                />
+                /> */}
+                <Logo />
               </div>
 
               <div className="card form-card02">

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getApi } from "../../../../services/apiService";
 import ConfirmationModel from "../../../../components/Modal/UserConfirmationModal";
 import { Link } from "react-router-dom";
+import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 import EditQuestions from "../../../../components/Modal/EditQuestions";
 import Pagination from "../../../../components/Pagination/Pagination";
 import Searchbar from "../../../../components/Search/Searchbar";
@@ -12,8 +13,8 @@ import {
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
-import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 import usePageTitle from "../../../../utils/usePageTitle";
+import { PlusIcon } from "../../../../components/Icons/Icons";
 
 const Controls = () => {
   usePageTitle("Controls");
@@ -38,7 +39,7 @@ const Controls = () => {
       setFilteredLength(response?.data?.data?.meta?.total);
       setPageIndex(response?.data?.data);
     } catch {
-      console.log("error getting a data");
+      console.error("error getting a data");
     } finally {
       setIsLoading(false);
     }
@@ -103,14 +104,14 @@ const Controls = () => {
     try {
       const response = await getApi("compliance-types");
       setType(response?.data || []);
-    } catch {}
+    } catch (error) { console.error("error getting types", error); }
   };
 
   const GetCategory = async () => {
     try {
       const response = await getApi("compliance-category");
       setCategory(response?.data || []);
-    } catch {}
+    } catch (error) { console.error("error getting category", error); }
   };
 
   useEffect(() => {
@@ -134,7 +135,7 @@ const Controls = () => {
           <Searchbar onSearch={handleSearch} placeHolder={"Search"} />
           <Link to={"/settings/add-question"}>
             <button type="button" className="btn primary-btn ms-2">
-              <i className="fa-solid fa-plus me-2"></i>
+              <PlusIcon />
               Add Controls
             </button>
           </Link>
@@ -225,64 +226,64 @@ const Controls = () => {
                 </tr>
               ))
             ) : // data?.data?.length > 0 ? (
-            //   data?.data?.map((readiness, index) => (
-            filteredUsers?.length > 0 ? (
-              filteredUsers?.map((readiness, index) => (
-                <tr key={readiness?.id || index}>
-                  {/* <th scope="row">{index + 1}</th> */}
-                  {/* <td>{readiness?.type}</td>
+              //   data?.data?.map((readiness, index) => (
+              filteredUsers?.length > 0 ? (
+                filteredUsers?.map((readiness, index) => (
+                  <tr key={readiness?.id || index}>
+                    {/* <th scope="row">{index + 1}</th> */}
+                    {/* <td>{readiness?.type}</td>
                   <td>{readiness?.category}</td>
                   <td>{readiness?.question}</td> */}
-                  <th scope="row">
-                    {(pageIndex?.meta?.current_page - 1) *
-                      pageIndex?.meta?.per_page +
-                      index +
-                      1}
-                  </th>
-                  <td
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(readiness?.type || "", searchVal),
-                    }}
-                  ></td>
-                  <td
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(
-                        readiness?.category || "",
-                        searchVal
-                      ),
-                    }}
-                  ></td>
-                  <td
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(
-                        readiness?.question || "",
-                        searchVal
-                      ),
-                    }}
-                  ></td>
-                  <td>
-                    <div className="users-crud d-flex">
-                      <EditQuestions
-                        data={type}
-                        category={category}
-                        question={readiness}
-                      />
-                      <ConfirmationModel
-                        type={"readiness"}
-                        readinessData={readiness}
-                        GetQuestions={GetQuestions}
-                      />
-                    </div>
+                    <th scope="row">
+                      {(pageIndex?.meta?.current_page - 1) *
+                        pageIndex?.meta?.per_page +
+                        index +
+                        1}
+                    </th>
+                    <td
+                      dangerouslySetInnerHTML={{
+                        __html: highlightText(readiness?.type || "", searchVal),
+                      }}
+                    ></td>
+                    <td
+                      dangerouslySetInnerHTML={{
+                        __html: highlightText(
+                          readiness?.category || "",
+                          searchVal
+                        ),
+                      }}
+                    ></td>
+                    <td
+                      dangerouslySetInnerHTML={{
+                        __html: highlightText(
+                          readiness?.question || "",
+                          searchVal
+                        ),
+                      }}
+                    ></td>
+                    <td>
+                      <div className="users-crud d-flex">
+                        <EditQuestions
+                          data={type}
+                          category={category}
+                          question={readiness}
+                        />
+                        <ConfirmationModel
+                          type={"readiness"}
+                          readinessData={readiness}
+                          GetQuestions={GetQuestions}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="8" className="text-center">
+                    No Users Available
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="8" className="text-center">
-                  No Users Available
-                </td>
-              </tr>
-            )}
+              )}
           </tbody>
         </table>
       </div>

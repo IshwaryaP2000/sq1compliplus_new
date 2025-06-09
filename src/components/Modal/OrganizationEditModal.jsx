@@ -36,7 +36,7 @@ function OrganizationEditModal({ organization, fetchAllOrganizations }) {
     });
   };
 
-  const editOrganization = async (values, { setErrors }) => {
+  const editOrganization = async (values) => {
     try {
       setIsLoading(true);
       await postApi("organization-update", {
@@ -80,7 +80,7 @@ function OrganizationEditModal({ organization, fetchAllOrganizations }) {
             onSubmit={editOrganization}
             enableReinitialize={true}
           >
-            {({ isSubmitting, setFieldValue, values }) => (
+            {({ isSubmitting, values }) => (
               <Form>
                 <div className="modal-body">
                   <div className="mb-3">

@@ -5,6 +5,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { postApi } from "../../services/apiService";
+import { PenToSquareIcon } from "../Icons/Icons";
 
 const validationSchema = Yup.object({
   question: Yup.string().required("Question is required"),
@@ -90,7 +91,7 @@ function EditQuestions({ data, category, question, GetQuestions }) {
           className="btn btn-sm py-0 my-1 tableborder-right"
           onClick={handleShow}
         >
-          <i className="fa-regular fa-pen-to-square"></i>
+          <PenToSquareIcon />
         </button>
       </OverlayTrigger>
 
@@ -116,7 +117,7 @@ function EditQuestions({ data, category, question, GetQuestions }) {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({ setFieldValue, values, touched, errors }) => (
+            {({ values, touched, errors }) => (
               <Form>
                 <div className="form-group">
                   <label htmlFor="complianceType" className="mb-2">
@@ -172,9 +173,8 @@ function EditQuestions({ data, category, question, GetQuestions }) {
                     id="question"
                     name="question"
                     type="text"
-                    className={`form-control ${
-                      errors.question && touched.question ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${errors.question && touched.question ? "is-invalid" : ""
+                      }`}
                   />
                   <ErrorMessage
                     name="question"
@@ -203,9 +203,8 @@ function EditQuestions({ data, category, question, GetQuestions }) {
                     id="yes_score"
                     name="yes_score"
                     type="number"
-                    className={`form-control ${
-                      errors.yes_score && touched.yes_score ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${errors.yes_score && touched.yes_score ? "is-invalid" : ""
+                      }`}
                   />
                   <ErrorMessage
                     name="yes_score"
@@ -222,9 +221,8 @@ function EditQuestions({ data, category, question, GetQuestions }) {
                     id="no_score"
                     name="no_score"
                     type="number"
-                    className={`form-control ${
-                      errors.no_score && touched.no_score ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${errors.no_score && touched.no_score ? "is-invalid" : ""
+                      }`}
                   />
                   <ErrorMessage
                     name="no_score"

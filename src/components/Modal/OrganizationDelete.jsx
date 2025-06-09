@@ -6,7 +6,6 @@ import { deleteApi } from "../../services/apiService";
 import { BanIcon, TrashIcon, TriangleExclamationIcon } from "../Icons/Icons";
 
 function OrganizationDelete({ dataId, title, data, fetchAllOrganizations }) {
-  //DELETE API
   const [showDelete, setShowDelete] = useState(false);
   const [idToDelete, setIdToDelete] = useState(null);
 
@@ -26,7 +25,7 @@ function OrganizationDelete({ dataId, title, data, fetchAllOrganizations }) {
       await deleteApi(`/organization-delete/${idToDelete}`);
       fetchAllOrganizations();
       handleCloseDelete();
-    } catch (error) {}
+    } catch (error) { console.error("Error deleting organization:", error); }
   };
 
   return (
@@ -55,7 +54,7 @@ function OrganizationDelete({ dataId, title, data, fetchAllOrganizations }) {
           <div className="text-center">
             <div className="mb-3">
               <div className="warning-icon-wrapper">
-                <TriangleExclamationIcon/>
+                <TriangleExclamationIcon />
               </div>
             </div>
             <h5 className="fw-bold mb-2 text-muted">Delete {title}</h5>
