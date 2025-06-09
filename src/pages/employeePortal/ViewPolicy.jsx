@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getApi, postApi } from "../../services/apiService";
 
 const ViewPolicy = () => {
-  const { id: policyId } = useParams(); // Get the policy ID from the route
+  const { id: policyId } = useParams(); 
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false);
