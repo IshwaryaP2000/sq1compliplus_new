@@ -515,17 +515,20 @@ function AddQuestion() {
                   </thead>
                   <tbody>
                     {isLoading
-                      ? Array.from({ length: 3 }).map((_, rowIndex) => (
-                        <tr key={rowIndex}>
-                          {Array.from({ length: 10 }).map((_, colIndex) => (
-                            <td key={colIndex}>
-                              <p className="placeholder-glow">
-                                <span className="placeholder col-12 bg-secondary"></span>
-                              </p>
-                            </td>
-                          ))}
-                        </tr>
-                      ))
+                      ?
+                      // Array.from({ length: 3 }).map((_, rowIndex) => (
+                      //   <tr key={rowIndex}>
+                      //     {Array.from({ length: 10 }).map((_, colIndex) => (
+                      //       <td key={colIndex}>
+                      //         <p className="placeholder-glow">
+                      //           <span className="placeholder col-12 bg-secondary"></span>
+                      //         </p>
+                      //       </td>
+                      //     ))}
+                      //   </tr>
+                      // )
+                      (<Loader rows={3} cols={10} />
+                      )
                       : uploadedQuestions.map((question, index) => (
                         <tr key={question.id || index}>
                           <td>{question.displayOrder}</td>

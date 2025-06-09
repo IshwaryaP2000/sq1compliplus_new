@@ -29,7 +29,7 @@ function OrganizationMfaUnlockModal({ data, organizationId }) {
               className="btn btn-sm py-1 mt-1 tableborder-right"
               onClick={handleShow}
             >
-              <QrcodeIcon/>
+              <QrcodeIcon />
             </button>
           </span>
         </OverlayTrigger>
@@ -39,7 +39,7 @@ function OrganizationMfaUnlockModal({ data, organizationId }) {
         >
           <span className="d-inline-block tableborder-right">
             <button className="btn btn-sm  py-1 mt-1 border-0 " disabled>
-              <BanIcon/>
+              <BanIcon />
             </button>
           </span>
         </OverlayTrigger>

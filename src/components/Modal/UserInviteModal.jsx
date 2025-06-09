@@ -122,8 +122,8 @@ function UserInviteModel({ data, fetchAllUser }) {
                   // <div className="stackflo-loadert " role="status">
                   //   <span className="custom-loader "></span>
                   // </div>
-                  <Spinner/>
-                  
+                  <Spinner />
+
                 ) : (
                   <button
                     type="submit"

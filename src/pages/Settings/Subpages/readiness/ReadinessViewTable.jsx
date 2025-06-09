@@ -241,17 +241,18 @@ const ReadinessView = () => {
           </thead>
           <tbody className="tablescrolling-tbody">
             {isLoading ? (
-              Array.from({ length: 8 }).map((_, rowIndex) => (
-                <tr key={rowIndex}>
-                  {Array.from({ length: 8 }).map((_, colIndex) => (
-                    <td key={colIndex}>
-                      <p className="placeholder-glow">
-                        <span className="placeholder col-12 bg-secondary"></span>
-                      </p>
-                    </td>
-                  ))}
-                </tr>
-              ))
+              // Array.from({ length: 8 }).map((_, rowIndex) => (
+              //   <tr key={rowIndex}>
+              //     {Array.from({ length: 8 }).map((_, colIndex) => (
+              //       <td key={colIndex}>
+              //         <p className="placeholder-glow">
+              //           <span className="placeholder col-12 bg-secondary"></span>
+              //         </p>
+              //       </td>
+              //     ))}
+              //   </tr>
+              // ))
+              <Loader rows={8} cols={8} />
             ) : filteredUsers?.length > 0 ? (
               filteredUsers?.map((readiness, index) => (
                 <tr key={readiness?.id || index}>

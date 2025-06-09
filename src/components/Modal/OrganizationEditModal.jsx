@@ -59,7 +59,7 @@ function OrganizationEditModal({ organization, fetchAllOrganizations }) {
           className="btn btn-sm py-0 my-1 tableborder-right"
           onClick={handleShow}
         >
-          <PenToSquareIcon/>
+          <PenToSquareIcon />
         </button>
       </OverlayTrigger>
 

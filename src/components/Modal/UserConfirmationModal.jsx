@@ -50,7 +50,6 @@ function ConfirmationModel({
     try {
       const payload = {
         question_id: readinessData?.id,
-
         type: "main",
       };
       await postApi("delete-question", payload);

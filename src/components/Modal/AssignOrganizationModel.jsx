@@ -34,7 +34,6 @@ function AssignOrganizationModel({ userId, getUserOrg }) {
     }
   };
 
-  // Function to fetch organizations
   const getOrg = async () => {
     try {
       const response = await getApi("user-organizations-list");

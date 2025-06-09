@@ -1,6 +1,6 @@
 import { getApi } from "../../services/apiService";
 import debounce from "lodash.debounce";
-import  { useState } from "react";
+import { useState } from "react";
 
 export const fetchSearchResults = async (
   endpoint,
@@ -73,12 +73,12 @@ export const LimitSelector = ({ onLimitChange, filteredLength }) => {
     filteredLength > 40
       ? allLimits
       : filteredLength > 30
-      ? allLimits.slice(0, 4)
-      : filteredLength > 20
-      ? allLimits.slice(0, 3)
-      : filteredLength > 10
-      ? allLimits.slice(0, 2)
-      : [];
+        ? allLimits.slice(0, 4)
+        : filteredLength > 20
+          ? allLimits.slice(0, 3)
+          : filteredLength > 10
+            ? allLimits.slice(0, 2)
+            : [];
 
   return limits?.length ? (
     <div>

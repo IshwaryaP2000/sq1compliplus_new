@@ -47,7 +47,7 @@ function UserEditModel({ data, fetchAllUser, userRolesGet }) {
       };
       await postApi("user-update", payload); // API call to update the user
       handleClose();
-      fetchAllUser(); 
+      fetchAllUser();
     } catch (err) {
       if (err.response?.data?.errors) {
         setErrors(err.response?.data?.errors);

@@ -195,28 +195,22 @@ function UserOrganization() {
           </thead>
           <tbody className="tablescrolling-tbody">
             {isLoading ? (
-              Array.from({ length: 7 }).map((_, rowIndex) => (
-                <tr key={rowIndex}>
-                  {Array.from({ length: 5 }).map((_, colIndex) => (
-                    <td key={colIndex}>
-                      <p className="placeholder-glow">
-                        <span className="placeholder col-12 bg-secondary"></span>
-                      </p>
-                    </td>
-                  ))}
-                </tr>
-              ))
-            ) : // data.length > 0 ? (
-              //   data.map((org, index) => (
+              // Array.from({ length: 7 }).map((_, rowIndex) => (
+              //   <tr key={rowIndex}>
+              //     {Array.from({ length: 5 }).map((_, colIndex) => (
+              //       <td key={colIndex}>
+              //         <p className="placeholder-glow">
+              //           <span className="placeholder col-12 bg-secondary"></span>
+              //         </p>
+              //       </td>
+              //     ))}
+              //   </tr>
+              // ))
+              <Loader rows={7} cols={5} />
+            ) :
               filteredUsers?.length > 0 ? (
                 filteredUsers?.map((org, index) => (
                   <tr key={index}>
-                    {/* <th scope="row">{index + 1}</th> */}
-                    {/* <td>{org.name}</td>
-                  <td>{org.email}</td>
-                  <td className="Capitalize text-center">
-                    {ucFirst(org.role.replace(/_/g, " ")) || ""}
-                  </td> */}
                     <th scope="row">
                       {(pageIndex?.meta?.current_page - 1) *
                         pageIndex?.meta?.per_page +
@@ -263,11 +257,7 @@ function UserOrganization() {
           </tbody>
         </table>
       </div>
-      {/* <Pagination
-        dataFetchFunction={getUserOrg}
-        dataPaginationLinks={userOrg?.meta}
-        id={userId}
-      /> */}
+
       <div className="d-flex flex-row bd-highlight mb-3 ">
         <div className=" bd-highlight pagennation-list">
           <LimitSelector
@@ -278,7 +268,6 @@ function UserOrganization() {
         <div className="p-2 bd-highlight w-100">
           <Pagination
             dataFetchFunction={getUserOrg}
-            // dataPaginationLinks={userOrg?.meta}
             filteredLength={filteredLength}
             id={userId}
             dataPaginationLinks={pageIndex?.meta}

@@ -214,26 +214,22 @@ const Controls = () => {
           </thead>
           <tbody className="tablescrolling-tbody">
             {isLoading ? (
-              Array.from({ length: 7 }).map((_, rowIndex) => (
-                <tr key={rowIndex}>
-                  {Array.from({ length: 5 }).map((_, colIndex) => (
-                    <td key={colIndex}>
-                      <p className="placeholder-glow">
-                        <span className="placeholder col-12 bg-secondary"></span>
-                      </p>
-                    </td>
-                  ))}
-                </tr>
-              ))
-            ) : // data?.data?.length > 0 ? (
-              //   data?.data?.map((readiness, index) => (
+              // Array.from({ length: 7 }).map((_, rowIndex) => (
+              //   <tr key={rowIndex}>
+              //     {Array.from({ length: 5 }).map((_, colIndex) => (
+              //       <td key={colIndex}>
+              //         <p className="placeholder-glow">
+              //           <span className="placeholder col-12 bg-secondary"></span>
+              //         </p>
+              //       </td>
+              //     ))}
+              //   </tr>
+              // ))
+              <Loader rows={7} cols={5} />
+            ) :
               filteredUsers?.length > 0 ? (
                 filteredUsers?.map((readiness, index) => (
                   <tr key={readiness?.id || index}>
-                    {/* <th scope="row">{index + 1}</th> */}
-                    {/* <td>{readiness?.type}</td>
-                  <td>{readiness?.category}</td>
-                  <td>{readiness?.question}</td> */}
                     <th scope="row">
                       {(pageIndex?.meta?.current_page - 1) *
                         pageIndex?.meta?.per_page +
@@ -287,12 +283,7 @@ const Controls = () => {
           </tbody>
         </table>
       </div>
-      {/* <div className="float-end me-5 pe-3">
-        <Pagination
-          dataFetchFunction={GetQuestions}
-          dataPaginationLinks={data?.meta}
-        />
-      </div> */}
+
       <div className="d-flex flex-row bd-highlight mb-3 ">
         <div className=" bd-highlight pagennation-list">
           <LimitSelector
@@ -303,7 +294,6 @@ const Controls = () => {
         <div className="p-2 bd-highlight w-100">
           <Pagination
             dataFetchFunction={GetQuestions}
-            // dataPaginationLinks={data?.meta}
             dataPaginationLinks={pageIndex?.meta}
             filteredLength={filteredLength}
             search={searchVal}

@@ -34,6 +34,10 @@ const User = () => {
   const [pageIndex, setPageIndex] = useState([]);
   const currentUser = getCurrentUser();
   const authuser = JSON.parse(localStorage.getItem("authUser"));
+  const canInviteUser = !["sq1_user", "user"].includes(currentUser?.user_role);
+  const canAccessOrganizations = ["sq1_super_admin", "sq1_admin"].includes(
+    currentUser?.user_role
+  );
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -77,10 +81,6 @@ const User = () => {
     fetchUserRole();
   }, []);
 
-  const canInviteUser = !["sq1_user", "user"].includes(currentUser?.user_role);
-  const canAccessOrganizations = ["sq1_super_admin", "sq1_admin"].includes(
-    currentUser?.user_role
-  );
 
   const debouncedFetchSearchResults = useMemo(
     () =>
@@ -219,7 +219,7 @@ const User = () => {
                   </span>
                 </th>
                 {currentUser?.user_role !== "admin" &&
-                currentUser?.user_role !== "user" ? (
+                  currentUser?.user_role !== "user" ? (
                   <th scope="col">Organization</th>
                 ) : (
                   ""
@@ -279,7 +279,7 @@ const User = () => {
                       }}
                     ></td>
                     {currentUser?.user_role !== "admin" &&
-                    currentUser?.user_role !== "user" ? (
+                      currentUser?.user_role !== "user" ? (
                       <td>
                         {canAccessOrganizations ? (
                           <Link
@@ -299,13 +299,12 @@ const User = () => {
                     )}
                     <td className="text-center">
                       <span
-                        className={`badge badge-fixedwidth ${
-                          users.status === "active"
+                        className={`badge badge-fixedwidth ${users.status === "active"
                             ? " user-active"
                             : users.status === "invited"
-                            ? " user-invit"
-                            : "bg-secondary"
-                        }`}
+                              ? " user-invit"
+                              : "bg-secondary"
+                          }`}
                       >
                         {ucFirst(users?.status.replace(/_/g, " ") || "")}
                       </span>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {  Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { postApi } from "../../services/apiService";
 import { logout } from "../../utils/UtilsGlobalData";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +29,7 @@ function MfaUnlockModel({ data }) {
         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Mfa</Tooltip>}>
           <span className="d-inline-block">
             <button className="btn btn-sm py-0 my-1 mt-2" onClick={handleShow}>
-              <QrcodeIcon/>
+              <QrcodeIcon />
             </button>
           </span>
         </OverlayTrigger>
@@ -37,7 +37,7 @@ function MfaUnlockModel({ data }) {
         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Mfa</Tooltip>}>
           <span className="d-inline-block not-allowed">
             <button className="btn btn-sm py-0 my-1 mt-2 not-allowed">
-              <BanIconNotallowed/>
+              <BanIconNotallowed />
             </button>
           </span>
         </OverlayTrigger>
