@@ -123,8 +123,8 @@ const Registration = () => {
                       <input
                         type="text"
                         className={`form--input ${formik.touched.name && formik.errors.name
-                            ? "is-invalid"
-                            : ""
+                          ? "is-invalid"
+                          : ""
                           }`}
                         id="name"
                         name="name"
@@ -146,8 +146,8 @@ const Registration = () => {
                       <input
                         type={showPassword ? "text" : "password"}
                         className={`form--input ${formik.touched.password && formik.errors.password
-                            ? "is-invalid"
-                            : ""
+                          ? "is-invalid"
+                          : ""
                           }`}
                         id="password"
                         name="password"
@@ -186,9 +186,9 @@ const Registration = () => {
                       <input
                         type={showConfirmPassword ? "text" : "password"}
                         className={`form--input ${formik.touched.confirm_password &&
-                            formik.errors.confirm_password
-                            ? "is-invalid"
-                            : ""
+                          formik.errors.confirm_password
+                          ? "is-invalid"
+                          : ""
                           }`}
                         id="confirm_password"
                         name="confirm_password"

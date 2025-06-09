@@ -99,8 +99,8 @@ const Login = () => {
                             id="email"
                             name="email"
                             className={`form--input ${formik.touched.email && formik.errors.email
-                                ? "is-invalid"
-                                : ""
+                              ? "is-invalid"
+                              : ""
                               }`}
                             value={formik.values.email}
                             onChange={formik.handleChange}
@@ -120,8 +120,8 @@ const Login = () => {
                             autoComplete="new-password"
                             type={showPassword ? "text" : "password"}
                             className={`form--input ${formik.touched.password && formik.errors.password
-                                ? "is-invalid"
-                                : ""
+                              ? "is-invalid"
+                              : ""
                               }`}
                             id="password"
                             name="password"

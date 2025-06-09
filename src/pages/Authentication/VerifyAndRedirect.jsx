@@ -55,7 +55,7 @@ const VerifyAndRedirect = () => {
         );
         setError(
           err.response?.data?.message ||
-            "An error occurred while verifying the email."
+          "An error occurred while verifying the email."
         );
       } finally {
         setLoading(false);
