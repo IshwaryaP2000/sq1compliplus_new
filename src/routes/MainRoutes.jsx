@@ -3,7 +3,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { setNavigator } from "../utils/navigation";
-import LandingPage from "../Layout/LandingPage";
+import LandingPage from "../layout/LandingPage";
 import InternalserverPage from "../pages/Errorpage/InternalserverPage";
 import { useEffect } from "react";
 import Login from "../pages/Authentication/Login";
@@ -13,13 +13,14 @@ import ForbiddenPage from "../pages/Errorpage/ForbiddenPage";
 import TooManyRequests from "../pages/Errorpage/TooManyRequests";
 import Unavailable from "../pages/Errorpage/unavailable";
 import {
+  AuthEmployeeMiddleware,
   AuthUserMiddleware,
   AuthUserProtectedMiddleware,
   GuestMiddleware,
   RoleAccessMiddleware,
 } from "../middleware/Middleware";
 import Dashboard from "../pages/Dashboard/Dashboard";
-import Layout from "../Layout/Layouts";
+import Layout from "../layout/Layouts";
 import User from "../pages/Settings/Subpages/User/User";
 import MFAQr from "../pages/Authentication/MFAQr";
 import Organization from "../pages/Settings/Subpages/Organizations/Organization";
@@ -31,7 +32,7 @@ import AuditLogs from "../pages/Settings/Subpages/Logs/AuditLogs";
 import ActivityLogs from "../pages/Settings/Subpages/Logs/ActivityLogs";
 import OrganizationInitialSetup from "../pages/Authentication/OrganizationInitialSetup";
 import Organizationinfo from "../pages/Settings/Subpages/Info/Organizationinfo";
-import Controls from "../pages/Settings/Subpages/compliance/Controls";
+import Controls from "../pages/Settings/Subpages/Compliance/Controls";
 import AddQuestion from "../pages/Settings/Subpages/Readiness/AddQuestion";
 import ComplexIntegration from "../pages/Settings/Subpages/Compliances/ComplianceIntegration";
 import RestrictedRouteWrapper from "../routes/RestrictedRoutesComponent";
@@ -44,9 +45,22 @@ import DepartmentsPage from "../pages/Settings/Subpages/Compliances/DepartmentAd
 import QuestionsImport from "../pages/Settings/Subpages/Compliances/QuestionsImport";
 import SsoSetup from "../pages/Settings/Subpages/SSO/SsoSetup";
 import ReadinessAnswers from "../pages/Settings/Subpages/ComplianceReadiness/ReadinessAnswers";
-import ReadinessView from "../pages/settings/Subpages/readiness/ReadinessViewTable";
+import ReadinessView from "../pages/Settings/Subpages/Readiness/ReadinessViewTable";
 import UserOrganization from "../pages/Settings/Subpages/User/UserOrganization";
 import NewUser from "../pages/Settings/Subpages/Organizations/OrganizationUsers";
+import EmployeeLogin from "../pages/employeePortal/Authentication/Login";
+import EmployeeLayout from "../pages/employeePortal/Includes/EmployeeLayout";
+import EmployeePortalRoute from "../routes/EmployeePortalRoute";
+import Employeeforgotpassword from "../pages/employeePortal/Authentication/ForgotPassword";
+import NewPassword from "../pages/employeePortal/Profile/NewPassword";
+import ActivePolicy from "../pages/Settings/Subpages/Policy/ActivePolicy";
+import WaitingPolicy from "../pages/Settings/Subpages/Policy/WaitingPolicy";
+import PendingApproval from "../pages/Settings/Subpages/Policy/PendingApproval";
+import AllPolicy from "../pages/Settings/Subpages/Policy/AllPolicy";
+import MyPolicy from "../pages/Settings/Subpages/Policy/MyPolicy";
+import Employee from "../pages/Settings/Subpages/Employees/Employees";
+import BulkUploadEmployees from "../pages/Settings/Subpages/Employees/BulkEmployee";
+import ReadinessViewAnswers from "../pages/Settings/Subpages/ComplianceReadiness/ReadinessViewAnswers";
 
 function MainRoutes() {
   const navigate = useNavigate();
@@ -85,6 +99,10 @@ function MainRoutes() {
       >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/settings/users" element={<User />} />
+        <Route element={<RestrictedRouteWrapper />}>
+          <Route path="/settings/readiness" element={<Readiness />} />
+        </Route>
+
         <Route
           path="/settings/readiness-answers"
           element={<ReadinessAnswers />}
@@ -101,9 +119,19 @@ function MainRoutes() {
             </RoleAccessMiddleware>
           }
         />
-        <Route path="/settings/user-organization/:id" element={<UserOrganization />} />
-        <Route path="/settings/organization/users/:id" element={<NewUser />} />
+        <Route
+          path="/settings/user-organization/:id"
+          element={<UserOrganization />}
+        />
 
+        <Route element={<RestrictedRouteWrapper />}>
+          <Route
+            path="/organizations/readiness/answers/:id"
+            element={<ReadinessViewAnswers />}
+          />
+        </Route>
+
+        <Route path="/settings/organization/users/:id" element={<NewUser />} />
         <Route path="/settings/audit-logs" element={<AuditLogs />} />
         <Route path="/settings/activity-logs" element={<ActivityLogs />} />
         <Route
@@ -137,6 +165,19 @@ function MainRoutes() {
           <Route path="/questions-import" element={<QuestionsImport />} />
           <Route path="/readiness" element={<Readiness />} />
         </Route>
+      </Route>
+
+      <Route element={<RestrictedRouteWrapper />}>
+        <Route path="/policy/active" element={<ActivePolicy />} />
+        <Route path="/policy/waiting" element={<WaitingPolicy />} />
+        <Route path="/policy/approval" element={<PendingApproval />} />
+        <Route path="/policy/my-policy" element={<MyPolicy />} />
+        <Route path="/policy/all" element={<AllPolicy />} />
+        <Route path="/policy/employees" element={<Employee />} />
+        <Route
+          path="/policy/employees/bulk-upload"
+          element={<BulkUploadEmployees />}
+        />
       </Route>
 
       <Route
@@ -178,6 +219,34 @@ function MainRoutes() {
         />
         <Route path="/user/verify-link" element={<VerifyAndRedirect />} />
       </Route>
+
+      {/* Employee Portal routes */}
+      <Route
+        path="/employee/login"
+        element={
+          <AuthEmployeeMiddleware isLoginPage={true}>
+            <EmployeeLogin />
+          </AuthEmployeeMiddleware>
+        }
+      />
+
+      <Route path="/employee" element={<EmployeeLayout />}>
+        <Route
+          path="*"
+          element={
+            <AuthEmployeeMiddleware>
+              <EmployeePortalRoute />
+            </AuthEmployeeMiddleware>
+          }
+        />
+      </Route>
+
+      <Route
+        path="/employee/forgot-password"
+        element={<Employeeforgotpassword />}
+      />
+      <Route path="/employee/change-password" element={<NewPassword />} />
+      {/*Employee Portal routes ends */}
 
       {/* Error Routes starts*/}
       <Route

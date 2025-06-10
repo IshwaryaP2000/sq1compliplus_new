@@ -14,6 +14,7 @@ import moment from "moment/moment";
 import Pagination from "../../../../components/Pagination/Pagination";
 import usePreserveQueryParams from "../../../../Hooks/UsePreserveQueryParams";
 import useQueryFilters from "../../../../Hooks/UseQueryFilters";
+import { Loader } from "../../../../components/Table/Loader";
 import {
   LimitSelector,
   createDebouncedSearch,
@@ -25,7 +26,6 @@ import {
   getOSIcon,
   getOSVersion,
 } from "../../../../utils/BrowserUtils";
-import { Loader } from "../../../../components/Table/Loader";
 
 const AuditLogs = () => {
   usePageTitle("Audit Logs");
@@ -111,15 +111,12 @@ const AuditLogs = () => {
   const handleDateChange = (update) => {
     setDateRange(update);
     const [start, end] = update;
-
     const newFilters = {
       ...filters,
       from_date: start ? moment(start).format("YYYY-MM-DD") : null,
       to_date: end ? moment(end).format("YYYY-MM-DD") : null,
     };
-
     setFilters(newFilters);
-
     if (start && end) {
       fetchLogs(newFilters); // Only fetch when both dates are selected
     }
@@ -146,7 +143,6 @@ const AuditLogs = () => {
 
   const filterUsers = (selectedOption) => {
     setSelectedUser(selectedOption);
-
     if (selectedOption) {
       const user = selectedOption.value;
       const newFilters = { ...filters, user_id: user, vendor_id: null }; // Clear vendor if needed
@@ -167,7 +163,6 @@ const AuditLogs = () => {
     };
     setSelectedVendor(selectedOption);
     setFilters(newFilters);
-
     fetchLogs(newFilters);
   };
 

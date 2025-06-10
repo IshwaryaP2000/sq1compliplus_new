@@ -7,6 +7,7 @@ const RestrictedRouteWrapper = ({ element, path, children }) => {
   // Check if user is sq1_super_admin
   const location = useLocation();
   const isSq1SuperAdmin = hasRole(["sq1_super_admin"]);
+  console.log(location, location.path, "location");
 
   // Allowed paths for sq1_super_admin
   const allowedPathsForSq1SuperAdmin = [
@@ -20,8 +21,8 @@ const RestrictedRouteWrapper = ({ element, path, children }) => {
     // Check if the current path is allowed
     const isAllowedPath = allowedPathsForSq1SuperAdmin.some(
       (allowedPath) =>
-        location.path === allowedPath ||
-        location.path.startsWith(allowedPath + "/")
+        location.pathname === allowedPath ||
+        location.pathname.startsWith(allowedPath + "/")
     );
 
     // If not allowed, redirect to unauthorized page

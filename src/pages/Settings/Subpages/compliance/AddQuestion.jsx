@@ -42,7 +42,7 @@ function AddQuestion() {
       setError("");
       document.getElementById("fileInput").value = null;
     } catch (error) {
-      console.error("Error while uploading questions",error);
+      console.error("Error while uploading questions", error);
     }
   };
 

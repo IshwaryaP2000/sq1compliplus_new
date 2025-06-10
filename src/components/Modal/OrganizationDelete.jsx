@@ -25,7 +25,9 @@ function OrganizationDelete({ dataId, title, data, fetchAllOrganizations }) {
       await deleteApi(`/organization-delete/${idToDelete}`);
       fetchAllOrganizations();
       handleCloseDelete();
-    } catch (error) { console.error("Error deleting organization:", error); }
+    } catch (error) {
+      console.error("Error deleting organization:", error);
+    }
   };
 
   return (

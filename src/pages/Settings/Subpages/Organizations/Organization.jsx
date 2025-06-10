@@ -10,20 +10,19 @@ import OrganizationEditModal from "../../../../components/Modal/OrganizationEdit
 import OrganizationConfirmationModal from "../../../../components/Modal/OrgnanizationConfirmationModal";
 import OrganizationMfaUnlockModal from "../../../../components/Modal/OrganizationMfaUnlockModal";
 import AssignReadinessQuestionModal from "../../../../components/Modal/AssignReadinessQuestionModal";
-import {
-  createDebouncedSearch,
-  highlightText,
-  LimitSelector,
-} from "../../../../components/Search/useSearchAndSort";
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 import OrganizationDelete from "../../../../components/Modal/OrganizationDelete";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Loader } from "../../../../components/Table/Loader";
 import { EyeIcon } from "../../../../components/Icons/Icons";
+import {
+  createDebouncedSearch,
+  highlightText,
+  LimitSelector,
+} from "../../../../components/Search/useSearchAndSort";
 
 const Organization = () => {
   usePageTitle("Organizations");
-
   const [isLoading, setIsLoading] = useState(false);
   const [count, setTotalCount] = useState([]);
   const [complianceTypes, setComplianceTypes] = useState([]); // New state for compliance types
@@ -326,13 +325,12 @@ const Organization = () => {
                   </td>
                   <td className="text-center">
                     <span
-                      className={`badge badge-fixedwidth ${
-                        organization.status === "active"
-                          ? " user-active"
-                          : organization.status === "invited"
+                      className={`badge badge-fixedwidth ${organization.status === "active"
+                        ? " user-active"
+                        : organization.status === "invited"
                           ? " user-invit"
                           : "bg-secondary"
-                      }`}
+                        }`}
                     >
                       {ucFirst(organization?.status?.replace(/_/g, " ") || "")}
                     </span>

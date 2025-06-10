@@ -45,7 +45,7 @@ const ForgotPassword = () => {
                   alt=" logo"
                   className="logo-image-svg"
                 /> */}
-                <Logo/>
+                <Logo />
               </div>
 
               <div className="card form-card02">

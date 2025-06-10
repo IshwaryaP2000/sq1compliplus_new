@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
-import { postApi } from "../../services/apiService";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { postApi } from "../../services/apiService";
 import ButtonWithLoader from "../Button/ButtonLoader";
 import { domain, email, name } from "../Validationschema/commonSchema";
 import { PlusIcon } from "../Icons/Icons";
@@ -49,7 +49,7 @@ function OrganizationInviteModal({ data, fetchAllOrganizations }) {
   return (
     <>
       <button onClick={handleShow} className="ms-2 primary-btn btn">
-        <PlusIcon/>
+        <PlusIcon />
         Invite Organization
       </button>
 
@@ -80,7 +80,7 @@ function OrganizationInviteModal({ data, fetchAllOrganizations }) {
                   <Field
                     type="text"
                     className="form-control"
-                    maxlength="50"
+                    maxLength="50"
                     id="name"
                     name="name"
                     placeholder="Organization Name"

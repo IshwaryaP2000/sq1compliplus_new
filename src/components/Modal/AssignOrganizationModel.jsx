@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { postApi, getApi } from "../../services/apiService";
 import { role } from "../Validationschema/commonSchema";
+import { PlusIcon } from "../Icons/Icons";
 
 function AssignOrganizationModel({ userId, getUserOrg }) {
   const [show, setShow] = useState(false);
@@ -12,8 +13,8 @@ function AssignOrganizationModel({ userId, getUserOrg }) {
   const handleShow = () => setShow(true);
 
   const validationSchema = Yup.object({
-    org_id: Yup.string().required("Organization is required"), 
-    role: role
+    org_id: Yup.string().required("Organization is required"),
+    role: role,
   });
 
   const handleAssign = async (values, { setSubmitting }) => {
@@ -34,7 +35,6 @@ function AssignOrganizationModel({ userId, getUserOrg }) {
     }
   };
 
-  // Function to fetch organizations
   const getOrg = async () => {
     try {
       const response = await getApi("user-organizations-list");
@@ -60,7 +60,7 @@ function AssignOrganizationModel({ userId, getUserOrg }) {
         className="btn btn-sm primary-btn ms-3"
         onClick={handleShow}
       >
-        <i className="fa-solid fa-plus me-2"></i>
+        <PlusIcon />
         Assign Organization
       </button>
 

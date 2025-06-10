@@ -59,7 +59,7 @@ function OrganizationEditModal({ organization, fetchAllOrganizations }) {
           className="btn btn-sm py-0 my-1 tableborder-right"
           onClick={handleShow}
         >
-          <PenToSquareIcon/>
+          <PenToSquareIcon />
         </button>
       </OverlayTrigger>
 
@@ -91,7 +91,7 @@ function OrganizationEditModal({ organization, fetchAllOrganizations }) {
                       type="text"
                       className="form-control"
                       id="name"
-                      maxlength="50"
+                      maxLength="50"
                       name="name"
                       placeholder="Name"
                     />

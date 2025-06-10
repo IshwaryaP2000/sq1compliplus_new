@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { PenToSquareIcon } from "../Icons/Icons";
-import { postApi } from "../../services/apiService";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { postApi } from "../../services/apiService";
 import ButtonWithLoader from "../Button/ButtonLoader";
 import { email } from "../Validationschema/commonSchema";
 
@@ -47,7 +47,7 @@ function UserEditModel({ data, fetchAllUser, userRolesGet }) {
       };
       await postApi("user-update", payload); // API call to update the user
       handleClose();
-      fetchAllUser(); 
+      fetchAllUser();
     } catch (err) {
       if (err.response?.data?.errors) {
         setErrors(err.response?.data?.errors);

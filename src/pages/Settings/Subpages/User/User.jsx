@@ -10,13 +10,13 @@ import UserInviteModel from "../../../../components/Modal/UserInviteModal";
 import MfaUnlockModel from "../../../../components/Modal/MfaUnlockModel";
 import { getCurrentUser, ucFirst } from "../../../../utils/UtilsGlobalData";
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
+import { Badge } from "../../../../components/Badge/Badge";
+import { Loader } from "../../../../components/Table/Loader";
 import {
   createDebouncedSearch,
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
-import { Badge } from "../../../../components/Badge/Badge";
-import { Loader } from "../../../../components/Table/Loader";
 
 const User = () => {
   const menuRef = useRef();
@@ -34,6 +34,10 @@ const User = () => {
   const [pageIndex, setPageIndex] = useState([]);
   const currentUser = getCurrentUser();
   const authuser = JSON.parse(localStorage.getItem("authUser"));
+  const canInviteUser = !["sq1_user", "user"].includes(currentUser?.user_role);
+  const canAccessOrganizations = ["sq1_super_admin", "sq1_admin"].includes(
+    currentUser?.user_role
+  );
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -76,11 +80,6 @@ const User = () => {
     fetchAllUser();
     fetchUserRole();
   }, []);
-
-  const canInviteUser = !["sq1_user", "user"].includes(currentUser?.user_role);
-  const canAccessOrganizations = ["sq1_super_admin", "sq1_admin"].includes(
-    currentUser?.user_role
-  );
 
   const debouncedFetchSearchResults = useMemo(
     () =>

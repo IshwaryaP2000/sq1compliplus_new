@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { getApi } from "../../services/apiService";
 import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
+import { useNavigate } from "react-router-dom";
 import {
   setCurrentOrganization,
   setCurrentUser,
   setDomain,
   ucFirst,
 } from "../../utils/UtilsGlobalData";
-import { useNavigate } from "react-router-dom";
 
 const ListAllOrganizations = () => {
   const navigate = useNavigate();

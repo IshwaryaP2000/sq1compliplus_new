@@ -56,7 +56,9 @@ const EmployeeNavbar = () => {
       localStorage.removeItem("portal");
       localStorage.removeItem("employee_status");
       navigate("/employee/login");
-    } catch (error) { console.error("Logout error:", error); }
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   return (

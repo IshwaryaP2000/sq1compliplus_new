@@ -375,17 +375,18 @@ const NewUser = () => {
           </thead>
           <tbody className="tablescrolling-tbody">
             {isLoading ? (
-              Array.from({ length: 7 }).map((_, rowIndex) => (
-                <tr key={rowIndex}>
-                  {Array.from({ length: 6 }).map((_, colIndex) => (
-                    <td key={colIndex}>
-                      <p className="placeholder-glow">
-                        <span className="placeholder col-12 bg-secondary"></span>
-                      </p>
-                    </td>
-                  ))}
-                </tr>
-              ))
+              // Array.from({ length: 7 }).map((_, rowIndex) => (
+              //   <tr key={rowIndex}>
+              //     {Array.from({ length: 6 }).map((_, colIndex) => (
+              //       <td key={colIndex}>
+              //         <p className="placeholder-glow">
+              //           <span className="placeholder col-12 bg-secondary"></span>
+              //         </p>
+              //       </td>
+              //     ))}
+              //   </tr>
+              // ))
+              <Loader rows={7} cols={6} />
             ) : filteredUsers?.length > 0 ? (
               filteredUsers?.map((user, index) => (
                 <tr key={index}>
@@ -424,12 +425,13 @@ const NewUser = () => {
                   </td>
                   <td>
                     <span
-                      className={`badge badge-fixedwidth ${user.status === "active"
-                        ? " user-active"
-                        : user.status === "invited"
+                      className={`badge badge-fixedwidth ${
+                        user.status === "active"
+                          ? " user-active"
+                          : user.status === "invited"
                           ? " user-invit"
                           : "bg-secondary"
-                        }`}
+                      }`}
                     >
                       {ucFirst(user.status)}
                     </span>

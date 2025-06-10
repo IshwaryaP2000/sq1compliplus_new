@@ -1,4 +1,5 @@
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   getAuthToken,
   getCurrentOrganization,
@@ -6,7 +7,6 @@ import {
   hasRole,
   logout,
 } from "../utils/UtilsGlobalData";
-import { toast } from "react-toastify";
 
 export const AuthUserProtectedMiddleware = ({ children }) => {
   const portal = localStorage.getItem("portal");
