@@ -9,7 +9,7 @@ import {
   confirm_password,
   password,
 } from "../../components/Validationschema/commonSchema";
-import Logo from "../../components/Logo/Logo";
+import { Logo } from "../../components/Logo/Logo";
 
 const UpdateForgotPassword = () => {
   usePageTitle("Update Password");

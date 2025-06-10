@@ -61,6 +61,10 @@ import MyPolicy from "../pages/Settings/Subpages/Policy/MyPolicy";
 import Employee from "../pages/Settings/Subpages/Employees/Employees";
 import BulkUploadEmployees from "../pages/Settings/Subpages/Employees/BulkEmployee";
 import ReadinessViewAnswers from "../pages/Settings/Subpages/ComplianceReadiness/ReadinessViewAnswers";
+import Policy from "../pages/Settings/Subpages/Policy/Policy";
+import PolicyTemplate from "../pages/Settings/Subpages/PolicySettings/PolicyTemplate";
+import AdminPolicy from "../pages/Settings/Subpages/PolicySettings/AdminPolicy";
+import ApprovalCategories from "../pages/Settings/Subpages/PolicySettings/ApprovalCategories";
 
 function MainRoutes() {
   const navigate = useNavigate();
@@ -153,6 +157,12 @@ function MainRoutes() {
         <Route path="/settings/controls" element={<Controls />} />
         <Route path="/settings/add-question" element={<AddQuestion />} />
         <Route path="/settings/sso-setup" element={<SsoSetup />} />
+        <Route path="/settings/policy-template" element={<PolicyTemplate />} />
+        <Route path="/settings/admin-policy" element={<AdminPolicy />} />
+        <Route
+          path="/settings/approval-process"
+          element={<ApprovalCategories />}
+        />
 
         <Route element={<RestrictedRouteWrapper />}>
           <Route path="/assets" element={<Assets />} />
@@ -165,19 +175,29 @@ function MainRoutes() {
           <Route path="/questions-import" element={<QuestionsImport />} />
           <Route path="/readiness" element={<Readiness />} />
         </Route>
-      </Route>
 
-      <Route element={<RestrictedRouteWrapper />}>
-        <Route path="/policy/active" element={<ActivePolicy />} />
-        <Route path="/policy/waiting" element={<WaitingPolicy />} />
-        <Route path="/policy/approval" element={<PendingApproval />} />
-        <Route path="/policy/my-policy" element={<MyPolicy />} />
-        <Route path="/policy/all" element={<AllPolicy />} />
-        <Route path="/policy/employees" element={<Employee />} />
-        <Route
-          path="/policy/employees/bulk-upload"
-          element={<BulkUploadEmployees />}
-        />
+        <Route element={<RestrictedRouteWrapper />}>
+          <Route
+            path="/policy/*"
+            element={
+              <>
+                <Policy />
+                <Routes>
+                  <Route path="active" element={<ActivePolicy />} />
+                  <Route path="waiting" element={<WaitingPolicy />} />
+                  <Route path="approval" element={<PendingApproval />} />
+                  <Route path="my-policy" element={<MyPolicy />} />
+                  <Route path="all" element={<AllPolicy />} />
+                  <Route path="employees" element={<Employee />} />
+                  <Route
+                    path="employees/bulk-upload"
+                    element={<BulkUploadEmployees />}
+                  />
+                </Routes>
+              </>
+            }
+          />
+        </Route>
       </Route>
 
       <Route

@@ -61,7 +61,7 @@ const ViewPolicy = () => {
       await getApi(`employee/accept/${policyId}`);
       navigate("/employee/accepted-policy");
     } catch {
-      console.log("error");
+      console.error("error");
     } finally {
       setIsLoading(false);
     }

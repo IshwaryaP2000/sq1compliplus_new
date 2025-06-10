@@ -90,7 +90,7 @@ const SsoSetup = () => {
       const response = await getApi("organization-info");
       setCurrentOrganization(response?.data?.data?.current_organization);
     } catch {
-      console.log("error");
+      console.error("error");
     }
   };
 

@@ -2,7 +2,7 @@ import OrganizationInfo from "../../components/Organization/OrganizationInfo";
 import { getCurrentOrganization, logoPath } from "../../utils/UtilsGlobalData";
 import { useNavigate } from "react-router-dom";
 import usePageTitle from "../../utils/usePageTitle";
-import Logo from "../../components/Logo/Logo";
+import { Logo } from "../../components/Logo/Logo";
 
 const OrganizationInitialSetup = () => {
   usePageTitle("Setup Organization");

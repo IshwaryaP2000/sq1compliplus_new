@@ -7,7 +7,7 @@ import { getApi, postApi } from "../../../services/apiService";
 import { useAuthOrganization } from "../../../hooks/OrganizationUserProvider";
 import usePageTitle from "../../../utils/usePageTitle";
 import { EyeIcon, EyeslashIcon } from "../../../components/Icons/Icons";
-import Logo from "../../../components/Logo/Logo";
+import { Logo } from "../../../components/Logo/Logo";
 import {
   getCurrentOrganization,
   logoPath,
@@ -60,7 +60,7 @@ const Login = () => {
         localStorage.setItem("employee_status", employeeStatus);
         localStorage.setItem("portal", "employee");
       } catch (errorLogin) {
-        console.log(errorLogin);
+        console.error(errorLogin);
       } finally {
         setSubmitting(false);
       }
@@ -80,9 +80,9 @@ const Login = () => {
       const response = await getApi("get-sso-link"); // Replace with your API endpoint
       SetSSOLink(response?.data);
     } catch (errorLogin) {
-      console.log(errorLogin);
+      console.error(errorLogin);
     } finally {
-      console.log("SSO Link fetched successfully");
+      console.error("SSO Link fetched successfully");
     }
   };
 

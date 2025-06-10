@@ -10,7 +10,7 @@ import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
 import { toast } from "react-toastify";
 import usePageTitle from "../../utils/usePageTitle";
 import { PoweroffIcon } from "../../components/Icons/Icons";
-import Logo from "../../components/Logo/Logo";
+import { Logo } from "../../components/Logo/Logo";
 import {
   getCurrentUser,
   logoPath,

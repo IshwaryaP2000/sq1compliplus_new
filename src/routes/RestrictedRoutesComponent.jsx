@@ -7,7 +7,6 @@ const RestrictedRouteWrapper = ({ element, path, children }) => {
   // Check if user is sq1_super_admin
   const location = useLocation();
   const isSq1SuperAdmin = hasRole(["sq1_super_admin"]);
-  console.log(location, location.path, "location");
 
   // Allowed paths for sq1_super_admin
   const allowedPathsForSq1SuperAdmin = [
@@ -30,8 +29,6 @@ const RestrictedRouteWrapper = ({ element, path, children }) => {
       return <Navigate to="/UnAuthorized" replace />;
     }
   }
-  console.log(children, "element");
-
   // For all other roles or alloswed paths, render the component
   return children ? children : <Outlet />;
 };
