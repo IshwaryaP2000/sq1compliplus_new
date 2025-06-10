@@ -65,6 +65,11 @@ import Policy from "../pages/Settings/Subpages/Policy/Policy";
 import PolicyTemplate from "../pages/Settings/Subpages/PolicySettings/PolicyTemplate";
 import AdminPolicy from "../pages/Settings/Subpages/PolicySettings/AdminPolicy";
 import ApprovalCategories from "../pages/Settings/Subpages/PolicySettings/ApprovalCategories";
+import Vendor from "../pages/Settings/Subpages/vendors/Vendor";
+import VendorCreate from "../pages/Settings/Subpages/vendors/VendorCreate";
+import ChangePassword from "../pages/Settings/Subpages/vendors/profile/ChangePassword";
+import VendorAssessment from "../pages/Settings/Subpages/vendors/VendorAssessment";
+import VendorFileView from "../pages/Settings/Subpages/vendors/VendorFileView";
 
 function MainRoutes() {
   const navigate = useNavigate();
@@ -198,6 +203,26 @@ function MainRoutes() {
             }
           />
         </Route>
+
+        <Route element={<RestrictedRouteWrapper />} />
+        <Route
+          path="/vendors/*"
+          element={
+            <>
+              <Routes>
+                <Route path="/" element={<Vendor />} />
+                {/* <Route path="/vendors-new" element={<VendorNew />} /> */}
+                <Route path="/vendor-create" element={<VendorCreate />} />
+                <Route path="/change-password" element={<ChangePassword />} />
+                <Route
+                  path="/assessment-view/:id"
+                  element={<VendorAssessment />}
+                />
+                <Route path="/file-view/:id" element={<VendorFileView />} />
+              </Routes>
+            </>
+          }
+        />
       </Route>
 
       <Route
