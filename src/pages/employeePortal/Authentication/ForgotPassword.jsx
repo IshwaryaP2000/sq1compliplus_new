@@ -5,7 +5,7 @@ import { postApi } from "../../../services/apiService";
 import { logoPath } from "../../../utils/UtilsGlobalData";
 import usePageTitle from "../../../utils/usePageTitle";
 import { email } from "../../../components/Validationschema/commonSchema";
-import Logo from "../../../components/Logo/Logo";
+import { Logo } from "../../../components/Logo/Logo";
 
 const ForgotPassword = () => {
   usePageTitle("Forgot Password");

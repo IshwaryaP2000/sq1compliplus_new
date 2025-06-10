@@ -6,4 +6,14 @@ const Logo = () => {
   );
 };
 
-export default Logo;
+const clientLogo = () => {
+  return (
+    <img
+      src={logoPath()?.client_logo}
+      alt=" logo"
+      className="logo-image-upload"
+    />
+  );
+};
+
+export { Logo, clientLogo };

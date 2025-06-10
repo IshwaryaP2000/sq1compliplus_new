@@ -6,7 +6,7 @@ import { postApi } from "../../services/apiService";
 import usePageTitle from "../../utils/usePageTitle";
 import { loginValidationSchema } from "../../components/Validationschema/loginSchema";
 import { EyeIcon, EyeslashIcon } from "../../components/Icons/Icons";
-import Logo from "../../components/Logo/Logo";
+import { Logo } from "../../components/Logo/Logo";
 import {
   getCurrentOrganization,
   logoPath,

@@ -26,7 +26,7 @@ const AllPolicy = () => {
       setFilteredUsers(response?.data?.data);
       setFilteredLength(response?.data?.data?.length);
     } catch {
-      console.log("error");
+      console.error("error");
     } finally {
       setIsLoading(false);
     }
@@ -36,7 +36,7 @@ const AllPolicy = () => {
     try {
       navigate(`/employee/policy/${id}`);
     } catch {
-      console.log("error");
+      console.error("error");
     }
   };
 

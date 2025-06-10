@@ -6,7 +6,7 @@ import usePageTitle from "../../utils/usePageTitle";
 import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
 import { EyeIcon, EyeslashIcon } from "../../components/Icons/Icons";
 import { registrationValidationSchema } from "../../components/Validationschema/registrationSchema";
-import Logo from "../../components/Logo/Logo";
+import { Logo } from "../../components/Logo/Logo";
 import {
   logoPath,
   setAuthToken,

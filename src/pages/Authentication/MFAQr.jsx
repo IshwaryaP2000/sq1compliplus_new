@@ -6,7 +6,7 @@ import { end } from "@popperjs/core";
 import { getApi } from "../../services/apiService";
 import { getCurrentUser, logoPath } from "../../utils/UtilsGlobalData";
 import usePageTitle from "../../utils/usePageTitle";
-import Logo from "../../components/Logo/Logo";
+import { Logo } from "../../components/Logo/Logo";
 
 const MFAQr = () => {
   usePageTitle("MFA QR");

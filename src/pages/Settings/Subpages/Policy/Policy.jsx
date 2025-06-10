@@ -17,7 +17,6 @@ const Policy = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [originalContent, setOriginalContent] = useState("");
   const navigate = useNavigate();
-
   const initialValues = {
     name: "",
     type: "",
@@ -102,7 +101,7 @@ const Policy = () => {
       try {
         setIsLoading(true);
         const response = await postApi("/policy/create", formData);
-        console.log("API Response:", response);
+        console.error("API Response:", response);
         if (response?.data?.success) {
           resetForm({ values: initialValues });
           setShowCanvas(false);
