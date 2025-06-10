@@ -14,4 +14,4 @@ export const Loader = ({ rows = 7, cols = 7 }) => {
       ))}
     </>
   );
-}
+};

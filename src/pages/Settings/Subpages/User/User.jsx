@@ -10,13 +10,13 @@ import UserInviteModel from "../../../../components/Modal/UserInviteModal";
 import MfaUnlockModel from "../../../../components/Modal/MfaUnlockModel";
 import { getCurrentUser, ucFirst } from "../../../../utils/UtilsGlobalData";
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
+import { Badge } from "../../../../components/Badge/Badge";
+import { Loader } from "../../../../components/Table/Loader";
 import {
   createDebouncedSearch,
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
-import { Badge } from "../../../../components/Badge/Badge";
-import { Loader } from "../../../../components/Table/Loader";
 
 const User = () => {
   const menuRef = useRef();
@@ -80,7 +80,6 @@ const User = () => {
     fetchAllUser();
     fetchUserRole();
   }, []);
-
 
   const debouncedFetchSearchResults = useMemo(
     () =>
@@ -219,7 +218,7 @@ const User = () => {
                   </span>
                 </th>
                 {currentUser?.user_role !== "admin" &&
-                  currentUser?.user_role !== "user" ? (
+                currentUser?.user_role !== "user" ? (
                   <th scope="col">Organization</th>
                 ) : (
                   ""
@@ -279,7 +278,7 @@ const User = () => {
                       }}
                     ></td>
                     {currentUser?.user_role !== "admin" &&
-                      currentUser?.user_role !== "user" ? (
+                    currentUser?.user_role !== "user" ? (
                       <td>
                         {canAccessOrganizations ? (
                           <Link
@@ -299,12 +298,13 @@ const User = () => {
                     )}
                     <td className="text-center">
                       <span
-                        className={`badge badge-fixedwidth ${users.status === "active"
+                        className={`badge badge-fixedwidth ${
+                          users.status === "active"
                             ? " user-active"
                             : users.status === "invited"
-                              ? " user-invit"
-                              : "bg-secondary"
-                          }`}
+                            ? " user-invit"
+                            : "bg-secondary"
+                        }`}
                       >
                         {ucFirst(users?.status.replace(/_/g, " ") || "")}
                       </span>

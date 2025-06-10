@@ -186,8 +186,8 @@ const AuditLogs = () => {
       backgroundColor: state.isSelected
         ? "#bcf7c6" // Selected option background
         : state.isFocused
-          ? "#bcf7c6" // Hovered option background
-          : provided.backgroundColor,
+        ? "#bcf7c6" // Hovered option background
+        : provided.backgroundColor,
       color: state.isSelected ? "block" : "inherit",
     }),
     menu: (provided) => ({

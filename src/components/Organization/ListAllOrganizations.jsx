@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { getApi } from "../../services/apiService";
 import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
+import { useNavigate } from "react-router-dom";
 import {
   setCurrentOrganization,
   setCurrentUser,
   setDomain,
   ucFirst,
 } from "../../utils/UtilsGlobalData";
-import { useNavigate } from "react-router-dom";
 
 const ListAllOrganizations = () => {
   const navigate = useNavigate();
@@ -75,10 +75,11 @@ const ListAllOrganizations = () => {
           {allOrganizations.map((listOrganization) => (
             <li
               key={listOrganization?.id}
-              className={` ${listOrganization?.name === organization?.name
+              className={` ${
+                listOrganization?.name === organization?.name
                   ? "dropdown-item   mb-2 active-orgina text-center rounded-3 userorg-dropdown "
                   : "dropdown-item   mb-2  text-center rounded-3 userorg-dropdown"
-                }`}
+              }`}
               role="button"
               onClick={() => handleOrganizationClick(listOrganization)}
             >

@@ -142,7 +142,7 @@ const Chatbot = () => {
         <div className="chatbot-container fade-in">
           <div className="chat-header-container">
             <h2 className="chat-header">
-              Chat with ARIA{" "}
+              Chat with ARIA
               <span
                 role="img"
                 aria-label="chat"

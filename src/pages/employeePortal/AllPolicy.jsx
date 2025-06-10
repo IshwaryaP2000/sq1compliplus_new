@@ -151,7 +151,8 @@ const AllPolicy = () => {
                               <span
                                 dangerouslySetInnerHTML={{
                                   __html: highlightText(
-                                    `Policy Valid Until - ${policy?.expiry_date || ""
+                                    `Policy Valid Until - ${
+                                      policy?.expiry_date || ""
                                     }`,
                                     searchVal
                                   ),

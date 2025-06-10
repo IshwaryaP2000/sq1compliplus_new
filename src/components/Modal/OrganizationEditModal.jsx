@@ -91,7 +91,7 @@ function OrganizationEditModal({ organization, fetchAllOrganizations }) {
                       type="text"
                       className="form-control"
                       id="name"
-                      maxlength="50"
+                      maxLength="50"
                       name="name"
                       placeholder="Name"
                     />

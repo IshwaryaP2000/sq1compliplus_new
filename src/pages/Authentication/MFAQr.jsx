@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getApi } from "../../services/apiService";
-import { getCurrentUser, logoPath } from "../../utils/UtilsGlobalData";
-import usePageTitle from "../../utils/usePageTitle";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Accordion from "react-bootstrap/Accordion";
 import { end } from "@popperjs/core";
+import { getApi } from "../../services/apiService";
+import { getCurrentUser, logoPath } from "../../utils/UtilsGlobalData";
+import usePageTitle from "../../utils/usePageTitle";
 import Logo from "../../components/Logo/Logo";
 
 const MFAQr = () => {

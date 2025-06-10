@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { getApi } from "../../api/apiClient";
-import { Accordion, Button, Modal } from "react-bootstrap";
-import usePageTitle from "../includes/usePageTitle";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Accordion, Button, Modal } from "react-bootstrap";
+import { getApi } from "../../../../services/apiService";
+import usePageTitle from "../../../../utils/usePageTitle";
 
 const ReadinessViewAnswers = () => {
   usePageTitle("Readiness Answers");

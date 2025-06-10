@@ -75,10 +75,11 @@ const ForgotPassword = () => {
                     <div className="input-wrap mb-4">
                       <input
                         type="text"
-                        className={`form--input ${formik.touched.email && formik.errors.email
+                        className={`form--input ${
+                          formik.touched.email && formik.errors.email
                             ? "is-invalid"
                             : ""
-                          }`}
+                        }`}
                         id="email"
                         name="email"
                         value={formik.values.email}

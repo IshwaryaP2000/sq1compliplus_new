@@ -4,20 +4,20 @@ import "../../../styles/stackflo.css";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getApi, postApi } from "../../../services/apiService";
+import { useAuthOrganization } from "../../../hooks/OrganizationUserProvider";
+import usePageTitle from "../../../utils/usePageTitle";
+import { EyeIcon, EyeslashIcon } from "../../../components/Icons/Icons";
+import Logo from "../../../components/Logo/Logo";
 import {
   getCurrentOrganization,
   logoPath,
   setAuthToken,
   setCurrentUser,
 } from "../../../utils/UtilsGlobalData";
-import { useAuthOrganization } from "../../../hooks/OrganizationUserProvider";
-import usePageTitle from "../../../utils/usePageTitle";
 import {
   email,
   password,
 } from "../../../components/Validationschema/commonSchema";
-import { EyeIcon, EyeslashIcon } from "../../../components/Icons/Icons";
-import Logo from "../../../components/Logo/Logo";
 
 const Login = () => {
   usePageTitle("Employee-Login");
@@ -131,10 +131,11 @@ const Login = () => {
                             type="text"
                             id="email"
                             name="email"
-                            className={`form--input ${formik.touched.email && formik.errors.email
-                              ? "is-invalid"
-                              : ""
-                              }`}
+                            className={`form--input ${
+                              formik.touched.email && formik.errors.email
+                                ? "is-invalid"
+                                : ""
+                            }`}
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -152,10 +153,11 @@ const Login = () => {
                           <input
                             autoComplete="new-password"
                             type={showPassword ? "text" : "password"}
-                            className={`form--input ${formik.touched.password && formik.errors.password
-                              ? "is-invalid"
-                              : ""
-                              }`}
+                            className={`form--input ${
+                              formik.touched.password && formik.errors.password
+                                ? "is-invalid"
+                                : ""
+                            }`}
                             id="password"
                             name="password"
                             value={formik.values.password}

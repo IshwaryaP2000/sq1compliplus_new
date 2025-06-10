@@ -207,53 +207,52 @@ function UserOrganization() {
               //   </tr>
               // ))
               <Loader rows={7} cols={5} />
-            ) :
-              filteredUsers?.length > 0 ? (
-                filteredUsers?.map((org, index) => (
-                  <tr key={index}>
-                    <th scope="row">
-                      {(pageIndex?.meta?.current_page - 1) *
-                        pageIndex?.meta?.per_page +
-                        index +
-                        1}
-                    </th>
-                    <td
-                      dangerouslySetInnerHTML={{
-                        __html: highlightText(org?.name || "", searchVal),
-                      }}
-                    ></td>
-                    <td
-                      dangerouslySetInnerHTML={{
-                        __html: highlightText(org?.email || "", searchVal),
-                      }}
-                    ></td>
-                    <td
-                      className="Capitalize text-center"
-                      dangerouslySetInnerHTML={{
-                        __html: highlightText(
-                          ucFirst(org?.role?.replace(/_/g, " ") || ""),
-                          searchVal
-                        ),
-                      }}
-                    ></td>
-                    <td className="table-td-center">
-                      <ConfirmationModel
-                        type={"UserOrganization"}
-                        data={data}
-                        userId={userId}
-                        orgId={org}
-                        getUserOrg={getUserOrg}
-                      />
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="5" className="text-center">
-                    No data found.
+            ) : filteredUsers?.length > 0 ? (
+              filteredUsers?.map((org, index) => (
+                <tr key={index}>
+                  <th scope="row">
+                    {(pageIndex?.meta?.current_page - 1) *
+                      pageIndex?.meta?.per_page +
+                      index +
+                      1}
+                  </th>
+                  <td
+                    dangerouslySetInnerHTML={{
+                      __html: highlightText(org?.name || "", searchVal),
+                    }}
+                  ></td>
+                  <td
+                    dangerouslySetInnerHTML={{
+                      __html: highlightText(org?.email || "", searchVal),
+                    }}
+                  ></td>
+                  <td
+                    className="Capitalize text-center"
+                    dangerouslySetInnerHTML={{
+                      __html: highlightText(
+                        ucFirst(org?.role?.replace(/_/g, " ") || ""),
+                        searchVal
+                      ),
+                    }}
+                  ></td>
+                  <td className="table-td-center">
+                    <ConfirmationModel
+                      type={"UserOrganization"}
+                      data={data}
+                      userId={userId}
+                      orgId={org}
+                      getUserOrg={getUserOrg}
+                    />
                   </td>
                 </tr>
-              )}
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="text-center">
+                  No data found.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

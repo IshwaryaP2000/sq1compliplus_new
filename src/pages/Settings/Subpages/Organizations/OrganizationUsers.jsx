@@ -425,12 +425,13 @@ const NewUser = () => {
                   </td>
                   <td>
                     <span
-                      className={`badge badge-fixedwidth ${user.status === "active"
-                        ? " user-active"
-                        : user.status === "invited"
+                      className={`badge badge-fixedwidth ${
+                        user.status === "active"
+                          ? " user-active"
+                          : user.status === "invited"
                           ? " user-invit"
                           : "bg-secondary"
-                        }`}
+                      }`}
                     >
                       {ucFirst(user.status)}
                     </span>

@@ -1,18 +1,18 @@
+import { useState, useEffect, useRef } from "react";
+import { Link, NavLink } from "react-router-dom";
+import Pusher from "pusher-js";
+import { toast } from "react-toastify";
 import Logout from "../pages/Authentication/Logout";
 import { useAuthOrganization } from "../Hooks/OrganizationUserProvider";
 import ListAllOrganizations from "../components/Organization/ListAllOrganizations";
-import { useState, useEffect, useRef } from "react";
+import Subnavbar from "./Subnavbar";
+import { BellIcon } from "../components/Icons/Icons";
 import {
   getCurrentUser,
   logout,
   ucFirst,
   logoPath,
 } from "../utils/UtilsGlobalData";
-import { Link, NavLink } from "react-router-dom";
-import Pusher from "pusher-js";
-import { toast } from "react-toastify";
-import Subnavbar from "./Subnavbar";
-import { BellIcon } from "../components/Icons/Icons";
 
 const Navbar = () => {
   const domain = localStorage.getItem("domain_name");
