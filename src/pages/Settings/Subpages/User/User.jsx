@@ -18,8 +18,8 @@ import {
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
 
-import { Badge } from "../../../../components/Badge/Badge";
-import { Loader } from "../../../../components/Table/Loader";
+// import { Badge } from "../../../../components/Badge/Badge";
+// import { Loader } from "../../../../components/Table/Loader";
 import {
   flexRender,
   getCoreRowModel,
