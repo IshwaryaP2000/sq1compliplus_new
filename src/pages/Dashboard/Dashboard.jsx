@@ -1,6 +1,7 @@
 import usePageTitle from "../../utils/usePageTitle";
 import { getApi } from "../../services/apiService";
 import { useEffect, useState } from "react";
+import { Spinner } from "../../components/Spinner/Spinner";
 import {
   ArchiveIcon,
   ClipboardIcon,
@@ -9,7 +10,6 @@ import {
   TasksIcon,
   UsersIcon,
 } from "../../components/Icons/Icons";
-import { Spinner } from "../../components/Spinner/Spinner";
 
 const Dashboard = () => {
   usePageTitle("Dashboard");

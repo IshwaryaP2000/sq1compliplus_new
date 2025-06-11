@@ -45,7 +45,7 @@ const ChangePassword = () => {
         // Custom event to notify other components
         window.dispatchEvent(new Event("profileUpdate"));
       } catch (err) {
-        console.log(err, "err");
+        console.error(err, "err");
         if (err.response?.data?.errors?.user_name) {
           setErrors({ changeprofile: err.response.data.errors.user_name[0] });
         }

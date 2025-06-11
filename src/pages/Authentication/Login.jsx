@@ -1,18 +1,18 @@
 import { useFormik } from "formik";
+import { Link, useNavigate } from "react-router-dom";
+import "../../styles/Stackflo.css";
+import { useState } from "react";
 import { postApi } from "../../services/apiService";
 import usePageTitle from "../../utils/usePageTitle";
+import { loginValidationSchema } from "../../components/Validationschema/loginSchema";
+import { EyeIcon, EyeslashIcon } from "../../components/Icons/Icons";
+import { Logo } from "../../components/Logo/Logo";
 import {
   getCurrentOrganization,
   logoPath,
   setAuthToken,
   setCurrentUser,
 } from "../../utils/UtilsGlobalData";
-import { Link, useNavigate } from "react-router-dom";
-import "../../styles/Stackflo.css";
-import { useState } from "react";
-import { loginValidationSchema } from "../../components/Validationschema/loginSchema";
-import { EyeIcon, EyeslashIcon } from "../../components/Icons/Icons";
-import Logo from "../../components/Logo/Logo";
 
 const Login = () => {
   localStorage.setItem("portal", "");
@@ -98,10 +98,11 @@ const Login = () => {
                             type="text"
                             id="email"
                             name="email"
-                            className={`form--input ${formik.touched.email && formik.errors.email
+                            className={`form--input ${
+                              formik.touched.email && formik.errors.email
                                 ? "is-invalid"
                                 : ""
-                              }`}
+                            }`}
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -119,10 +120,11 @@ const Login = () => {
                           <input
                             autoComplete="new-password"
                             type={showPassword ? "text" : "password"}
-                            className={`form--input ${formik.touched.password && formik.errors.password
+                            className={`form--input ${
+                              formik.touched.password && formik.errors.password
                                 ? "is-invalid"
                                 : ""
-                              }`}
+                            }`}
                             id="password"
                             name="password"
                             value={formik.values.password}

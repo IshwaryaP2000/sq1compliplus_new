@@ -20,8 +20,8 @@ const RestrictedRouteWrapper = ({ element, path, children }) => {
     // Check if the current path is allowed
     const isAllowedPath = allowedPathsForSq1SuperAdmin.some(
       (allowedPath) =>
-        location.path === allowedPath ||
-        location.path.startsWith(allowedPath + "/")
+        location.pathname === allowedPath ||
+        location.pathname.startsWith(allowedPath + "/")
     );
 
     // If not allowed, redirect to unauthorized page
@@ -29,8 +29,6 @@ const RestrictedRouteWrapper = ({ element, path, children }) => {
       return <Navigate to="/UnAuthorized" replace />;
     }
   }
-  console.log(children, "element");
-
   // For all other roles or alloswed paths, render the component
   return children ? children : <Outlet />;
 };

@@ -6,17 +6,17 @@ import Logout from "./Logout";
 import { logout } from "../../utils/UtilsGlobalData";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
+import { toast } from "react-toastify";
+import usePageTitle from "../../utils/usePageTitle";
+import { PoweroffIcon } from "../../components/Icons/Icons";
+import { Logo } from "../../components/Logo/Logo";
 import {
   getCurrentUser,
   logoPath,
   setAuthToken,
   setCurrentUser,
 } from "../../utils/UtilsGlobalData";
-import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
-import { toast } from "react-toastify";
-import usePageTitle from "../../utils/usePageTitle";
-import { PoweroffIcon } from "../../components/Icons/Icons";
-import Logo from "../../components/Logo/Logo";
 
 const MFA = () => {
   usePageTitle("MFA-Verify");

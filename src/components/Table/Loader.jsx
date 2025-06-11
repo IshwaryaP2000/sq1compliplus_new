@@ -1,5 +1,5 @@
-export const Loader=({rows=7,cols=7})=>{
-    return (
+export const Loader = ({ rows = 7, cols = 7 }) => {
+  return (
     <>
       {Array.from({ length: rows }).map((_, rowIndex) => (
         <tr key={rowIndex}>
@@ -14,4 +14,4 @@ export const Loader=({rows=7,cols=7})=>{
       ))}
     </>
   );
-}
+};

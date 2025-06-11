@@ -5,7 +5,7 @@ import { postApi } from "../../../services/apiService";
 import { logoPath } from "../../../utils/UtilsGlobalData";
 import usePageTitle from "../../../utils/usePageTitle";
 import { email } from "../../../components/Validationschema/commonSchema";
-import Logo from "../../../components/Logo/Logo";
+import { Logo } from "../../../components/Logo/Logo";
 
 const ForgotPassword = () => {
   usePageTitle("Forgot Password");
@@ -75,10 +75,11 @@ const ForgotPassword = () => {
                     <div className="input-wrap mb-4">
                       <input
                         type="text"
-                        className={`form--input ${formik.touched.email && formik.errors.email
+                        className={`form--input ${
+                          formik.touched.email && formik.errors.email
                             ? "is-invalid"
                             : ""
-                          }`}
+                        }`}
                         id="email"
                         name="email"
                         value={formik.values.email}

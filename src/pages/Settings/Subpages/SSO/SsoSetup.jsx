@@ -5,14 +5,14 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import Modal from "react-bootstrap/Modal";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { postApi, getApi } from "../../../../services/apiService";
-import {
-  setCurrentOrganization,
-  ucFirst,
-} from "../../../../utils/UtilsGlobalData";
 import usePageTitle from "../../../../utils/usePageTitle";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
 import { SSOValidationSchema } from "../../../../components/Validationschema/ssoSchema";
 import { PencilIcon } from "../../../../components/Icons/Icons";
+import {
+  setCurrentOrganization,
+  ucFirst,
+} from "../../../../utils/UtilsGlobalData";
 
 const SsoSetup = () => {
   usePageTitle("SSO Setup");
@@ -90,7 +90,7 @@ const SsoSetup = () => {
       const response = await getApi("organization-info");
       setCurrentOrganization(response?.data?.data?.current_organization);
     } catch {
-      console.log("error");
+      console.error("error");
     }
   };
 

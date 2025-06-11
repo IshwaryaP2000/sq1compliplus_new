@@ -3,16 +3,16 @@ import { useFormik } from "formik";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { postApi } from "../../services/apiService";
 import usePageTitle from "../../utils/usePageTitle";
+import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
+import { EyeIcon, EyeslashIcon } from "../../components/Icons/Icons";
+import { registrationValidationSchema } from "../../components/Validationschema/registrationSchema";
+import { Logo } from "../../components/Logo/Logo";
 import {
   logoPath,
   setAuthToken,
   setCurrentOrganization,
   setCurrentUser,
 } from "../../utils/UtilsGlobalData";
-import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
-import { EyeIcon, EyeslashIcon } from "../../components/Icons/Icons";
-import { registrationValidationSchema } from "../../components/Validationschema/registrationSchema";
-import Logo from "../../components/Logo/Logo";
 
 const Registration = () => {
   usePageTitle("Registration");
@@ -122,10 +122,11 @@ const Registration = () => {
                     <div className="input-wrap mb-4">
                       <input
                         type="text"
-                        className={`form--input ${formik.touched.name && formik.errors.name
+                        className={`form--input ${
+                          formik.touched.name && formik.errors.name
                             ? "is-invalid"
                             : ""
-                          }`}
+                        }`}
                         id="name"
                         name="name"
                         value={formik.values.name}
@@ -145,10 +146,11 @@ const Registration = () => {
                     <div className="input-wrap mb-4 position-relative">
                       <input
                         type={showPassword ? "text" : "password"}
-                        className={`form--input ${formik.touched.password && formik.errors.password
+                        className={`form--input ${
+                          formik.touched.password && formik.errors.password
                             ? "is-invalid"
                             : ""
-                          }`}
+                        }`}
                         id="password"
                         name="password"
                         value={formik.values.password}
@@ -167,11 +169,7 @@ const Registration = () => {
                             showPassword ? "Hide password" : "Show password"
                           }
                         >
-                          {showPassword ? (
-                            <EyeslashIcon />
-                          ) : (
-                            <EyeIcon />
-                          )}
+                          {showPassword ? <EyeslashIcon /> : <EyeIcon />}
                         </button>
                       )}
                       {formik.touched.password && formik.errors.password && (
@@ -185,11 +183,12 @@ const Registration = () => {
                     <div className="input-wrap mb-4 position-relative">
                       <input
                         type={showConfirmPassword ? "text" : "password"}
-                        className={`form--input ${formik.touched.confirm_password &&
-                            formik.errors.confirm_password
+                        className={`form--input ${
+                          formik.touched.confirm_password &&
+                          formik.errors.confirm_password
                             ? "is-invalid"
                             : ""
-                          }`}
+                        }`}
                         id="confirm_password"
                         name="confirm_password"
                         value={formik.values.confirm_password}
@@ -212,11 +211,7 @@ const Registration = () => {
                               : "Show password"
                           }
                         >
-                          {showConfirmPassword ? (
-                            <EyeslashIcon />
-                          ) : (
-                            <EyeIcon />
-                          )}
+                          {showConfirmPassword ? <EyeslashIcon /> : <EyeIcon />}
                         </button>
                       )}
                       {formik.touched.confirm_password &&

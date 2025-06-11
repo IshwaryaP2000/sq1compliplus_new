@@ -7,15 +7,15 @@ import EditQuestions from "../../../../components/Modal/EditQuestions";
 import Pagination from "../../../../components/Pagination/Pagination";
 import Searchbar from "../../../../components/Search/Searchbar";
 import { getCurrentUser, hasRole } from "../../../../utils/UtilsGlobalData";
+import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
+import usePageTitle from "../../../../utils/usePageTitle";
+import { PlusIcon } from "../../../../components/Icons/Icons";
 import {
   createDebouncedSearch,
   fetchSearchResults,
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
-import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
-import usePageTitle from "../../../../utils/usePageTitle";
-import { PlusIcon } from "../../../../components/Icons/Icons";
 
 const ReadinessView = () => {
   usePageTitle("Readiness");
@@ -55,14 +55,18 @@ const ReadinessView = () => {
     try {
       const response = await getApi("compliance-types");
       setType(response?.data || []);
-    } catch (error) { console.error("Error fetching types:", error); }
+    } catch (error) {
+      console.error("Error fetching types:", error);
+    }
   };
 
   const GetCategory = async () => {
     try {
       const response = await getApi("compliance-category");
       setCategory(response?.data || []);
-    } catch (error) { console.error("Error fetching categories:", error); }
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
   };
 
   useEffect(() => {
@@ -241,17 +245,18 @@ const ReadinessView = () => {
           </thead>
           <tbody className="tablescrolling-tbody">
             {isLoading ? (
-              Array.from({ length: 8 }).map((_, rowIndex) => (
-                <tr key={rowIndex}>
-                  {Array.from({ length: 8 }).map((_, colIndex) => (
-                    <td key={colIndex}>
-                      <p className="placeholder-glow">
-                        <span className="placeholder col-12 bg-secondary"></span>
-                      </p>
-                    </td>
-                  ))}
-                </tr>
-              ))
+              // Array.from({ length: 8 }).map((_, rowIndex) => (
+              //   <tr key={rowIndex}>
+              //     {Array.from({ length: 8 }).map((_, colIndex) => (
+              //       <td key={colIndex}>
+              //         <p className="placeholder-glow">
+              //           <span className="placeholder col-12 bg-secondary"></span>
+              //         </p>
+              //       </td>
+              //     ))}
+              //   </tr>
+              // ))
+              <Loader rows={8} cols={8} />
             ) : filteredUsers?.length > 0 ? (
               filteredUsers?.map((readiness, index) => (
                 <tr key={readiness?.id || index}>
@@ -295,32 +300,32 @@ const ReadinessView = () => {
                       dangerouslySetInnerHTML={{
                         __html: expandedDescriptions[readiness?.id || index]
                           ? highlightText(
-                            readiness?.description || "",
-                            searchVal
-                          )
-                          : truncateText(
-                            highlightText(
                               readiness?.description || "",
                               searchVal
+                            )
+                          : truncateText(
+                              highlightText(
+                                readiness?.description || "",
+                                searchVal
+                              ),
+                              DESCRIPTION_MAX_LENGTH
                             ),
-                            DESCRIPTION_MAX_LENGTH
-                          ),
                       }}
                     />
                     {readiness?.description?.length >
                       DESCRIPTION_MAX_LENGTH && (
-                        <button
-                          className="btn btn-link p-0 mt-1 text-decoration-none"
-                          onClick={() =>
-                            toggleDescription(readiness?.id || index)
-                          }
-                          style={{ fontSize: "0.8rem" }}
-                        >
-                          {expandedDescriptions[readiness?.id || index]
-                            ? "View Less"
-                            : "View More"}
-                        </button>
-                      )}
+                      <button
+                        className="btn btn-link p-0 mt-1 text-decoration-none"
+                        onClick={() =>
+                          toggleDescription(readiness?.id || index)
+                        }
+                        style={{ fontSize: "0.8rem" }}
+                      >
+                        {expandedDescriptions[readiness?.id || index]
+                          ? "View Less"
+                          : "View More"}
+                      </button>
+                    )}
                   </td>
                   <td>{readiness?.yes_score}</td>
                   <td>{readiness?.no_score}</td>

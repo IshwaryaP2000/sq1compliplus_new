@@ -1,18 +1,22 @@
 import { BrowserRouter } from "react-router-dom";
-import MainRoutes from "./routes/MainRoutes";
 import { ToastContainer } from "react-toastify";
+import MainRoutes from "./routes/MainRoutes";
 import OrganizationUserProvider from "./Hooks/OrganizationUserProvider";
-import EmployeePortalRoute from "./routes/EmployeePortalRoute";
+import { LoadingProvider } from "./hooks/LoadingContext";
+import { LoadingBarContainer } from "react-top-loading-bar";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <OrganizationUserProvider>
-          <ToastContainer />
-          <MainRoutes />
-          <EmployeePortalRoute />
-        </OrganizationUserProvider>
+        <LoadingProvider>
+          <OrganizationUserProvider>
+            <ToastContainer />
+            <LoadingBarContainer>
+              <MainRoutes />
+            </LoadingBarContainer>
+          </OrganizationUserProvider>
+        </LoadingProvider>
       </BrowserRouter>
     </>
   );

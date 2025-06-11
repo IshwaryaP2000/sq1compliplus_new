@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { postApi } from "../../services/apiService";
-import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { Formik, Form, ErrorMessage } from "formik";
+import { postApi } from "../../services/apiService";
 import { typeId } from "../Validationschema/commonSchema";
 import { TasksIcon } from "../Icons/Icons";
 
@@ -33,7 +33,7 @@ function AssignReadinessQuestionModal({ organization, complianceTypes }) {
   };
 
   const validationSchema = Yup.object({
-    type_id: typeId
+    type_id: typeId,
   });
 
   // Determine initial compliance IDs based on the "selected" field
@@ -101,8 +101,8 @@ function AssignReadinessQuestionModal({ organization, complianceTypes }) {
                               complianceType.id
                             )
                               ? values.type_id.filter(
-                                (item) => item !== complianceType.id
-                              )
+                                  (item) => item !== complianceType.id
+                                )
                               : [...values.type_id, complianceType.id];
                             setFieldValue("type_id", updatedTypeIds);
                           }

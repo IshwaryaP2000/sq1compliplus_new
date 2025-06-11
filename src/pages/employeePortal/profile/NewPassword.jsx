@@ -7,7 +7,7 @@ import usePageTitle from "../../../utils/usePageTitle";
 import { logoPath } from "../../../utils/UtilsGlobalData";
 import { useAuthOrganization } from "../../../hooks/OrganizationUserProvider";
 import { confirm_password } from "../../../components/Validationschema/commonSchema";
-import Logo from "../../../components/Logo/Logo";
+import { Logo } from "../../../components/Logo/Logo";
 
 const NewPassword = () => {
   usePageTitle("Change Password");
@@ -95,11 +95,12 @@ const NewPassword = () => {
                         <input
                           type="password"
                           name="newPassword"
-                          className={`form--input ${changePasswordFormik.touched.newPassword &&
+                          className={`form--input ${
+                            changePasswordFormik.touched.newPassword &&
                             changePasswordFormik.errors.newPassword
-                            ? "input-error"
-                            : ""
-                            }`}
+                              ? "input-error"
+                              : ""
+                          }`}
                           onChange={changePasswordFormik.handleChange}
                           onBlur={changePasswordFormik.handleBlur}
                           value={changePasswordFormik.values.newPassword}
@@ -118,11 +119,12 @@ const NewPassword = () => {
                         <input
                           type="password"
                           name="confirmPassword"
-                          className={`form--input ${changePasswordFormik.touched.confirmPassword &&
+                          className={`form--input ${
+                            changePasswordFormik.touched.confirmPassword &&
                             changePasswordFormik.errors.confirmPassword
-                            ? "input-error"
-                            : ""
-                            }`}
+                              ? "input-error"
+                              : ""
+                          }`}
                           onChange={changePasswordFormik.handleChange}
                           onBlur={changePasswordFormik.handleBlur}
                           value={changePasswordFormik.values.confirmPassword}

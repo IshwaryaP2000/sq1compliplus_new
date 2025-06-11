@@ -1,20 +1,21 @@
 import { useMemo } from "react";
 import { useState, useEffect } from "react";
-import { getApi } from "../../../../services/apiService";
-import ConfirmationModel from "../../../../components/Modal/UserConfirmationModal";
 import { Link } from "react-router-dom";
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
+import { getApi } from "../../../../services/apiService";
+import ConfirmationModel from "../../../../components/Modal/UserConfirmationModal";
 import EditQuestions from "../../../../components/Modal/EditQuestions";
 import Pagination from "../../../../components/Pagination/Pagination";
 import Searchbar from "../../../../components/Search/Searchbar";
+import usePageTitle from "../../../../utils/usePageTitle";
+import { PlusIcon } from "../../../../components/Icons/Icons";
+import { Loader } from "../../../../components/Table/Loader";
 import {
   createDebouncedSearch,
   fetchSearchResults,
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
-import usePageTitle from "../../../../utils/usePageTitle";
-import { PlusIcon } from "../../../../components/Icons/Icons";
 
 const Controls = () => {
   usePageTitle("Controls");
@@ -104,14 +105,18 @@ const Controls = () => {
     try {
       const response = await getApi("compliance-types");
       setType(response?.data || []);
-    } catch (error) { console.error("error getting types", error); }
+    } catch (error) {
+      console.error("error getting types", error);
+    }
   };
 
   const GetCategory = async () => {
     try {
       const response = await getApi("compliance-category");
       setCategory(response?.data || []);
-    } catch (error) { console.error("error getting category", error); }
+    } catch (error) {
+      console.error("error getting category", error);
+    }
   };
 
   useEffect(() => {
@@ -214,85 +219,75 @@ const Controls = () => {
           </thead>
           <tbody className="tablescrolling-tbody">
             {isLoading ? (
-              Array.from({ length: 7 }).map((_, rowIndex) => (
-                <tr key={rowIndex}>
-                  {Array.from({ length: 5 }).map((_, colIndex) => (
-                    <td key={colIndex}>
-                      <p className="placeholder-glow">
-                        <span className="placeholder col-12 bg-secondary"></span>
-                      </p>
-                    </td>
-                  ))}
-                </tr>
-              ))
-            ) : // data?.data?.length > 0 ? (
-              //   data?.data?.map((readiness, index) => (
-              filteredUsers?.length > 0 ? (
-                filteredUsers?.map((readiness, index) => (
-                  <tr key={readiness?.id || index}>
-                    {/* <th scope="row">{index + 1}</th> */}
-                    {/* <td>{readiness?.type}</td>
-                  <td>{readiness?.category}</td>
-                  <td>{readiness?.question}</td> */}
-                    <th scope="row">
-                      {(pageIndex?.meta?.current_page - 1) *
-                        pageIndex?.meta?.per_page +
-                        index +
-                        1}
-                    </th>
-                    <td
-                      dangerouslySetInnerHTML={{
-                        __html: highlightText(readiness?.type || "", searchVal),
-                      }}
-                    ></td>
-                    <td
-                      dangerouslySetInnerHTML={{
-                        __html: highlightText(
-                          readiness?.category || "",
-                          searchVal
-                        ),
-                      }}
-                    ></td>
-                    <td
-                      dangerouslySetInnerHTML={{
-                        __html: highlightText(
-                          readiness?.question || "",
-                          searchVal
-                        ),
-                      }}
-                    ></td>
-                    <td>
-                      <div className="users-crud d-flex">
-                        <EditQuestions
-                          data={type}
-                          category={category}
-                          question={readiness}
-                        />
-                        <ConfirmationModel
-                          type={"readiness"}
-                          readinessData={readiness}
-                          GetQuestions={GetQuestions}
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="8" className="text-center">
-                    No Users Available
+              // Array.from({ length: 7 }).map((_, rowIndex) => (
+              //   <tr key={rowIndex}>
+              //     {Array.from({ length: 5 }).map((_, colIndex) => (
+              //       <td key={colIndex}>
+              //         <p className="placeholder-glow">
+              //           <span className="placeholder col-12 bg-secondary"></span>
+              //         </p>
+              //       </td>
+              //     ))}
+              //   </tr>
+              // ))
+              <Loader rows={7} cols={5} />
+            ) : filteredUsers?.length > 0 ? (
+              filteredUsers?.map((readiness, index) => (
+                <tr key={readiness?.id || index}>
+                  <th scope="row">
+                    {(pageIndex?.meta?.current_page - 1) *
+                      pageIndex?.meta?.per_page +
+                      index +
+                      1}
+                  </th>
+                  <td
+                    dangerouslySetInnerHTML={{
+                      __html: highlightText(readiness?.type || "", searchVal),
+                    }}
+                  ></td>
+                  <td
+                    dangerouslySetInnerHTML={{
+                      __html: highlightText(
+                        readiness?.category || "",
+                        searchVal
+                      ),
+                    }}
+                  ></td>
+                  <td
+                    dangerouslySetInnerHTML={{
+                      __html: highlightText(
+                        readiness?.question || "",
+                        searchVal
+                      ),
+                    }}
+                  ></td>
+                  <td>
+                    <div className="users-crud d-flex">
+                      <EditQuestions
+                        data={type}
+                        category={category}
+                        question={readiness}
+                      />
+                      <ConfirmationModel
+                        type={"readiness"}
+                        readinessData={readiness}
+                        GetQuestions={GetQuestions}
+                      />
+                    </div>
                   </td>
                 </tr>
-              )}
+              ))
+            ) : (
+              <tr>
+                <td colSpan="8" className="text-center">
+                  No Users Available
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
-      {/* <div className="float-end me-5 pe-3">
-        <Pagination
-          dataFetchFunction={GetQuestions}
-          dataPaginationLinks={data?.meta}
-        />
-      </div> */}
+
       <div className="d-flex flex-row bd-highlight mb-3 ">
         <div className=" bd-highlight pagennation-list">
           <LimitSelector
@@ -303,7 +298,6 @@ const Controls = () => {
         <div className="p-2 bd-highlight w-100">
           <Pagination
             dataFetchFunction={GetQuestions}
-            // dataPaginationLinks={data?.meta}
             dataPaginationLinks={pageIndex?.meta}
             filteredLength={filteredLength}
             search={searchVal}

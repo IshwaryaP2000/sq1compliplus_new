@@ -1,6 +1,6 @@
 import { getApi } from "../../services/apiService";
 import debounce from "lodash.debounce";
-import  { useState } from "react";
+import { useState } from "react";
 
 export const fetchSearchResults = async (
   endpoint,

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
-import { postApi } from "../../services/apiService";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { postApi } from "../../services/apiService";
 import { PlusIcon } from "../Icons/Icons";
 import { email, role } from "../Validationschema/commonSchema";
 import { Spinner } from "../Spinner/Spinner";
@@ -46,7 +46,8 @@ function UserInviteModel({ data, fetchAllUser }) {
   return (
     <>
       <button onClick={handleShow} className="ms-2 btn primary-btn btn">
-        <PlusIcon />Invite User
+        <PlusIcon />
+        Invite User
       </button>
 
       <Modal
@@ -122,8 +123,7 @@ function UserInviteModel({ data, fetchAllUser }) {
                   // <div className="stackflo-loadert " role="status">
                   //   <span className="custom-loader "></span>
                   // </div>
-                  <Spinner/>
-                  
+                  <Spinner />
                 ) : (
                   <button
                     type="submit"

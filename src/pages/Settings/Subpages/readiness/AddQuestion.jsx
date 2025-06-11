@@ -143,8 +143,8 @@ function AddQuestion() {
           field_type: fieldTypeMapping[sub.field_type] || sub.field_type || "",
           dropdown_options: sub.dropdown_options
             ? sub.dropdown_options.filter(
-              (opt) => opt !== "self" && opt !== "others"
-            )
+                (opt) => opt !== "self" && opt !== "others"
+              )
             : [],
           parent_id: parentId,
           displayOrder: displayOrder,
@@ -182,8 +182,8 @@ function AddQuestion() {
                   "",
                 dropdown_options: nestedSub.dropdown_options
                   ? nestedSub.dropdown_options.filter(
-                    (opt) => opt !== "self" && opt !== "others"
-                  )
+                      (opt) => opt !== "self" && opt !== "others"
+                    )
                   : [],
                 parent_id: subId,
                 displayOrder: `${displayOrder}.${nestedCounter}`,
@@ -448,7 +448,9 @@ function AddQuestion() {
       } else {
         throw new Error("Invalid URL provided for downloading.");
       }
-    } catch (error) { console.error("Error downloading sample file:", error); }
+    } catch (error) {
+      console.error("Error downloading sample file:", error);
+    }
   };
 
   return (
@@ -514,19 +516,21 @@ function AddQuestion() {
                     </tr>
                   </thead>
                   <tbody>
-                    {isLoading
-                      ? Array.from({ length: 3 }).map((_, rowIndex) => (
-                        <tr key={rowIndex}>
-                          {Array.from({ length: 10 }).map((_, colIndex) => (
-                            <td key={colIndex}>
-                              <p className="placeholder-glow">
-                                <span className="placeholder col-12 bg-secondary"></span>
-                              </p>
-                            </td>
-                          ))}
-                        </tr>
-                      ))
-                      : uploadedQuestions.map((question, index) => (
+                    {isLoading ? (
+                      // Array.from({ length: 3 }).map((_, rowIndex) => (
+                      //   <tr key={rowIndex}>
+                      //     {Array.from({ length: 10 }).map((_, colIndex) => (
+                      //       <td key={colIndex}>
+                      //         <p className="placeholder-glow">
+                      //           <span className="placeholder col-12 bg-secondary"></span>
+                      //         </p>
+                      //       </td>
+                      //     ))}
+                      //   </tr>
+                      // )
+                      <Loader rows={3} cols={10} />
+                    ) : (
+                      uploadedQuestions.map((question, index) => (
                         <tr key={question.id || index}>
                           <td>{question.displayOrder}</td>
                           <td
@@ -612,7 +616,7 @@ function AddQuestion() {
                           >
                             {question.question_type === "Sub" ? (
                               question.field_type ===
-                                "radio with sub action" ? (
+                              "radio with sub action" ? (
                                 question.hasSubQuestions ? (
                                   <input
                                     type="text"
@@ -643,8 +647,7 @@ function AddQuestion() {
                                 <Select
                                   options={fieldTypes}
                                   value={fieldTypes.find(
-                                    (type) =>
-                                      type.value === question.field_type
+                                    (type) => type.value === question.field_type
                                   )}
                                   onChange={(selectedOption) =>
                                     handleFieldTypeChange(
@@ -664,7 +667,7 @@ function AddQuestion() {
                           </td>
                           <td>
                             {question.question_type === "Sub" &&
-                              isDropdownFieldType(question.field_type) ? (
+                            isDropdownFieldType(question.field_type) ? (
                               <textarea
                                 value={
                                   question.dropdown_options?.length > 0
@@ -695,7 +698,8 @@ function AddQuestion() {
                             </button>
                           </td>
                         </tr>
-                      ))}
+                      ))
+                    )}
                   </tbody>
                 </table>
                 <div className="d-flex justify-content-center mt-3">
