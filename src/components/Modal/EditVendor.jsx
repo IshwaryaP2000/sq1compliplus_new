@@ -10,6 +10,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import { postApi, getApi } from "../../services/apiService";
+import { PenToSquareIcon } from "../Icons/Icons";
 
 function EditVendor({ Vendordata, GetVendors, areaType, handleCloseModals }) {
   const [show, setShow] = useState(false);
@@ -111,7 +112,7 @@ function EditVendor({ Vendordata, GetVendors, areaType, handleCloseModals }) {
           className="btn btn-sm py-0  tableborder-right"
           onClick={handleShow}
         >
-          <i className="fa-regular fa-pen-to-square"></i>
+          <PenToSquareIcon/>
         </button>
       )}
       <Offcanvas

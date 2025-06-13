@@ -297,6 +297,7 @@ const AuditLogs = () => {
       }, 300),
     []
   );
+
   return (
     <>
       <div className=" mb-3  d-flex">

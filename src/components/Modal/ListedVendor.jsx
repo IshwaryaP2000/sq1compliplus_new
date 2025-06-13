@@ -16,7 +16,7 @@ const ListedVendor = ({ GetVendors }) => {
     try {
       setIsLoading(true);
       const response = await getApi("/vendor/get-vendor-service");
-      console.log("response", response);
+      console.error("response", response);
       if (response && response.data && response.data.data) {
         setData(response?.data?.data?.pre_approved_vendors || "");
         setFilteredLength(response?.data?.data?.pre_approved_vendors.length);
@@ -41,7 +41,8 @@ const ListedVendor = ({ GetVendors }) => {
       await postApi(`/add/pre-approved`, payload);
       GetService();
       GetVendors();
-    } catch {
+    } catch(err) {
+      console.error("Error adding pre-approved vendor:", err);
     } finally {
       setIsLoadingbtn(false);
     }
@@ -100,7 +101,7 @@ const ListedVendor = ({ GetVendors }) => {
                       <tr key={item.id || index}>
                         <td>{index + 1}</td> <td>{item.name || "-"}</td>
                         <td className="text-center d-flex flex-wrap gap-2 border-0">
-                          {" "}
+
                           {item?.service_name.map((data) => (
                             <span className="me-2 bg-lightgreen-badge">
                               {data}

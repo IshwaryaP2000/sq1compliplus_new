@@ -29,7 +29,7 @@ const SsoSetup = () => {
   const handleClose = () => setShow(false);
   const handleShow = (header) => {
     setModalHeader(header); // Set the modal header dynamically
-    setShow(true); // Open the modal
+    setShow(true);
   };
 
   const validationSchema = SSOValidationSchema;
@@ -82,15 +82,17 @@ const SsoSetup = () => {
           setGoogle("google");
         }
       });
-    } catch (error) { console.error("Error fetching SSO lists:", error); }
+    } catch (error) {
+      console.error("Error fetching SSO lists:", error);
+    }
   };
 
   const orgInfo = async () => {
     try {
       const response = await getApi("organization-info");
       setCurrentOrganization(response?.data?.data?.current_organization);
-    } catch {
-      console.error("error");
+    } catch (err) {
+      console.error("error", err);
     }
   };
 
@@ -120,8 +122,6 @@ const SsoSetup = () => {
       setFormInitialValues(ucFirst(authTypeFromStorage));
     }
   }, []);
-
-  //Get auth_type for login type
 
   //Get auth_type for sso type
   useEffect(() => {
@@ -230,7 +230,6 @@ const SsoSetup = () => {
                 <div className="row align-items-center mt-2">
                   <div className="col-8">
                     <p className="mb-0 text-start">
-                      {/* <Icon icon="devicon:google" width="50" height="50" /> */}
                       <Icon
                         icon="devicon:google-wordmark"
                         width="60"
@@ -270,7 +269,7 @@ const SsoSetup = () => {
       <Modal show={show} onHide={handleClose} centered>
         <div className="card">
           <Modal.Header closeButton>
-            <Modal.Title>{modalHeader} SSO Setup</Modal.Title>{" "}
+            <Modal.Title>{modalHeader} SSO Setup</Modal.Title>
             {/* Use the dynamic header */}
           </Modal.Header>
           <div className="card-body">

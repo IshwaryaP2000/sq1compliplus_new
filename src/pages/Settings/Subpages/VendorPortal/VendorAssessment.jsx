@@ -52,6 +52,10 @@ const VendorAssessment = () => {
   const [selectedValues, setSelectedValues] = useState({});
   const [filter, setFilter] = useState("all");
   const [show, setShow] = useState(false);
+  const skeletonCount = 3;
+  const lazyLoading = Array.from({ length: skeletonCount });
+  const [edata, setEdata] = useState("");
+  const [offcanvasTitle, setOffcanvasTitle] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => {
@@ -125,16 +129,13 @@ const VendorAssessment = () => {
     setModalTitle("");
   };
 
-  const [edata, setEdata] = useState("");
-  const [offcanvasTitle, setOffcanvasTitle] = useState("");
-
   const GetFile = async (id) => {
     try {
       setIsLoading(true);
       const response = await getApi(`/org-vendor/view-evidence/${id}`);
       setEdata(Object.values(response?.data?.data));
     } catch (error) {
-      console.log("Error fetching evidence:", error);
+      console.error("Error fetching evidence:", error);
     } finally {
       setIsLoading(false);
     }
@@ -143,6 +144,7 @@ const VendorAssessment = () => {
   const handleViewEvidence = (imageUrl, title) => {
     setSelectedImageUrl({ imageUrl, title });
   };
+
   const [selectedImageUrl, setSelectedImageUrl] = useState({
     imageUrl: "",
     title: "",
@@ -151,9 +153,6 @@ const VendorAssessment = () => {
   useEffect(() => {
     getAssessment();
   }, []);
-
-  const skeletonCount = 3;
-  const lazyLoading = Array.from({ length: skeletonCount });
 
   return (
     <>
@@ -192,7 +191,7 @@ const VendorAssessment = () => {
               type="button"
               onClick={() => getAssessment("answered")}
             >
-              Answered{" "}
+              Answered
             </button>
           </li>
           <li className="nav-item" role="presentation">
@@ -205,7 +204,7 @@ const VendorAssessment = () => {
               type="button"
               onClick={() => getAssessment("un_answered")}
             >
-              Not Answered{" "}
+              Not Answered
             </button>
           </li>
           <li className="nav-item" role="presentation">
@@ -218,7 +217,7 @@ const VendorAssessment = () => {
               type="button"
               onClick={() => getAssessment("in_completed")}
             >
-              Incomplete{" "}
+              Incomplete
             </button>
           </li>
           <li className="nav-item" role="presentation">
@@ -287,7 +286,7 @@ const VendorAssessment = () => {
                     <div className="card-text d-flex justify-content-between flex-wrap gap-3">
                       <div>
                         <h6 className="card-title">
-                          {index + 1}.{" "}
+                          {index + 1}.
                           {control?.control_template_controls || "-"}
                         </h6>
 
@@ -357,7 +356,7 @@ const VendorAssessment = () => {
                                     handleShow();
                                   }}
                                 >
-                                  <i className="fa-solid fa-eye me-1 text-muted"></i>{" "}
+                                  <i className="fa-solid fa-eye me-1 text-muted"></i>
                                   View Evidence
                                   <div className="badge bg-danger text-white ms-1 upload-badge">
                                     <span>{control?.qa_doc}</span>
@@ -374,7 +373,7 @@ const VendorAssessment = () => {
                             {control?.previous_status === "accept" ||
                             control?.previous_status === "nc" ? (
                               <p className="card-text mb-1">
-                                <strong>Previous Status: </strong>{" "}
+                                <strong>Previous Status: </strong>
                                 {control?.previous_status}
                               </p>
                             ) : (
@@ -433,7 +432,7 @@ const VendorAssessment = () => {
                                   )
                                 }
                               >
-                                <i className="fa-solid fa-arrows-rotate"></i>{" "}
+                                <i className="fa-solid fa-arrows-rotate"></i>
                                 Reset
                               </button>
                             </OverlayTrigger>
@@ -508,7 +507,7 @@ const VendorAssessment = () => {
                                 handleShow();
                               }}
                             >
-                              <i className="fa-solid fa-eye me-1 text-muted"></i>{" "}
+                              <i className="fa-solid fa-eye me-1 text-muted"></i>
                               View Evidence
                               <div className="badge bg-danger text-white ms-1 upload-badge">
                                 <span>{control?.qa_doc}</span>

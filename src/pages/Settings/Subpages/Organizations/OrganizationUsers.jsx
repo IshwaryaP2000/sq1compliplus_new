@@ -219,6 +219,7 @@ const NewUser = () => {
   useEffect(() => {
     fetchUsers();
   }, [organizationId]);
+
   useEffect(() => {
     fetchExistingUsers(); // Fetch existing users when the component mounts
   }, []);

@@ -729,8 +729,8 @@ function AddQuestion() {
             </div>
             <h5 className="fw-bold mb-2 text-muted">Delete Question</h5>
             <p className="mb-2">
-              You're going to <span className="fw-bold">"Delete this"</span>{" "}
-              question. Are you sure?{" "}
+              You're going to <span className="fw-bold">"Delete this"</span>
+              question. Are you sure?
             </p>
           </div>
         </Modal.Body>

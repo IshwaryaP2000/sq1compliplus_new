@@ -42,9 +42,8 @@ const Vendornavbar = () => {
       localStorage.removeItem("authToken");
       localStorage.removeItem("authUser");
       localStorage.removeItem("portal");
-      // localStorage.setItem("authUser", "");
       navigate("/vendor-portal/login");
-    } catch (error) { }
+    } catch (error) {}
   };
 
   return (
@@ -68,9 +67,6 @@ const Vendornavbar = () => {
                   </NavLink>
                   <NavLink
                     to={"/vendor-portal/assessment-view"}
-                    // className={({ isActive }) =>
-                    //   isActive ? "active navlink-item" : "navlink-item"
-                    // }
                     className={
                       location["*"] === "assessment-view"
                         ? "vendorbtn-submit-active"
@@ -82,9 +78,6 @@ const Vendornavbar = () => {
                   {user != "vendor_user" ? (
                     <NavLink
                       to={"/vendor-portal/users"}
-                      // className={({ isActive }) =>
-                      //   isActive ? "active navlink-item" : "navlink-item"
-                      // }
                       className={
                         location["*"] === "users"
                           ? "vendorbtn-submit-active"
@@ -126,9 +119,7 @@ const Vendornavbar = () => {
                               <p className="notif-name fs-14 mb-0">AV</p>
                             </div>
                             <div>Test</div>
-                            <div className="align-content-center ms-3">
-                              {/* <i className="fa-solid fa-angle-right"></i> */}
-                            </div>
+                            <div className="align-content-center ms-3"></div>
                           </div>
                         </li>
                       </ul>
@@ -150,31 +141,15 @@ const Vendornavbar = () => {
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item href="/vendor-portal/profile">
-                      <i className="fa-solid fa-user me-2"></i>{" "}
+                      <i className="fa-solid fa-user me-2"></i>
                       <span>Profile</span>
                     </Dropdown.Item>
                     <Dropdown.Item onClick={logout}>
-                      {" "}
-                      <i className="fa fa-sign-out me-2"></i>{" "}
+                      <i className="fa fa-sign-out me-2"></i>
                       <span>Logout</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-                {/* <Dropdown>
-                  <Dropdown.Toggle
-                    variant="success"
-                    id="dropdown-basic"
-                    className="btn-auth"
-                  >
-                    <i className="fa-solid fa-user me-2"></i> Victor Dillon
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="/vendor-portal/profile">
-                      Profile
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown> */}
               </div>
             </div>
           </div>

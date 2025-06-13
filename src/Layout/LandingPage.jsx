@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getApi } from "../services/apiService";
+import "../styles/Stackflo.css";
 import {
   logoPath,
   setCurrentOrganization,
   setDomain,
 } from "../utils/UtilsGlobalData";
-import { getApi } from "../services/apiService";
-import "../styles/Stackflo.css";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ const LandingPage = () => {
   };
 
   const handleOrganizationDomainClick = async () => {
-    const DomainName = newDomain || process.env.VITE_MAIN_DOMAIN;
+    const DomainName = newDomain || import.meta.env.VITE_MAIN_DOMAIN;
     setError(null);
     try {
       const response = await getApi("organization-info", {

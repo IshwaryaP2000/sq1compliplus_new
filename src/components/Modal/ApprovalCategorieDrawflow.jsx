@@ -65,8 +65,8 @@ export const DnDFlow = () => {
         setNodes(savedNodes);
         setEdges(savedEdges);
       }
-    } catch {
-      console.error("error getting a data");
+    } catch (error) {
+      console.error("error getting a data", error);
     } finally {
       setIsLoading(false);
     }

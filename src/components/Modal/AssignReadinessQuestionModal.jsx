@@ -118,7 +118,7 @@ function AssignReadinessQuestionModal({ organization, complianceTypes }) {
                         className="form-check-label"
                         htmlFor={`compliance-${complianceType.id}`}
                       >
-                        {complianceType.name}{" "}
+                        {complianceType.name}
                         <span style={{ fontSize: "0.8em" }}>
                           ({complianceType.questions_count})
                         </span>

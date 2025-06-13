@@ -44,8 +44,8 @@ const ReadinessView = () => {
       setFilteredUsers(response?.data?.data?.data);
       setFilteredLength(response?.data?.data?.meta?.total);
       setPageIndex(response?.data?.data);
-    } catch {
-      console.error("error getting a data");
+    } catch (err) {
+      console.error("error getting a data", err);
     } finally {
       setIsLoading(false);
     }

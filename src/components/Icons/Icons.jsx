@@ -19,3 +19,5 @@ export const SidenavbarIcons = () =><i className="fa-solid fa-bars"/>
 export const TriangleExclamationIcon = () => <i className="fa-solid text-danger fa-triangle-exclamation"/>
 export const PenToSquareIcon = () => <i className="fa-regular fa-pen-to-square"/>
 export const PencilIcon = () => <i className="fa-solid fa-pencil"/>
+export const RightarrowIcon = () =><i className="fa-solid fa-arrow-right ms-2"></i>
+export const LeftarrowIcon = () =><i className="fa-solid fa-arrow-left me-2"></i>

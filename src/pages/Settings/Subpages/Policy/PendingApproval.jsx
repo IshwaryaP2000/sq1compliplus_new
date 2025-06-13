@@ -85,7 +85,7 @@ const PendingApproval = () => {
       const pendingData = response?.data?.data?.pending_approval || [];
       setData(pendingData);
       setFilteredUsers(pendingData);
-      setFilteredLength(pendingData.length); // Set filteredLength
+      setFilteredLength(pendingData.length);
     } catch (error) {
       console.error("Error fetching pending approvals:", error);
       setData([]);
@@ -179,7 +179,7 @@ const PendingApproval = () => {
           setFilteredUsers,
           setIsLoading,
           setFilteredLength,
-          () => { } // Empty setPageIndex
+          () => {} // Empty setPageIndex
         );
       }, 300),
     []
@@ -256,8 +256,9 @@ const PendingApproval = () => {
                 key={policy.id}
               >
                 <div
-                  className={`card p-4 mb-3 rounded-4 ${openModalPolicyId === policy.id ? "blur-effect" : ""
-                    }`}
+                  className={`card p-4 mb-3 rounded-4 ${
+                    openModalPolicyId === policy.id ? "blur-effect" : ""
+                  }`}
                   onClick={() => handleCardClick(policy.id)}
                   style={{
                     cursor: "pointer",
@@ -456,16 +457,18 @@ const PendingApproval = () => {
               selectedPolicy.logs.map((log) => (
                 <div
                   key={log.id}
-                  className={`d-flex mb-3 ${log.action === "policy_created"
-                    ? "justify-content-start"
-                    : "justify-content-end"
-                    }`}
+                  className={`d-flex mb-3 ${
+                    log.action === "policy_created"
+                      ? "justify-content-start"
+                      : "justify-content-end"
+                  }`}
                 >
                   <div
-                    className={`p-3 rounded-3 ${log.action === "policy_created"
-                      ? "bg-light text-dark"
-                      : "bg-primary text-white"
-                      }`}
+                    className={`p-3 rounded-3 ${
+                      log.action === "policy_created"
+                        ? "bg-light text-dark"
+                        : "bg-primary text-white"
+                    }`}
                     style={{ maxWidth: "60%", wordWrap: "break-word" }}
                   >
                     <p className="mb-1">{log.description.body}</p>

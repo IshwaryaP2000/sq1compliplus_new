@@ -44,7 +44,6 @@ const MyPolicy = () => {
   const [selectedPolicy, setSelectedPolicy] = useState(null);
   const [isRetiring, setIsRetiring] = useState(false);
   const [isSubmittingReview, setIsSubmittingReview] = useState(false);
-  // Modal states for pending approval and other actions
   const [showEditorModal, setShowEditorModal] = useState(false);
   const [showApproveModal, setShowApproveModal] = useState(false);
   const [editorContent, setEditorContent] = useState("");
@@ -1443,6 +1442,7 @@ const MyPolicy = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
       <Modal
         show={showQueriesModal}
         onHide={() => setShowQueriesModal(false)}
@@ -1490,6 +1490,7 @@ const MyPolicy = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
       {/* Log Modal */}
       <Modal
         show={showLogModal}
