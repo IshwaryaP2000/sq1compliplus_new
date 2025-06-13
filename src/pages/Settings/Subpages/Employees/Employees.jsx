@@ -24,6 +24,7 @@ const Employee = () => {
         setEmployees(response.data.data.employees.data);
       }
     } catch (error) {
+      console.error("Error fetching employees:", error);
     } finally {
       setIsLoading(false);
     }
@@ -65,6 +66,7 @@ const Employee = () => {
         } else {
         }
       } catch (error) {
+        console.error("Error creating employee:", error);
       } finally {
         setIsLoading(false);
       }

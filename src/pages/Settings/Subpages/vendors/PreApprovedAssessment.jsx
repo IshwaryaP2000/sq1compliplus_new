@@ -9,6 +9,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import usePageTitle from "../../../../utils/usePageTitle";
 import { getApi, postApi } from "../../../../services/apiService";
+import {
+  PlusIcon,
+  TrashIcon,
+  TriangleExclamationIcon,
+} from "../../../../components/Icons/Icons";
 
 const SkeletonLoader = () => (
   <div className={`  mb-3 col-xxl-12`}>
@@ -181,7 +186,9 @@ const PreApprovedAssessment = () => {
         toast.success("All questions answered successfully");
         navigate("/settings/add-pre-approved-vendor");
       }
-    } catch {}
+    } catch (error) {
+      console.error("Error submitting answers:", error);
+    }
   };
 
   const handleSubmitStoreEvidence = async (event) => {
@@ -218,7 +225,9 @@ const PreApprovedAssessment = () => {
       SetEdata(data);
       form.reset();
       fileInput.value = "";
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error submitting evidence:", error);
+    }
   };
 
   const handleDeleteEvidence = async (id, controlId) => {
@@ -229,7 +238,9 @@ const PreApprovedAssessment = () => {
       await postApi(`/vendor/remove-evidence`, payload);
       getEvidence(selectedControlsId);
       handleCloseDelete();
-    } catch {}
+    } catch (error) {
+      console.error("Error deleting evidence:", error);
+    }
   };
 
   const getMails = async () => {
@@ -241,14 +252,18 @@ const PreApprovedAssessment = () => {
         label: email,
       }));
       setMail(colourOptions);
-    } catch {}
+    } catch (error) {
+      console.error("Error fetching emails:", error);
+    }
   };
   const colourOptions = mail;
 
   const getCount = async () => {
     try {
       await getApi(`/vendor/get-questions/${id?.id}`);
-    } catch {}
+    } catch (error) {
+      console.error("Error fetching question count:", error);
+    }
   };
 
   useEffect(() => {
@@ -513,7 +528,8 @@ const PreApprovedAssessment = () => {
                     <>Close Evidence</>
                   ) : (
                     <>
-                      <i className="fa-solid fa-plus me-2"></i>Add Evidence
+                      <PlusIcon />
+                      Add Evidence
                     </>
                   )}
                 </button>
@@ -651,7 +667,7 @@ const PreApprovedAssessment = () => {
                                   className="btn btn-sm px-lg-3 py-0  "
                                   onClick={() => handleShowDelete(data?.id)}
                                 >
-                                  <i className="fa-solid fa-trash text-danger "></i>
+                                  <TrashIcon />
                                 </button>
                               </OverlayTrigger>
                             </div>
@@ -677,7 +693,7 @@ const PreApprovedAssessment = () => {
             <div className="text-center">
               <div className="mb-3">
                 <div className="warning-icon-wrapper">
-                  <i className="fa-solid text-danger fa-triangle-exclamation"></i>
+                  <TriangleExclamationIcon />
                 </div>
               </div>
               <h5 className="fw-bold mb-2 text-muted">Delete Evidence</h5>

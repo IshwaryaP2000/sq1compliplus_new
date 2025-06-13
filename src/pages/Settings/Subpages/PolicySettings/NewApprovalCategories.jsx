@@ -24,6 +24,7 @@ const NewApprovalCategories = () => {
       } else {
       }
     } catch (err) {
+      console.error("Error fetching policy settings:", err);
     } finally {
       setIsLoading(false);
     }
@@ -92,12 +93,11 @@ const NewApprovalCategories = () => {
           // Check for specific error messages in the response
           if (response?.data?.errors?.user_id) {
           } else if (response?.data?.errors?.category) {
-
           } else {
-
           }
         }
       } catch (err) {
+        console.error("Error saving approval category:", err);
         // Extract error message from the response if available
       } finally {
         setIsLoading(false);

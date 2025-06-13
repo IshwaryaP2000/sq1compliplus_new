@@ -820,8 +820,7 @@ const Readiness = () => {
           }
         } catch (error) {
           console.error("Error saving sub-question:", error);
-          // toast.error("Failed to save answer. Please try again.");
-          return; // Prevent navigation if save fails
+          return; 
         }
       }
     }

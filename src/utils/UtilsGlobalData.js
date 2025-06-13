@@ -101,7 +101,9 @@ export const logout = () => {
     try {
       const response = await getApi("organization-info");
       setCurrentOrganization(response?.data?.data?.current_organization);
-    } catch {}
+    } catch (err) {
+      console.error("Error fetching organization info:", err);
+    }
   };
   return true;
 };

@@ -23,6 +23,7 @@ import {
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
+import { PlusIcon } from "../../../../components/Icons/Icons";
 
 export const PreApprovedVendor = () => {
   usePageTitle("Pre-Approved Vendor");
@@ -75,7 +76,9 @@ export const PreApprovedVendor = () => {
       await deleteApi(`/vendor/delete/pre-approved/${userIdToDelete}`);
       GetPreApprovedVendor();
       handleCloseDelete();
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error deleting vendor:", error);
+    }
   };
 
   const validationSchema = Yup.object().shape({
@@ -138,14 +141,16 @@ export const PreApprovedVendor = () => {
       setLocation(response?.data?.data?.service_locations);
       setName(response?.data?.data?.service_names);
       setType(response?.data?.data?.service_types);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching services:", error);
+    }
   };
 
   const handleCloseDelete = () => {
     setShowDelete(false);
     setUserIdToDelete(null);
   };
-  
+
   const handleShowDelete = (userId) => {
     setShowDelete(true);
     setUserIdToDelete(userId);
@@ -255,7 +260,7 @@ export const PreApprovedVendor = () => {
             className="btn ms-2 primary-btn"
             onClick={handleButtonClick}
           >
-            <i className="fa-solid fa-plus me-2"></i> Create Pre-Approved Vendor
+            <PlusIcon /> Create Pre-Approved Vendor
           </button>
 
           <div>

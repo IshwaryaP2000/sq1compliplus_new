@@ -82,7 +82,6 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
     try {
       setIsLoading(true);
       await postApi("/vendor/store", payload);
-      // navigate("/vendors");
       handleCloseAddVendor();
       GetVendors();
     } catch (error) {
@@ -147,8 +146,6 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
           if (response.data.errors.business_name) {
             backendErrors.businessName = response.data.errors.business_name[0];
           }
-          // Map other errors...
-
           setErrors(backendErrors);
           return;
         }
@@ -262,8 +259,6 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
             error?.response?.data?.errors?.data_access[0];
           setDataaccessError(error?.response?.data?.errors?.data_access[0]);
         }
-
-        // setErrors(backendErrors);
         return;
       }
     } finally {

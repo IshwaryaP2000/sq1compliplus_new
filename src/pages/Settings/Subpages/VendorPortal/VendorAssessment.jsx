@@ -119,7 +119,9 @@ const VendorAssessment = () => {
       setShowModal(false);
       setAdminComments("");
       getAssessment();
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error submitting modal:", error);
+    }
   };
 
   const handleCloseModal = () => {

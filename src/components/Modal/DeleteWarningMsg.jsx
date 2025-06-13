@@ -1,6 +1,8 @@
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { TrashIcon } from "../Icons/Icons";
+import { TriangleExclamationIcon } from "../Icons/Icons";
 
 function WarningMsg({
   handleShowDelete,
@@ -16,7 +18,7 @@ function WarningMsg({
           className="btn btn-sm px-lg-3 py-0  "
           onClick={() => handleShowDelete(dataId)}
         >
-          <i className="fa-solid fa-trash text-danger "></i>
+          <TrashIcon />
         </button>
       </OverlayTrigger>
 
@@ -25,7 +27,7 @@ function WarningMsg({
           <div className="text-center">
             <div className="mb-3">
               <div className="warning-icon-wrapper">
-                <i className="fa-solid text-danger fa-triangle-exclamation"></i>
+                <TriangleExclamationIcon />
               </div>
             </div>
             <h5 className="fw-bold mb-2 text-muted">Delete Pre-approved</h5>

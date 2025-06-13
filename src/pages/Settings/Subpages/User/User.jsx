@@ -237,17 +237,6 @@ const User = () => {
             </thead>
             <tbody className="tablescrolling-tbody">
               {isLoading ? (
-                // Array.from({ length: 6 }).map((_, rowIndex) => (
-                //   <tr key={rowIndex}>
-                //     {Array.from({ length: 7 }).map((_, colIndex) => (
-                //       <td key={colIndex}>
-                //         <p className="placeholder-glow">
-                //           <span className="placeholder col-12 bg-secondary"></span>
-                //         </p>
-                //       </td>
-                //     ))}
-                //   </tr>
-                // ))
                 <Loader rows={6} cols={7} />
               ) : filteredUsers?.length > 0 ? (
                 filteredUsers?.map((users, index) => (

@@ -120,9 +120,6 @@ function UserInviteModel({ data, fetchAllUser }) {
 
               <div className="modal-footer border-0">
                 {isLoading ? (
-                  // <div className="stackflo-loadert " role="status">
-                  //   <span className="custom-loader "></span>
-                  // </div>
                   <Spinner />
                 ) : (
                   <button

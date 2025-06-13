@@ -3,12 +3,12 @@ import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { postApi, getApi } from "../../services/apiService";
 import ButtonWithLoader from "../Button/ButtonLoader";
 import { BanIcon, RepeatIcon } from "../Icons/Icons";
+import EnableDisableModal from "./EnableDisableModal";
 
 function OrganizationConfirmationModal({ data, fetchAllOrganizations }) {
   const [isLoading, setIsLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [actionType, setActionType] = useState(null);
-
   const handleClose = () => setShow(false);
 
   const handleShow = (action) => {
@@ -126,10 +126,11 @@ function OrganizationConfirmationModal({ data, fetchAllOrganizations }) {
             <h5>Are you sure you want to delete this user?</h5>
           )}
           {actionType === "action" && (
-            <h5>
-              Are you sure you want to
-              {data?.status === "active" ? "enable" : "disable"} this user?
-            </h5>
+            // <h5>
+            //   Are you sure you want to
+            //   {data?.status === "active" ? "enable" : "disable"} this user?
+            // </h5>
+            <EnableDisableModal status={data?.status} msg="user" />
           )}
         </Modal.Body>
         <Modal.Footer className="justify-content-center border-0 m-0 p-2">

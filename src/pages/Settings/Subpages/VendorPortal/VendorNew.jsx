@@ -94,7 +94,9 @@ const Vendor = () => {
       await postApi(`/vendor/vendor-delete/${userIdToDelete}`);
       GetVendors();
       handleCloseDelete();
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error deleting vendor:", error);
+    }
   };
 
   const handleResend = async (id) => {
@@ -135,7 +137,9 @@ const Vendor = () => {
   const GetService = async () => {
     try {
       await getApi("/vendor/get-vendor-service");
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching vendor service:", error);
+    }
   };
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { postApi } from "../../../services/apiService";
 import usePageTitle from "../../../utils/usePageTitle";
 import { logoPath } from "../../../utils/UtilsGlobalData";
-import { useAuthOrganization } from "../../../hooks/OrganizationUserProvider";
+import { useAuthOrganization } from "../../../Hooks/OrganizationUserProvider";
 import { confirm_password } from "../../../components/Validationschema/commonSchema";
 import { Logo } from "../../../components/Logo/Logo";
 

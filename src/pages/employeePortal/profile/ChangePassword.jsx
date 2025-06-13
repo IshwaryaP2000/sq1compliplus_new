@@ -15,7 +15,7 @@ const ChangePassword = () => {
   // Change Profile Formik
   const changeProfileFormik = useFormik({
     initialValues: {
-      changeprofile: name?.name || "", // Default to an empty string if name is null
+      changeprofile: name?.name || "", 
     },
     validationSchema: Yup.object({
       changeprofile: Yup.string()
@@ -73,14 +73,14 @@ const ChangePassword = () => {
     }),
     onSubmit: async (values, { resetForm, setErrors }) => {
       try {
-        setIsLoading(true); // Start loader
+        setIsLoading(true); 
         const payload = {
           current_password: values.currentPassword,
           new_password: values.newPassword,
           confirm_new_password: values.confirmPassword,
         };
         await postApi("employee/change-password", payload);
-        resetForm(); // Reset form on success
+        resetForm(); 
       } catch (err) {
         if (err.response?.data?.errors) {
           setErrors({
@@ -90,7 +90,7 @@ const ChangePassword = () => {
           });
         }
       } finally {
-        setIsLoading(false); // Stop loader
+        setIsLoading(false); 
       }
     },
   });

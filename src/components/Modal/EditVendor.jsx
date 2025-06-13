@@ -54,7 +54,9 @@ function EditVendor({ Vendordata, GetVendors, areaType, handleCloseModals }) {
       setLocation(response?.data?.data?.service_locations);
       setName(response?.data?.data?.service_names);
       setType(response?.data?.data?.service_types);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching service data:", error);
+    }
   };
 
   const handleSubmit = async (values) => {
@@ -112,7 +114,7 @@ function EditVendor({ Vendordata, GetVendors, areaType, handleCloseModals }) {
           className="btn btn-sm py-0  tableborder-right"
           onClick={handleShow}
         >
-          <PenToSquareIcon/>
+          <PenToSquareIcon />
         </button>
       )}
       <Offcanvas
