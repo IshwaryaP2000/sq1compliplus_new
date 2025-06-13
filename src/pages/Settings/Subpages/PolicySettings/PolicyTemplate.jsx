@@ -14,6 +14,11 @@ import {
   fetchSearchResults,
   highlightText,
 } from "../../../../components/Search/useSearchAndSort";
+import {
+  PenToSquareIcon,
+  TrashIcon,
+  TriangleExclamationIcon,
+} from "../../../../components/Icons/Icons";
 
 const PolicyTemplate = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -99,8 +104,8 @@ const PolicyTemplate = () => {
       setMetaData(response?.data?.data?.template?.meta);
       setFilteredUsers(response?.data?.data?.template?.data);
       setFilteredLength(response?.data?.data?.template?.meta.total);
-    } catch {
-      console.error("error getting a data");
+    } catch (err) {
+      console.error("error getting a data", err);
     } finally {
       setIsLoading(false);
     }
@@ -322,7 +327,6 @@ const PolicyTemplate = () => {
                       verticalAlign: "top",
                     }}
                   >
-                    {" "}
                     <div
                       dangerouslySetInnerHTML={{
                         __html: expandedDescriptions[item?.id || id]
@@ -368,7 +372,7 @@ const PolicyTemplate = () => {
                             )
                           }
                         >
-                          <i className="fa-regular fa-pen-to-square"></i>
+                          <PenToSquareIcon />
                         </button>
                       </OverlayTrigger>
                       <OverlayTrigger
@@ -393,7 +397,7 @@ const PolicyTemplate = () => {
                           className="btn btn-sm py-0 my-1"
                           onClick={() => handleShow(item.id)}
                         >
-                          <i className="fa-solid fa-trash text-danger"></i>
+                          <TrashIcon />
                         </button>
                       </OverlayTrigger>
                     </div>
@@ -550,13 +554,13 @@ const PolicyTemplate = () => {
           <div className="text-center">
             <div className="mb-3">
               <div className="warning-icon-wrapper">
-                <i className="fa-solid text-danger fa-triangle-exclamation"></i>
+                <TriangleExclamationIcon />
               </div>
             </div>
             <h5 className="fw-bold mb-2 text-muted">Delete Policy Template</h5>
             <p className="mb-2">
-              You're going to <span className="fw-bold">"Delete this"</span>{" "}
-              Policy Template. Are you sure?{" "}
+              You're going to <span className="fw-bold">"Delete this"</span>
+              Policy Template. Are you sure?
             </p>
           </div>
         </Modal.Body>

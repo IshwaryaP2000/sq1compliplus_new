@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getApi, postApi } from "../../../../services/apiService";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
+import { email } from "../../../../components/Validationschema/commonSchema";
 
 const Employee = () => {
   const [employees, setEmployees] = useState([]);
@@ -43,9 +44,7 @@ const Employee = () => {
 
   const employeeValidationSchema = Yup.object().shape({
     name: Yup.string().required("Employee Name is required*"),
-    email: Yup.string()
-      .email("Invalid email format")
-      .required("Email is required*"),
+    email: email,
   });
 
   const employeeFormik = useFormik({

@@ -25,8 +25,8 @@ const AllPolicy = () => {
       setData(response?.data?.data);
       setFilteredUsers(response?.data?.data);
       setFilteredLength(response?.data?.data?.length);
-    } catch {
-      console.error("error");
+    } catch (err) {
+      console.error("error", err);
     } finally {
       setIsLoading(false);
     }
@@ -35,8 +35,8 @@ const AllPolicy = () => {
   const getAllPoliciesByID = async (id) => {
     try {
       navigate(`/employee/policy/${id}`);
-    } catch {
-      console.error("error");
+    } catch (err) {
+      console.error("error", err);
     }
   };
 

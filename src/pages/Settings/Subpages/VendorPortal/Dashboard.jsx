@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getApi } from "../../api/apiClient";
 import { Link } from "react-router-dom";
 
 function Dashboard() {
   const [data, setData] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const GetDetail = async () => {
     try {
       setIsLoading(true);
       const response = await getApi("/vendor/get-questions");
       setData(response?.data?.data);
-    } catch {
+    } catch (error) {
+      console.error("Error fetching data:", error);
     } finally {
       setIsLoading(false);
     }
@@ -19,10 +21,10 @@ function Dashboard() {
   useEffect(() => {
     GetDetail();
   }, []);
+
   return (
     <>
       <div className="d-flex justify-content-between mb-3 flex-wrap">
-        {/* <Searchbar /> */}
         <h5 className="fw-bold mb-0 ms-2 mt-3">Dashboard</h5>
       </div>
       <div className="custom-table tabledata-scroll mb-3">
@@ -54,7 +56,6 @@ function Dashboard() {
               <th scope="col" className="text-center">
                 NC Questions
               </th>
-              {/* <th scope="col">Assigned On</th> */}
               <th scope="col" className="text-center">
                 Status
               </th>
@@ -87,7 +88,6 @@ function Dashboard() {
 
                 <td className="text-center">{data?.reset_question_count}</td>
                 <td className="text-center">{data?.nc_question_count}</td>
-                {/* <td className="Capitalize">{data?.vendor_start_date}</td> */}
                 <td className="text-center">
                   <span
                     className={`badge badge-fixedwidth Capitalize ${
@@ -100,7 +100,6 @@ function Dashboard() {
                         : "bg-success-badge"
                     }`}
                   >
-                    {" "}
                     {data?.assessment_status?.replace("-", " ")}
                   </span>
                 </td>

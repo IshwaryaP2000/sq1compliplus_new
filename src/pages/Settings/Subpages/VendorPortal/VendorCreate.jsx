@@ -1,4 +1,4 @@
-import  { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -12,6 +12,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { getApi, postApi } from "../../../../services/apiService";
 import { ucFirst } from "../../../../utils/UtilsGlobalData";
+import {
+  LeftarrowIcon,
+  RightarrowIcon,
+} from "../../../../components/Icons/Icons";
 
 const VendorCreate = () => {
   const navigate = useNavigate();
@@ -24,6 +28,8 @@ const VendorCreate = () => {
   const options = useMemo(() => countryList().getData(), []);
   const service_dataAccess = ["High", "Low", "Medium"];
   const [data, setData] = useState("");
+  const [currentStep, setCurrentStep] = useState(0);
+  const steps = ["Basic Info", "Services", "Contract"];
 
   const GetService = async () => {
     try {
@@ -81,7 +87,6 @@ const VendorCreate = () => {
     selectedCategory: Yup.object().required("Category is required"),
     selectedLocation: Yup.object().required("Location is required"),
     selectedCompliantType: Yup.string().required("SOC Compliant is required"),
-    // data_access: Yup.string(), // data_access is optional
   });
 
   const handleSubmit = async (values) => {
@@ -122,7 +127,8 @@ const VendorCreate = () => {
       const payload = { id: id };
       await postApi(`/add/pre-approved`, payload);
       GetService();
-    } catch {
+    } catch (err) {
+      console.error("Error adding pre-approved vendor:", err);
     } finally {
       setIsLoadingbtn(false);
     }
@@ -134,8 +140,8 @@ const VendorCreate = () => {
       backgroundColor: state.isSelected
         ? "#bcf7c6" // Selected option background
         : state.isFocused
-          ? "#bcf7c6" // Hovered option background
-          : provided.backgroundColor,
+        ? "#bcf7c6" // Hovered option background
+        : provided.backgroundColor,
       color: state.isSelected ? "block" : "inherit",
     }),
     menu: (provided) => ({
@@ -143,9 +149,6 @@ const VendorCreate = () => {
       zIndex: 9999, // Ensure dropdown appears above other elements
     }),
   };
-
-  const [currentStep, setCurrentStep] = useState(0);
-  const steps = ["Basic Info", "Services", "Contract"];
 
   const nextStep = () => {
     if (currentStep < steps.length - 1) {
@@ -198,15 +201,14 @@ const VendorCreate = () => {
                         <tr>
                           <td colSpan="4" className="text-center">
                             No data found
-                          </td>{" "}
+                          </td>
                         </tr>
                       ) : (
                         data.map((item, index) => (
                           <tr key={item.id || index}>
-                            <th scope="row">{index + 1}</th>{" "}
+                            <th scope="row">{index + 1}</th>
                             <td>{item.name || "-"}</td>
                             <td>
-                              {" "}
                               {item?.service_name.map((data) => (
                                 <span className="me-2 service-badge">
                                   {data}
@@ -222,19 +224,11 @@ const VendorCreate = () => {
                                 <button
                                   className="btn primary-btn"
                                   onClick={() => PreVendorAdd(item?.id)}
-                                // disabled={isLoadingbtn}
                                 >
                                   {isLoadingbtn ? "Adding..." : "Add"}
                                 </button>
                               )}
-                              {/* <button
-                                className="btn primary-btn w-50"
-                                onClick={() => PreVendorAdd(item?.id)}
-                                // disabled={isLoadingbtn}
-                              >
-                                {isLoadingbtn ? "Adding..." : "Add"}
-                              </button> */}
-                            </td>{" "}
+                            </td>
                           </tr>
                         ))
                       )}
@@ -283,12 +277,13 @@ const VendorCreate = () => {
                     {steps.map((step, index) => (
                       <div
                         key={index}
-                        className={`step ${index === currentStep
+                        className={`step ${
+                          index === currentStep
                             ? "active"
                             : index < currentStep
-                              ? "completed"
-                              : ""
-                          }`}
+                            ? "completed"
+                            : ""
+                        }`}
                       >
                         <span>
                           {index < currentStep ? (
@@ -444,7 +439,7 @@ const VendorCreate = () => {
                       className="btn primary-btn me-2"
                       onClick={nextStep}
                     >
-                      Next <i className="fa-solid fa-arrow-right ms-2"></i>
+                      Next <RightarrowIcon />
                     </button>
                   </div>
 
@@ -497,9 +492,9 @@ const VendorCreate = () => {
                           value={
                             values.selectedType
                               ? {
-                                value: values.selectedType,
-                                label: values.selectedType,
-                              }
+                                  value: values.selectedType,
+                                  label: values.selectedType,
+                                }
                               : null
                           }
                           onChange={(selectedOption) =>
@@ -615,14 +610,14 @@ const VendorCreate = () => {
                       className="btn primary-btn me-2"
                       onClick={prevStep}
                     >
-                      <i className="fa-solid fa-arrow-left me-2"></i> Back
+                      <LeftarrowIcon /> Back
                     </button>
                     <button
                       type="button"
                       className="btn primary-btn"
                       onClick={nextStep}
                     >
-                      Next <i className="fa-solid fa-arrow-right ms-2"></i>
+                      Next <RightarrowIcon />
                     </button>
                   </div>
 
@@ -652,7 +647,7 @@ const VendorCreate = () => {
                       className="btn primary-btn me-2"
                       onClick={prevStep}
                     >
-                      <i className="fa-solid fa-arrow-left me-2"></i> Back
+                      <LeftarrowIcon /> Back
                     </button>
 
                     <button

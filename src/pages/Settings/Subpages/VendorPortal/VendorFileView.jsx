@@ -14,7 +14,8 @@ function VendorFileView() {
       setIsLoading(true);
       const response = await getApi(`/org-vendor/view-evidence/${id?.id}`);
       setEdata(Object.values(response?.data?.data));
-    } catch {
+    } catch (err) {
+      console.error("Error fetching vendor files:", err);
     } finally {
       setIsLoading(false);
     }

@@ -21,7 +21,7 @@ const ListAllOrganizations = () => {
       setIsLoading(true);
       const response = await getApi("user-organizations-list");
       setAllOrganizations(response?.data?.data?.data || []);
-      setError(null); // Clear previous errors
+      setError(null);
     } catch (err) {
       setError("Failed to fetch organizations. Please try again later.");
       console.error("Error in fetchAllOrganizations:", err);

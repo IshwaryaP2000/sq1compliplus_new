@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getApi, postApi } from "../../../../services/apiService";
 import usePageTitle from "../../../../utils/usePageTitle";
 import { toast } from "react-toastify";
+import { LeftarrowIcon, RightarrowIcon } from "../../../../components/Icons/Icons";
 
 const Readiness = () => {
   usePageTitle("Readiness");
@@ -1290,7 +1291,7 @@ const Readiness = () => {
             </div>
             <div>
               <p className="data-protect">
-                Section{" "}
+                Section
                 {readinessStatus === "yes"
                   ? currentSection + 1
                   : questionsData?.section_no}
@@ -1604,7 +1605,7 @@ const Readiness = () => {
                                           )
                                         }
                                       />
-                                      <span className="checkbox-custom"></span>{" "}
+                                      <span className="checkbox-custom"></span>
                                       {option}
                                     </label>
                                   )
@@ -1630,7 +1631,7 @@ const Readiness = () => {
                         currentSection === 0 && currentQuestionIndex === 0
                       } // Disable only for first question of first section
                     >
-                      <i className="fa-solid fa-arrow-left me-2"></i> Previous
+                     <LeftarrowIcon/> Previous
                       Section
                     </button>
                   ) : (
@@ -1640,7 +1641,7 @@ const Readiness = () => {
                         onClick={handlePreviousStep}
                         className="btn btn-prev w-auto btn-sm"
                       >
-                        <i className="fa-solid fa-arrow-left me-2"></i> Previous
+                       <LeftarrowIcon/> Previous
                       </button>
                     )
                   )}
@@ -1653,7 +1654,7 @@ const Readiness = () => {
                         className="btn btn-auth w-auto btn-sm"
                         disabled={isNextDisabled()}
                       >
-                        Next <i className="fa-solid fa-arrow-right ms-2"></i>
+                        Next <RightarrowIcon />
                       </button>
                       {readinessStatus !== "yes" && (
                         <button
@@ -1661,7 +1662,7 @@ const Readiness = () => {
                           onClick={handleSkipSubQuestion}
                           className="btn btn-skip w-auto btn-sm"
                         >
-                          Skip <i className="fa-solid fa-arrow-right ms-2"></i>
+                          Skip <RightarrowIcon />
                         </button>
                       )}
                     </>
@@ -1684,8 +1685,8 @@ const Readiness = () => {
                       >
                         {readinessStatus === "yes" && isLastQuestion()
                           ? "Next Section"
-                          : "Next"}{" "}
-                        <i className="fa-solid fa-arrow-right ms-2"></i>
+                          : "Next"}
+                        <RightarrowIcon />
                       </button>
                       {readinessStatus !== "yes" && (
                         <button
@@ -1693,7 +1694,7 @@ const Readiness = () => {
                           onClick={handleSkipSubQuestion}
                           className="btn btn-skip w-auto later-button"
                         >
-                          Skip <i className="fa-solid fa-arrow-right ms-2"></i>
+                          Skip <RightarrowIcon />
                         </button>
                       )}
                     </>
@@ -1795,7 +1796,7 @@ const Readiness = () => {
                     className="mb-1"
                     style={{ fontSize: "16px", color: "#28a745" }}
                   >
-                    Main Questions:{" "}
+                    Main Questions:
                     <span style={{ fontWeight: "bold" }}>{mainCount}</span>
                   </p>
                 </div>
@@ -1804,7 +1805,7 @@ const Readiness = () => {
                     className="mb-1"
                     style={{ fontSize: "16px", color: "#28a745" }}
                   >
-                    Sub-Questions:{" "}
+                    Sub-Questions:
                     <span style={{ fontWeight: "bold" }}>{subCount}</span>
                   </p>
                 </div>

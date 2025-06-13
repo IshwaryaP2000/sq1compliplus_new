@@ -106,7 +106,7 @@ function UserOrganization() {
     <>
       <div className="d-flex justify-content-between mb-3">
         <h5>
-          {user_name} Organizations{" "}
+          {user_name} Organizations
           {data.length > 0 && (
             <span className="badge user-active text-white ">{data.length}</span>
           )}

@@ -1,17 +1,22 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useEffect, useState } from "react";
+import "../../../css/Stackflo.css";
+import { Link, useNavigate } from "react-router-dom";
 import { postApi } from "../../../api/apiClient";
+import { useAuthOrganization } from "../../../customHooks/OrganizationUserProvider";
+import usePageTitle from "../../includes/usePageTitle";
+import {
+  email,
+  password,
+} from "../../../../../components/Validationschema/commonSchema";
 import {
   getCurrentOrganization,
   logoPath,
   setAuthToken,
   setCurrentUser,
 } from "../../../utils/UtilsGlobalData";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuthOrganization } from "../../../customHooks/OrganizationUserProvider";
-import "../../../css/Stackflo.css";
-import usePageTitle from "../../includes/usePageTitle";
-import { useEffect, useState } from "react";
+import { EyeIcon, EyeslashIcon } from "../../../../../components/Icons/Icons";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,13 +33,8 @@ const Login = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .max(50, "Email must be below 50 characters")
-        .email("Invalid email address")
-        .required("Email is required"),
-      password: Yup.string()
-        .max(20, "Password must be below 20 characters")
-        .required("Password is required"),
+      email: email,
+      password: password,
     }),
 
     onSubmit: async (values, { setSubmitting }) => {
@@ -48,7 +48,6 @@ const Login = () => {
         setAuthToken(response?.data?.data?.token);
         setAuthUser(vendor);
         setCurrentUser(vendor);
-        // getCurrentVendor();
         navigate("/vendor-portal/dashboard");
         localStorage.setItem("portal", "vendor");
       } catch (errorLogin) {
@@ -177,9 +176,9 @@ const Login = () => {
                               }
                             >
                               {showPassword ? (
-                                <i className="fa-solid fa-eye-slash text-secondary" />
+                                <EyeslashIcon />
                               ) : (
-                                <i className="fa-solid fa-eye text-secondary" />
+                               <EyeIcon/>
                               )}
                             </button>
                           )}

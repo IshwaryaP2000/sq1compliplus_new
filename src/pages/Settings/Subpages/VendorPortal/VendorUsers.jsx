@@ -1,9 +1,12 @@
-import React from "react";
 import { getApi, deleteApi } from "../../api/apiClient";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  TrashIcon,
+  TriangleExclamationIcon,
+} from "../../../../components/Icons/Icons";
 
 const VendorUsers = () => {
   const [data, setData] = useState("");
@@ -15,30 +18,35 @@ const VendorUsers = () => {
     setShow(false);
     setUserIdToDelete(null); // Reset the user ID when closing the modal
   };
+
   const handleShow = (userId) => {
     setShow(true);
     setUserIdToDelete(userId); // Store the user ID to delete
   };
+
   const GetUsers = async () => {
     try {
       setIsLoading(true);
       const response = await getApi("/vendor/get-vendor-users");
       setData(response?.data?.data);
-      console.log("response", response?.data?.data);
-    } catch {
+    } catch (err) {
+      console.error("Error fetching vendor users:", err);
     } finally {
       setIsLoading(false);
     }
   };
+
   const DeleteUser = async () => {
     if (!userIdToDelete) return; // Prevents accidental deletion if no user ID is set
-
     try {
       await deleteApi(`/vendor/remove-vendor-users/${userIdToDelete}`);
-      handleClose(); // Close the modal after deleting
-      GetUsers(); // Refresh the user list
-    } catch {}
+      handleClose();
+      GetUsers();
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
   };
+
   useEffect(() => {
     GetUsers();
   }, []);
@@ -46,7 +54,7 @@ const VendorUsers = () => {
   return (
     <>
       <h5 className="fw-bold mb-0 ms-1 mt-3">
-        Users{" "}
+        Users
         {data?.length > 0 && (
           <span className="badge bg-lightgreen-07">{data?.length}</span>
         )}
@@ -66,13 +74,6 @@ const VendorUsers = () => {
               </th>
             </tr>
           </thead>
-          {/* <tbody className="tablescrolling-tbody">
-            <tr>
-              <td colSpan="6" className="text-center">
-                No data found
-              </td>
-            </tr>
-          </tbody> */}
           <tbody className="tablescrolling-tbody">
             {isLoading ? (
               Array.from({ length: 3 }).map((_, rowIndex) => (
@@ -114,7 +115,7 @@ const VendorUsers = () => {
                           className="btn btn-sm px-lg-3 my-1"
                           onClick={() => handleShow(users?.id)}
                         >
-                          <i className="fa-solid fa-trash text-danger"></i>
+                          <TrashIcon />
                         </button>
                       </OverlayTrigger>
                     </div>
@@ -135,13 +136,13 @@ const VendorUsers = () => {
             <div className="text-center">
               <div className="mb-3">
                 <div className="warning-icon-wrapper">
-                  <i className="fa-solid text-danger fa-triangle-exclamation"></i>
+                  <TriangleExclamationIcon />
                 </div>
               </div>
               <h5 className="fw-bold mb-2 text-muted">Delete User</h5>
               <p className="mb-2">
-                You're going to <span className="fw-bold">"Delete this"</span>{" "}
-                user. Are you sure?{" "}
+                You're going to <span className="fw-bold">"Delete this"</span>
+                user. Are you sure?
               </p>
             </div>
           </Modal.Body>

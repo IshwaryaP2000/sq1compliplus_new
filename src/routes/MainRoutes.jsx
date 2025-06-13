@@ -65,11 +65,15 @@ import Policy from "../pages/Settings/Subpages/Policy/Policy";
 import PolicyTemplate from "../pages/Settings/Subpages/PolicySettings/PolicyTemplate";
 import AdminPolicy from "../pages/Settings/Subpages/PolicySettings/AdminPolicy";
 import ApprovalCategories from "../pages/Settings/Subpages/PolicySettings/ApprovalCategories";
-import Vendor from "../pages/Settings/Subpages/vendors/Vendor";
-import VendorCreate from "../pages/Settings/Subpages/vendors/VendorCreate";
-import ChangePassword from "../pages/Settings/Subpages/vendors/profile/ChangePassword";
-import VendorAssessment from "../pages/Settings/Subpages/vendors/VendorAssessment";
-import VendorFileView from "../pages/Settings/Subpages/vendors/VendorFileView";
+import Vendor from "../pages/Settings/Subpages/VendorPortal/Vendor";
+import VendorCreate from "../pages/Settings/Subpages/VendorPortal/VendorCreate";
+import ChangePassword from "../pages/Settings/Subpages/VendorPortal/profile/ChangePassword";
+import VendorAssessment from "../pages/Settings/Subpages/VendorPortal/VendorAssessment";
+import VendorFileView from "../pages/Settings/Subpages/VendorPortal/VendorFileView";
+import Questions from "../pages/Settings/Subpages/Vendors/Questions";
+import { PreApprovedVendor } from "../pages/Settings/Subpages/Vendors/PreApprovedVendor";
+import BulkUploadQuestion from "../pages/Settings/Subpages/Vendors/BulkUploadQuestion";
+import AddQuestions from "../pages/Settings/Subpages/Vendors/AddQuestions";
 
 function MainRoutes() {
   const navigate = useNavigate();
@@ -160,6 +164,17 @@ function MainRoutes() {
           element={<ComplexIntegration />}
         />
         <Route path="/settings/controls" element={<Controls />} />
+        <Route path="/settings/question" element={<Questions />} />
+        <Route
+          path="/settings/add-pre-approved-vendor"
+          element={<PreApprovedVendor />}
+        />
+        <Route
+          path="/settings/upload-question"
+          element={<BulkUploadQuestion />}
+        />
+        <Route path="/settings/add-questions" element={<AddQuestions />} />
+
         <Route path="/settings/add-question" element={<AddQuestion />} />
         <Route path="/settings/sso-setup" element={<SsoSetup />} />
         <Route path="/settings/policy-template" element={<PolicyTemplate />} />

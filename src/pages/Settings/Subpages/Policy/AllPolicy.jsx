@@ -681,16 +681,6 @@ const AllPolicy = () => {
                         }}
                       ></h5>
                     </div>
-                    {/* <div className="policy-details">
-                      <p className="mb-0 fs-14 text-gray-light mb-2">Status</p>
-                      <div>
-                        <p className="policy-waiting-status mb-0">
-                          {policy?.status
-                            ? ucFirst(policy.status.replace(/_/g, " "))
-                            : "N/A"}
-                        </p>
-                      </div>
-                    </div> */}
                     <div className="policy-details">
                       <p className="mb-0 fs-14 text-gray-light mb-2">
                         Category

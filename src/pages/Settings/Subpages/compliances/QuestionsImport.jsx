@@ -13,8 +13,8 @@ const ImportQuestions = () => {
   // Handle file selection
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
-    setUploadSuccess(false); // Reset success message on new file selection
-    setError(""); // Reset error message
+    setUploadSuccess(false);
+    setError("");
   };
 
   // Handle file upload
@@ -38,9 +38,9 @@ const ImportQuestions = () => {
 
       if (response.data.success) {
         setUploadSuccess(true);
-        setFile(null); // Clear the selected file state
+        setFile(null);
         if (fileInputRef.current) {
-          fileInputRef.current.value = ""; // Reset the file input
+          fileInputRef.current.value = "";
         }
       } else {
         throw new Error(response.data.message || "File upload failed.");

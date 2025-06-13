@@ -11,6 +11,7 @@ import {
   fetchSearchResults,
   highlightText,
 } from "../../../../components/Search/useSearchAndSort";
+import { PenToSquareIcon } from "../../../../components/Icons/Icons";
 
 const AdminPolicy = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -50,8 +51,8 @@ const AdminPolicy = () => {
       setMetaData(response?.data?.data?.policy?.meta);
       setFilteredUsers(response?.data?.data?.policy?.data);
       setFilteredLength(response?.data?.data?.policy?.meta.total);
-    } catch {
-      console.error("error getting a data");
+    } catch(err) {
+      console.error("error getting a data",err);
     } finally {
       setIsLoading(false);
     }
@@ -230,7 +231,7 @@ const AdminPolicy = () => {
                             )
                           }
                         >
-                          <i className="fa-regular fa-pen-to-square"></i>
+                          <PenToSquareIcon/>
                         </button>
                       </OverlayTrigger>
                       <OverlayTrigger
@@ -287,7 +288,7 @@ const AdminPolicy = () => {
               ) : (
                 <>
                   <button className="admin-template-edit" onClick={adminEdit}>
-                    <i className="fa-regular fa-pen-to-square"></i>
+                    <PenToSquareIcon/>
                   </button>
                 </>
               )}

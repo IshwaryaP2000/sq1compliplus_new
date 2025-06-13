@@ -243,7 +243,7 @@ function ConfirmationModel({
           )}
           {actionType === "action" && (
             <span>
-              Are you sure you want to{" "}
+              Are you sure you want to
               {data?.status === "active" ? "disable" : "enable"} this user?
             </span>
           )}

@@ -127,7 +127,7 @@ function OrganizationConfirmationModal({ data, fetchAllOrganizations }) {
           )}
           {actionType === "action" && (
             <h5>
-              Are you sure you want to{" "}
+              Are you sure you want to
               {data?.status === "active" ? "enable" : "disable"} this user?
             </h5>
           )}

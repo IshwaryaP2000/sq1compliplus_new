@@ -111,6 +111,7 @@ function BulkUploadEmployees() {
       // toast.error("There was an error downloading the file. Please try again.");
     }
   };
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -145,7 +146,7 @@ function BulkUploadEmployees() {
                     onClick={handleDownload}
                     style={{ cursor: "pointer" }}
                   >
-                    Download Sample{" "}
+                    Download Sample
                     <i className="fa-solid fa-download ms-1"></i>
                   </span>
                 </div>

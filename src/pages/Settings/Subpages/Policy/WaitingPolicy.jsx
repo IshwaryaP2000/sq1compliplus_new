@@ -154,7 +154,7 @@ const WaitingPolicy = () => {
           setFilteredUsers,
           setIsLoading,
           setFilteredLength,
-          () => { } // Empty setPageIndex since not used
+          () => {} // Empty setPageIndex since not used
         );
       }, 300),
     []
@@ -213,8 +213,9 @@ const WaitingPolicy = () => {
                 key={policy.id}
               >
                 <div
-                  className={`card p-4 mb-3 rounded-4 ${openModalPolicyId === policy.id ? "blur-effect" : ""
-                    }`}
+                  className={`card p-4 mb-3 rounded-4 ${
+                    openModalPolicyId === policy.id ? "blur-effect" : ""
+                  }`}
                   onClick={() => handleCardClick(policy.id)}
                   style={{
                     cursor: "pointer",
@@ -367,16 +368,18 @@ const WaitingPolicy = () => {
               selectedPolicy.logs.map((log) => (
                 <div
                   key={log.id}
-                  className={`d-flex mb-3 ${log.action === "policy_created"
-                    ? "justify-content-start"
-                    : "justify-content-end"
-                    }`}
+                  className={`d-flex mb-3 ${
+                    log.action === "policy_created"
+                      ? "justify-content-start"
+                      : "justify-content-end"
+                  }`}
                 >
                   <div
-                    className={`p-3 rounded-3 ${log.action === "policy_created"
-                      ? "bg-light text-dark"
-                      : "bg-primary text-white"
-                      }`}
+                    className={`p-3 rounded-3 ${
+                      log.action === "policy_created"
+                        ? "bg-light text-dark"
+                        : "bg-primary text-white"
+                    }`}
                     style={{ maxWidth: "60%", wordWrap: "break-word" }}
                   >
                     <p className="mb-1">{log.description.body}</p>

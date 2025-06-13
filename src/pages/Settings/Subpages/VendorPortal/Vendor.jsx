@@ -16,6 +16,7 @@ import {
   fetchSearchResults,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
+import { TriangleExclamationIcon } from "../../../../components/Icons/Icons";
 
 const VendorStartDate = ({ date }) => {
   const formatDate = (dateStr) => {
@@ -148,7 +149,9 @@ const VendorNew = () => {
     try {
       const response = await getApi("/vendor/list-questions");
       setQuestionCount(response?.data?.data?.data);
-    } catch {}
+    } catch (err) {
+      console.error("Error fetching questions:", err);
+    }
   };
 
   const GetVendors = async (URI = "/vendor/vendor-list") => {
@@ -156,11 +159,11 @@ const VendorNew = () => {
       setIsLoading(true);
       const response = await getApi(URI);
       setFilteredUsers(response?.data?.data?.data);
-      console.log("Question Count", response?.data?.data?.data);
       setFilteredLength(response?.data?.data?.meta?.total);
       setMeta(response?.data?.data?.meta);
       setPageIndex(response?.data?.data);
-    } catch {
+    } catch (error) {
+      console.error("Error fetching vendors:", error);
     } finally {
       setIsLoading(false);
     }
@@ -324,7 +327,7 @@ const VendorNew = () => {
     <div>
       <div className="d-flex justify-content-between mb-3 flex-wrap">
         <h5 className="p-2 mb-0">
-          Vendors{" "}
+          Vendors
           {meta?.total !== 0 ? (
             <span className="badge user-active text-white">{meta?.total}</span>
           ) : (
@@ -590,7 +593,7 @@ const VendorNew = () => {
                                 disabled={true}
                                 className="btn btn-sm my-1 policy-buttons"
                               >
-                                <i className="fa-regular fa-edit me-1 "></i>{" "}
+                                <i className="fa-regular fa-edit me-1 "></i>
                                 Edit
                               </button>
                             ) : (
@@ -608,7 +611,7 @@ const VendorNew = () => {
                                 className="btn btn-sm my-1 policy-buttons"
                                 onClick={() => handleResendClick(vendors?.id)}
                               >
-                                <i className="fa-solid fa-repeat me-1 "></i>{" "}
+                                <i className="fa-solid fa-repeat me-1 "></i>
                                 Resend
                               </button>
                             ) : (
@@ -724,7 +727,7 @@ const VendorNew = () => {
               <div className="text-center">
                 <div className="mb-3">
                   <div className="warning-icon-wrapper">
-                    <i class="fa-solid text-danger fa-triangle-exclamation"></i>
+                    <TriangleExclamationIcon />
                   </div>
                 </div>
                 <h5 className="fw-bold mb-2 text-muted">Delete Vendor</h5>
@@ -787,7 +790,7 @@ const VendorNew = () => {
                 onClick={handleGoToQuestionPage}
                 className="px-4"
               >
-                Go to Question Page{" "}
+                Go to Question Page
                 <i className="fa-solid fa-arrow-right ms-1"></i>
               </Button>
             </div>
@@ -806,7 +809,6 @@ const VendorNew = () => {
               <Modal.Title>
                 <div className="create-vendormodel ">
                   <h6 className="fw-bold mb-0">
-                    {" "}
                     <i className="fa-solid fa-list me-1"> </i> Listed Vendors
                   </h6>
                 </div>
@@ -831,7 +833,6 @@ const VendorNew = () => {
               <Modal.Title>
                 <div className="create-vendormodel ">
                   <h6 className="fw-bold mb-0">
-                    {" "}
                     <i className="fa-solid fa-user-plus me-1"> </i> Create
                     Vendor
                   </h6>

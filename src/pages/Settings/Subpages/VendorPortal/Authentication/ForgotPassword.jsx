@@ -4,20 +4,18 @@ import { postApi } from "../../../api/apiClient";
 import { logoPath } from "../../../utils/UtilsGlobalData";
 import { Link, useNavigate } from "react-router-dom";
 import usePageTitle from "../../includes/usePageTitle";
-import { toast } from "react-toastify";
+import { email } from "../../../../../components/Validationschema/commonSchema";
 
 const ForgotPassword = () => {
   usePageTitle("Forgot Password");
   const navigate = useNavigate();
+  
   const formik = useFormik({
     initialValues: {
       email: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Invalid email address")
-        .max(50, "Email must be below 50 character")
-        .required("Email is required"),
+      email: email,
     }),
     onSubmit: async (values, { setStatus, setFieldError }) => {
       try {
@@ -34,6 +32,7 @@ const ForgotPassword = () => {
       }
     },
   });
+
   return (
     <section className="overflow-hidden">
       <div>
@@ -76,10 +75,11 @@ const ForgotPassword = () => {
                     <div className="input-wrap mb-4">
                       <input
                         type="text"
-                        className={`form--input ${formik.touched.email && formik.errors.email
+                        className={`form--input ${
+                          formik.touched.email && formik.errors.email
                             ? "is-invalid"
                             : ""
-                          }`}
+                        }`}
                         id="email"
                         name="email"
                         value={formik.values.email}
