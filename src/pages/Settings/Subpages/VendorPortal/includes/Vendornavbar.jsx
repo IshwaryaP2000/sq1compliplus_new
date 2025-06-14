@@ -43,7 +43,9 @@ const Vendornavbar = () => {
       localStorage.removeItem("authUser");
       localStorage.removeItem("portal");
       navigate("/vendor-portal/login");
-    } catch (error) {}
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   return (

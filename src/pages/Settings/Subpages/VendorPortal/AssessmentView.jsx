@@ -332,7 +332,9 @@ const AssessmentView = () => {
       // Reset the form
       form.reset();
       fileInput.value = ""; // To clear the file input specifically
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error submitting evidence:", error);
+    }
   };
 
   const handleClearEvidence = () => {

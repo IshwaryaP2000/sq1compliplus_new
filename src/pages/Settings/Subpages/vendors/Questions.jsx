@@ -11,6 +11,7 @@ import {
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
+import { PlusIcon } from "../../../../components/Icons/Icons";
 
 const Questions = () => {
   const navigate = useNavigate();
@@ -123,7 +124,7 @@ const Questions = () => {
             onClick={() => navigate("/settings/add-questions")}
             className="btn primary-btn mx-1"
           >
-            <i className="fa-solid fa-plus me-2"></i>
+            <PlusIcon/>
             Add Question
           </button>
         </div>

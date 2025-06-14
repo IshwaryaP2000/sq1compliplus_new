@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import AllPolicy from "../pages/employeePortal/AllPolicy";
 import ViewPolicy from "../pages/employeePortal/ViewPolicy";
-import ChangePassword from "../pages/employeePortal/Profile/ChangePassword";
+import ChangePassword from "../pages/EmployeePortal/Profile/ChangePassword";
 import AcceptedPolicy from "../pages/employeePortal/AcceptedPolicy";
 import NoPage from "../pages/Errorpage/NoPage";
 

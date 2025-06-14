@@ -120,7 +120,6 @@ const ListedVendor = ({ GetVendors }) => {
                             <button
                               className="btn primary-light-btn px-4 d-inline-flex align-items-center"
                               onClick={() => PreVendorAdd(item?.id)}
-                              // disabled={isLoadingbtn}
                             >
                               {isLoadingbtn ? (
                                 <div

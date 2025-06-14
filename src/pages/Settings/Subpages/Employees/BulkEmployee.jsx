@@ -107,8 +107,7 @@ function BulkUploadEmployees() {
         throw new Error("Invalid URL provided for downloading.");
       }
     } catch (error) {
-      // console.error("Error downloading the file:", error);
-      // toast.error("There was an error downloading the file. Please try again.");
+      console.error("Error downloading the file:", error);
     }
   };
 

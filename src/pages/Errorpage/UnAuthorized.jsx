@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getAuthToken } from "../../utils/UtilsGlobalData";
 import { Link, useNavigate } from "react-router-dom";
-import usePageTitle from "../includes/usePageTitle";
+import usePageTitle from "../../utils/usePageTitle";
+import { getAuthToken } from "../../utils/UtilsGlobalData";
 
 const UnAuthorized = () => {
   usePageTitle("Unauthorized Access");

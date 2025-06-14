@@ -3,7 +3,6 @@ import { useDnD } from "./ApprovalCategorieDrawflow";
 
 const DraggableButton = ({ name, type, categoryType, id }) => {
   const [_, setType] = useDnD();
-
   const onDragStart = (event) => {
     setType(type);
     event.dataTransfer.effectAllowed = "move";

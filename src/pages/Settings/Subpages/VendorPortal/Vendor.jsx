@@ -223,7 +223,9 @@ const VendorNew = () => {
   const GetService = async () => {
     try {
       await getApi("/vendor/get-vendor-service");
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching services:", error);
+    }
   };
 
   useEffect(() => {
