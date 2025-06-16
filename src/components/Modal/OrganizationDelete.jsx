@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { deleteApi } from "../../services/apiService";
 import { BanIcon, TrashIcon, TriangleExclamationIcon } from "../Icons/Icons";
+import DeleteModal from "./DeleteModal";
 
 function OrganizationDelete({ dataId, title, data, fetchAllOrganizations }) {
   const [showDelete, setShowDelete] = useState(false);
@@ -53,7 +54,7 @@ function OrganizationDelete({ dataId, title, data, fetchAllOrganizations }) {
 
       <Modal show={showDelete} onHide={handleCloseDelete} centered>
         <Modal.Body className="p-4">
-          <div className="text-center">
+          {/* <div className="text-center">
             <div className="mb-3">
               <div className="warning-icon-wrapper">
                 <TriangleExclamationIcon />
@@ -64,7 +65,8 @@ function OrganizationDelete({ dataId, title, data, fetchAllOrganizations }) {
               You're going to <span className="fw-bold">"Delete this" </span>
               {title}. Are you sure?
             </p>
-          </div>
+          </div> */}
+          <DeleteModal msg={title}/>
         </Modal.Body>
         <div className="d-flex justify-content-center mb-3 gap-4">
           <Button

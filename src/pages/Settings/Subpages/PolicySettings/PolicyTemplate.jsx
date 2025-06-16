@@ -20,6 +20,7 @@ import {
   TriangleExclamationIcon,
 } from "../../../../components/Icons/Icons";
 import { Loader } from "../../../../components/Table/Loader";
+import DeleteModal from "../../../../components/Modal/DeleteModal";
 
 const PolicyTemplate = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -553,7 +554,7 @@ const PolicyTemplate = () => {
       </Offcanvas>
       <Modal show={show} onHide={handleClose} backdrop="static" centered>
         <Modal.Body className="p-4">
-          <div className="text-center">
+          {/* <div className="text-center">
             <div className="mb-3">
               <div className="warning-icon-wrapper">
                 <TriangleExclamationIcon />
@@ -564,7 +565,8 @@ const PolicyTemplate = () => {
               You're going to <span className="fw-bold">"Delete this"</span>
               Policy Template. Are you sure?
             </p>
-          </div>
+          </div> */}
+          <DeleteModal msg="Policy Template" />
         </Modal.Body>
         <Modal.Footer className="justify-content-center border-0 m-0 p-2">
           <button

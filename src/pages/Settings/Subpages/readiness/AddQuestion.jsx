@@ -6,6 +6,7 @@ import { Modal, Button } from "react-bootstrap";
 import usePageTitle from "../../../../utils/usePageTitle";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
 import { TriangleExclamationIcon } from "../../../../components/Icons/Icons";
+import DeleteModal from "../../../../components/Modal/DeleteModal";
 
 function AddQuestion() {
   usePageTitle("Readiness Questions");
@@ -721,7 +722,7 @@ function AddQuestion() {
       {/* New Modal Design for Delete Confirmation */}
       <Modal show={showDelete} onHide={handleCloseDelete} centered>
         <Modal.Body className="p-4">
-          <div className="text-center">
+          {/* <div className="text-center">
             <div className="mb-3">
               <div className="warning-icon-wrapper">
                 <TriangleExclamationIcon />
@@ -732,7 +733,8 @@ function AddQuestion() {
               You're going to <span className="fw-bold">"Delete this"</span>
               question. Are you sure?
             </p>
-          </div>
+          </div> */}
+          <DeleteModal msg="Question"/>
         </Modal.Body>
         <div className="d-flex justify-content-center mb-3 gap-4">
           <Button

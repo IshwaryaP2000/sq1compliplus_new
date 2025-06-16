@@ -22,6 +22,8 @@ import {
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
+import { Loader } from "../../../../components/Table/Loader";
+import DeleteModal from "../../../../components/Modal/DeleteModal";
 
 const NewUser = () => {
   usePageTitle("Organization Users");
@@ -505,7 +507,7 @@ const NewUser = () => {
         >
           <div className="modal-dialog modal-dialog-centered modal-md">
             <div className="modal-content p-3">
-              <div className="modal-body text-center">
+              {/* <div className="modal-body text-center">
                 <div className="text-center">
                   <div className="mb-3">
                     <div className="warning-icon-wrapper">
@@ -519,7 +521,8 @@ const NewUser = () => {
                     user?. Are you sure?
                   </p>
                 </div>
-              </div>
+              </div> */}
+              <DeleteModal msg="user"/>
               <div className="d-flex justify-content-center mb-3 gap-4">
                 <Button
                   type="button"

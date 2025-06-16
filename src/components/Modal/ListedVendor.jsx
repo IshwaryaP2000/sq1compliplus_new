@@ -123,7 +123,7 @@ const ListedVendor = ({ GetVendors }) => {
                             >
                               {isLoadingbtn ? (
                                 <div
-                                  class="spinner-border p-0 text-white spinner-border-sm"
+                                  className="spinner-border p-0 text-white spinner-border-sm"
                                   role="status"
                                 ></div>
                               ) : (
