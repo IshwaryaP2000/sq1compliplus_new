@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import { getApi, postApi } from "../../api/apiClient";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { end } from "@popperjs/core";
 import CreatableSelect from "react-select/creatable";
@@ -7,16 +6,18 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { OverlayTrigger } from "react-bootstrap";
 import { Tooltip } from "react-bootstrap";
-import "../../css/adminAiChat.css";
 import { Link, useNavigate } from "react-router-dom";
-import VendorChat from "./modals/VendorChat";
-import OverflowTooltips from "../../components/OverflowTooltips";
-import ButtonWithLoader from "../../components/ButtonLoader";
+import "../../../../styles/adminAiChat.css"
+import VendorChat from "../../../../components/Modal/VendorChat";
+import { getApi, postApi } from "../../../../services/apiService";
+import OverflowTooltips from "../../../../components/Tooltip/OverflowTooltips";
+import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
 import {
   PlusIcon,
   TrashIcon,
   TriangleExclamationIcon,
 } from "../../../../components/Icons/Icons";
+import { Loader } from "../../../../components/Table/Loader";
 
 const SkeletonLoader = () => (
   <div className={`  mb-3 col-xxl-12`}>
@@ -1339,17 +1340,18 @@ const AssessmentView = () => {
                 </thead>
                 <tbody className="tablescrolling-tbody">
                   {isLoading ? (
-                    Array.from({ length: 3 }).map((_, rowIndex) => (
-                      <tr key={rowIndex}>
-                        {Array.from({ length: 4 }).map((_, colIndex) => (
-                          <td key={colIndex}>
-                            <p className="placeholder-glow">
-                              <span className="placeholder col-12 bg-secondary"></span>
-                            </p>
-                          </td>
-                        ))}
-                      </tr>
-                    ))
+                    // Array.from({ length: 3 }).map((_, rowIndex) => (
+                    //   <tr key={rowIndex}>
+                    //     {Array.from({ length: 4 }).map((_, colIndex) => (
+                    //       <td key={colIndex}>
+                    //         <p className="placeholder-glow">
+                    //           <span className="placeholder col-12 bg-secondary"></span>
+                    //         </p>
+                    //       </td>
+                    //     ))}
+                    //   </tr>
+                    // ))
+                    <Loader rows={3} cols={6} />
                   ) : edata.length > 0 ? (
                     edata?.map((data, index) => (
                       <tr key={data?.id}>

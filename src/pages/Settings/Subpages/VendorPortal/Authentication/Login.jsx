@@ -1,11 +1,11 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
-import "../../../css/Stackflo.css";
+import "../../../../../styles/stackflo.css";
 import { Link, useNavigate } from "react-router-dom";
-import { postApi } from "../../../api/apiClient";
-import { useAuthOrganization } from "../../../customHooks/OrganizationUserProvider";
-import usePageTitle from "../../includes/usePageTitle";
+import { postApi } from "../../../../../services/apiService";
+import { useAuthOrganization } from "../../../../../Hooks/OrganizationUserProvider";
+import usePageTitle from "../../../../../utils/usePageTitle";
 import {
   email,
   password,
@@ -15,10 +15,10 @@ import {
   logoPath,
   setAuthToken,
   setCurrentUser,
-} from "../../../utils/UtilsGlobalData";
+} from "../../../../../utils/UtilsGlobalData";
 import { EyeIcon, EyeslashIcon } from "../../../../../components/Icons/Icons";
 
-const Login = () => {
+const VendorLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   usePageTitle("Vendor-Login");
   const { fetchOrganizationUser } = useAuthOrganization();
@@ -175,11 +175,7 @@ const Login = () => {
                                 showPassword ? "Hide password" : "Show password"
                               }
                             >
-                              {showPassword ? (
-                                <EyeslashIcon />
-                              ) : (
-                               <EyeIcon/>
-                              )}
+                              {showPassword ? <EyeslashIcon /> : <EyeIcon />}
                             </button>
                           )}
 
@@ -267,4 +263,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default VendorLogin;

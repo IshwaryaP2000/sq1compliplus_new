@@ -72,6 +72,7 @@ import {
   AuthEmployeeMiddleware,
   AuthUserMiddleware,
   AuthUserProtectedMiddleware,
+  AuthVendorMiddleware,
   GuestMiddleware,
   RoleAccessMiddleware,
 } from "../middleware/Middleware";
@@ -83,6 +84,10 @@ import AssessmentView from "../pages/Settings/Subpages/Vendors/AssessmentView";
 import PreApprovedAssessment from "../pages/Settings/Subpages/Vendors/PreApprovedAssessment";
 import Notification from "../pages/Settings/Subpages/Notification/Notification";
 import VendorNew from "../pages/Settings/Subpages/VendorPortal/Vendor";
+import VendorLogin from "../pages/Settings/Subpages/VendorPortal/Authentication/Login";
+import VendorLayout from "../pages/Settings/Subpages/VendorPortal/includes/VendorLayout";
+import Vendorforgotpassword from "../pages/Settings/Subpages/VendorPortal/Authentication/ForgotPassword";
+import VendorPortalRoute from "./VendorPortalRoute";
 
 function MainRoutes() {
   const navigate = useNavigate();
@@ -327,23 +332,23 @@ function MainRoutes() {
       /> */}
 
       {/* ------- Employee Portal ------- */}
-      <Route
+      {/* <Route
         path="/employee/login"
         element={
           <AuthEmployeeMiddleware isLoginPage={true}>
             <EmployeeLogin />
           </AuthEmployeeMiddleware>
         }
+      /> */}
+      <Route
+        path="/employee/login"
+        element={AuthEmployeeMiddleware(<EmployeeLogin />, true)}
       />
 
       <Route path="/employee" element={<EmployeeLayout />}>
         <Route
-          path="*"
-          element={
-            <AuthEmployeeMiddleware>
-              <EmployeePortalRoute />
-            </AuthEmployeeMiddleware>
-          }
+          path="/employee/*"
+          element={AuthEmployeeMiddleware(<EmployeePortalRoute />)}
         />
       </Route>
 
@@ -352,6 +357,34 @@ function MainRoutes() {
         element={<Employeeforgotpassword />}
       />
       <Route path="/employee/change-password" element={<NewPassword />} />
+
+      {/* ------- Vendor Portal ------- */}
+
+      <Route
+        path="/vendor-portal/login"
+        element={AuthVendorMiddleware(<VendorLogin />, true)}
+      />
+
+      {/* <Route path="/vendor-portal" element={<VendorLayout />}>
+        <Route
+          path="/vendor-portal/*"
+          element={AuthVendorMiddleware(<VendorPortalRoute />)}
+        />
+      </Route> */}
+
+       <Route
+        path="/vendor-portal/*"
+        element={AuthVendorMiddleware(<VendorPortalRoute />)}
+      />
+
+      <Route
+        path="/vendor-portal/forgot-password"
+        element={
+          <>
+            <Vendorforgotpassword />
+          </>
+        }
+      />
 
       {/* ------- Error Routes ------- */}
       <Route path="/forbidden" element={<ForbiddenPage />} />

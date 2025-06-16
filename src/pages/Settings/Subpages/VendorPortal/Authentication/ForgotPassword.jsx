@@ -1,12 +1,12 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { postApi } from "../../../api/apiClient";
-import { logoPath } from "../../../utils/UtilsGlobalData";
 import { Link, useNavigate } from "react-router-dom";
-import usePageTitle from "../../includes/usePageTitle";
+import { postApi } from "../../../../../services/apiService";
+import { logoPath } from "../../../../../utils/UtilsGlobalData";
+import usePageTitle from "../../../../../utils/usePageTitle";
 import { email } from "../../../../../components/Validationschema/commonSchema";
 
-const ForgotPassword = () => {
+const Vendorforgotpassword = () => {
   usePageTitle("Forgot Password");
   const navigate = useNavigate();
   
@@ -137,4 +137,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default Vendorforgotpassword;

@@ -324,7 +324,6 @@ function EditVendor({ Vendordata, GetVendors, areaType, handleCloseModals }) {
                     />
                   </div>
                 </div>
-                {/* <h6 className="fw-bold shadow-sm p-3 px-2 ">Services</h6> */}
                 <div className="row">
                   <div className="col-md-6 mb-3">
                     <label className="mb-2">

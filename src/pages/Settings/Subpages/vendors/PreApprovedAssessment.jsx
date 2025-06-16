@@ -14,6 +14,7 @@ import {
   TrashIcon,
   TriangleExclamationIcon,
 } from "../../../../components/Icons/Icons";
+import { Loader } from "../../../../components/Table/Loader";
 
 const SkeletonLoader = () => (
   <div className={`  mb-3 col-xxl-12`}>
@@ -161,7 +162,8 @@ const PreApprovedAssessment = () => {
       await postApi("/vendor/assessment-store", payload);
       Getassessment();
       getCount();
-    } catch {
+    } catch (error) {
+      console.error("Error submitting answer:", error);
     } finally {
       setLoadingQuestionId(null);
     }
@@ -611,17 +613,18 @@ const PreApprovedAssessment = () => {
                   </thead>
                   <tbody className="tablescrolling-tbody">
                     {isLoading ? (
-                      Array.from({ length: 3 }).map((_, rowIndex) => (
-                        <tr key={rowIndex}>
-                          {Array.from({ length: 4 }).map((_, colIndex) => (
-                            <td key={colIndex}>
-                              <p className="placeholder-glow">
-                                <span className="placeholder col-12 bg-secondary"></span>
-                              </p>
-                            </td>
-                          ))}
-                        </tr>
-                      ))
+                      // Array.from({ length: 3 }).map((_, rowIndex) => (
+                      //   <tr key={rowIndex}>
+                      //     {Array.from({ length: 4 }).map((_, colIndex) => (
+                      //       <td key={colIndex}>
+                      //         <p className="placeholder-glow">
+                      //           <span className="placeholder col-12 bg-secondary"></span>
+                      //         </p>
+                      //       </td>
+                      //     ))}
+                      //   </tr>
+                      // ))
+                      <Loader rows={3} cols={6} />
                     ) : edata.length > 0 ? (
                       edata?.map((data, index) => (
                         <tr key={data?.id}>

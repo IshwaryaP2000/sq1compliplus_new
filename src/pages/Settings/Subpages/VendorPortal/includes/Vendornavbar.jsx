@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
-import { postApi } from "../../../api/apiClient";
+import { postApi } from "../../../../../services/apiService";
 
 const Vendornavbar = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -11,7 +11,6 @@ function AssignOrganizationModel({ userId, getUserOrg }) {
   const [org, setOrg] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const validationSchema = Yup.object({
     org_id: Yup.string().required("Organization is required"),
     role: role,

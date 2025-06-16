@@ -64,7 +64,8 @@ export const PreApprovedVendor = () => {
       setFilteredUsers(response?.data?.data?.data);
       setFilteredLength(response?.data?.data?.meta?.total);
       setPageIndex(response?.data?.data);
-    } catch {
+    } catch (err){
+      console.error("Error fetching pre-approved vendors:", err);
     } finally {
       setIsLoading(false);
     }
@@ -548,17 +549,18 @@ export const PreApprovedVendor = () => {
           </thead>
           <tbody className="tablescrolling-tbody">
             {isLoading ? (
-              Array.from({ length: 7 }).map((_, rowIndex) => (
-                <tr key={rowIndex}>
-                  {Array.from({ length: 5 }).map((_, colIndex) => (
-                    <td key={colIndex}>
-                      <p className="placeholder-glow">
-                        <span className="placeholder col-12 bg-secondary"></span>
-                      </p>
-                    </td>
-                  ))}
-                </tr>
-              ))
+              // Array.from({ length: 7 }).map((_, rowIndex) => (
+              //   <tr key={rowIndex}>
+              //     {Array.from({ length: 5 }).map((_, colIndex) => (
+              //       <td key={colIndex}>
+              //         <p className="placeholder-glow">
+              //           <span className="placeholder col-12 bg-secondary"></span>
+              //         </p>
+              //       </td>
+              //     ))}
+              //   </tr>
+              // ))
+              <Loader rows={7} cols={5} />
             ) : filteredUsers?.length > 0 ? (
               filteredUsers?.map((data, index) => (
                 <tr key={data?.id || index}>
