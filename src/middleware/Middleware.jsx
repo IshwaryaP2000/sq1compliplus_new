@@ -79,8 +79,8 @@ export const RoleAccessMiddleware = ({ children, requiredRoles }) => {
 };
 
 export const AuthVendorMiddleware = (element, isLoginPage = false) => {
+  // localStorage.setItem("portal", "vendor");
   const portal = localStorage.getItem("portal");
-  const navigate = useNavigate();
 
   const isAuthenticated = () => {
     return localStorage.getItem("authToken") !== null;
@@ -89,16 +89,16 @@ export const AuthVendorMiddleware = (element, isLoginPage = false) => {
   const ProtectedRoute = () => {
     if (!isAuthenticated()) {
       if (portal !== "vendor") {
-        return navigate("/unauthorized");
+        return <Navigate to="/unauthorized" />;
       }
-      return navigate("/vendor-portal/login");
+      return <Navigate to="/vendor-portal/login" />;
     }
     return element;
   };
 
   const ProtectedRouteLogin = () => {
     if (isAuthenticated() && isLoginPage) {
-      return navigate("/vendor-portal/dashboard");
+      return <Navigate to="/vendor-portal/dashboard" />;
     }
     return element;
   };
@@ -107,9 +107,9 @@ export const AuthVendorMiddleware = (element, isLoginPage = false) => {
 };
 
 export const AuthEmployeeMiddleware = (element, isLoginPage = false) => {
+  localStorage.setItem("portal", "employee");
   const portal = localStorage.getItem("portal");
   const employee_status = localStorage.getItem("employee_status");
-  const navigate = useNavigate();
 
   const isAuthenticated = () => {
     return localStorage.getItem("authToken") !== null;
@@ -118,13 +118,13 @@ export const AuthEmployeeMiddleware = (element, isLoginPage = false) => {
   const ProtectedRoute = () => {
     if (!isAuthenticated()) {
       if (portal !== "employee") {
-        return navigate("/unauthorized");
+        return <Navigate to="/unauthorized" />;
       }
-      return navigate("/employee/login");
+      return <Navigate to="/employee/login" />;
     }
     if (employee_status !== "active") {
-      toast.error("Please update your password to go further pages");
-      return navigate("/employee/change-password");
+      // toast.error("Please update your password to go further pages");
+      return <Navigate to="/employee/change-password" />;
     }
     return element;
   };
@@ -132,10 +132,10 @@ export const AuthEmployeeMiddleware = (element, isLoginPage = false) => {
   const ProtectedRouteLogin = () => {
     if (isAuthenticated() && isLoginPage) {
       if (employee_status !== "active") {
-        toast.error("Please update your password to go further pages");
-        return navigate("/employee/change-password");
+        // toast.error("Please update your password to go further pages");
+        return <Navigate to="/employee/change-password" />;
       }
-      return navigate("/employee/all-policy");
+      return <Navigate to="/employee/all-policy" />;
     }
     return element;
   };

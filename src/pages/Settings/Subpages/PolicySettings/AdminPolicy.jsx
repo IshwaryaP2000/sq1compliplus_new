@@ -12,6 +12,7 @@ import {
   highlightText,
 } from "../../../../components/Search/useSearchAndSort";
 import { PenToSquareIcon } from "../../../../components/Icons/Icons";
+import { Loader } from "../../../../components/Table/Loader";
 
 const AdminPolicy = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -51,8 +52,8 @@ const AdminPolicy = () => {
       setMetaData(response?.data?.data?.policy?.meta);
       setFilteredUsers(response?.data?.data?.policy?.data);
       setFilteredLength(response?.data?.data?.policy?.meta.total);
-    } catch(err) {
-      console.error("error getting a data",err);
+    } catch (err) {
+      console.error("error getting a data", err);
     } finally {
       setIsLoading(false);
     }
@@ -187,17 +188,18 @@ const AdminPolicy = () => {
           </thead>
           <tbody className="tablescrolling-tbody">
             {isLoading ? (
-              Array.from({ length: 3 }).map((_, rowIndex) => (
-                <tr key={rowIndex}>
-                  {Array.from({ length: 4 }).map((_, colIndex) => (
-                    <td key={colIndex}>
-                      <p className="placeholder-glow">
-                        <span className="placeholder col-12 bg-secondary"></span>
-                      </p>
-                    </td>
-                  ))}
-                </tr>
-              ))
+              // Array.from({ length: 3 }).map((_, rowIndex) => (
+              //   <tr key={rowIndex}>
+              //     {Array.from({ length: 4 }).map((_, colIndex) => (
+              //       <td key={colIndex}>
+              //         <p className="placeholder-glow">
+              //           <span className="placeholder col-12 bg-secondary"></span>
+              //         </p>
+              //       </td>
+              //     ))}
+              //   </tr>
+              // ))
+              <Loader rows={3} cols={4} />
             ) : filteredUsers.length > 0 ? (
               filteredUsers.map((item, id) => (
                 <tr key={id}>
@@ -231,7 +233,7 @@ const AdminPolicy = () => {
                             )
                           }
                         >
-                          <PenToSquareIcon/>
+                          <PenToSquareIcon />
                         </button>
                       </OverlayTrigger>
                       <OverlayTrigger
@@ -288,7 +290,7 @@ const AdminPolicy = () => {
               ) : (
                 <>
                   <button className="admin-template-edit" onClick={adminEdit}>
-                    <PenToSquareIcon/>
+                    <PenToSquareIcon />
                   </button>
                 </>
               )}

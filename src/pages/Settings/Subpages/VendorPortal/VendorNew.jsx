@@ -24,6 +24,7 @@ import {
   TrashIcon,
   TriangleExclamationIcon,
 } from "../../../../components/Icons/Icons";
+import { Loader } from "../../../../components/Table/Loader";
 
 const Vendor = () => {
   const navigate = useNavigate();
@@ -386,17 +387,18 @@ const Vendor = () => {
             </thead>
             <tbody className="tablescrolling-tbody">
               {isLoading ? (
-                Array.from({ length: 7 }).map((_, rowIndex) => (
-                  <tr key={rowIndex}>
-                    {Array.from({ length: 11 }).map((_, colIndex) => (
-                      <td key={colIndex}>
-                        <p className="placeholder-glow">
-                          <span className="placeholder col-12 bg-secondary"></span>
-                        </p>
-                      </td>
-                    ))}
-                  </tr>
-                ))
+                // Array.from({ length: 7 }).map((_, rowIndex) => (
+                //   <tr key={rowIndex}>
+                //     {Array.from({ length: 11 }).map((_, colIndex) => (
+                //       <td key={colIndex}>
+                //         <p className="placeholder-glow">
+                //           <span className="placeholder col-12 bg-secondary"></span>
+                //         </p>
+                //       </td>
+                //     ))}
+                //   </tr>
+                // ))
+                <Loader rows={7} cols={11} />
               ) : filteredUsers?.length > 0 ? (
                 filteredUsers?.map((vendors, index) => (
                   <tr key={vendors?.id || index}>

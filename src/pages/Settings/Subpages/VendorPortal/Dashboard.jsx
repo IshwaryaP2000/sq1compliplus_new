@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { getApi } from "../../api/apiClient";
 import { Link } from "react-router-dom";
+import { getApi } from "../../../../services/apiService";
 
-function Dashboard() {
+function VendorDashboard() {
+  alert("This is a new dashboard. Please use the new dashboard for better experience.");
   const [data, setData] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -168,4 +169,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default VendorDashboard;

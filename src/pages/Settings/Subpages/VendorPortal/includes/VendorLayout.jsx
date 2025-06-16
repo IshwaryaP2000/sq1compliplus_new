@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Vendornavbar from "./Vendornavbar";
 
 const VendorLayout = () => {
+  alert("Vendor Layout Loaded");
   return (
     <>
       <div className="">

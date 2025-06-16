@@ -1,8 +1,9 @@
-import { getApi, deleteApi } from "../../api/apiClient";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Loader } from "../../../../components/Table/Loader";
+import { getApi, deleteApi } from "../../../../services/apiService";
 import {
   TrashIcon,
   TriangleExclamationIcon,
@@ -76,17 +77,18 @@ const VendorUsers = () => {
           </thead>
           <tbody className="tablescrolling-tbody">
             {isLoading ? (
-              Array.from({ length: 3 }).map((_, rowIndex) => (
-                <tr key={rowIndex}>
-                  {Array.from({ length: 5 }).map((_, colIndex) => (
-                    <td key={colIndex}>
-                      <p className="placeholder-glow">
-                        <span className="placeholder col-12 bg-secondary"></span>
-                      </p>
-                    </td>
-                  ))}
-                </tr>
-              ))
+              // Array.from({ length: 3 }).map((_, rowIndex) => (
+              //   <tr key={rowIndex}>
+              //     {Array.from({ length: 5 }).map((_, colIndex) => (
+              //       <td key={colIndex}>
+              //         <p className="placeholder-glow">
+              //           <span className="placeholder col-12 bg-secondary"></span>
+              //         </p>
+              //       </td>
+              //     ))}
+              //   </tr>
+              // ))
+              <Loader rows={3} cols={5} />
             ) : data?.length > 0 ? (
               data?.map((users, index) => (
                 <tr key={users?.id || index}>
