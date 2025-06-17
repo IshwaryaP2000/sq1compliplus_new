@@ -1,5 +1,5 @@
-import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
+import { RightarrowIcon } from "../../../../components/Icons/Icons";
 
 const DashboardTwo = () => {
   return (
@@ -54,9 +54,8 @@ const DashboardTwo = () => {
                   <span className="badge text-bg-orange me-2">9</span>Reset
                 </p>
               </div>
-              {/* <p className='count-badge text-bg-lightgreen mb-1 w-100 text-center'><i className="fa-regular fa-circle-check me-2"></i>Completed!</p> */}
               <button className="btn btn-darkgray w-100 mt-2">
-                View Questions <i className="fa-solid fa-arrow-right ms-2"></i>
+                View Questions <RightarrowIcon />
               </button>
             </div>
           </div>
@@ -115,7 +114,7 @@ const DashboardTwo = () => {
               </div>
               {/* <p className='count-badge text-bg-lightgreen mb-1 w-100 text-center'><i className="fa-regular fa-circle-check me-2"></i>Completed!</p> */}
               <button className="btn btn-darkgray w-100 mt-2">
-                View Questions <i className="fa-solid fa-arrow-right ms-2"></i>
+                View Questions <RightarrowIcon />
               </button>
             </div>
           </div>
@@ -170,9 +169,8 @@ const DashboardTwo = () => {
                   <span className="badge text-bg-orange me-2">9</span>Reset
                 </p>
               </div>
-              {/* <p className='count-badge text-bg-lightgreen mb-1 w-100 text-center'><i className="fa-regular fa-circle-check me-2"></i>Completed!</p> */}
               <button className="btn btn-darkgray w-100 mt-2">
-                View Questions <i className="fa-solid fa-arrow-right ms-2"></i>
+                View Questions <RightarrowIcon />
               </button>
             </div>
           </div>
@@ -227,9 +225,8 @@ const DashboardTwo = () => {
                   <span className="badge text-bg-orange me-2">9</span>Reset
                 </p>
               </div>
-              {/* <p className='count-badge text-bg-lightgreen mb-1 w-100 text-center'><i className="fa-regular fa-circle-check me-2"></i>Completed!</p> */}
               <button className="btn btn-darkgray w-100 mt-2">
-                View Questions <i className="fa-solid fa-arrow-right ms-2"></i>
+                View Questions <RightarrowIcon />
               </button>
             </div>
           </div>
@@ -284,9 +281,8 @@ const DashboardTwo = () => {
                   <span className="badge text-bg-orange me-2">9</span>Reset
                 </p>
               </div>
-              {/* <p className='count-badge text-bg-lightgreen mb-1 w-100 text-center'><i className="fa-regular fa-circle-check me-2"></i>Completed!</p> */}
               <button className="btn btn-darkgray w-100 mt-2">
-                View Questions <i className="fa-solid fa-arrow-right ms-2"></i>
+                View Questions <RightarrowIcon />
               </button>
             </div>
           </div>
@@ -340,9 +336,8 @@ const DashboardTwo = () => {
                   <span className="badge text-bg-orange me-2">9</span>Reset
                 </p>
               </div>
-              {/* <p className='count-badge text-bg-lightgreen mb-1 w-100 text-center'><i className="fa-regular fa-circle-check me-2"></i>Completed!</p> */}
               <button className="btn btn-darkgray w-100 mt-2">
-                View Questions <i className="fa-solid fa-arrow-right ms-2"></i>
+                View Questions <RightarrowIcon />
               </button>
             </div>
           </div>

@@ -10,6 +10,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import { postApi, getApi } from "../../services/apiService";
+import { PenToSquareIcon } from "../Icons/Icons";
 
 function EditVendor({ Vendordata, GetVendors, areaType, handleCloseModals }) {
   const [show, setShow] = useState(false);
@@ -53,7 +54,9 @@ function EditVendor({ Vendordata, GetVendors, areaType, handleCloseModals }) {
       setLocation(response?.data?.data?.service_locations);
       setName(response?.data?.data?.service_names);
       setType(response?.data?.data?.service_types);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching service data:", error);
+    }
   };
 
   const handleSubmit = async (values) => {
@@ -111,7 +114,7 @@ function EditVendor({ Vendordata, GetVendors, areaType, handleCloseModals }) {
           className="btn btn-sm py-0  tableborder-right"
           onClick={handleShow}
         >
-          <i className="fa-regular fa-pen-to-square"></i>
+          <PenToSquareIcon />
         </button>
       )}
       <Offcanvas
@@ -321,7 +324,6 @@ function EditVendor({ Vendordata, GetVendors, areaType, handleCloseModals }) {
                     />
                   </div>
                 </div>
-                {/* <h6 className="fw-bold shadow-sm p-3 px-2 ">Services</h6> */}
                 <div className="row">
                   <div className="col-md-6 mb-3">
                     <label className="mb-2">
@@ -498,7 +500,7 @@ function EditVendor({ Vendordata, GetVendors, areaType, handleCloseModals }) {
                   >
                     {isLoading ? (
                       <div
-                        class="spinner-border p-0 text-success spinner-border-sm"
+                        className="spinner-border p-0 text-success spinner-border-sm"
                         role="status"
                       ></div>
                     ) : (

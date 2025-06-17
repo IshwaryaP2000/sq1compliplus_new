@@ -161,7 +161,7 @@ const MFAQr = () => {
                       information in your app.
                     </p>
                     <p>
-                      Code: <span className="mfq-name-span">{qrCode}</span>{" "}
+                      Code: <span className="mfq-name-span">{qrCode}</span>
                     </p>
                     <p>If the app displays a six-digit code, you are done!</p>
                     <img
@@ -212,7 +212,7 @@ const MFAQr = () => {
                       information in your app.
                     </p>
                     <p>
-                      Code: <span className="mfq-name-span">{qrCode}</span>{" "}
+                      Code: <span className="mfq-name-span">{qrCode}</span>
                     </p>
                     <p>If the app displays a six-digit code, you are done!</p>
                     <img
@@ -229,7 +229,7 @@ const MFAQr = () => {
               <Accordion.Body>
                 <p>Get the link via message to download the mobile app.</p>
                 <p>
-                  Open <strong>playstore</strong> or <strong>Appstore</strong>{" "}
+                  Open <strong>playstore</strong> or <strong>Appstore</strong>
                   in your moblie and search google Authenticator or Microsoft
                   Authenticator.
                 </p>

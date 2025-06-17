@@ -13,6 +13,7 @@ import {
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
+import { Loader } from "../../../../components/Table/Loader";
 
 function UserOrganization() {
   usePageTitle("User-Organizations");
@@ -106,7 +107,7 @@ function UserOrganization() {
     <>
       <div className="d-flex justify-content-between mb-3">
         <h5>
-          {user_name} Organizations{" "}
+          {user_name} Organizations
           {data.length > 0 && (
             <span className="badge user-active text-white ">{data.length}</span>
           )}
@@ -195,17 +196,6 @@ function UserOrganization() {
           </thead>
           <tbody className="tablescrolling-tbody">
             {isLoading ? (
-              // Array.from({ length: 7 }).map((_, rowIndex) => (
-              //   <tr key={rowIndex}>
-              //     {Array.from({ length: 5 }).map((_, colIndex) => (
-              //       <td key={colIndex}>
-              //         <p className="placeholder-glow">
-              //           <span className="placeholder col-12 bg-secondary"></span>
-              //         </p>
-              //       </td>
-              //     ))}
-              //   </tr>
-              // ))
               <Loader rows={7} cols={5} />
             ) : filteredUsers?.length > 0 ? (
               filteredUsers?.map((org, index) => (

@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getApi, postApi } from "../../../../services/apiService";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
+import { email } from "../../../../components/Validationschema/commonSchema";
+import DeleteModal from "../../../../components/Modal/DeleteModal";
 
 const Employee = () => {
   const [employees, setEmployees] = useState([]);
@@ -23,6 +25,7 @@ const Employee = () => {
         setEmployees(response.data.data.employees.data);
       }
     } catch (error) {
+      console.error("Error fetching employees:", error);
     } finally {
       setIsLoading(false);
     }
@@ -43,9 +46,7 @@ const Employee = () => {
 
   const employeeValidationSchema = Yup.object().shape({
     name: Yup.string().required("Employee Name is required*"),
-    email: Yup.string()
-      .email("Invalid email format")
-      .required("Email is required*"),
+    email: email,
   });
 
   const employeeFormik = useFormik({
@@ -66,6 +67,7 @@ const Employee = () => {
         } else {
         }
       } catch (error) {
+        console.error("Error creating employee:", error);
       } finally {
         setIsLoading(false);
       }
@@ -267,9 +269,10 @@ const Employee = () => {
       >
         <Modal.Body className="p-3 m-0 text-center modal-body">
           {selectedEmployee && (
-            <p className="mb-0">
-              Are you sure you want to delete the employee ?
-            </p>
+            // <p className="mb-0">
+            //   Are you sure you want to delete the employee ?
+            // </p>
+            <DeleteModal msg="employee" />
           )}
         </Modal.Body>
         <Modal.Footer className="justify-content-center border-0 m-0 p-2 modal-footer">

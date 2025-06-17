@@ -75,6 +75,7 @@ const Organization = () => {
     "user",
     "admin",
   ].includes(currentUser?.user_role);
+ 
   const canAccessUsers = ["sq1_super_admin", "sq1_admin"].includes(
     currentUser?.user_role
   );

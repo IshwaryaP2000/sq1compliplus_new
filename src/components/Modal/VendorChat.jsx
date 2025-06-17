@@ -65,7 +65,7 @@ function VendorChat({ updateStatus, type, vendor, unReadCount }) {
           }
         }, 0);
       } catch (err) {
-        console.log("error");
+        console.error("error");
       }
     }
   };
@@ -160,7 +160,6 @@ function VendorChat({ updateStatus, type, vendor, unReadCount }) {
               ref={chatBodyRef}
             >
               {messages.map((msg, i) => {
-                // console.log("msg", msg);
                 let currentUserId;
                 if (type === "vendor") {
                   currentUserId = msg.vendor_id;

@@ -380,20 +380,69 @@ const User = () => {
                   </th>
                 ))}
               </tr>
-            ))}
-          </thead>
-          <tbody>
-            {isLoading ? (
-              <Loader rows={6} cols={columns.length} />
-            ) : table.getRowModel().rows.length > 0 ? (
-              table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
+            </thead>
+            <tbody className="tablescrolling-tbody">
+              {isLoading ? (
+                <Loader rows={6} cols={7} />
+              ) : filteredUsers?.length > 0 ? (
+                filteredUsers?.map((users, index) => (
+                  <tr key={users?.id || index}>
+                    <th scope="row">
+                      {(pageIndex?.meta?.current_page - 1) *
+                        pageIndex?.meta?.per_page +
+                        index +
+                        1}
+                    </th>
+                    <td
+                      dangerouslySetInnerHTML={{
+                        __html: highlightText(users?.name || "", searchVal),
+                      }}
+                    ></td>
+                    <td
+                      dangerouslySetInnerHTML={{
+                        __html: highlightText(users?.email || "", searchVal),
+                      }}
+                    ></td>
+                    <td
+                      className="Capitalize"
+                      dangerouslySetInnerHTML={{
+                        __html: highlightText(
+                          users?.role.replace(/_/g, " "),
+                          searchVal
+                        ),
+                      }}
+                    ></td>
+                    {currentUser?.user_role !== "admin" &&
+                    currentUser?.user_role !== "user" ? (
+                      <td>
+                        {canAccessOrganizations ? (
+                          <Link
+                            to={`/settings/user-organization/${users?.id}`}
+                            className="badge user-active text-white text-decoration-none"
+                          >
+                            {users?.organization_count}
+                          </Link>
+                        ) : (
+                          <span className="badge user-active text-white text-decoration-none">
+                            {users?.organization_count}
+                          </span>
+                        )}
+                      </td>
+                    ) : (
+                      ""
+                    )}
+                    <td className="text-center">
+                      <span
+                        className={`badge badge-fixedwidth ${
+                          users.status === "active"
+                            ? " user-active"
+                            : users.status === "invited"
+                            ? " user-invit"
+                            : "bg-secondary"
+                        }`}
+                      >
+                        {ucFirst(users?.status.replace(/_/g, " ") || "")}
+                      </span>
                     </td>
                   ))}
                 </tr>

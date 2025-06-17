@@ -1,4 +1,4 @@
-import  { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate, Link } from "react-router-dom";
@@ -18,6 +18,13 @@ import {
   highlightText,
   LimitSelector,
 } from "../../components/useSearchAndSort";
+import {
+  BanIconNotallowed,
+  RepeatIcon,
+  TrashIcon,
+  TriangleExclamationIcon,
+} from "../../../../components/Icons/Icons";
+import { Loader } from "../../../../components/Table/Loader";
 
 const Vendor = () => {
   const navigate = useNavigate();
@@ -35,6 +42,8 @@ const Vendor = () => {
   const [filteredLength, setFilteredLength] = useState([]);
   const [pageIndex, setPageIndex] = useState([]);
   const [showmodaltable, setShowmodaltable] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+  const [userIdToDelete, setUserIdToDelete] = useState(null);
   const handleClosetable = () => setShowmodaltable(false);
   const handleShowtable = () => setShowmodaltable(true);
   const [addVendorShow, setaddVendorShow] = useState(false);
@@ -45,21 +54,24 @@ const Vendor = () => {
     if (!questionCount || questionCount.length === 0) {
       setShowModal(true);
     } else {
-      // navigate("../vendor-create");
       handleShowAddVendor();
     }
   };
+
   const handleGoToQuestionPage = () => {
     navigate("/settings/question");
     setShowModal(false);
   };
+
   const handleCloseModal = () => setShowModal(false);
 
   const GetQuestions = async () => {
     try {
       const response = await getApi("/vendor/list-questions");
       setQuestionCount(response?.data?.data?.data);
-    } catch {}
+    } catch (err) {
+      console.error("Error fetching questions:", err);
+    }
   };
 
   const GetVendors = async (URI = "/vendor/vendor-list") => {
@@ -70,18 +82,22 @@ const Vendor = () => {
       setFilteredLength(response?.data?.data?.meta?.total);
       setMeta(response?.data?.data?.meta);
       setPageIndex(response?.data?.data);
-    } catch {
+    } catch (error) {
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
+
   const handleDelete = async () => {
     try {
       if (!userIdToDelete) return;
       await postApi(`/vendor/vendor-delete/${userIdToDelete}`);
       GetVendors();
       handleCloseDelete();
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error deleting vendor:", error);
+    }
   };
 
   const handleResend = async (id) => {
@@ -109,14 +125,11 @@ const Vendor = () => {
     GetVendors();
   }, []);
 
-  // Service data
-  const [showDelete, setShowDelete] = useState(false);
-  const [userIdToDelete, setUserIdToDelete] = useState(null);
-
   const handleCloseDelete = () => {
     setShowDelete(false);
     setUserIdToDelete(null);
   };
+
   const handleShowDelete = (userId) => {
     setShowDelete(true);
     setUserIdToDelete(userId);
@@ -125,8 +138,9 @@ const Vendor = () => {
   const GetService = async () => {
     try {
       await getApi("/vendor/get-vendor-service");
-      // setSelectedDataAccess(response?.data?.data?.data_access);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching vendor service:", error);
+    }
   };
 
   useEffect(() => {
@@ -189,20 +203,6 @@ const Vendor = () => {
     });
   };
 
-  // const debouncedFetchSearchResults = useCallback(
-  //   createDebouncedSearch((params) => {
-  //     fetchSearchResults(
-  //       "/vendor/vendor-list",
-  //       params,
-  //       setFilteredUsers,
-  //       setIsLoading,
-  //       setFilteredLength,
-  //       setPageIndex
-  //     );
-  //   }, 300),
-  //   []
-  // );
-
   const debouncedFetchSearchResults = useMemo(
     () =>
       createDebouncedSearch((params) => {
@@ -232,7 +232,7 @@ const Vendor = () => {
     <div>
       <div className="d-flex justify-content-between mb-3 flex-wrap">
         <h5 className="p-2 mb-0">
-          Vendors{" "}
+          Vendors
           {meta?.total !== 0 ? (
             <span className="badge user-active text-white">{meta?.total}</span>
           ) : (
@@ -244,9 +244,6 @@ const Vendor = () => {
           <button className="btn  ms-2 primary-btn " onClick={handleShowtable}>
             <i className="fa-solid fa-plus me-1"></i> Pre Approved
           </button>
-          {/* <button className="btn  ms-2 primary-btn " onClick={handleShow}>
-            <i className="fa-solid fa-plus me-1"></i> New Vendor
-          </button> */}
 
           <button
             className="btn  ms-2 primary-btn "
@@ -390,27 +387,21 @@ const Vendor = () => {
             </thead>
             <tbody className="tablescrolling-tbody">
               {isLoading ? (
-                Array.from({ length: 7 }).map((_, rowIndex) => (
-                  <tr key={rowIndex}>
-                    {Array.from({ length: 11 }).map((_, colIndex) => (
-                      <td key={colIndex}>
-                        <p className="placeholder-glow">
-                          <span className="placeholder col-12 bg-secondary"></span>
-                        </p>
-                      </td>
-                    ))}
-                  </tr>
-                ))
-              ) : //  data?.length > 0 ? (
-              //   data?.map((vendors, index) => (
-              filteredUsers?.length > 0 ? (
+                // Array.from({ length: 7 }).map((_, rowIndex) => (
+                //   <tr key={rowIndex}>
+                //     {Array.from({ length: 11 }).map((_, colIndex) => (
+                //       <td key={colIndex}>
+                //         <p className="placeholder-glow">
+                //           <span className="placeholder col-12 bg-secondary"></span>
+                //         </p>
+                //       </td>
+                //     ))}
+                //   </tr>
+                // ))
+                <Loader rows={7} cols={11} />
+              ) : filteredUsers?.length > 0 ? (
                 filteredUsers?.map((vendors, index) => (
                   <tr key={vendors?.id || index}>
-                    {/* <th scope="row">{index + 1}</th> */}
-                    {/* <td>{vendors?.business_name}</td>
-                    <td>{vendors?.name}</td>
-                    <td>{vendors?.email}</td>
-                    <td>{vendors?.contact_phone}</td> */}
                     <th scope="row">
                       {(pageIndex?.meta?.current_page - 1) *
                         pageIndex?.meta?.per_page +
@@ -456,7 +447,6 @@ const Vendor = () => {
                         "-"
                       )}
                     </td>
-                    {/* <td>{vendors?.data_access}</td> */}
                     <td
                       className="Capitalize"
                       dangerouslySetInnerHTML={{
@@ -467,7 +457,6 @@ const Vendor = () => {
                       }}
                     ></td>
                     <td className="text-center">
-                      {" "}
                       <span
                         className={`badge badge-fixedwidth Capitalize  ${
                           vendors.status === "active"
@@ -481,7 +470,6 @@ const Vendor = () => {
                       </span>
                     </td>
                     <td className="text-center">
-                      {" "}
                       <span
                         className={`badge badge-fixedwidth Capitalize  ${
                           vendors.status === "active"
@@ -491,7 +479,6 @@ const Vendor = () => {
                             : "bg-secondary"
                         }`}
                       >
-                        {/* {vendors?.assessment_status?.replace("-", " ")} */}
                         {vendors?.type === "pre_approved_vendor" &&
                         vendors?.assessment_status.toLowerCase() === "completed"
                           ? "Pre Approved"
@@ -522,10 +509,7 @@ const Vendor = () => {
                           }
                         >
                           <Link to={`/vendors/assessment-view/${vendors?.id}`}>
-                            <button
-                              className="btn btn-sm my-1 tableborder-right"
-                              // onClick={() => handleView(vendors?.id)}
-                            >
+                            <button className="btn btn-sm my-1 tableborder-right">
                               <i className="fa-regular fa-eye"></i>
                             </button>
                           </Link>
@@ -538,9 +522,7 @@ const Vendor = () => {
                           {vendors?.type === "pre_approved_vendor" ? (
                             <span className="tableborder-right ">
                               <button className="btn btn-sm my-1">
-                                <i
-                                  className={"fa-solid fa-ban not-allowed"}
-                                ></i>
+                                <BanIconNotallowed />
                               </button>
                             </span>
                           ) : (
@@ -565,7 +547,7 @@ const Vendor = () => {
                                 className="btn btn-sm my-1"
                                 onClick={() => handleResendClick(vendors?.id)}
                               >
-                                <i className={"fa-solid fa-repeat"}></i>
+                                <RepeatIcon />
                               </button>
                             </span>
                           </OverlayTrigger>
@@ -577,9 +559,7 @@ const Vendor = () => {
                           >
                             <span className="tableborder-right ">
                               <button className="btn btn-sm my-1">
-                                <i
-                                  className={"fa-solid fa-ban not-allowed"}
-                                ></i>
+                                <BanIconNotallowed />
                               </button>
                             </span>
                           </OverlayTrigger>
@@ -609,25 +589,11 @@ const Vendor = () => {
                             }
                           >
                             <span className="tableborder-right btn btn-sm my-1">
-                              <i className={"fa-solid fa-ban not-allowed"}></i>
+                              <BanIconNotallowed />
                             </span>
                           </OverlayTrigger>
                         )}
 
-                        {/* <OverlayTrigger
-                          overlay={
-                            <Tooltip id="tooltip-delete">Enable</Tooltip>
-                          }
-                        >
-                          <span className="tableborder-right">
-                            <button
-                              className="btn btn-sm py-0 my-1 "
-                              // onClick={() => handleDelete(vendors?.id)}
-                            >
-                              <i className="fa-solid fa-user-check"></i>
-                            </button>
-                          </span>
-                        </OverlayTrigger> */}
                         <OverlayTrigger
                           overlay={
                             <Tooltip id="tooltip-delete">Delete</Tooltip>
@@ -637,7 +603,7 @@ const Vendor = () => {
                             className="btn btn-sm py-0  "
                             onClick={() => handleShowDelete(vendors?.id)}
                           >
-                            <i className="fa-solid fa-trash text-danger "></i>
+                            <TrashIcon />
                           </button>
                         </OverlayTrigger>
                       </div>
@@ -653,29 +619,6 @@ const Vendor = () => {
               )}
             </tbody>
           </table>
-
-          {/* ----------------edit-off-canvas-------------------------- */}
-
-          {/* <Modal
-            show={showModalResend}
-            onHide={() => setShowModalResend(false)}
-            backdrop="static"
-            centered
-          >
-            <Modal.Body>Are you sure you want to resend the invite?</Modal.Body>
-            <div className="d-flex justify-content-center p-2">
-              <Button
-                variant="secondary"
-                onClick={() => setShowModalResend(false)}
-                className="me-2"
-              >
-                Cancel
-              </Button>
-              <Button variant="success" onClick={handleConfirm}>
-                Invite
-              </Button>
-            </div>
-          </Modal> */}
 
           {/*  Warning message for invite Link */}
           <Modal
@@ -715,26 +658,6 @@ const Vendor = () => {
             </div>
           </Modal>
 
-          {/* <Modal show={showDelete} onHide={handleCloseDelete} centered>
-            <Modal.Body>
-              <div className="text-center">
-                Do you want to remove this vendor
-              </div>
-            </Modal.Body>
-            <div className="d-flex justify-content-center mb-3">
-              <Button
-                variant="secondary"
-                onClick={handleCloseDelete}
-                className="me-2"
-              >
-                Close
-              </Button>
-              <Button variant="danger" onClick={handleDelete}>
-                Delete
-              </Button>
-            </div>
-          </Modal> */}
-
           {/* delete Modal ui */}
 
           <Modal show={showDelete} onHide={handleCloseDelete} centered>
@@ -742,13 +665,13 @@ const Vendor = () => {
               <div className="text-center">
                 <div className="mb-3">
                   <div className="warning-icon-wrapper">
-                    <i className="fa-solid text-danger fa-triangle-exclamation"></i>
+                    <TriangleExclamationIcon />
                   </div>
                 </div>
                 <h5 className="fw-bold mb-2 text-muted">Delete Evidence</h5>
                 <p className="mb-2">
-                  You're going to <span className="fw-bold">"Delete this"</span>{" "}
-                  evidence. Are you sure?{" "}
+                  You're going to <span className="fw-bold">"Delete this"</span>
+                  evidence. Are you sure?
                 </p>
               </div>
               <div className="d-flex justify-content-center mb-3 gap-4">
@@ -769,241 +692,6 @@ const Vendor = () => {
               </div>
             </Modal.Body>
           </Modal>
-
-          {/* <Offcanvas
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            placement="end"
-            style={{ width: "50%" }}
-          >
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title>Edit vendor</Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <form>
-                <div className="row mb-3">
-                  <div className="col-md-6 mb-3">
-                    <label className="mb-2">
-                      Business Name<span className="text-danger">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={businessName}
-                      onChange={(e) => setBusinessName(e.target.value)}
-                    />
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label className="mb-2">
-                      Contact Name<span className="text-danger">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={contactName}
-                      onChange={(e) => setContactName(e.target.value)}
-                    />
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label className="mb-2">
-                      Contact Email<span className="text-danger">*</span>
-                    </label>
-                    <input
-                      disabled
-                      type="email"
-                      className="form-control"
-                      value={contactEmail}
-                      onChange={(e) => setContactEmail(e.target.value)}
-                    />
-                  </div>
-                  <div className="col-md-6 countycode-select mb-3">
-                    <label className="mb-2">
-                      Contact Phone<span className="text-danger">*</span>
-                    </label>
-                    <PhoneInput
-                      defaultCountry="in"
-                      value={phone}
-                      onChange={(phone) => setPhone(phone)}
-                      className="w-100"
-                    />
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label className="mb-2">
-                      Address<span className="text-danger">*</span>
-                    </label>
-                    <textarea
-                      className="form-control"
-                      rows="1"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                    />
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label className="mb-2">
-                      City<span className="text-danger">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                    />
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label className="mb-2">
-                      Country<span className="text-danger">*</span>
-                    </label>
-                    <Select
-                      options={options}
-                      value={country}
-                      onChange={changeHandler}
-                    />
-                  </div>
-                  <div className="col-md-6 mb-3 d-grid date-select-vendor">
-                    <label className="mb-2">
-                      Contract Expiry<span className="text-danger">*</span>
-                    </label>
-                    <DatePicker
-                      selected={contractExpiry}
-                      onChange={(date) => {
-                        const formattedDate = date.toISOString().split("T")[0];
-                        setContractExpiry(formattedDate);
-                      }}
-                      dateFormat="dd/MM/yyyy"
-                    />
-                  </div>
-                </div>
-
-               
-                <div className="row">
-                  <div className="col-md-6 mb-3">
-                    <label className="mb-2">
-                      Services Offered<span className="text-danger">*</span>
-                    </label>
-                    <Select
-                      isMulti
-                      name="service_names"
-                      options={service_names.map((name) => ({
-                        value: name,
-                        label: name,
-                      }))}
-                      value={selectedServices}
-                      onChange={setSelectedServices}
-                    />
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label className="mb-2">
-                      Type<span className="text-danger">*</span>
-                    </label>
-                    <Select
-                      isMulti
-                      name="Service_type"
-                      // options={Object.entries(service_types).map(
-                      //   ([key, value]) => ({
-                      //     value: key,
-                      //     label: value,
-                      //   })
-                      // )}
-                      value={selectedType}
-                      onChange={setSelectedType}
-                    />
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label className="mb-2">
-                      Category<span className="text-danger">*</span>
-                    </label>
-                    <Select
-                      isMulti
-                      name="service_category"
-                      options={Object.entries(service_categories).map(
-                        ([key, value]) => ({
-                          value: key,
-                          label: value,
-                        })
-                      )}
-                      className="basic-multi-select"
-                      classNamePrefix="select"
-                      value={selectedCategory}
-                      onChange={setSelectedCategory}
-                    />
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label className="mb-2">
-                      Location<span className="text-danger">*</span>
-                    </label>
-                    <Select
-                      options={Object.entries(service_locations).map(
-                        ([key, value]) => ({
-                          value: key,
-                          label: value,
-                        })
-                      )}
-                      value={selectedLocation}
-                      onChange={setSelectedLocation}
-                    />
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label className="mb-2">
-                      SOC Compliant<span className="text-danger">*</span>
-                    </label>
-                    <Select
-                      options={service_compliant.map((value) => ({
-                        value: value,
-                        label: value,
-                      }))}
-                      value={selectedCompliantType}
-                      onChange={setSelectedCompliantType}
-                    />
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label className="mb-2">
-                      Data Access<span className="text-danger">*</span>
-                    </label>
-                    <Select
-                      disabled={true}
-                      // options={selectedDataAccess}
-                      value={selectedDataAccess}
-                      onChange={setSelectedDataAccess}
-                    />
-                  </div>
-                </div>
-              
-
-                <div className="d-flex justify-content-end my-3">
-                  <button
-                    className="btn primary-btn"
-                    type="submit"
-                    onClick={handleSubmit}
-                  >
-                    Update
-                  </button>
-                </div>
-              </form>
-            </Offcanvas.Body>
-          </Offcanvas> */}
-
-          {/* Incause of no question move to add question page  */}
-
-          {/* <Modal show={showModal} onHide={handleCloseModal} centered>
-            <Modal.Body>
-              <div className="text-center">
-                You don't have questions. Please upload questions.
-              </div>
-            </Modal.Body>
-            <div className="d-flex justify-content-center mb-3">
-              <Button
-                variant="secondary"
-                onClick={handleCloseModal}
-                className="me-2"
-              >
-                Close
-              </Button>
-              <Button variant="success" onClick={handleGoToQuestionPage}>
-                Go to Question Page
-              </Button>
-            </div>
-          </Modal> */}
 
           <Modal show={showModal} onHide={handleCloseModal} centered>
             <Modal.Body className="p-4">
@@ -1033,34 +721,12 @@ const Vendor = () => {
                 onClick={handleGoToQuestionPage}
                 className="px-4"
               >
-                Go to Question Page{" "}
+                Go to Question Page
                 <i className="fa-solid fa-arrow-right ms-1"></i>
               </Button>
             </div>
           </Modal>
 
-          {/* <Modal
-            show={showmodaltable}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-            style={{ alignItems: "baseline" }}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>
-                <div className="create-vendormodel ">
-                  <h4 className="mb-1">Create a Vendor</h4>
-                  <p className="mb-1">
-                    Complete the following forms to create a vendor
-                  </p>
-                </div>
-              </Modal.Title>
-            </Modal.Header>
-
-            <Modal.Body>
-              <p>text</p>
-            </Modal.Body>
-          </Modal> */}
           <Modal
             show={showmodaltable}
             onHide={handleClosetable}
@@ -1074,7 +740,6 @@ const Vendor = () => {
               <Modal.Title>
                 <div className="create-vendormodel ">
                   <h6 className="fw-bold mb-0">
-                    {" "}
                     <i className="fa-solid fa-list me-1"> </i> Listed Vendors
                   </h6>
                 </div>
@@ -1099,7 +764,6 @@ const Vendor = () => {
               <Modal.Title>
                 <div className="create-vendormodel ">
                   <h6 className="fw-bold mb-0">
-                    {" "}
                     <i className="fa-solid fa-user-plus me-1"> </i> Create
                     Vendor
                   </h6>
@@ -1113,15 +777,9 @@ const Vendor = () => {
               />
             </Modal.Body>
           </Modal>
-          {/* ----------------edit-off-canvas-ended-------------------------- */}
         </div>
       </div>
-      {/* <div className="float-end me-5 pe-3">
-        <Pagination
-          dataFetchFunction={GetVendors}
-          dataPaginationLinks={meta}
-        />
-      </div> */}
+
       <div className="d-flex flex-row bd-highlight mb-3 ">
         <div className=" bd-highlight pagennation-list">
           <LimitSelector
@@ -1132,7 +790,6 @@ const Vendor = () => {
         <div className="p-2 bd-highlight w-100">
           <Pagination
             dataFetchFunction={GetVendors}
-            // dataPaginationLinks={meta}
             dataPaginationLinks={pageIndex?.meta}
             filteredLength={filteredLength}
             search={searchVal}
@@ -1142,127 +799,6 @@ const Vendor = () => {
           />
         </div>
       </div>
-
-      {/* <div className="vendor-list-wrapper outer-wapper position-relative">
-        <div className="vendor-list ">
-          <div className="vendor-list-header d-flex flex-wrap gap-2 justify-content-between">
-            <div className="list-header-left d-flex flex-wrap gap-2">
-              <h5 className="list-header-title mb-0 fw-bold">
-                Vendor List users
-              </h5>
-              <div className="list-header-process badge-success">
-                <div>
-                  <i className="fa-solid fa-address-card  me-1"></i>
-                  <span>ARNVDR02</span>
-                </div>
-              </div>
-              <div className="list-header-process badge-waring">
-                <div>
-                  <i className="fa-solid fa-clock me-1"></i>
-                  <span>In progress</span>
-                </div>
-              </div>
-            </div>
-            <div className="list-header-right d-flex gap-lg-3 gap-2 flex-wrap">
-              <div className="header-right-data">
-                <div>
-                  <span className="lable-text d-none d-md-inline-block">
-                    Data access:{" "}
-                  </span>
-                  <span className="badge-high text-captalize">High</span>
-                </div>
-              </div>
-              <div className="header-right-risk">
-                <div>
-                  <span className="lable-text d-none d-md-inline-block">
-                    Risk:{" "}
-                  </span>
-                  <span className="badge-critical">
-                    {" "}
-                    <span className="small-circle"></span> Critical
-                  </span>
-                </div>
-              </div>
-              <div className="header-right-dots">
-                <div
-                  className={`dots-icon  ${isModalOpen ? "blur-effect" : ""}`}
-                  onClick={handleCardClick}
-                  style={{
-                    cursor: "pointer",
-                    transition: "filter 0.3s ease",
-                    position: "relative",
-                  }}
-                >
-                  <i className="fa-solid fa-ellipsis-vertical"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="vendor-list-body  mt-3">
-            <div className="d-flex gap-3  flex-wrap justify-content-between outer-sub-wapper">
-              <div className="list-details d-flex gap-lg-4 gap-3 flex-wrap gap-xxl-5 flex-fill  ">
-                <div>
-                  <label>Name</label>
-                  <p className="text-capitalize fw-bold">arul Manikandan </p>
-                </div>
-                <div>
-                  <label>Email</label>
-                  <p className="fw-bold email-text-wrap">arul.m@sq1.security</p>
-                </div>
-                <div>
-                  <label>Phone</label>
-                  <p className="fw-bold">+917094589658</p>
-                </div>
-                <div>
-                  <label>Initated on</label>
-                  <p className="text-capitalize">14 sep, 2025</p>
-                </div>
-                <div>
-                  <label>Started on</label>
-                  <p className="text-capitalize">15 sep, 2025</p>
-                </div>
-                <div>
-                  <label>Completed on</label>
-                  <p className="text-capitalize">26 feb, 2026</p>
-                </div>
-              </div>
-              <div className="list-button">
-                <button type="button" className="btn primary-btn py-2">
-                  {" "}
-                  View Assessment{" "}
-                  <i className="fa-solid fa-arrow-right ms-1"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          {isModalOpen && (
-            <div className="plicy-modal-overlay rounded-4">
-              <div className="card p-4 rounded-4 policy-card02">
-                <button onClick={handleCloseModals} className="close-btn">
-                  <i className="fa-solid fa-xmark"></i>
-                </button>
-                <div>
-                  <h4 className="mb-3 text-center">Actions</h4>
-                  <div className="d-flex justify-content-center">
-                    <Link to={`/vendors/assessment-view/{vendors?.id}`}>
-                      <button
-                        className="btn btn-sm my-1 policy-buttons"
-                        // onClick={() => handleView(vendors?.id)}
-                      >
-                        <i className="fa-regular fa-eye"></i> View
-                      </button>
-                    </Link>
-                    <button className="policy-buttons">Logs</button>
-                    <button className="policy-buttons">Queries</button>
-                    <button className="policy-buttons">Review</button>
-                    <button className="policy-buttons">Retire</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div> */}
     </div>
   );
 };

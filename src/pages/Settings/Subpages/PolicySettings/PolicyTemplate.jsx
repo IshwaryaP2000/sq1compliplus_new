@@ -14,6 +14,13 @@ import {
   fetchSearchResults,
   highlightText,
 } from "../../../../components/Search/useSearchAndSort";
+import {
+  PenToSquareIcon,
+  TrashIcon,
+  TriangleExclamationIcon,
+} from "../../../../components/Icons/Icons";
+import { Loader } from "../../../../components/Table/Loader";
+import DeleteModal from "../../../../components/Modal/DeleteModal";
 
 const PolicyTemplate = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -99,8 +106,8 @@ const PolicyTemplate = () => {
       setMetaData(response?.data?.data?.template?.meta);
       setFilteredUsers(response?.data?.data?.template?.data);
       setFilteredLength(response?.data?.data?.template?.meta.total);
-    } catch {
-      console.error("error getting a data");
+    } catch (err) {
+      console.error("error getting a data", err);
     } finally {
       setIsLoading(false);
     }
@@ -286,17 +293,18 @@ const PolicyTemplate = () => {
           </thead>
           <tbody className="tablescrolling-tbody">
             {isLoading ? (
-              Array.from({ length: 3 }).map((_, rowIndex) => (
-                <tr key={rowIndex}>
-                  {Array.from({ length: 6 }).map((_, colIndex) => (
-                    <td key={colIndex}>
-                      <p className="placeholder-glow">
-                        <span className="placeholder col-12 bg-secondary"></span>
-                      </p>
-                    </td>
-                  ))}
-                </tr>
-              ))
+              // Array.from({ length: 3 }).map((_, rowIndex) => (
+              //   <tr key={rowIndex}>
+              //     {Array.from({ length: 6 }).map((_, colIndex) => (
+              //       <td key={colIndex}>
+              //         <p className="placeholder-glow">
+              //           <span className="placeholder col-12 bg-secondary"></span>
+              //         </p>
+              //       </td>
+              //     ))}
+              //   </tr>
+              // ))
+              <Loader rows={3} cols={6} />
             ) : filteredUsers.length > 0 ? (
               filteredUsers.map((item, id) => (
                 <tr key={id}>
@@ -322,7 +330,6 @@ const PolicyTemplate = () => {
                       verticalAlign: "top",
                     }}
                   >
-                    {" "}
                     <div
                       dangerouslySetInnerHTML={{
                         __html: expandedDescriptions[item?.id || id]
@@ -368,7 +375,7 @@ const PolicyTemplate = () => {
                             )
                           }
                         >
-                          <i className="fa-regular fa-pen-to-square"></i>
+                          <PenToSquareIcon />
                         </button>
                       </OverlayTrigger>
                       <OverlayTrigger
@@ -393,7 +400,7 @@ const PolicyTemplate = () => {
                           className="btn btn-sm py-0 my-1"
                           onClick={() => handleShow(item.id)}
                         >
-                          <i className="fa-solid fa-trash text-danger"></i>
+                          <TrashIcon />
                         </button>
                       </OverlayTrigger>
                     </div>
@@ -547,18 +554,19 @@ const PolicyTemplate = () => {
       </Offcanvas>
       <Modal show={show} onHide={handleClose} backdrop="static" centered>
         <Modal.Body className="p-4">
-          <div className="text-center">
+          {/* <div className="text-center">
             <div className="mb-3">
               <div className="warning-icon-wrapper">
-                <i className="fa-solid text-danger fa-triangle-exclamation"></i>
+                <TriangleExclamationIcon />
               </div>
             </div>
             <h5 className="fw-bold mb-2 text-muted">Delete Policy Template</h5>
             <p className="mb-2">
-              You're going to <span className="fw-bold">"Delete this"</span>{" "}
-              Policy Template. Are you sure?{" "}
+              You're going to <span className="fw-bold">"Delete this"</span>
+              Policy Template. Are you sure?
             </p>
-          </div>
+          </div> */}
+          <DeleteModal msg="Policy Template" />
         </Modal.Body>
         <Modal.Footer className="justify-content-center border-0 m-0 p-2">
           <button

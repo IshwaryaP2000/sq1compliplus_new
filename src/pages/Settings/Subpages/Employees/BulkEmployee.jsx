@@ -107,10 +107,10 @@ function BulkUploadEmployees() {
         throw new Error("Invalid URL provided for downloading.");
       }
     } catch (error) {
-      // console.error("Error downloading the file:", error);
-      // toast.error("There was an error downloading the file. Please try again.");
+      console.error("Error downloading the file:", error);
     }
   };
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -145,7 +145,7 @@ function BulkUploadEmployees() {
                     onClick={handleDownload}
                     style={{ cursor: "pointer" }}
                   >
-                    Download Sample{" "}
+                    Download Sample
                     <i className="fa-solid fa-download ms-1"></i>
                   </span>
                 </div>

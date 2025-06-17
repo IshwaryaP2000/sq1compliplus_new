@@ -1,14 +1,15 @@
-import  { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import Select from "react-select";
 import countryList from "react-select-country-list";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Formik, Form, Field} from "formik";
+import { Formik, Form, Field } from "formik";
 import { getApi, postApi } from "../../services/apiService";
 import { ucFirst } from "../../utils/UtilsGlobalData";
 import ButtonWithLoader from "../Button/ButtonLoader";
+import { LeftarrowIcon, RightarrowIcon } from "../Icons/Icons";
 
 const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +82,6 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
     try {
       setIsLoading(true);
       await postApi("/vendor/store", payload);
-      // navigate("/vendors");
       handleCloseAddVendor();
       GetVendors();
     } catch (error) {
@@ -141,13 +141,11 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
 
         const response = await postApi("vendor/store-basic-valid", payload);
         if (response?.data?.errors) {
-          console.log("Backend Errors:", response.data.errors);
+          console.error("Backend Errors:", response.data.errors);
           const backendErrors = {};
           if (response.data.errors.business_name) {
             backendErrors.businessName = response.data.errors.business_name[0];
           }
-          // Map other errors...
-
           setErrors(backendErrors);
           return;
         }
@@ -158,7 +156,7 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
         setCurrentStep(currentStep + 1);
       }
     } catch (error) {
-      console.log("Error submitting basic info:", error);
+      console.error("Error submitting basic info:", error);
       if (error?.response?.data?.errors) {
         const backendErrors = {};
         if (error?.response?.data?.errors?.business_name) {
@@ -228,7 +226,7 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
         setCurrentStep(currentStep + 1);
       }
     } catch (error) {
-      console.log("Error submitting basic info:", error);
+      console.error("Error submitting basic info:", error);
       if (error?.response?.data?.errors) {
         const backendErrors = {};
         if (error?.response?.data?.errors?.service_name) {
@@ -261,8 +259,6 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
             error?.response?.data?.errors?.data_access[0];
           setDataaccessError(error?.response?.data?.errors?.data_access[0]);
         }
-
-        // setErrors(backendErrors);
         return;
       }
     } finally {
@@ -295,7 +291,6 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
           selectedCompliantType: "",
           selectedDataAccess: "",
         }}
-        // validationSchema={validationSchemas[currentStep]} // Dynamically apply schema
         onSubmit={handleSubmit}
       >
         {({ setFieldValue, values, validateForm, setErrors }) => (
@@ -425,8 +420,8 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
                   onClick={() => nextStep(values, validateForm, setErrors)}
                   disabled={isLoading}
                 >
-                  {isLoadingNext ? <ButtonWithLoader name="" /> : "Continue"}{" "}
-                  <i className="fa-solid fa-arrow-right ms-2"></i>
+                  {isLoadingNext ? <ButtonWithLoader name="" /> : "Continue"}
+                  <RightarrowIcon />
                 </button>
               </div>
             </div>
@@ -434,7 +429,6 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
             {/* Step 2: Remaining Fields */}
             <div className={`form-step ${currentStep === 1 ? "active" : ""}`}>
               <div className="row">
-                {/* <h5 className="mb-3">Services</h5> */}
                 <div className="col-md-6 mb-3">
                   <label className="mb-2">
                     Services Offered
@@ -577,7 +571,7 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
                   className="btn primary-btn me-2"
                   onClick={prevStep}
                 >
-                  <i className="fa-solid fa-arrow-left me-2"></i> Back
+                  <LeftarrowIcon /> Back
                 </button>
                 <button
                   type="button"
@@ -585,8 +579,8 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
                   onClick={() => midStep(values)}
                   disabled={isLoading}
                 >
-                  {isLoading ? <ButtonWithLoader name="" /> : "Next"}{" "}
-                  <i className="fa-solid fa-arrow-right ms-2"></i>
+                  {isLoading ? <ButtonWithLoader name="" /> : "Next"}
+                  <RightarrowIcon />
                 </button>
               </div>
             </div>
@@ -612,7 +606,7 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
                   className="btn primary-btn me-2"
                   onClick={prevStep}
                 >
-                  <i className="fa-solid fa-arrow-left me-2"></i> Back
+                  <LeftarrowIcon /> Back
                 </button>
 
                 <button

@@ -13,26 +13,31 @@ import {
   setCurrentOrganization,
   ucFirst,
 } from "../../../../utils/UtilsGlobalData";
+import AzureInstruction from "../../../../components/Modal/AzureInstruction";
+import GoogleInstruction from "../../../../components/Modal/GoogleInstruction";
 
 const SsoSetup = () => {
   usePageTitle("SSO Setup");
   const [show, setShow] = useState(false);
   const [modalHeader, setModalHeader] = useState("");
+  const handleClose = () => setShow(false);
+  const handleShow = (header, editMode = false) => {
+    setModalHeader(header);
+    setIsEditMode(editMode);
+    setShow(true);
+  };
+  const [loginType, setLoginType] = useState("");
   const [azure, setAzure] = useState("");
   const [google, setGoogle] = useState("");
   const [ssoType, setSsoType] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
   const [formInitialValues, setFormInitialValues] = useState("");
+  const validationSchema = SSOValidationSchema;
   const [isChecked, setIsChecked] = useState(false);
   const [isCheckedAzure, setIsCheckedAzure] = useState(false);
   const [isCheckedGCP, setIsCheckedGCP] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = (header) => {
-    setModalHeader(header); // Set the modal header dynamically
-    setShow(true); // Open the modal
-  };
-
-  const validationSchema = SSOValidationSchema;
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const handleChange = async () => {
     await postApi(`sso-activate`, {
@@ -63,6 +68,9 @@ const SsoSetup = () => {
 
   const getSSOLists = async () => {
     try {
+      setIsChecked(false);
+      setIsCheckedAzure(false);
+      setIsCheckedGCP(false);
       const response = await getApi("get-sso");
       response.data?.data.map((item) => {
         const authType = item?.auth_type?.toLowerCase();
@@ -82,21 +90,25 @@ const SsoSetup = () => {
           setGoogle("google");
         }
       });
-    } catch (error) { console.error("Error fetching SSO lists:", error); }
+    } catch (err) {
+      console.error("Error fetching SSO lists:", err);
+    }
   };
 
   const orgInfo = async () => {
     try {
       const response = await getApi("organization-info");
       setCurrentOrganization(response?.data?.data?.current_organization);
-    } catch {
-      console.error("error");
+    } catch (error) {
+      console.error("error", error);
     }
   };
 
   const handleSubmitSso = async (values, { resetForm }) => {
     try {
-      await postApi(`sso-setup-store`, values);
+      setIsLoading(true);
+      const endpoint = isEditMode ? `sso-setup-update` : `sso-setup-store`;
+      await postApi(endpoint, values);
       orgInfo();
       resetForm();
       setIsEditing(false);
@@ -108,7 +120,7 @@ const SsoSetup = () => {
       resetForm();
       setIsEditing(true);
     } finally {
-      setIsEditing(true);
+      setIsLoading(false);
     }
   };
 
@@ -122,6 +134,15 @@ const SsoSetup = () => {
   }, []);
 
   //Get auth_type for login type
+  useEffect(() => {
+    const getAuthType = localStorage.getItem("organization");
+    const authTypeFromStorage = JSON.parse(getAuthType)?.auth_type;
+    if (authTypeFromStorage) {
+      setLoginType(
+        ucFirst(authTypeFromStorage !== "login" ? "SSO" : authTypeFromStorage)
+      );
+    }
+  }, []);
 
   //Get auth_type for sso type
   useEffect(() => {
@@ -129,6 +150,18 @@ const SsoSetup = () => {
     const authTypeFromStorage = JSON.parse(getAuthType)?.auth_type;
     if (authTypeFromStorage) {
       setSsoType(ucFirst(authTypeFromStorage));
+    }
+  }, []);
+
+  //set current set 6 when ssotype Google or Azure
+  useEffect(() => {
+    const getAuthType = localStorage.getItem("organization");
+    const authTypeFromStorage = JSON.parse(getAuthType)?.auth_type;
+    if (
+      ucFirst(authTypeFromStorage) === "Google" ||
+      ucFirst(authTypeFromStorage) === "Azure"
+    ) {
+      setCurrentStep(6);
     }
   }, []);
 
@@ -148,12 +181,13 @@ const SsoSetup = () => {
 
   return (
     <>
-      <div className="row">
+      <div className="row d-none">
         <div className="col-4">
           <Card className="text-center">
             <Card.Body>
-              <Card.Text>
+              <div className="card-text">
                 <div className="row align-items-center mt-2">
+                  {/* Label */}
                   <div className="col-8">
                     <p className="mb-0 text-start fw-semibold">
                       <Icon
@@ -177,14 +211,14 @@ const SsoSetup = () => {
                     </BootstrapForm>
                   </div>
                 </div>
-              </Card.Text>
+              </div>
             </Card.Body>
           </Card>
         </div>
         <div className="col-4">
           <Card className="text-center">
             <Card.Body>
-              <Card.Text>
+              <div className="card-text">
                 <div className="row align-items-center mt-2">
                   <div className="col-8">
                     <p className="mb-0 text-start">
@@ -212,25 +246,24 @@ const SsoSetup = () => {
                       className="btn btn-secondary btn-sm"
                     >
                       {azure === "azure" ? (
-                        <PencilIcon />
+                        <i className="fa-solid fa-pencil"></i>
                       ) : (
                         <i className="fa-solid fa-plus"></i>
                       )}
                     </button>
                   </div>
                 </div>
-              </Card.Text>
+              </div>
             </Card.Body>
           </Card>
         </div>
         <div className="col-4">
           <Card className="text-center">
             <Card.Body>
-              <Card.Text>
+              <div className="card-text">
                 <div className="row align-items-center mt-2">
                   <div className="col-8">
                     <p className="mb-0 text-start">
-                      {/* <Icon icon="devicon:google" width="50" height="50" /> */}
                       <Icon
                         icon="devicon:google-wordmark"
                         width="60"
@@ -255,14 +288,190 @@ const SsoSetup = () => {
                       className="btn btn-secondary btn-sm"
                     >
                       {google === "google" ? (
-                        <PencilIcon />
+                        <i className="fa-solid fa-pencil"></i>
                       ) : (
                         <i className="fa-solid fa-plus"></i>
                       )}
                     </button>
                   </div>
                 </div>
-              </Card.Text>
+              </div>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-md-6 col-12 col-lg-4">
+          <Card className="h-100">
+            <Card.Body>
+              <div className="d-flex justify-content-between align-items-center">
+                <div>
+                  <Icon
+                    icon="mdi:password-check"
+                    width="40"
+                    height="40"
+                    style={{ color: "#000" }}
+                  />
+                </div>
+                {isChecked ? (
+                  <div className="d-flex ">
+                    <i className="fa-solid fa-circle-check text-success fs-22 me-2"></i>
+                    <p className="mb-0">Connected</p>
+                  </div>
+                ) : (
+                  <div className="d-flex" style={{ opacity: "0.2" }}>
+                    <i className="fa-solid fa-circle-check text-secondary fs-22 me-2"></i>
+                    <p className="mb-0">Not connected</p>
+                  </div>
+                )}
+              </div>
+              <div className="card-title">
+                <h3>Login</h3>
+              </div>
+              <div className="card-description">
+                <p>
+                  Login provides secure, role-based access to ensure compliance
+                  with industry regulations
+                </p>
+              </div>
+              <div className="card-buttons d-flex justify-content-between ">
+                <BootstrapForm className="align-content-end custom-switch">
+                  <BootstrapForm.Check
+                    type="switch"
+                    id="custom-switch"
+                    label="" // Optional: Add a label if needed
+                    checked={isChecked}
+                    onChange={handleChange}
+                  />
+                </BootstrapForm>
+              </div>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="col-md-6 col-12 col-lg-4">
+          <Card className="h-100">
+            <Card.Body>
+              <div className="d-flex justify-content-between align-items-center">
+                <div>
+                  <Icon
+                    icon="vscode-icons:file-type-azure"
+                    width="40"
+                    height="40"
+                  />
+                </div>
+
+                {isCheckedAzure ? (
+                  <div className="d-flex ">
+                    <i className="fa-solid fa-circle-check text-success fs-22 me-2"></i>
+                    <p className="mb-0">Connected</p>
+                  </div>
+                ) : (
+                  <div className="d-flex" style={{ opacity: "0.2" }}>
+                    <i className="fa-solid fa-circle-check text-secondary fs-22 me-2"></i>
+                    <p className="mb-0">Not connected</p>
+                  </div>
+                )}
+              </div>
+              <div className="card-title d-flex">
+                <h3>Azure</h3>
+                <AzureInstruction />
+              </div>
+              <div className="card-description">
+                <p>
+                  Azure offers seamless, secure access using enterprise
+                  credentials and enhancing compliance.
+                </p>
+              </div>
+              <div className="card-buttons d-flex justify-content-between ">
+                <BootstrapForm className="align-content-end custom-switch">
+                  <BootstrapForm.Check
+                    type="switch"
+                    id="custom-switch"
+                    label=""
+                    checked={isCheckedAzure}
+                    onChange={handleChangeAzure}
+                    disabled={azure === "" ? true : false}
+                  />
+                </BootstrapForm>
+                <button
+                  onClick={() => handleShow("Azure", false)}
+                  className="btn btn-integrate rounded-0"
+                >
+                  {azure === "azure" ? (
+                    <i
+                      className="fa-solid fa-pencil"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleShow("Azure", true);
+                      }}
+                    ></i>
+                  ) : (
+                    "INTEGRATE"
+                  )}
+                </button>
+              </div>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="col-md-6 col-12 col-lg-4">
+          <Card className="h-100">
+            <Card.Body>
+              <div className="d-flex justify-content-between align-items-center">
+                <div>
+                  <Icon icon="logos:google-icon" width="40" height="40" />
+                </div>
+                {isCheckedGCP ? (
+                  <div className="d-flex ">
+                    <i className="fa-solid fa-circle-check text-success fs-22 me-2"></i>
+                    <p className="mb-0">Connected</p>
+                  </div>
+                ) : (
+                  <div className="d-flex" style={{ opacity: "0.2" }}>
+                    <i className="fa-solid fa-circle-check text-secondary fs-22 me-2"></i>
+                    <p className="mb-0">Not connected</p>
+                  </div>
+                )}
+              </div>
+              <div className="card-title d-flex">
+                <h3>Google</h3>
+                <GoogleInstruction />
+              </div>
+              <div className="card-description">
+                <p>
+                  Google delivers secure, unified access to applications through
+                  Google Workspace credentials.
+                </p>
+              </div>
+              <div className="card-buttons d-flex justify-content-between ">
+                <BootstrapForm>
+                  <BootstrapForm.Check
+                    className="align-content-end custom-switch"
+                    type="switch"
+                    id="custom-switch"
+                    label="" // Optional: Add a label if needed
+                    checked={isCheckedGCP}
+                    onChange={handleChangeGCP}
+                    disabled={google === "" ? true : false}
+                  />
+                </BootstrapForm>
+                <button
+                  onClick={() => handleShow("Google", false)} // Pass false for integrate mode
+                  className="btn btn-integrate rounded-0"
+                >
+                  {google === "google" ? (
+                    <i
+                      className="fa-solid fa-pencil"
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent triggering the parent button
+                        handleShow("Google", true); // Pass true for edit mode
+                      }}
+                    ></i>
+                  ) : (
+                    "INTEGRATE"
+                  )}
+                </button>
+              </div>
             </Card.Body>
           </Card>
         </div>
@@ -270,17 +479,17 @@ const SsoSetup = () => {
       <Modal show={show} onHide={handleClose} centered>
         <div className="card">
           <Modal.Header closeButton>
-            <Modal.Title>{modalHeader} SSO Setup</Modal.Title>{" "}
+            <Modal.Title>{modalHeader} SSO Setup</Modal.Title>
             {/* Use the dynamic header */}
           </Modal.Header>
           <div className="card-body">
             <Formik
               initialValues={{
                 auth_type: modalHeader.toLocaleLowerCase(),
-                client_id: formInitialValues === "Azure" ? "****" : "",
-                client_secret: formInitialValues === "Azure" ? "****" : "",
-                redirect_url: formInitialValues === "Azure" ? "****" : "",
-                tenant_id: formInitialValues === "Azure" ? "****" : "",
+                client_id: "",
+                client_secret: "",
+                redirect_url: "",
+                tenant_id: "",
               }}
               validationSchema={validationSchema}
               onSubmit={handleSubmitSso}
@@ -405,5 +614,4 @@ const SsoSetup = () => {
     </>
   );
 };
-
 export default SsoSetup;

@@ -10,14 +10,12 @@ import { PenToSquareIcon } from "../Icons/Icons";
 function OrganizationEditModal({ organization, fetchAllOrganizations }) {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const [initialValues, setInitialValues] = useState({
     id: null,
     name: "",
     email: "",
     domain: "",
   });
-
   const validationSchema = Yup.object({
     name: name,
     email: email,

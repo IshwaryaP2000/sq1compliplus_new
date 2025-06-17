@@ -10,6 +10,8 @@ import {
   TrashIcon,
   TriangleExclamationIcon,
 } from "../Icons/Icons";
+import EnableDisableModal from "./EnableDisableModal";
+import DeleteModal from "./DeleteModal";
 
 function ConfirmationModel({
   data,
@@ -214,18 +216,19 @@ function ConfirmationModel({
             </span>
           )}
           {actionType === "delete" && (
-            <div className="text-center">
-              <div className="mb-3">
-                <div className="warning-icon-wrapper">
-                  <TriangleExclamationIcon />
-                </div>
-              </div>
-              <h5 className="fw-bold mb-2 text-muted">Delete user?</h5>
-              <p className="mb-2">
-                You're going to <span className="fw-bold">"Delete this" </span>
-                user?. Are you sure?
-              </p>
-            </div>
+            // <div className="text-center">
+            //   <div className="mb-3">
+            //     <div className="warning-icon-wrapper">
+            //       <TriangleExclamationIcon />
+            //     </div>
+            //   </div>
+            //   <h5 className="fw-bold mb-2 text-muted">Delete user?</h5>
+            //   <p className="mb-2">
+            //     You're going to <span className="fw-bold">"Delete" </span>
+            //     this user?. Are you sure?
+            //   </p>
+            // </div>
+            <DeleteModal msg="user"/>
           )}
           {actionType === "deleteReadiness" && (
             <div className="text-center">
@@ -242,11 +245,13 @@ function ConfirmationModel({
             </div>
           )}
           {actionType === "action" && (
-            <span>
-              Are you sure you want to{" "}
-              {data?.status === "active" ? "disable" : "enable"} this user?
-            </span>
+            // <span>
+            //   Are you sure you want to
+            //   {data?.status === "active" ? "disable" : "enable"} this user?
+            // </span>
+            <EnableDisableModal status={data?.status} msg="user" />
           )}
+
           {actionType === "remove" && (
             <div className="text-center">
               <div className="mb-3">

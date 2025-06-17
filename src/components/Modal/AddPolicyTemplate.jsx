@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { postApi } from "../../services/apiService";
+import { PlusIcon } from "../Icons/Icons";
 
 const AddPolicyTemplate = ({ GetPolicy }) => {
   const [description, setDescription] = useState("");
@@ -144,7 +145,7 @@ const AddPolicyTemplate = ({ GetPolicy }) => {
   return (
     <>
       <button className="primary-btn ms-2" type="button" onClick={handleShow}>
-        <i className="fa-solid fa-plus me-2"></i>
+       <PlusIcon/>
         Add Policy Template
       </button>
       <Offcanvas

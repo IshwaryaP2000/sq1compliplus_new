@@ -25,12 +25,11 @@ const validationSchema = Yup.object({
 function EditQuestions({ data, category, question, GetQuestions }) {
   const [show, setShow] = useState(false);
   const [selectedType, setSelectedType] = useState(question?.type || "");
+  const [filteredCategories, setFilteredCategories] = useState([]);
+  const [isCategoryTyping, setIsCategoryTyping] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(
     question?.category || ""
   );
-  const [filteredCategories, setFilteredCategories] = useState([]);
-  const [isCategoryTyping, setIsCategoryTyping] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -129,7 +128,6 @@ function EditQuestions({ data, category, question, GetQuestions }) {
                     value={selectedType}
                     onChange={(e) => setSelectedType(e.target.value)}
                   >
-                    {/* <option value="">Select a type</option> */}
                     {data?.data?.map((type) => (
                       <option key={type.id} value={type.id}>
                         {type.name}

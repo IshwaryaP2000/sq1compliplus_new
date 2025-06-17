@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { postApi } from "../../../services/apiService";
 import usePageTitle from "../../../utils/usePageTitle";
 import { logoPath } from "../../../utils/UtilsGlobalData";
-import { useAuthOrganization } from "../../../hooks/OrganizationUserProvider";
-import { confirm_password } from "../../../components/Validationschema/commonSchema";
+import { useAuthOrganization } from "../../../Hooks/OrganizationUserProvider";
 import { Logo } from "../../../components/Logo/Logo";
 
 const NewPassword = () => {
@@ -25,7 +24,9 @@ const NewPassword = () => {
       newPassword: Yup.string()
         .required("New password is required")
         .min(8, "Password must be at least 8 characters"),
-      confirmPassword: confirm_password,
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
+        .required("Confirm password is required"),
     }),
     onSubmit: async (values, { resetForm, setErrors }) => {
       try {
