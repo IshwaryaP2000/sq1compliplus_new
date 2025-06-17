@@ -44,8 +44,8 @@ import NewUser from "../pages/Settings/Subpages/Organizations/OrganizationUsers"
 import EmployeeLogin from "../pages/employeePortal/Authentication/Login";
 import EmployeeLayout from "../pages/employeePortal/Includes/EmployeeLayout";
 import EmployeePortalRoute from "../routes/EmployeePortalRoute";
-import Employeeforgotpassword from "../pages/employeePortal/Authentication/ForgotPassword";
-import NewPassword from "../pages/employeePortal/Profile/NewPassword";
+import Employeeforgotpassword from "../pages/EmployeePortal/Authentication/ForgotPassword";
+import NewPassword from "../pages/EmployeePortal/Profile/NewPassword";
 import ActivePolicy from "../pages/Settings/Subpages/Policy/ActivePolicy";
 import WaitingPolicy from "../pages/Settings/Subpages/Policy/WaitingPolicy";
 import PendingApproval from "../pages/Settings/Subpages/Policy/PendingApproval";
@@ -313,43 +313,18 @@ function MainRoutes() {
         />
       </Route>
 
-      {/* <Route
-        path="/authentication/mfa-verify"
-        element={
-          <AuthUserMiddleware>
-            <MFA />
-          </AuthUserMiddleware>
-        }
-      />
-
-      <Route
-        path="/authentication/mfa-scan-qr-code"
-        element={
-          <AuthUserMiddleware>
-            <MFAQr />
-          </AuthUserMiddleware>
-        }
-      /> */}
-
       {/* ------- Employee Portal ------- */}
-      {/* <Route
-        path="/employee/login"
-        element={
-          <AuthEmployeeMiddleware isLoginPage={true}>
-            <EmployeeLogin />
-          </AuthEmployeeMiddleware>
-        }
-      /> */}
+
       <Route
         path="/employee/login"
         element={AuthEmployeeMiddleware(<EmployeeLogin />, true)}
       />
 
-      <Route path="/employee" element={<EmployeeLayout />}>
-        <Route
-          path="/employee/*"
-          element={AuthEmployeeMiddleware(<EmployeePortalRoute />)}
-        />
+      <Route
+        path="/employee/*"
+        element={AuthEmployeeMiddleware(<EmployeeLayout />)}
+      >
+        <Route path="*" element={<EmployeePortalRoute />} />
       </Route>
 
       <Route
@@ -365,14 +340,7 @@ function MainRoutes() {
         element={AuthVendorMiddleware(<VendorLogin />, true)}
       />
 
-      {/* <Route path="/vendor-portal" element={<VendorLayout />}>
-        <Route
-          path="/vendor-portal/*"
-          element={AuthVendorMiddleware(<VendorPortalRoute />)}
-        />
-      </Route> */}
-
-       <Route
+      <Route
         path="/vendor-portal/*"
         element={AuthVendorMiddleware(<VendorPortalRoute />)}
       />

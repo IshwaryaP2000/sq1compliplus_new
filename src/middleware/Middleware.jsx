@@ -7,6 +7,7 @@ import {
   hasRole,
   logout,
 } from "../utils/UtilsGlobalData";
+import { useEffect } from "react";
 
 export const AuthUserProtectedMiddleware = ({ children }) => {
   const portal = localStorage.getItem("portal");
@@ -106,8 +107,42 @@ export const AuthVendorMiddleware = (element, isLoginPage = false) => {
   return isLoginPage ? ProtectedRouteLogin() : ProtectedRoute();
 };
 
+// export const AuthEmployeeMiddleware = (element, isLoginPage = false) => {
+//   const portal = localStorage.getItem("portal");
+//   const employee_status = localStorage.getItem("employee_status");
+
+//   const isAuthenticated = () => {
+//     return localStorage.getItem("authToken") !== null;
+//   };
+
+//   const ProtectedRoute = () => {
+//     if (!isAuthenticated()) {
+//       if (portal !== "employee") {
+//         return <Navigate to="/unauthorized" />;
+//       }
+//       return <Navigate to="/employee/login" />;
+//     }
+//     if (employee_status !== "active") {
+//       toast.error("Please update your password to go further pages");
+//       return <Navigate to="/employee/change-password" />;
+//     }
+//     return element;
+//   };
+
+//   const ProtectedRouteLogin = () => {
+//     if (isAuthenticated() && isLoginPage) {
+//       if (employee_status !== "active") {
+//         toast.error("Please update your password to go further pages");
+//         return <Navigate to="/employee/change-password" />;
+//       }
+//       return <Navigate to="/employee/all-policy" />;
+//     }
+//     return element;
+//   };
+//   return isLoginPage ? ProtectedRouteLogin() : ProtectedRoute();
+// };
+
 export const AuthEmployeeMiddleware = (element, isLoginPage = false) => {
-  localStorage.setItem("portal", "employee");
   const portal = localStorage.getItem("portal");
   const employee_status = localStorage.getItem("employee_status");
 
@@ -115,7 +150,16 @@ export const AuthEmployeeMiddleware = (element, isLoginPage = false) => {
     return localStorage.getItem("authToken") !== null;
   };
 
-  const ProtectedRoute = () => {
+  function ProtectedRoute() {
+    useEffect(() => {
+      if (!isAuthenticated()) {
+        if (portal !== "employee") return;
+        // No toast here for unauthorized
+      } else if (employee_status !== "active") {
+        toast.error("Please update your password to go further pages");
+      }
+    }, []);
+
     if (!isAuthenticated()) {
       if (portal !== "employee") {
         return <Navigate to="/unauthorized" />;
@@ -123,21 +167,26 @@ export const AuthEmployeeMiddleware = (element, isLoginPage = false) => {
       return <Navigate to="/employee/login" />;
     }
     if (employee_status !== "active") {
-      // toast.error("Please update your password to go further pages");
       return <Navigate to="/employee/change-password" />;
     }
     return element;
-  };
+  }
 
-  const ProtectedRouteLogin = () => {
+  function ProtectedRouteLogin() {
+    useEffect(() => {
+      if (isAuthenticated() && isLoginPage && employee_status !== "active") {
+        toast.error("Please update your password to go further pages");
+      }
+    }, []);
+
     if (isAuthenticated() && isLoginPage) {
       if (employee_status !== "active") {
-        // toast.error("Please update your password to go further pages");
         return <Navigate to="/employee/change-password" />;
       }
       return <Navigate to="/employee/all-policy" />;
     }
     return element;
-  };
-  return isLoginPage ? ProtectedRouteLogin() : ProtectedRoute();
+  }
+
+  return isLoginPage ? <ProtectedRouteLogin /> : <ProtectedRoute />;
 };

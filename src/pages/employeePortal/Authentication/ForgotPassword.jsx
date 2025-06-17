@@ -7,7 +7,7 @@ import usePageTitle from "../../../utils/usePageTitle";
 import { email } from "../../../components/Validationschema/commonSchema";
 import { Logo } from "../../../components/Logo/Logo";
 
-const ForgotPassword = () => {
+const Employeeforgotpassword = () => {
   usePageTitle("Forgot Password");
   const navigate = useNavigate();
   const formik = useFormik({
@@ -137,4 +137,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default Employeeforgotpassword;

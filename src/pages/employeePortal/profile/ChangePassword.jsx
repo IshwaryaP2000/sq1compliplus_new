@@ -15,7 +15,7 @@ const ChangePassword = () => {
   // Change Profile Formik
   const changeProfileFormik = useFormik({
     initialValues: {
-      changeprofile: name?.name || "", 
+      changeprofile: name?.name || "",
     },
     validationSchema: Yup.object({
       changeprofile: Yup.string()
@@ -29,20 +29,14 @@ const ChangePassword = () => {
     enableReinitialize: true,
     onSubmit: async (values, { setErrors }) => {
       try {
-        setIsLoading(true); // Start loader
+        setIsLoading(true);
         const payload = { name: values.changeprofile };
         await postApi("/employee/update/profile", payload);
         const authUser = {
           ...JSON.parse(localStorage.getItem("authUser") || "{}"),
           name: payload.name,
-        }; // to update the name after change the profile name
-
-        // const user_name = localStorage.setItem(
-        //   "authUser",
-        //   JSON.stringify(authUser)
-        // );
+        };
         localStorage.setItem("authUser", JSON.stringify(authUser));
-        // Custom event to notify other components
         window.dispatchEvent(new Event("profileUpdate"));
       } catch (err) {
         console.error(err, "err");
@@ -50,7 +44,7 @@ const ChangePassword = () => {
           setErrors({ changeprofile: err.response.data.errors.user_name[0] });
         }
       } finally {
-        setIsLoading(false); // Stop loader
+        setIsLoading(false);
       }
     },
   });
@@ -73,14 +67,14 @@ const ChangePassword = () => {
     }),
     onSubmit: async (values, { resetForm, setErrors }) => {
       try {
-        setIsLoading(true); 
+        setIsLoading(true);
         const payload = {
           current_password: values.currentPassword,
           new_password: values.newPassword,
           confirm_new_password: values.confirmPassword,
         };
         await postApi("employee/change-password", payload);
-        resetForm(); 
+        resetForm();
       } catch (err) {
         if (err.response?.data?.errors) {
           setErrors({
@@ -90,7 +84,7 @@ const ChangePassword = () => {
           });
         }
       } finally {
-        setIsLoading(false); 
+        setIsLoading(false);
       }
     },
   });
