@@ -500,7 +500,7 @@ function EditVendor({ Vendordata, GetVendors, areaType, handleCloseModals }) {
                   >
                     {isLoading ? (
                       <div
-                        class="spinner-border p-0 text-success spinner-border-sm"
+                        className="spinner-border p-0 text-success spinner-border-sm"
                         role="status"
                       ></div>
                     ) : (

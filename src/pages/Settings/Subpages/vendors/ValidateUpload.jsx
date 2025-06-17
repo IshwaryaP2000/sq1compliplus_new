@@ -16,7 +16,7 @@ const ValidateUpload = () => {
   const [selectedValues, setSelectedValues] = useState({});
   const [isWeightage, setIsWeightage] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
-  const questionWeightage = process.env.REACT_APP_QUESTION_WEIGHTAGE || 10;
+  const questionWeightage = import.meta.env.VITE_QUESTION_WEIGHTAGE || 10;
   const [buttonShow, setButtonShow] = useState(0);
 
   useEffect(() => {

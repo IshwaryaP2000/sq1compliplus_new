@@ -714,7 +714,7 @@ const VendorNew = () => {
               >
                 {isresponse === true ? (
                   <div
-                    class="spinner-border p-0 text-white spinner-border-sm"
+                    className="spinner-border p-0 text-white spinner-border-sm"
                     role="status"
                   ></div>
                 ) : (
@@ -753,7 +753,7 @@ const VendorNew = () => {
                 >
                   {isresponse === true ? (
                     <div
-                      class="spinner-border text-white spinner-border-sm"
+                      className="spinner-border text-white spinner-border-sm"
                       role="status"
                     ></div>
                   ) : (
@@ -769,7 +769,7 @@ const VendorNew = () => {
               <div className="text-center">
                 <div className="mb-3">
                   <div className="warning1-icon-wrapper">
-                    <i class="fa-solid text-warning fa-triangle-exclamation"></i>
+                    <i className="fa-solid text-warning fa-triangle-exclamation"></i>
                   </div>
                 </div>
                 <h5 className="fw-bold mb-2 text-muted">No Questions Found</h5>
