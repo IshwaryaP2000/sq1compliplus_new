@@ -5,6 +5,7 @@ import { postApi } from "../../services/apiService";
 import usePageTitle from "../../utils/usePageTitle";
 import { getCurrentUser } from "../../utils/UtilsGlobalData";
 import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
+import { EyeIcon, EyeslashIcon } from "../../components/Icons/Icons";
 
 const ChangePassword = () => {
   usePageTitle("Profile");
@@ -177,11 +178,7 @@ const ChangePassword = () => {
                       showCurrentPassword ? "Hide password" : "Show password"
                     }
                   >
-                    {showCurrentPassword ? (
-                      <i className="fa-solid fa-eye-slash text-secondary" />
-                    ) : (
-                      <i className="fa-solid fa-eye text-secondary" />
-                    )}
+                    {showCurrentPassword ? <EyeslashIcon /> : <EyeIcon />}
                   </button>
                 )}
                 {formik.touched.currentPassword &&
@@ -215,11 +212,7 @@ const ChangePassword = () => {
                       showNewPassword ? "Hide password" : "Show password"
                     }
                   >
-                    {showNewPassword ? (
-                      <i className="fa-solid fa-eye-slash text-secondary" />
-                    ) : (
-                      <i className="fa-solid fa-eye text-secondary" />
-                    )}
+                    {showNewPassword ? <EyeslashIcon /> : <EyeIcon />}
                   </button>
                 )}
                 {formik.touched.newPassword && formik.errors.newPassword && (
@@ -253,11 +246,7 @@ const ChangePassword = () => {
                       showConfirmPassword ? "Hide password" : "Show password"
                     }
                   >
-                    {showConfirmPassword ? (
-                      <i className="fa-solid fa-eye-slash text-secondary" />
-                    ) : (
-                      <i className="fa-solid fa-eye text-secondary" />
-                    )}
+                    {showConfirmPassword ? <EyeslashIcon /> : <EyeIcon />}
                   </button>
                 )}
                 {formik.touched.confirmPassword &&

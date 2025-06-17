@@ -246,7 +246,7 @@ const SsoSetup = () => {
                       className="btn btn-secondary btn-sm"
                     >
                       {azure === "azure" ? (
-                        <i className="fa-solid fa-pencil"></i>
+                        <PencilIcon />
                       ) : (
                         <i className="fa-solid fa-plus"></i>
                       )}
@@ -288,7 +288,7 @@ const SsoSetup = () => {
                       className="btn btn-secondary btn-sm"
                     >
                       {google === "google" ? (
-                        <i className="fa-solid fa-pencil"></i>
+                        <PencilIcon />
                       ) : (
                         <i className="fa-solid fa-plus"></i>
                       )}
