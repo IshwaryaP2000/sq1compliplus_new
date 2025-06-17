@@ -18,31 +18,34 @@ const AllPolicy = () => {
   const [pageIndex, setPageIndex] = useState([]);
   const navigate = useNavigate();
 
-  const getAllPolicies = async () => {
+  // useCallback for stable function reference
+  const getAllPolicies = useMemo(() => async () => {
     try {
       setIsLoading(true);
       const response = await getApi("employee/all/policies");
-      setData(response?.data?.data);
-      setFilteredUsers(response?.data?.data);
-      setFilteredLength(response?.data?.data?.length);
+      const policies = response?.data?.data;
+      setData(policies);
+      setFilteredUsers(policies);
+      setFilteredLength(policies?.length);
     } catch (err) {
       console.error("error", err);
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const getAllPoliciesByID = async (id) => {
+  // useCallback for stable function reference
+  const getAllPoliciesByID = useMemo(() => (id) => {
     try {
       navigate(`/employee/policy/${id}`);
     } catch (err) {
       console.error("error", err);
     }
-  };
+  }, [navigate]);
 
   useEffect(() => {
     getAllPolicies();
-  }, []);
+  }, [getAllPolicies]);
 
   const debouncedFetchSearchResults = useMemo(
     () =>
@@ -103,122 +106,123 @@ const AllPolicy = () => {
           </div>
         ) : filteredUsers?.length > 0 ? (
           <div className="row w-100">
-            {filteredUsers.map((policy, index) => {
-              return (
+            {filteredUsers.map((policy, index) => (
+              <div
+                style={{ position: "relative" }}
+                className="col-md-4 mb-1"
+                key={policy?.id || index}
+                onClick={() => getAllPoliciesByID(policy?.id)}
+              >
                 <div
-                  style={{ position: "relative" }}
-                  className="col-md-4 mb-1"
-                  key={policy?.id || index}
-                  onClick={() => getAllPoliciesByID(policy?.id)}
+                  className={`card p-4 rounded-4 activepolicy-card`}
+                  style={{
+                    cursor: "pointer",
+                    transition: "filter 0.3s ease",
+                    position: "relative",
+                  }}
                 >
-                  <div
-                    className={`card p-4 rounded-4 activepolicy-card`}
-                    style={{
-                      cursor: "pointer",
-                      transition: "filter 0.3s ease",
-                      position: "relative",
-                    }}
-                  >
-                    <div className="card-body p-0">
-                      <div className="d-flex justify-content-between mb-3">
-                        <div>
-                          <h5
-                            className="fs-24 policy-card-h"
-                            dangerouslySetInnerHTML={{
-                              __html: highlightText(
-                                ucFirst(policy?.name) || "",
-                                searchVal
-                              ),
-                            }}
-                          ></h5>
+                  <div className="card-body p-0">
+                    <div className="d-flex justify-content-between mb-3">
+                      <div>
+                        <h5
+                          className="fs-24 policy-card-h"
+                          dangerouslySetInnerHTML={{
+                            __html: highlightText(
+                              ucFirst(policy?.name) || "",
+                              searchVal
+                            ),
+                          }}
+                        ></h5>
 
-                          <div className="d-flex">
-                            <div className="poilcy-status d-flex me-2">
-                              <div
-                                className="status-color me-2"
-                                style={{ background: "#37C650" }}
-                              ></div>
-                              <span
-                                dangerouslySetInnerHTML={{
-                                  __html: highlightText(
-                                    ucFirst(policy?.status) || "",
-                                    searchVal
-                                  ),
-                                }}
-                              ></span>
-                            </div>
-                            <p className="policy-review-date mb-0">
-                              <span
-                                dangerouslySetInnerHTML={{
-                                  __html: highlightText(
-                                    `Policy Valid Until - ${
-                                      policy?.expiry_date || ""
-                                    }`,
-                                    searchVal
-                                  ),
-                                }}
-                              ></span>
-                            </p>
+                        <div className="d-flex">
+                          <div className="poilcy-status d-flex me-2">
+                            <div
+                              className="status-color me-2"
+                              style={{ background: "#37C650" }}
+                            ></div>
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html: highlightText(
+                                  ucFirst(policy?.status) || "",
+                                  searchVal
+                                ),
+                              }}
+                            ></span>
                           </div>
-                        </div>
-
-                        <div className="poilcy-status d-flex  me-2 align-items-center">
-                          <div
-                            className=""
-                            style={{ background: "#37C650" }}
-                          ></div>
-                          <span
-                            dangerouslySetInnerHTML={{
-                              __html: highlightText(
-                                `V - ${policy?.version || ""}`,
-                                searchVal
-                              ),
-                            }}
-                          ></span>
+                          <p className="policy-review-date mb-0">
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html: highlightText(
+                                  `Policy Valid Until - ${
+                                    policy?.expiry_date || ""
+                                  }`,
+                                  searchVal
+                                ),
+                              }}
+                            ></span>
+                          </p>
                         </div>
                       </div>
-                      <div className="d-flex justify-content-between">
-                        <div className="policy-details">
-                          <p className="mb-0 fs-14 text-gray-light mb-2">
-                            Policy Title
-                          </p>
-                          <h5
-                            dangerouslySetInnerHTML={{
-                              __html: highlightText(
-                                ucFirst(policy?.title) || "",
-                                searchVal
-                              ),
-                            }}
-                          ></h5>
-                        </div>
-                        <div className="policy-details">
-                          <p className="mb-0 fs-14 text-gray-light mb-2">
-                            Category
-                          </p>
-                          <h5
-                            dangerouslySetInnerHTML={{
-                              __html: highlightText(
-                                ucFirst(policy?.category) || "",
-                                searchVal
-                              ),
-                            }}
-                          ></h5>
-                        </div>
-                        <div className="d-flex align-items-center">
-                          <button
-                            type="button"
-                            className="btn btn-sm primary-btn ms-3 mt-3"
-                            onClick={() => getAllPoliciesByID(policy?.id)}
-                          >
-                            View
-                          </button>
-                        </div>
+
+                      <div className="poilcy-status d-flex  me-2 align-items-center">
+                        <div
+                          className=""
+                          style={{ background: "#37C650" }}
+                        ></div>
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: highlightText(
+                              `V - ${policy?.version || ""}`,
+                              searchVal
+                            ),
+                          }}
+                        ></span>
+                      </div>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      <div className="policy-details">
+                        <p className="mb-0 fs-14 text-gray-light mb-2">
+                          Policy Title
+                        </p>
+                        <h5
+                          dangerouslySetInnerHTML={{
+                            __html: highlightText(
+                              ucFirst(policy?.title) || "",
+                              searchVal
+                            ),
+                          }}
+                        ></h5>
+                      </div>
+                      <div className="policy-details">
+                        <p className="mb-0 fs-14 text-gray-light mb-2">
+                          Category
+                        </p>
+                        <h5
+                          dangerouslySetInnerHTML={{
+                            __html: highlightText(
+                              ucFirst(policy?.category) || "",
+                              searchVal
+                            ),
+                          }}
+                        ></h5>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <button
+                          type="button"
+                          className="btn btn-sm primary-btn ms-3 mt-3"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            getAllPoliciesByID(policy?.id);
+                          }}
+                        >
+                          View
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         ) : (
           <div className="card w-100">

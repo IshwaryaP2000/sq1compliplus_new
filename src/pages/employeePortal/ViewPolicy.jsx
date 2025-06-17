@@ -11,37 +11,8 @@ const ViewPolicy = () => {
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showMore, setShowMore] = useState(false);
-  const queriesToShow = showMore ? data?.queries : data?.queries?.slice(0, 5); // Show 5 by default
   const navigate = useNavigate();
-
-  const formik = useFormik({
-    initialValues: {
-      comments: "",
-    },
-    onSubmit: async (values) => {
-      setIsLoading(true);
-
-      if (!values.comments) {
-        formik.setFieldError("comments", "Please enter comments");
-        setIsLoading(false);
-        return;
-      }
-      try {
-        const payload = {
-          comments: values.comments,
-        };
-        await postApi(`employee/query/${policyId}`, payload);
-        fetchPolicy();
-        formik.resetForm();
-      } catch (error) {
-        console.error("API Error:", error);
-        setIsLoading(false);
-      } finally {
-        setShowModal(false);
-        setIsLoading(false);
-      }
-    },
-  });
+  const queriesToShow = showMore ? data?.queries : data?.queries?.slice(0, 5);
 
   const fetchPolicy = async (URI = `employee/policy/${policyId}`) => {
     try {
@@ -69,11 +40,38 @@ const ViewPolicy = () => {
 
   useEffect(() => {
     fetchPolicy();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [policyId]);
 
   function returnEmployeePolicy() {
     navigate(`/employee/all-policy`);
   }
+
+  const formik = useFormik({
+    initialValues: {
+      comments: "",
+    },
+    onSubmit: async (values) => {
+      setIsLoading(true);
+      if (!values.comments) {
+        formik.setFieldError("comments", "Please enter comments");
+        setIsLoading(false);
+        return;
+      }
+      try {
+        const payload = { comments: values.comments };
+        await postApi(`employee/query/${policyId}`, payload);
+        fetchPolicy();
+        formik.resetForm();
+      } catch (error) {
+        console.error("API Error:", error);
+        setIsLoading(false);
+      } finally {
+        setShowModal(false);
+        setIsLoading(false);
+      }
+    },
+  });
 
   return (
     <>
@@ -104,7 +102,6 @@ const ViewPolicy = () => {
                 height="630px"
                 className="rounded border shadow-sm"
               ></iframe>
-
               <div className="d-flex justify-content-center mt-3">
                 <>
                   <button
@@ -114,7 +111,6 @@ const ViewPolicy = () => {
                   >
                     {data?.is_accepted ? "Raised Query" : "Raise Query"}
                   </button>
-
                   {!data?.is_accepted ? (
                     <button
                       type="button"
@@ -133,7 +129,6 @@ const ViewPolicy = () => {
             </div>
           )}
         </Card>
-
         {/* Query Modal */}
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
           <Modal.Header closeButton>
@@ -147,13 +142,10 @@ const ViewPolicy = () => {
                 </label>
                 <div>
                   {isLoading ? (
-                    // Loading skeleton cards
                     <div className="d-flex justify-content-center align-items-center">
                       <Spinner animation="border" variant="success" />
                     </div>
                   ) : data?.queries?.length > 0 ? (
-                    // Data cards
-
                     <div className="row">
                       {queriesToShow?.map((queries, index) => (
                         <div key={queries?.id || index} className="m-3">
@@ -177,13 +169,13 @@ const ViewPolicy = () => {
                         <button
                           className="btn btn-link p-0 mt-1 text-decoration-none"
                           onClick={() => setShowMore(!showMore)}
+                          type="button"
                         >
                           {showMore ? "Show Less" : "Show More"}
                         </button>
                       )}
                     </div>
                   ) : (
-                    // No data
                     <div className="card">
                       <div className="card-body text-center">
                         <p>No Data Available...</p>
@@ -193,7 +185,6 @@ const ViewPolicy = () => {
                 </div>
                 <hr></hr>
               </div>
-
               {!data?.is_accepted ? (
                 <>
                   <div className="form-group">
@@ -219,12 +210,11 @@ const ViewPolicy = () => {
                       variant="secondary"
                       onClick={() => {
                         setShowModal(false);
-                        formik.resetForm(); // Clear formik values
+                        formik.resetForm();
                       }}
                     >
                       Cancel
                     </Button>
-
                     <button
                       type="submit"
                       className="btn btn-sm primary-btn ms-3"
