@@ -19,15 +19,14 @@ import {
   password,
 } from "../../../components/Validationschema/commonSchema";
 
-const Login = () => {  
-  // alert("coming")
+const Login = () => {
+  localStorage.setItem("portal", "employee");
   usePageTitle("Employee-Login");
   const [showPassword, setShowPassword] = useState(false);
   const [SSOLink, SetSSOLink] = useState();
   const { setAuthUser } = useAuthOrganization();
   const navigate = useNavigate();
   const currentOrganization = getCurrentOrganization();
-  localStorage.setItem("portal", "employee");
 
   // Initialize Formik
   const formik = useFormik({
@@ -70,15 +69,15 @@ const Login = () => {
 
   useEffect(() => {
     if (currentOrganization?.auth_type === "google") {
-      getSSOLink(); // Call the API only if loginType is google
+      getSSOLink(); 
     }
-    localStorage.setItem("portal", "");
+    // localStorage.setItem("portal", "");
   }, []);
 
   //It will call only auth type google
   const getSSOLink = async () => {
     try {
-      const response = await getApi("get-sso-link"); // Replace with your API endpoint
+      const response = await getApi("get-sso-link"); 
       SetSSOLink(response?.data);
     } catch (errorLogin) {
       console.error(errorLogin);

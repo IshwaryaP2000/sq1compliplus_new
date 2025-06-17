@@ -18,7 +18,8 @@ const AcceptedPolicy = () => {
   const [pageIndex, setPageIndex] = useState([]);
   const navigate = useNavigate();
 
-  const getAcceptedPolicies = async () => {
+  // Memoize getAcceptedPolicies for stable reference
+  const getAcceptedPolicies = useMemo(() => async () => {
     try {
       setIsLoading(true);
       const response = await getApi("employee/accepted/policies");
@@ -30,19 +31,20 @@ const AcceptedPolicy = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const getAllPoliciesByID = async (id) => {
+  // Memoize getAllPoliciesByID for stable reference
+  const getAllPoliciesByID = useMemo(() => (id) => {
     try {
       navigate(`/employee/policy/${id}`);
     } catch (err) {
       console.error("error", err);
     }
-  };
+  }, [navigate]);
 
   useEffect(() => {
     getAcceptedPolicies();
-  }, []);
+  }, [getAcceptedPolicies]);
 
   const debouncedFetchSearchResults = useMemo(
     () =>
