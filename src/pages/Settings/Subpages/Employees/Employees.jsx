@@ -7,6 +7,7 @@ import { getApi, postApi } from "../../../../services/apiService";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
 import { email } from "../../../../components/Validationschema/commonSchema";
 import DeleteModal from "../../../../components/Modal/DeleteModal";
+import { PlusIcon } from "../../../../components/Icons/Icons";
 
 const Employee = () => {
   const [employees, setEmployees] = useState([]);
@@ -127,7 +128,7 @@ const Employee = () => {
           onClick={handleShowEmployeeCanvas}
           disabled={isLoading}
         >
-          <i className="fa-solid fa-plus ms-1 me-2"></i>
+          <PlusIcon className="ms-1 me-2" />
           Create Employee
         </button>
       </div>

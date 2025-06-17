@@ -9,6 +9,7 @@ import {
   RepeatNotAllowedIcon,
   TrashIcon,
   TriangleExclamationIcon,
+  XmarkIcon,
 } from "../Icons/Icons";
 import EnableDisableModal from "./EnableDisableModal";
 import DeleteModal from "./DeleteModal";
@@ -166,7 +167,7 @@ function ConfirmationModel({
                 className="btn btn-sm py-0 my-1 tableborder-right"
                 onClick={() => handleShow("delete")}
               >
-                <TrashIcon />
+                <TrashIcon className="text-danger" />
               </button>
             </OverlayTrigger>
           </>
@@ -183,7 +184,7 @@ function ConfirmationModel({
                 className="btn btn-sm py-0 my-1"
                 onClick={() => handleShow("remove")}
               >
-                <i className="fa-solid fa-xmark text-danger"></i>
+                <XmarkIcon className="text-danger"/>
               </button>
             </div>
           </OverlayTrigger>
@@ -196,7 +197,7 @@ function ConfirmationModel({
               className="btn btn-sm py-0 my-1 "
               onClick={() => handleShow("deleteReadiness")}
             >
-              <TrashIcon />
+              <TrashIcon className="text-danger" />
             </button>
           </OverlayTrigger>
         )}

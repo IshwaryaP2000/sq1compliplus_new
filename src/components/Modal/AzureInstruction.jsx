@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import { CircledotIcon, CircleinfoIcon } from "../Icons/Icons";
 
 function AzureInstruction() {
   const [show, setShow] = useState(false);
@@ -22,17 +23,15 @@ function AzureInstruction() {
         <div className="col-md-6 multi-stepform">
           <h5>How to configure SSO authentication for your organization ?</h5>
           <p className="">
-            <i className="fa-regular fa-circle-dot me-2"></i>the below mentioned
-            steps to configure
+            <CircledotIcon className="me-2" />
+            the below mentioned steps to configure
           </p>
           <ul>
             <li>
-              
               Sign into the Azure Active Directory portal using your Buisness
               account or Official account
             </li>
             <li>
-              
               On successfull sign in you will find the below displayed image.
             </li>
             <li>Select Azure Active Directory</li>
@@ -72,20 +71,16 @@ function AzureInstruction() {
           <ul>
             <li>Enter a display name for your application.</li>
             <li>
-              
               Select <b>Account is organizational directory</b> to make sure
               only the users in your organization can access the application
             </li>
             <li>
-              
               Select <b>Web</b> as the platform under Redirect URI
             </li>
             <li>
-              
               Enter the provided <b>http://192.168.6.4auth/sso</b> redirect URI
             </li>
             <li>
-              
               Select <b>Register.</b>
             </li>
           </ul>
@@ -103,13 +98,12 @@ function AzureInstruction() {
       <div className="row">
         <div className="col-md-6 multi-stepform">
           <p className="">
-            <i className="fa-regular fa-circle-dot me-2"></i>Below you will find
-            the application created
+            <CircledotIcon className="me-2" />
+            Below you will find the application created
           </p>
           <ul>
             <li> Copy Directory (tenant) ID and paste into Tenant ID input</li>
             <li>
-              
               Copy Application (client) ID and paste into Application ID input
             </li>
           </ul>
@@ -132,16 +126,13 @@ function AzureInstruction() {
               Search and Select <b>Certificates & Secrets</b>
             </li>
             <li>
-              
               Search and Select <b>Client secrets</b>
             </li>
             <li>
-              
               Select <b>New client secret</b>
             </li>
             <li> Add description</li>
             <li>
-              
               Select expires as <b>365 days (12 months)</b>
             </li>
           </ul>
@@ -162,7 +153,6 @@ function AzureInstruction() {
           <ul>
             <li> You will find a new secret created below</li>
             <li>
-              
               Make sure to take a copy the value, since it will not be displayed
               for long time
             </li>
@@ -194,10 +184,14 @@ function AzureInstruction() {
 
   return (
     <>
-      <i
+      {/* <i
         className="fa-solid fa-circle-info text-primary ms-2 align-content-center"
         onClick={handleShow}
-      ></i>
+      ></i> */}
+      <CircleinfoIcon
+        className="text-primary ms-2 align-content-center"
+        onClick={handleShow}
+      />
 
       <Modal
         show={show}

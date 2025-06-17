@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { Spinner, Modal, Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getApi, postApi } from "../../services/apiService";
+import { LeftarrowIcon } from "../../components/Icons/Icons";
 
 const ViewPolicy = () => {
   const { id: policyId } = useParams();
@@ -80,7 +81,7 @@ const ViewPolicy = () => {
           <h5>Policy - {data?.name || ""}</h5>
         </div>
         <button className="primary-btn" onClick={returnEmployeePolicy}>
-          <i className="fa-solid fa-arrow-left me-1"></i>
+          <LeftarrowIcon className="me-1"/>
           Back
         </button>
       </div>

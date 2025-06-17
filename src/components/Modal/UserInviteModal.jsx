@@ -46,7 +46,7 @@ function UserInviteModel({ data, fetchAllUser }) {
   return (
     <>
       <button onClick={handleShow} className="ms-2 btn primary-btn btn">
-        <PlusIcon />
+        <PlusIcon className="me-2" />
         Invite User
       </button>
 

@@ -10,7 +10,11 @@ import { toast } from "react-toastify";
 import usePageTitle from "../../../../utils/usePageTitle";
 import { getApi, postApi } from "../../../../services/apiService";
 import {
+  CheckIcon,
+  CircleinfoIcon,
+  LeftarrowIcon,
   PlusIcon,
+  RegulareyeIcon,
   TrashIcon,
   TriangleExclamationIcon,
 } from "../../../../components/Icons/Icons";
@@ -319,7 +323,8 @@ const PreApprovedAssessment = () => {
               <div className="d-flex justify-content-end mb-2">
                 <Link to="/settings/add-pre-approved-vendor">
                   <button className="btn px-3 mt-1 mb-2 primary-btn">
-                    <i className="fa-solid fa-arrow-left me-1"></i>Back
+                    <LeftarrowIcon className="me-1" />
+                    Back
                   </button>
                 </Link>
               </div>
@@ -367,7 +372,7 @@ const PreApprovedAssessment = () => {
                                           }
                                         >
                                           <button className="bg-white border-0 text-muted">
-                                            <i className="fa-solid fa-circle-info"></i>
+                                            <CircleinfoIcon />
                                           </button>
                                         </OverlayTrigger>
                                       ) : (
@@ -378,7 +383,7 @@ const PreApprovedAssessment = () => {
                                   {item?.updateStatus === "1" ? (
                                     <div className="badge-wrapper">
                                       <p className="badge py-2 text-bg-success d-flex align-items-center justify-content-center mb-0 ">
-                                        <i className="fa-solid fa-check fs-6 me-1 "></i>
+                                        <CheckIcon className="fs-6 me-1" />
                                         <span className="d-none d-sm-block ">
                                           Answered
                                         </span>
@@ -395,7 +400,7 @@ const PreApprovedAssessment = () => {
                                       >
                                         {item?.answer ? (
                                           <>
-                                            <i className="fa-solid fa-circle-info fs-6 me-1 "></i>
+                                            <CircleinfoIcon className="fs-6 me-1" />
                                             <span className="d-none d-sm-block ">
                                               Incomplete
                                             </span>
@@ -530,7 +535,7 @@ const PreApprovedAssessment = () => {
                     <>Close Evidence</>
                   ) : (
                     <>
-                      <PlusIcon />
+                      <PlusIcon className="me-2" />
                       Add Evidence
                     </>
                   )}
@@ -657,7 +662,7 @@ const PreApprovedAssessment = () => {
                                     )
                                   }
                                 >
-                                  <i className="fa-regular fa-eye"></i>
+                                  <RegulareyeIcon />
                                 </button>
                               </OverlayTrigger>
 
@@ -670,7 +675,7 @@ const PreApprovedAssessment = () => {
                                   className="btn btn-sm px-lg-3 py-0  "
                                   onClick={() => handleShowDelete(data?.id)}
                                 >
-                                  <TrashIcon />
+                                  <TrashIcon className="text-danger" />
                                 </button>
                               </OverlayTrigger>
                             </div>

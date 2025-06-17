@@ -5,7 +5,7 @@ import Select from "react-select";
 import { Modal, Button } from "react-bootstrap";
 import usePageTitle from "../../../../utils/usePageTitle";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
-import { TriangleExclamationIcon } from "../../../../components/Icons/Icons";
+import { TrashIcon, TriangleExclamationIcon } from "../../../../components/Icons/Icons";
 import DeleteModal from "../../../../components/Modal/DeleteModal";
 
 function AddQuestion() {
@@ -695,7 +695,7 @@ function AddQuestion() {
                               onClick={() => handleDelete(question.id)}
                               disabled={isLoading}
                             >
-                              <i className="fa-solid fa-trash"></i>
+                             <TrashIcon />
                             </button>
                           </td>
                         </tr>

@@ -4,6 +4,7 @@ import { getApi, postApi } from "../../../../services/apiService";
 import CreatableSelect from "react-select/creatable";
 import Searchbar from "../../../../components/Search/Searchbar";
 import usePageTitle from "../../../../utils/usePageTitle";
+import { PlusIcon } from "../../../../components/Icons/Icons";
 
 const ComplexIntegration = () => {
   usePageTitle("Compliance Integration");
@@ -258,7 +259,7 @@ const ComplexIntegration = () => {
                             className="btn primary-btn mt-30"
                             onClick={addCredentialField}
                           >
-                            <i className="fa-solid fa-plus"></i>
+                            <PlusIcon />
                           </button>
                         ) : (
                           <button

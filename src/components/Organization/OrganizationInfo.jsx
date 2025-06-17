@@ -8,6 +8,7 @@ import { useAuthOrganization } from "../../Hooks/OrganizationUserProvider";
 import { getCurrentOrganization } from "../../utils/UtilsGlobalData";
 import ButtonWithLoader from "../Button/ButtonLoader";
 import { logo, shortName } from "../Validationschema/commonSchema";
+import { CheckIcon } from "../Icons/Icons";
 
 const OrganizationInfo = () => {
   const { fetchOrganizationUser } = useAuthOrganization();
@@ -185,7 +186,7 @@ const OrganizationInfo = () => {
                       alt="Preview"
                     />
                     <span className="file-name">{darkLogo.name}</span>
-                    <i className="fa-solid fa-check text-lightgreen"></i>
+                    <CheckIcon className="text-lightgreen" />
                   </>
                 ) : (
                   <span className="file-name">Upload Dark Logo</span>
@@ -228,7 +229,7 @@ const OrganizationInfo = () => {
                       alt="Preview"
                     />
                     <span className="file-name">{lightLogo.name}</span>
-                    <i className="fa-solid fa-check text-lightgreen"></i>
+                    <CheckIcon className="text-lightgreen"/>
                   </>
                 ) : (
                   <span className="file-name">Upload Light Logo</span>

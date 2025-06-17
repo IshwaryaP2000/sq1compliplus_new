@@ -117,7 +117,7 @@ const VendorUsers = () => {
                           className="btn btn-sm px-lg-3 my-1"
                           onClick={() => handleShow(users?.id)}
                         >
-                          <TrashIcon />
+                          <TrashIcon className="text-danger" />
                         </button>
                       </OverlayTrigger>
                     </div>

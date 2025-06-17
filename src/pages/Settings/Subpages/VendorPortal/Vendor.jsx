@@ -16,7 +16,15 @@ import {
   fetchSearchResults,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
-import { TriangleExclamationIcon } from "../../../../components/Icons/Icons";
+import {
+  CheckIcon,
+  PlusIcon,
+  RegulareyeIcon,
+  RightarrowIcon,
+  TrashIcon,
+  TriangleExclamationIcon,
+  XmarkIcon,
+} from "../../../../components/Icons/Icons";
 
 const VendorStartDate = ({ date }) => {
   const formatDate = (dateStr) => {
@@ -340,14 +348,14 @@ const VendorNew = () => {
           <Searchbar onSearch={handleSearch} placeHolder={"Search..."} />
 
           <button className="btn  ms-2 primary-btn " onClick={handleShowtable}>
-            <i className="fa-solid fa-plus me-1"></i> Pre Approved
+            <PlusIcon className="me-1" /> Pre Approved
           </button>
 
           <button
             className="btn  ms-2 primary-btn "
             onClick={handleButtonClick}
           >
-            <i className="fa-solid fa-plus me-1"></i> Create Vendor
+            <PlusIcon className="me-1" /> Create Vendor
           </button>
         </div>
       </div>
@@ -412,7 +420,7 @@ const VendorNew = () => {
                         >
                           <div>
                             {vendors.assessment_status === "completed" ? (
-                              <i className="fa-solid fa-check me-1"></i>
+                              <CheckIcon className="me-1" />
                             ) : (
                               <i className="fa-solid fa-clock me-1"></i>
                             )}
@@ -557,7 +565,7 @@ const VendorNew = () => {
                             className="btn primary-btn py-2"
                           >
                             View Assessment
-                            <i className="fa-solid fa-arrow-right ms-1"></i>
+                            <RightarrowIcon className="ms-1" />
                           </button>
                         </Link>
                       </div>
@@ -578,7 +586,7 @@ const VendorNew = () => {
                               onClick={handleCloseModals}
                               className="close-btn2 bg-white"
                             >
-                              <i className="fa-solid fa-xmark"></i>
+                              <XmarkIcon />
                             </button>
                           </div>
                           <div className="col-12 d-flex flex-wrap flex-lg-nowrap gap-2 align-items-center justify-content-center p-4">
@@ -586,7 +594,7 @@ const VendorNew = () => {
                               to={`/vendors/assessment-view/${vendors?.id}`}
                             >
                               <button className="btn btn-sm my-1 policy-buttons">
-                                <i className="fa-regular fa-eye me-1"></i> View
+                                <RegulareyeIcon className="me-1" /> View
                               </button>
                             </Link>
 
@@ -631,7 +639,7 @@ const VendorNew = () => {
                                 className="btn btn-sm my-1 policy-buttons"
                                 onClick={() => Getreport(vendors?.id)}
                               >
-                                <i className="fa-solid fa-download me-1 "></i>{" "}
+                                <i className="fa-solid fa-download me-1 "></i>
                                 Report
                               </button>
                             ) : (
@@ -650,7 +658,8 @@ const VendorNew = () => {
                               className="btn btn-sm my-1  btn-outline-danger"
                               onClick={() => handleShowDelete(vendors?.id)}
                             >
-                              <i className="fa-solid fa-trash me-1 "></i> Delete
+                              <TrashIcon className="me-1" />
+                              Delete
                             </button>
                           </div>
                         </div>
@@ -793,7 +802,7 @@ const VendorNew = () => {
                 className="px-4"
               >
                 Go to Question Page
-                <i className="fa-solid fa-arrow-right ms-1"></i>
+                <RightarrowIcon className="ms-1" />
               </Button>
             </div>
           </Modal>

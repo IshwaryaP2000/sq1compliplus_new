@@ -18,7 +18,7 @@ function WarningMsg({
           className="btn btn-sm px-lg-3 py-0  "
           onClick={() => handleShowDelete(dataId)}
         >
-          <TrashIcon />
+          <TrashIcon className="text-danger" />
         </button>
       </OverlayTrigger>
 

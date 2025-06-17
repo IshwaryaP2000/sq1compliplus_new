@@ -140,7 +140,7 @@ const Controls = () => {
           <Searchbar onSearch={handleSearch} placeHolder={"Search"} />
           <Link to={"/settings/add-question"}>
             <button type="button" className="btn primary-btn ms-2">
-              <PlusIcon />
+              <PlusIcon className="me-2" />
               Add Controls
             </button>
           </Link>

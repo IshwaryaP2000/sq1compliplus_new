@@ -8,6 +8,11 @@ import Tooltip from "react-bootstrap/Tooltip";
 import VendorChat from "../../../../components/Modal/VendorChat";
 import OverflowTooltips from "../../../../components/Tooltip/OverflowTooltips";
 import { getApi, postApi } from "../../../../services/apiService";
+import {
+  CheckIcon,
+  LeftarrowIcon,
+  RegulareyeIcon,
+} from "../../../../components/Icons/Icons";
 
 const SkeletonLoader = () => (
   <div className={`  mb-3 col-xxl-12`}>
@@ -264,7 +269,8 @@ const VendorAssessment = () => {
         </ul>
         <Link to="/vendors">
           <button className="btn px-3 mt-1 primary-btn">
-            <i className="fa-solid fa-arrow-left me-1"></i>Back
+            <LeftarrowIcon className="me-1" />
+            Back
           </button>
         </Link>
       </div>
@@ -417,7 +423,7 @@ const VendorAssessment = () => {
                                   )
                                 }
                               >
-                                <i className="fa-solid fa-check"></i> Accept
+                                <CheckIcon /> Accept
                               </button>
                             </OverlayTrigger>
 
@@ -616,7 +622,7 @@ const VendorAssessment = () => {
                                 )
                               }
                             >
-                              <i className="fa-regular fa-eye"></i>
+                              <RegulareyeIcon />
                             </button>
                           </OverlayTrigger>
                         </div>

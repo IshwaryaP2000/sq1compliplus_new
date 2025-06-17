@@ -23,7 +23,7 @@ import {
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
-import { PlusIcon } from "../../../../components/Icons/Icons";
+import { PlusIcon, RegulareyeIcon, RightarrowIcon } from "../../../../components/Icons/Icons";
 
 export const PreApprovedVendor = () => {
   usePageTitle("Pre-Approved Vendor");
@@ -64,7 +64,7 @@ export const PreApprovedVendor = () => {
       setFilteredUsers(response?.data?.data?.data);
       setFilteredLength(response?.data?.data?.meta?.total);
       setPageIndex(response?.data?.data);
-    } catch (err){
+    } catch (err) {
       console.error("Error fetching pre-approved vendors:", err);
     } finally {
       setIsLoading(false);
@@ -261,7 +261,7 @@ export const PreApprovedVendor = () => {
             className="btn ms-2 primary-btn"
             onClick={handleButtonClick}
           >
-            <PlusIcon /> Create Pre-Approved Vendor
+            <PlusIcon className="me-2" /> Create Pre-Approved Vendor
           </button>
 
           <div>
@@ -612,7 +612,7 @@ export const PreApprovedVendor = () => {
                           }
                         >
                           <button className="btn btn-sm px-lg-3 my-1 tableborder-right">
-                            <i className="fa-regular fa-eye"></i>
+                            <RegulareyeIcon />
                           </button>
                         </OverlayTrigger>
                       </Link>
@@ -686,7 +686,7 @@ export const PreApprovedVendor = () => {
             onClick={handleGoToQuestionPage}
             className="px-4"
           >
-            Go to Question Page <i className="fa-solid fa-arrow-right ms-1"></i>
+            Go to Question Page <RightarrowIcon className="ms-1" />
           </Button>
         </div>
       </Modal>
