@@ -11,30 +11,22 @@ import MfaUnlockModel from "../../../../components/Modal/MfaUnlockModel";
 import { getCurrentUser, ucFirst } from "../../../../utils/UtilsGlobalData";
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 import { Badge } from "../../../../components/Badge/Badge";
-import { Loader } from "../../../../components/Table/Loader";
 import {
   createDebouncedSearch,
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
-
-// import { Badge } from "../../../../components/Badge/Badge";
-// import { Loader } from "../../../../components/Table/Loader";
 import {
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
-
-
+import TanstackTable from "../../../../components/DataTable/TanstackTable";
 
 const User = () => {
   const menuRef = useRef();
   usePageTitle("Users");
-
-
 
   const [allUsers, setAllUsers] = useState([]);
   const [userRoles, setUserRoles] = useState([]);
@@ -69,9 +61,9 @@ const User = () => {
       setIsLoading(true);
       const response = await getApi(URI);
       setAllUsers(response?.data?.data);
-      setFilteredUsers(response?.data?.data?.data || []); //filtered searchlist
-      setFilteredLength(response?.data?.data?.meta?.total || 0); //get total length for limit and pagination
-      setPageIndex(response?.data?.data || []); //state for get meta links and total
+      setFilteredUsers(response?.data?.data?.data || []);
+      setFilteredLength(response?.data?.data?.meta?.total || 0);
+      setPageIndex(response?.data?.data || []);
     } catch (error) {
       console.error("Error fetching users", error);
       setIsLoading(false);
@@ -339,15 +331,6 @@ const User = () => {
     },
   });
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   return (
     <div>
       <div className="d-flex justify-content-between mb-3 flex-wrap">
@@ -366,48 +349,12 @@ const User = () => {
           )}
         </div>
       </div>
-      <div className="table-container">
-        <table className="tanstack-table">
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th key={header.id}>
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {isLoading ? (
-              <Loader rows={6} cols={columns.length} />
-            ) : table.getRowModel().rows.length > 0 ? (
-              table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={columns.length} className="text-center">
-                  No Users Available
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+      <TanstackTable
+        table={table}
+        columns={columns}
+        isLoading={isLoading}
+        emptyMessage="No Users Available"
+      />
       <div className="d-flex flex-row bd-highlight mb-3">
         <div className="bd-highlight pagennation-list">
           <LimitSelector
