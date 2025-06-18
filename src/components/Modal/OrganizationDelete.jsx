@@ -39,7 +39,7 @@ function OrganizationDelete({ dataId, title, data, fetchAllOrganizations }) {
             className="btn btn-sm tableborder-right"
             onClick={() => handleShowDelete(dataId)}
           >
-            <TrashIcon />
+            <TrashIcon className="text-danger" />
           </button>
         </OverlayTrigger>
       ) : (

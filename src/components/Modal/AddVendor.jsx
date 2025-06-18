@@ -9,7 +9,7 @@ import { Formik, Form, Field } from "formik";
 import { getApi, postApi } from "../../services/apiService";
 import { ucFirst } from "../../utils/UtilsGlobalData";
 import ButtonWithLoader from "../Button/ButtonLoader";
-import { LeftarrowIcon, RightarrowIcon } from "../Icons/Icons";
+import { CheckIcon, LeftarrowIcon, RightarrowIcon } from "../Icons/Icons";
 
 const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -314,13 +314,7 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
                       : ""
                   }`}
                 >
-                  <span>
-                    {index < currentStep ? (
-                      <i className="fa-solid fa-check"></i>
-                    ) : (
-                      index + 1
-                    )}
-                  </span>
+                  <span>{index < currentStep ? <CheckIcon /> : index + 1}</span>
                   {step}
                 </div>
               ))}
@@ -421,7 +415,7 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
                   disabled={isLoading}
                 >
                   {isLoadingNext ? <ButtonWithLoader name="" /> : "Continue"}
-                  <RightarrowIcon />
+                  <RightarrowIcon className="ms-2" />
                 </button>
               </div>
             </div>
@@ -571,7 +565,7 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
                   className="btn primary-btn me-2"
                   onClick={prevStep}
                 >
-                  <LeftarrowIcon /> Back
+                  <LeftarrowIcon className="me-2" /> Back
                 </button>
                 <button
                   type="button"
@@ -580,7 +574,7 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
                   disabled={isLoading}
                 >
                   {isLoading ? <ButtonWithLoader name="" /> : "Next"}
-                  <RightarrowIcon />
+                  <RightarrowIcon className="ms-2" />
                 </button>
               </div>
             </div>
@@ -606,7 +600,7 @@ const AddVendor = ({ handleCloseAddVendor, GetVendors }) => {
                   className="btn primary-btn me-2"
                   onClick={prevStep}
                 >
-                  <LeftarrowIcon /> Back
+                  <LeftarrowIcon className="me-2" /> Back
                 </button>
 
                 <button

@@ -59,7 +59,7 @@ function AssignOrganizationModel({ userId, getUserOrg }) {
         className="btn btn-sm primary-btn ms-3"
         onClick={handleShow}
       >
-        <PlusIcon />
+        <PlusIcon className="me-2" />
         Assign Organization
       </button>
 

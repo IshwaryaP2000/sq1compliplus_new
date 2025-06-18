@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import usePageTitle from "../../../../utils/usePageTitle";
 import { getApi, postApi } from "../../../../services/apiService";
+import { LeftarrowIcon, TrashIcon } from "../../../../components/Icons/Icons";
 
 const ValidateUpload = () => {
   usePageTitle("Validate Upload Questions");
@@ -229,7 +230,7 @@ const ValidateUpload = () => {
         </h5>
         <Link to="/settings/upload-question">
           <button className="btn mx-1 primary-btn">
-            <i className="fa-solid fa-arrow-left me-1"></i> Back
+            <LeftarrowIcon className="me-1"/> Back
           </button>
         </Link>
       </div>
@@ -400,7 +401,7 @@ const ValidateUpload = () => {
                           className="btn btn-sm btn-danger"
                           onClick={() => handleDelete(question.id)}
                         >
-                          <i className="fa-solid fa-trash"></i>
+                          <TrashIcon/>
                         </button>
                       </td>
                     </tr>

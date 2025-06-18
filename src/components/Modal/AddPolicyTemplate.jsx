@@ -145,7 +145,7 @@ const AddPolicyTemplate = ({ GetPolicy }) => {
   return (
     <>
       <button className="primary-btn ms-2" type="button" onClick={handleShow}>
-       <PlusIcon/>
+        <PlusIcon className="me-2" />
         Add Policy Template
       </button>
       <Offcanvas

@@ -12,6 +12,7 @@ import {
   fetchSearchResults,
   highlightText,
 } from "../../../../components/Search/useSearchAndSort";
+import { EllipsisIcon, XmarkIcon } from "../../../../components/Icons/Icons";
 
 const PendingApproval = () => {
   const [data, setData] = useState([]);
@@ -320,10 +321,7 @@ const PendingApproval = () => {
                         <span className="policy-version">
                           V - {policy.version}
                         </span>
-                        <i
-                          className="fas fa-ellipsis-v text-secondary fs-3 ms-2"
-                          style={{ opacity: 0.5 }}
-                        ></i>
+                        <EllipsisIcon/>
                       </div>
                     </div>
                     <div className="d-flex justify-content-between mb-3">
@@ -371,7 +369,7 @@ const PendingApproval = () => {
                             onClick={(e) => handleCloseModal(e, policy.id)}
                             className="close-btn"
                           >
-                            <i className="fa-solid fa-xmark"></i>
+                            <XmarkIcon/>
                           </button>
                           <div>
                             <h4 className="mb-3 text-center">Actions</h4>

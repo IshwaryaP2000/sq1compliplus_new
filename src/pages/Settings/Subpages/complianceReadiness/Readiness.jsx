@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { getApi, postApi } from "../../../../services/apiService";
 import usePageTitle from "../../../../utils/usePageTitle";
 import { toast } from "react-toastify";
-import { LeftarrowIcon, RightarrowIcon } from "../../../../components/Icons/Icons";
+import {
+  LeftarrowIcon,
+  RightarrowIcon,
+} from "../../../../components/Icons/Icons";
 
 const Readiness = () => {
   usePageTitle("Readiness");
@@ -820,7 +823,7 @@ const Readiness = () => {
           }
         } catch (error) {
           console.error("Error saving sub-question:", error);
-          return; 
+          return;
         }
       }
     }
@@ -1630,8 +1633,7 @@ const Readiness = () => {
                         currentSection === 0 && currentQuestionIndex === 0
                       } // Disable only for first question of first section
                     >
-                     <LeftarrowIcon/> Previous
-                      Section
+                      <LeftarrowIcon className="me-2" /> Previous Section
                     </button>
                   ) : (
                     (currentStep > 0 || currentQuestionIndex > 0) && (
@@ -1640,7 +1642,7 @@ const Readiness = () => {
                         onClick={handlePreviousStep}
                         className="btn btn-prev w-auto btn-sm"
                       >
-                       <LeftarrowIcon/> Previous
+                        <LeftarrowIcon className="me-2" /> Previous
                       </button>
                     )
                   )}
@@ -1653,7 +1655,7 @@ const Readiness = () => {
                         className="btn btn-auth w-auto btn-sm"
                         disabled={isNextDisabled()}
                       >
-                        Next <RightarrowIcon />
+                        Next <RightarrowIcon className="ms-2" />
                       </button>
                       {readinessStatus !== "yes" && (
                         <button
@@ -1661,7 +1663,7 @@ const Readiness = () => {
                           onClick={handleSkipSubQuestion}
                           className="btn btn-skip w-auto btn-sm"
                         >
-                          Skip <RightarrowIcon />
+                          Skip <RightarrowIcon className="ms-2" />
                         </button>
                       )}
                     </>
@@ -1685,7 +1687,7 @@ const Readiness = () => {
                         {readinessStatus === "yes" && isLastQuestion()
                           ? "Next Section"
                           : "Next"}
-                        <RightarrowIcon />
+                        <RightarrowIcon className="ms-2" />
                       </button>
                       {readinessStatus !== "yes" && (
                         <button
@@ -1693,7 +1695,7 @@ const Readiness = () => {
                           onClick={handleSkipSubQuestion}
                           className="btn btn-skip w-auto later-button"
                         >
-                          Skip <RightarrowIcon />
+                          Skip <RightarrowIcon className="ms-2" />
                         </button>
                       )}
                     </>

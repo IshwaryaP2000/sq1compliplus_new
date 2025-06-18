@@ -20,7 +20,9 @@ import {
 } from "../../components/useSearchAndSort";
 import {
   BanIconNotallowed,
+  RegulareyeIcon,
   RepeatIcon,
+  RightarrowIcon,
   TrashIcon,
   TriangleExclamationIcon,
 } from "../../../../components/Icons/Icons";
@@ -242,14 +244,14 @@ const Vendor = () => {
         <div className="d-flex">
           <Searchbar onSearch={handleSearch} placeHolder={"Search"} />
           <button className="btn  ms-2 primary-btn " onClick={handleShowtable}>
-            <i className="fa-solid fa-plus me-1"></i> Pre Approved
+            <PlusIcon className="me-1" /> Pre Approved
           </button>
 
           <button
             className="btn  ms-2 primary-btn "
             onClick={handleButtonClick}
           >
-            <i className="fa-solid fa-plus me-1"></i> Create Vendor
+            <PlusIcon className="me-1" /> Create Vendor
           </button>
         </div>
       </div>
@@ -510,7 +512,7 @@ const Vendor = () => {
                         >
                           <Link to={`/vendors/assessment-view/${vendors?.id}`}>
                             <button className="btn btn-sm my-1 tableborder-right">
-                              <i className="fa-regular fa-eye"></i>
+                              <RegulareyeIcon />
                             </button>
                           </Link>
                         </OverlayTrigger>
@@ -603,7 +605,7 @@ const Vendor = () => {
                             className="btn btn-sm py-0  "
                             onClick={() => handleShowDelete(vendors?.id)}
                           >
-                            <TrashIcon />
+                            <TrashIcon className="text-danger" />
                           </button>
                         </OverlayTrigger>
                       </div>
@@ -722,7 +724,7 @@ const Vendor = () => {
                 className="px-4"
               >
                 Go to Question Page
-                <i className="fa-solid fa-arrow-right ms-1"></i>
+                <RightarrowIcon className="ms-1" />
               </Button>
             </div>
           </Modal>

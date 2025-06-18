@@ -126,7 +126,7 @@ const Questions = () => {
             onClick={() => navigate("/settings/add-questions")}
             className="btn primary-btn mx-1"
           >
-            <PlusIcon />
+            <PlusIcon className="me-2" />
             Add Question
           </button>
         </div>

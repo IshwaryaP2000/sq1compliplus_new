@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { getApi, postApi } from "../../services/apiService";
 import { LimitSelector } from "../Search/useSearchAndSort";
 import Pagination from "../Pagination/Pagination";
+import { CheckIcon, PlusIcon } from "../Icons/Icons";
 
 const ListedVendor = ({ GetVendors }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +42,7 @@ const ListedVendor = ({ GetVendors }) => {
       await postApi(`/add/pre-approved`, payload);
       GetService();
       GetVendors();
-    } catch(err) {
+    } catch (err) {
       console.error("Error adding pre-approved vendor:", err);
     } finally {
       setIsLoadingbtn(false);
@@ -101,7 +102,6 @@ const ListedVendor = ({ GetVendors }) => {
                       <tr key={item.id || index}>
                         <td>{index + 1}</td> <td>{item.name || "-"}</td>
                         <td className="text-center d-flex flex-wrap gap-2 border-0">
-
                           {item?.service_name.map((data) => (
                             <span className="me-2 bg-lightgreen-badge">
                               {data}
@@ -112,7 +112,7 @@ const ListedVendor = ({ GetVendors }) => {
                           {item?.is_pre_approved_active === "active" ? (
                             <>
                               <button className="btn primary-btn" disabled>
-                                <i className="fa-solid fa-check me-1"></i>{" "}
+                                <CheckIcon className="me-1" />
                                 {"Added"}
                               </button>
                             </>
@@ -128,7 +128,7 @@ const ListedVendor = ({ GetVendors }) => {
                                 ></div>
                               ) : (
                                 <>
-                                  <i className="fa-solid fa-plus me-1"></i> Add
+                                  <PlusIcon className="me-1" /> Add
                                 </>
                               )}
                             </button>

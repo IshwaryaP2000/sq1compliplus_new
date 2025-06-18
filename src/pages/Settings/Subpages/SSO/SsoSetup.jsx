@@ -8,7 +8,11 @@ import { postApi, getApi } from "../../../../services/apiService";
 import usePageTitle from "../../../../utils/usePageTitle";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
 import { SSOValidationSchema } from "../../../../components/Validationschema/ssoSchema";
-import { PencilIcon } from "../../../../components/Icons/Icons";
+import {
+  CirclecheckIcon,
+  PencilIcon,
+  PlusIcon,
+} from "../../../../components/Icons/Icons";
 import {
   setCurrentOrganization,
   ucFirst,
@@ -245,11 +249,7 @@ const SsoSetup = () => {
                       onClick={() => handleShow("Azure")}
                       className="btn btn-secondary btn-sm"
                     >
-                      {azure === "azure" ? (
-                        <PencilIcon />
-                      ) : (
-                        <i className="fa-solid fa-plus"></i>
-                      )}
+                      {azure === "azure" ? <PencilIcon /> : <PlusIcon />}
                     </button>
                   </div>
                 </div>
@@ -284,14 +284,10 @@ const SsoSetup = () => {
                     </BootstrapForm>
 
                     <button
-                      onClick={() => handleShow("Google")} // Pass "Google" as the header
+                      onClick={() => handleShow("Google")}
                       className="btn btn-secondary btn-sm"
                     >
-                      {google === "google" ? (
-                        <PencilIcon />
-                      ) : (
-                        <i className="fa-solid fa-plus"></i>
-                      )}
+                      {google === "google" ? <PencilIcon /> : <PlusIcon />}
                     </button>
                   </div>
                 </div>
@@ -316,12 +312,12 @@ const SsoSetup = () => {
                 </div>
                 {isChecked ? (
                   <div className="d-flex ">
-                    <i className="fa-solid fa-circle-check text-success fs-22 me-2"></i>
+                    <CirclecheckIcon className="text-success fs-22 me-2" />
                     <p className="mb-0">Connected</p>
                   </div>
                 ) : (
                   <div className="d-flex" style={{ opacity: "0.2" }}>
-                    <i className="fa-solid fa-circle-check text-secondary fs-22 me-2"></i>
+                    <CirclecheckIcon className="text-success fs-22 me-2" />
                     <p className="mb-0">Not connected</p>
                   </div>
                 )}
@@ -368,7 +364,7 @@ const SsoSetup = () => {
                   </div>
                 ) : (
                   <div className="d-flex" style={{ opacity: "0.2" }}>
-                    <i className="fa-solid fa-circle-check text-secondary fs-22 me-2"></i>
+                    <CirclecheckIcon className="text-secondary fs-22 me-2" />
                     <p className="mb-0">Not connected</p>
                   </div>
                 )}
@@ -423,12 +419,13 @@ const SsoSetup = () => {
                 </div>
                 {isCheckedGCP ? (
                   <div className="d-flex ">
-                    <i className="fa-solid fa-circle-check text-success fs-22 me-2"></i>
+                    <CirclecheckIcon className="text-success fs-22 me-2" />
                     <p className="mb-0">Connected</p>
                   </div>
                 ) : (
                   <div className="d-flex" style={{ opacity: "0.2" }}>
-                    <i className="fa-solid fa-circle-check text-secondary fs-22 me-2"></i>
+                    <CirclecheckIcon className="text-secondary fs-22 me-2" />
+
                     <p className="mb-0">Not connected</p>
                   </div>
                 )}

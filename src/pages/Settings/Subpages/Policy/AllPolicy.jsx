@@ -14,7 +14,11 @@ import {
   fetchSearchResults,
   highlightText,
 } from "../../../../components/Search/useSearchAndSort";
-import { TriangleExclamationIcon } from "../../../../components/Icons/Icons";
+import {
+  EllipsisIcon,
+  TriangleExclamationIcon,
+  XmarkIcon,
+} from "../../../../components/Icons/Icons";
 
 // Validation schema for the change policy form
 const changePolicySchema = Yup.object().shape({
@@ -498,10 +502,7 @@ const AllPolicy = () => {
                         <span className="policy-version">
                           V - {policy.version}
                         </span>
-                        <i
-                          className="fas fa-ellipsis-v text-secondary fs-3 ms-2"
-                          style={{ opacity: 0.5 }}
-                        ></i>
+                        <EllipsisIcon/>
                       </div>
                     </div>
                     <div className="d-flex justify-content-between mb-3">
@@ -589,7 +590,7 @@ const AllPolicy = () => {
                           onClick={(e) => handleCloseModal(e, policy.id)}
                           className="close-btn"
                         >
-                          <i className="fa-solid fa-xmark"></i>
+                          <XmarkIcon />
                         </button>
                         <div>
                           <h4 className="mb-3 text-center">Actions</h4>
@@ -661,10 +662,7 @@ const AllPolicy = () => {
                       <span className="policy-version">
                         V - {policy.version}
                       </span>
-                      <i
-                        className="fas fa-ellipsis-v text-secondary fs-3 ms-2"
-                        style={{ opacity: 0.5 }}
-                      ></i>
+                     <EllipsisIcon/>
                     </div>
                   </div>
                   <div className="d-flex justify-content-between mb-3">
@@ -736,7 +734,7 @@ const AllPolicy = () => {
                         onClick={(e) => handleCloseModal(e, policy.id)}
                         className="close-btn"
                       >
-                        <i className="fa-solid fa-xmark"></i>
+                       <XmarkIcon/>
                       </button>
                       <div>
                         <h4 className="mb-3 text-center">Actions</h4>

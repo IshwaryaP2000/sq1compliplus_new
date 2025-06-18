@@ -400,7 +400,7 @@ const PolicyTemplate = () => {
                           className="btn btn-sm py-0 my-1"
                           onClick={() => handleShow(item.id)}
                         >
-                          <TrashIcon />
+                          <TrashIcon className="text-danger" />
                         </button>
                       </OverlayTrigger>
                     </div>

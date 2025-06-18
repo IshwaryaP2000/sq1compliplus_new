@@ -49,7 +49,7 @@ function OrganizationInviteModal({ data, fetchAllOrganizations }) {
   return (
     <>
       <button onClick={handleShow} className="ms-2 primary-btn btn">
-        <PlusIcon />
+        <PlusIcon className="me-2" />
         Invite Organization
       </button>
 

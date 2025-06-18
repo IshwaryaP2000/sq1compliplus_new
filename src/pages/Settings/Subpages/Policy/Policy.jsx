@@ -6,6 +6,7 @@ import JoditEditor from "jodit-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getApi, postApi } from "../../../../services/apiService";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
+import { PlusIcon } from "../../../../components/Icons/Icons";
 
 const Policy = () => {
   const location = useLocation();
@@ -219,7 +220,7 @@ const Policy = () => {
             onClick={handleShowCanvas}
             disabled={isLoading}
           >
-            <i className="fa-solid fa-plus me-1 ms-1"></i>
+            <PlusIcon className="me-1 ms-1" />
             Create Policy
           </button>
         </div>

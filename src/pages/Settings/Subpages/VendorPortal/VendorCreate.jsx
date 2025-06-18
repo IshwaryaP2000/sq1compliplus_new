@@ -13,6 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { getApi, postApi } from "../../../../services/apiService";
 import { ucFirst } from "../../../../utils/UtilsGlobalData";
 import {
+  CheckIcon,
   LeftarrowIcon,
   RightarrowIcon,
 } from "../../../../components/Icons/Icons";
@@ -286,11 +287,7 @@ const VendorCreate = () => {
                         }`}
                       >
                         <span>
-                          {index < currentStep ? (
-                            <i className="fa-solid fa-check"></i>
-                          ) : (
-                            index + 1
-                          )}
+                          {index < currentStep ? <CheckIcon /> : index + 1}
                         </span>
                         {step}
                       </div>
@@ -439,7 +436,7 @@ const VendorCreate = () => {
                       className="btn primary-btn me-2"
                       onClick={nextStep}
                     >
-                      Next <RightarrowIcon />
+                      Next <RightarrowIcon className="ms-2" />
                     </button>
                   </div>
 
@@ -610,14 +607,14 @@ const VendorCreate = () => {
                       className="btn primary-btn me-2"
                       onClick={prevStep}
                     >
-                      <LeftarrowIcon /> Back
+                      <LeftarrowIcon className="me-2" /> Back
                     </button>
                     <button
                       type="button"
                       className="btn primary-btn"
                       onClick={nextStep}
                     >
-                      Next <RightarrowIcon />
+                      Next <RightarrowIcon className="ms-2" />
                     </button>
                   </div>
 
@@ -647,7 +644,7 @@ const VendorCreate = () => {
                       className="btn primary-btn me-2"
                       onClick={prevStep}
                     >
-                      <LeftarrowIcon /> Back
+                      <LeftarrowIcon className="me-2" /> Back
                     </button>
 
                     <button
