@@ -1,10 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useFormik } from "formik";
 import { getApi, postApi } from "../../../../services/apiService";
 import CreatableSelect from "react-select/creatable";
 import Searchbar from "../../../../components/Search/Searchbar";
 import usePageTitle from "../../../../utils/usePageTitle";
 import { PlusIcon } from "../../../../components/Icons/Icons";
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import TanstackTable from "../../../../components/DataTable/TanstackTable";
 
 const ComplexIntegration = () => {
   usePageTitle("Compliance Integration");
@@ -57,10 +63,13 @@ const ComplexIntegration = () => {
 
   const fetchTableData = async () => {
     try {
+      setLoading(true);
       const response = await getApi("/compliance-integration");
       setTableData(response.data.data || []);
     } catch (error) {
       console.error("Error fetching table data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -141,6 +150,48 @@ const ComplexIntegration = () => {
 
   const handleSearch = () => {};
 
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "index",
+        header: "S. No.",
+        cell: ({ row }) => row.index + 1,
+        enableSorting: false,
+      },
+      {
+        accessorKey: "id",
+        header: "ID",
+        cell: ({ getValue }) => getValue(),
+        enableSorting: false,
+      },
+      {
+        accessorKey: "department",
+        header: "Department",
+        cell: ({ getValue }) => getValue() || "",
+        enableSorting: false,
+      },
+      {
+        accessorKey: "tool",
+        header: "Tool",
+        cell: ({ getValue }) => getValue() || "",
+        enableSorting: false,
+      },
+      {
+        accessorKey: "credentials",
+        header: "API Credentials",
+        cell: () => "****",
+        enableSorting: false,
+      },
+    ],
+    []
+  );
+
+  const table = useReactTable({
+    data: tableData || [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
   return (
     <div>
       <div className="d-flex flex-wrap float-end mb-3">
@@ -149,7 +200,7 @@ const ComplexIntegration = () => {
           type="button"
           className="btn primary-btn ms-2"
           data-bs-toggle="modal"
-          data-bs-target="#complianceIntegration "
+          data-bs-target="#complianceIntegration"
         >
           Compliance Integration
         </button>
@@ -302,39 +353,15 @@ const ComplexIntegration = () => {
         </div>
       </div>
 
-      {/* Table */}
-      <table className="table mt-4 users-table">
-        <thead>
-          <tr>
-            <th className="radius-design-ls">S. No.</th>
-            <th>ID</th>
-            <th>Department</th>
-            <th>Tool</th>
-            <th className="radius-design-rs">API Credentials</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableData.length > 0 ? (
-            tableData.map((row, index) => (
-              <tr key={row.id}>
-                <td>{index + 1}</td>
-                <td>{row.id}</td>
-                <td>{row.department}</td>
-                <td>{row.tool}</td>
-                <td>****</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" className="text-center">
-                No data available
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <TanstackTable
+        table={table}
+        columns={columns}
+        isLoading={loading}
+        emptyMessage="No data available"
+        className="table mt-5  users-table"
+      />
     </div>
-  );
+  );4
 };
 
 export default ComplexIntegration;

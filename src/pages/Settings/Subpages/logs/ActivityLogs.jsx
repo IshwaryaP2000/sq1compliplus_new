@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -12,28 +12,36 @@ import {
   getOSIcon,
   getOSVersion,
 } from "../../../../utils/BrowserUtils";
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import TanstackTable from "../../../../components/DataTable/TanstackTable";
 
 const ActivityLogs = () => {
   usePageTitle("Activity Logs");
-  const [activityLog, setActivityLog] = useState();
+  const [activityLog, setActivityLog] = useState([]);
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
+  const [isLoading, setIsLoading] = useState(false);
 
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected
-        ? "#bcf7c6" // Selected option background
+        ? "#bcf7c6"
         : state.isFocused
-        ? "#bcf7c6" // Hovered option background
+        ? "#bcf7c6"
         : provided.backgroundColor,
       color: state.isSelected ? "block" : "inherit",
     }),
     menu: (provided) => ({
       ...provided,
-      zIndex: 9999, // Ensure dropdown appears above other element
+      zIndex: 9999,
     }),
   };
+
   const selectOrganization = [
     { value: "chocolate", label: "Chocolate" },
     { value: "strawberry", label: "Strawberry" },
@@ -46,8 +54,15 @@ const ActivityLogs = () => {
   ];
 
   const fetchLogs = async () => {
-    const res = await getApi(`organization/activity-logs`);
-    setActivityLog(res?.data?.data?.logs?.data);
+    try {
+      setIsLoading(true);
+      const res = await getApi(`organization/activity-logs`);
+      setActivityLog(res?.data?.data?.logs?.data || []);
+    } catch (error) {
+      console.error("Error fetching activity logs:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -98,9 +113,88 @@ const ActivityLogs = () => {
     );
   };
 
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "index",
+        header: "#",
+        cell: ({ row }) => row.index + 1,
+        enableSorting: false,
+      },
+      {
+        accessorKey: "email",
+        header: "Email",
+        cell: ({ row }) => row.original?.userable?.email || "",
+        enableSorting: false,
+      },
+      {
+        accessorKey: "userable_type",
+        header: "Type",
+        cell: ({ getValue }) => getValue() || "",
+        enableSorting: false,
+      },
+      {
+        accessorKey: "page",
+        header: "Page",
+        cell: ({ getValue }) => (
+          <Button
+            className="btn btn-sm fw-bold"
+            style={{
+              backgroundColor: "#37c6501a",
+              border: "1px solid #37c650",
+              color: "black",
+            }}
+          >
+            {getValue() || ""}
+          </Button>
+        ),
+        enableSorting: false,
+      },
+      {
+        accessorKey: "duration_human",
+        header: "Duration",
+        cell: ({ getValue }) => getValue() || "",
+        enableSorting: false,
+      },
+      {
+        accessorKey: "entered_at",
+        header: "Entered At",
+        cell: ({ getValue }) => getValue() || "",
+        enableSorting: false,
+      },
+      {
+        accessorKey: "left_at",
+        header: "Left At",
+        cell: ({ getValue }) => getValue() || "",
+        enableSorting: false,
+      },
+      {
+        accessorKey: "browser_os",
+        header: "IP Address, Browser & OS",
+        cell: ({ row }) => (
+          <BrowserAndOS
+            ipAddress={row.original.ip_address}
+            browser={row.original.browser}
+            browserVersion={row.original.browser_version}
+            os={row.original.os}
+            osVersion={row.original.os_version}
+          />
+        ),
+        enableSorting: false,
+      },
+    ],
+    []
+  );
+
+  const table = useReactTable({
+    data: activityLog || [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
   return (
     <>
-      <div className="d-flex  mb-3 width-fill justify-content-end">
+      <div className="d-flex mb-3 width-fill justify-content-end">
         <h5 className="text-wrap-mode">
           {activityLog?.length === 1 ? "Activity Log" : "Activity Logs"}
           {activityLog?.length > 0 && (
@@ -110,7 +204,7 @@ const ActivityLogs = () => {
           )}
         </h5>
 
-        <div className=" row width-fill justify-content-end">
+        <div className="row width-fill justify-content-end">
           <div className="col-md-3">
             <Select
               options={selectOrganization}
@@ -145,59 +239,13 @@ const ActivityLogs = () => {
         </div>
       </div>
 
-      <div>
-        <div className="tabledata-scroll mb-3">
-          <table className="table users-table mb-0">
-            <thead className="tablescrolling-thead-tr">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Email</th>
-                <th scope="col">Type</th>
-                <th scope="col">Page</th>
-                <th scope="col">Duration</th>
-                <th scope="col">Entered At</th>
-                <th scope="col">Left At</th>
-                <th scope="col">IP Address, Browser & OS</th>
-              </tr>
-            </thead>
-
-            <tbody className="tablescrolling-tbody">
-              {activityLog &&
-                activityLog.map((data, index) => (
-                  <tr key={index}>
-                    <th scope="row">1</th>
-                    <td>{data?.userable?.email}</td>
-                    <td>{data?.userable_type}</td>
-                    <td>
-                      <Button
-                        className="btn btn-sm fw-bold"
-                        style={{
-                          backgroundColor: "#37c6501a",
-                          border: "1px solid #37c650",
-                          color: "black",
-                        }}
-                      >
-                        {data?.page}
-                      </Button>
-                    </td>
-                    <td>{data?.duration_human}</td>
-                    <td>{data?.entered_at}</td>
-                    <td>{data?.left_at}</td>
-                    <td>
-                      <BrowserAndOS
-                        ipAddress={data.ip_address}
-                        browser={data.browser}
-                        browserVersion={data.browser_version}
-                        os={data.os}
-                        osVersion={data.os_version}
-                      />
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <TanstackTable
+        table={table}
+        columns={columns}
+        isLoading={isLoading}
+        emptyMessage="No activity logs available"
+        className="table users-table mb-0"
+      />
     </>
   );
 };
