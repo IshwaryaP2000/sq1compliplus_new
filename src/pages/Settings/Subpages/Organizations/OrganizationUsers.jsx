@@ -15,6 +15,7 @@ import {
   PenToSquareIcon,
   PlusIcon,
   TriangleExclamationIcon,
+  XmarkIcon,
 } from "../../../../components/Icons/Icons";
 import {
   createDebouncedSearch,
@@ -300,7 +301,7 @@ const NewUser = () => {
               className="ms-2 primary-btn btn btn-sm"
               onClick={toggleAssignUserModal}
             >
-              <PlusIcon />
+              <PlusIcon className="me-2" />
               Assign User
             </button>
             <AssignUserModal
@@ -448,7 +449,7 @@ const NewUser = () => {
                           className="btn btn-sm py-0 my-1"
                           onClick={() => openDeleteModal(user)}
                         >
-                          <i className="fa-solid fa-xmark text-danger"></i>
+                          <XmarkIcon className="text-danger" />
                         </button>
                       </div>
                     </OverlayTrigger>
@@ -522,7 +523,7 @@ const NewUser = () => {
                   </p>
                 </div>
               </div> */}
-              <DeleteModal msg="user"/>
+              <DeleteModal msg="user" />
               <div className="d-flex justify-content-center mb-3 gap-4">
                 <Button
                   type="button"

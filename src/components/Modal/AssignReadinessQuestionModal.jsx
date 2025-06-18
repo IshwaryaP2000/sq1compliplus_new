@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
 import { postApi } from "../../services/apiService";
 import { typeId } from "../Validationschema/commonSchema";
-import { TasksIcon } from "../Icons/Icons";
+import { RightarrowIcon, TasksIcon } from "../Icons/Icons";
 
 function AssignReadinessQuestionModal({ organization, complianceTypes }) {
   const [show, setShow] = useState(false);
@@ -180,7 +180,7 @@ function AssignReadinessQuestionModal({ organization, complianceTypes }) {
             onClick={handleGoToQuestionPage}
             className="px-4"
           >
-            Go to Question Page <i className="fa-solid fa-arrow-right ms-1"></i>
+            Go to Question Page <RightarrowIcon className="ms-1" />
           </Button>
         </div>
       </Modal>

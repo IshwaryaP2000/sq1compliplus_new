@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import { CircleinfoIcon } from "../Icons/Icons";
 
 function GoogleInstruction() {
   const [show, setShow] = useState(false);
@@ -250,10 +251,15 @@ function GoogleInstruction() {
 
   return (
     <>
-      <i
+      {/* <i
         className="fa-solid fa-circle-info text-primary ms-2 align-content-center"
         onClick={handleShow}
-      ></i>
+      ></i> */}
+
+      <CircleinfoIcon
+        className="text-primary ms-2 align-content-center"
+        onClick={handleShow}
+      />
 
       <Modal
         show={show}

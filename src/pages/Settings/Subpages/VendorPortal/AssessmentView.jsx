@@ -7,13 +7,18 @@ import Modal from "react-bootstrap/Modal";
 import { OverlayTrigger } from "react-bootstrap";
 import { Tooltip } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import "../../../../styles/adminAiChat.css"
+import "../../../../styles/adminAiChat.css";
 import VendorChat from "../../../../components/Modal/VendorChat";
 import { getApi, postApi } from "../../../../services/apiService";
 import OverflowTooltips from "../../../../components/Tooltip/OverflowTooltips";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
 import {
+  CheckIcon,
+  CircleinfoIcon,
+  FolderopenIcon,
+  LeftarrowIcon,
   PlusIcon,
+  RegulareyeIcon,
   TrashIcon,
   TriangleExclamationIcon,
 } from "../../../../components/Icons/Icons";
@@ -615,7 +620,8 @@ const AssessmentView = () => {
                 </ul>
                 <Link to="/vendor-portal/dashboard">
                   <button className="btn px-3 mt-1 mb-2 primary-btn">
-                    <i className="fa-solid fa-arrow-left me-1"></i>Back
+                    <LeftarrowIcon className="me-1" />
+                    Back
                   </button>
                 </Link>
               </div>
@@ -789,7 +795,7 @@ const AssessmentView = () => {
                                     {item?.updateStatus === "1" ? (
                                       <div className="badge-wrapper">
                                         <p className="badge py-2 text-bg-success d-flex align-items-center justify-content-center mb-0">
-                                          <i className="fa-solid fa-check fs-6 me-1"></i>
+                                          <CheckIcon className="fs-6 me-1" />
                                           <span className="d-none d-sm-block">
                                             Answered
                                           </span>
@@ -806,7 +812,8 @@ const AssessmentView = () => {
                                         >
                                           {item?.answer ? (
                                             <>
-                                              <i className="fa-solid fa-circle-info fs-6 me-1"></i>
+                                              {/* <i className="fa-solid fa-circle-info fs-6 me-1"></i> */}
+                                              <CircleinfoIcon className="fs-6 me-1" />
                                               <span className="d-none d-sm-block">
                                                 Incomplete
                                               </span>
@@ -1133,7 +1140,7 @@ const AssessmentView = () => {
                       data-bs-target="#viewEvidenceFolder"
                       className=" border border-0 bg-transparent "
                     >
-                      <i className="fa-regular  fs-5 p-2 bg-light rounded-circle fa-folder-open view-evidence-open-icon"></i>
+                      <FolderopenIcon />
                     </button>
                   </td>
                 </tr>
@@ -1160,7 +1167,7 @@ const AssessmentView = () => {
                       data-bs-target="#viewEvidenceFolder"
                       className=" border border-0 bg-transparent "
                     >
-                      <i className="fa-regular  fs-5 p-2 bg-light rounded-circle fa-folder-open view-evidence-open-icon"></i>
+                      <FolderopenIcon />
                     </button>
                   </td>
                 </tr>
@@ -1187,7 +1194,7 @@ const AssessmentView = () => {
                       data-bs-target="#viewEvidenceFolder"
                       className=" border border-0 bg-transparent "
                     >
-                      <i className="fa-regular  fs-5 p-2 bg-light rounded-circle fa-folder-open view-evidence-open-icon"></i>
+                      <FolderopenIcon />
                     </button>
                   </td>
                 </tr>
@@ -1215,7 +1222,7 @@ const AssessmentView = () => {
                       data-bs-target="#viewEvidenceFolder"
                       className=" border border-0 bg-transparent "
                     >
-                      <i className="fa-regular  fs-5 p-2 bg-light rounded-circle fa-folder-open view-evidence-open-icon"></i>
+                      <FolderopenIcon />
                     </button>
                   </td>
                 </tr>
@@ -1251,7 +1258,7 @@ const AssessmentView = () => {
                   </>
                 ) : (
                   <>
-                    <PlusIcon />
+                    <PlusIcon className="me-2" />
                     Add Evidence
                   </>
                 )}
@@ -1388,7 +1395,7 @@ const AssessmentView = () => {
                                   )
                                 }
                               >
-                                <i className="fa-regular fa-eye"></i>
+                                <RegulareyeIcon />
                               </button>
                             </OverlayTrigger>
 
@@ -1401,7 +1408,7 @@ const AssessmentView = () => {
                                 className="btn btn-sm px-lg-3 py-0  "
                                 onClick={() => handleShowDelete(data?.id)}
                               >
-                                <TrashIcon />
+                                <TrashIcon className="text-danger" />
                               </button>
                             </OverlayTrigger>
                           </div>

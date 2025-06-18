@@ -158,7 +158,7 @@ const ReadinessView = () => {
           {isSuperAdmin && (
             <Link to={"/settings/add-question"}>
               <button type="button" className="ms-2 btn primary-btn btn">
-                <PlusIcon />
+                <PlusIcon className="me-2" />
                 Add questions
               </button>
             </Link>

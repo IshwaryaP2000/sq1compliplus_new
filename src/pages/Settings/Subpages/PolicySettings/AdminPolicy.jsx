@@ -11,7 +11,7 @@ import {
   fetchSearchResults,
   highlightText,
 } from "../../../../components/Search/useSearchAndSort";
-import { PenToSquareIcon } from "../../../../components/Icons/Icons";
+import { LeftarrowIcon, PenToSquareIcon } from "../../../../components/Icons/Icons";
 import { Loader } from "../../../../components/Table/Loader";
 
 const AdminPolicy = () => {
@@ -284,7 +284,7 @@ const AdminPolicy = () => {
               {adminEditVal === 1 ? (
                 <>
                   <button className="admin-template-edit" onClick={adminReturn}>
-                    <i className="fa-solid fa-arrow-left"></i>
+                    <LeftarrowIcon/>
                   </button>
                 </>
               ) : (

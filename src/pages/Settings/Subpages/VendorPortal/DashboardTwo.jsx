@@ -1,5 +1,8 @@
 import Dropdown from "react-bootstrap/Dropdown";
-import { RightarrowIcon } from "../../../../components/Icons/Icons";
+import {
+  RightarrowIcon,
+  SharenodesIcon,
+} from "../../../../components/Icons/Icons";
 
 const DashboardTwo = () => {
   return (
@@ -31,7 +34,7 @@ const DashboardTwo = () => {
                       </div>
                     </Dropdown.Item>
                     <Dropdown.Item>
-                      <i className="fa-solid fa-share-nodes  me-2 ms-1 "></i>
+                      <SharenodesIcon className="me-2 ms-1" />
                       Share
                     </Dropdown.Item>
                   </Dropdown.Menu>
@@ -55,7 +58,7 @@ const DashboardTwo = () => {
                 </p>
               </div>
               <button className="btn btn-darkgray w-100 mt-2">
-                View Questions <RightarrowIcon />
+                View Questions <RightarrowIcon className="ms-2" />
               </button>
             </div>
           </div>
@@ -89,7 +92,7 @@ const DashboardTwo = () => {
                       </div>
                     </Dropdown.Item>
                     <Dropdown.Item>
-                      <i className="fa-solid fa-share-nodes  me-2 ms-1 "></i>
+                      <SharenodesIcon className="me-2 ms-1" />
                       Share
                     </Dropdown.Item>
                   </Dropdown.Menu>
@@ -114,7 +117,7 @@ const DashboardTwo = () => {
               </div>
               {/* <p className='count-badge text-bg-lightgreen mb-1 w-100 text-center'><i className="fa-regular fa-circle-check me-2"></i>Completed!</p> */}
               <button className="btn btn-darkgray w-100 mt-2">
-                View Questions <RightarrowIcon />
+                View Questions <RightarrowIcon className="ms-2" />
               </button>
             </div>
           </div>
@@ -146,7 +149,7 @@ const DashboardTwo = () => {
                       </div>
                     </Dropdown.Item>
                     <Dropdown.Item>
-                      <i className="fa-solid fa-share-nodes  me-2 ms-1 "></i>
+                      <SharenodesIcon className="me-2 ms-1" />
                       Share
                     </Dropdown.Item>
                   </Dropdown.Menu>
@@ -170,7 +173,7 @@ const DashboardTwo = () => {
                 </p>
               </div>
               <button className="btn btn-darkgray w-100 mt-2">
-                View Questions <RightarrowIcon />
+                View Questions <RightarrowIcon className="ms-2" />
               </button>
             </div>
           </div>
@@ -202,7 +205,7 @@ const DashboardTwo = () => {
                       </div>
                     </Dropdown.Item>
                     <Dropdown.Item>
-                      <i className="fa-solid fa-share-nodes  me-2 ms-1 "></i>
+                      <SharenodesIcon className="me-2 ms-1" />
                       Share
                     </Dropdown.Item>
                   </Dropdown.Menu>
@@ -226,7 +229,7 @@ const DashboardTwo = () => {
                 </p>
               </div>
               <button className="btn btn-darkgray w-100 mt-2">
-                View Questions <RightarrowIcon />
+                View Questions <RightarrowIcon className="ms-2" />
               </button>
             </div>
           </div>
@@ -258,7 +261,7 @@ const DashboardTwo = () => {
                       </div>
                     </Dropdown.Item>
                     <Dropdown.Item>
-                      <i className="fa-solid fa-share-nodes  me-2 ms-1 "></i>
+                      <SharenodesIcon className="me-2 ms-1" />
                       Share
                     </Dropdown.Item>
                   </Dropdown.Menu>
@@ -282,7 +285,7 @@ const DashboardTwo = () => {
                 </p>
               </div>
               <button className="btn btn-darkgray w-100 mt-2">
-                View Questions <RightarrowIcon />
+                View Questions <RightarrowIcon className="ms-2" />
               </button>
             </div>
           </div>
@@ -313,7 +316,7 @@ const DashboardTwo = () => {
                       </div>
                     </Dropdown.Item>
                     <Dropdown.Item>
-                      <i className="fa-solid fa-share-nodes  me-2 ms-1 "></i>
+                      <SharenodesIcon className="me-2 ms-1" />
                       Share
                     </Dropdown.Item>
                   </Dropdown.Menu>
@@ -337,7 +340,7 @@ const DashboardTwo = () => {
                 </p>
               </div>
               <button className="btn btn-darkgray w-100 mt-2">
-                View Questions <RightarrowIcon />
+                View Questions <RightarrowIcon className="ms-2" />
               </button>
             </div>
           </div>

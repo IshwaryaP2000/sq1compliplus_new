@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getApi } from "../../../../services/apiService";
+import { TrashIcon } from "../../../../components/Icons/Icons";
 
 function VendorFileView() {
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ function VendorFileView() {
                     ></button>
                     {/* <FileView /> */}
                     <button className="btn btn-outline-danger btn-sm ms-2">
-                      <i className="fa-solid fa-trash"></i>
+                      <TrashIcon/>
                     </button>
                   </td>
                 </tr>

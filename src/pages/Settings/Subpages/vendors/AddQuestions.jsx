@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import usePageTitle from "../../../../utils/usePageTitle";
 import { getApi, postApi } from "../../../../services/apiService";
+import { LeftarrowIcon } from "../../../../components/Icons/Icons";
 
 const AddQuestions = () => {
   usePageTitle("Add Questions");
@@ -111,7 +112,7 @@ const AddQuestions = () => {
         <div className="d-flex">
           <Link to="/settings/question">
             <button className="btn mx-1 primary-btn">
-              <i className="fa-solid fa-arrow-left me-1"></i> Back
+              <LeftarrowIcon className="me-1" /> Back
             </button>
           </Link>
         </div>

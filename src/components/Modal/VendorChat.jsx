@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { postApi } from "../../services/apiService";
+import { CirclecheckIcon } from "../Icons/Icons";
 
 function VendorChat({ updateStatus, type, vendor, unReadCount }) {
   const [show, setShow] = useState(false);
@@ -142,7 +143,7 @@ function VendorChat({ updateStatus, type, vendor, unReadCount }) {
               </h6>
               <p className="last-seen_content mt-1">
                 <span>
-                  <i className="fa-solid fa-circle-check active-icon me-1"></i>
+                  <CirclecheckIcon className="active-icon me-1" />
                 </span>
                 Active
               </p>
