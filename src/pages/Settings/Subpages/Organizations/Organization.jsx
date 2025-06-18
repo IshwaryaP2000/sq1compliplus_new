@@ -68,6 +68,18 @@ const Organization = () => {
       console.error("Error fetching compliance types:", err);
     }
   };
+ 
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+
 
   useEffect(() => {
     fetchAllOrganizations();

@@ -24,6 +24,13 @@ import {
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
 import { PlusIcon, RegulareyeIcon, RightarrowIcon } from "../../../../components/Icons/Icons";
+import {
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import TanstackTable from "../../../../components/DataTable/TanstackTable";
 
 export const PreApprovedVendor = () => {
   usePageTitle("Pre-Approved Vendor");
@@ -91,7 +98,7 @@ export const PreApprovedVendor = () => {
         "Date must be at least two days from today",
         function (value) {
           if (!value) {
-            return false; // Already handled by .required()
+            return false;
           }
           const twoDaysFromNow = moment().add(2, "days").startOf("day");
           const inputDate = moment(value).startOf("day");
@@ -174,11 +181,9 @@ export const PreApprovedVendor = () => {
           ? "desc"
           : "asc"
         : "asc";
-
     const newSortColumn = columnName;
     setSortDirection(newSortDirection);
     setSortColumn(newSortColumn);
-
     debouncedFetchSearchResults({
       search: searchVal,
       sort_by: newSortColumn,
@@ -241,6 +246,123 @@ export const PreApprovedVendor = () => {
     GetQuestions();
   }, []);
 
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "index",
+        header: "#",
+        cell: ({ row }) =>
+          (pageIndex?.meta?.current_page - 1) * pageIndex?.meta?.per_page +
+          row.index +
+          1,
+        enableSorting: false,
+      },
+      {
+        accessorKey: "business_name",
+        header: () => (
+          <div
+            onClick={() => handleSort("business_name")}
+            className="header-cell"
+            style={{ cursor: "pointer" }}
+          >
+            Business Name
+            <span
+              style={{
+                color: "rgba(48, 188, 71)",
+                fontSize: "20px",
+              }}
+            >
+              {sortDirection === "asc" && sortColumn === "business_name" ? (
+                <BiUpArrowAlt />
+              ) : (
+                <BiDownArrowAlt />
+              )}
+            </span>
+          </div>
+        ),
+        cell: ({ getValue }) => (
+          <span
+            dangerouslySetInnerHTML={{
+              __html: highlightText(getValue() || "", searchVal),
+            }}
+          />
+        ),
+      },
+      {
+        accessorKey: "service_name",
+        header: "Service",
+        cell: ({ getValue }) =>
+          getValue()?.map((data) => (
+            <span className="me-2 bg-lightgreen-badge">
+              <small>{data}</small>
+            </span>
+          )),
+        enableSorting: false,
+      },
+      {
+        accessorKey: "assessment_status",
+        header: "Assessment Status",
+        cell: ({ getValue }) => (
+          <span
+            className={`text-capitalize ${
+              getValue() === "completed"
+                ? "bg-success-badge"
+                : getValue() === "invited"
+                ? "bg-processing-badge"
+                : "bg-primary-badge"
+            }`}
+          >
+            {getValue()}
+          </span>
+        ),
+        enableSorting: false,
+      },
+      {
+        accessorKey: "assessment",
+        header: () => <div className="text-center">Assessment</div>,
+        cell: ({ row }) => (
+          <div className="users-crud d-flex m-auto justify-content-center">
+            <Link to={`/settings/pre-approved-assessment-view/${row.original.id}`}>
+              <OverlayTrigger
+                overlay={<Tooltip id="tooltip-disabled">View Assessment</Tooltip>}
+              >
+                <button className="btn btn-sm px-lg-3 my-1 tableborder-right">
+                  <RegulareyeIcon />
+                </button>
+              </OverlayTrigger>
+            </Link>
+            <DeleteComponent
+              handleShowDelete={handleShowDelete}
+              dataId={row.original.id}
+              handleCloseDelete={handleCloseDelete}
+              showDelete={showDelete}
+              handleDelete={handleDelete}
+            />
+          </div>
+        ),
+        enableSorting: false,
+      },
+    ],
+    [searchVal, sortColumn, sortDirection, pageIndex, showDelete]
+  );
+
+  const table = useReactTable({
+    data: filteredUsers || [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    manualSorting: true,
+    manualPagination: true,
+    state: {
+      sorting: [
+        {
+          id: sortColumn,
+          desc: sortDirection === "desc",
+        },
+      ],
+    },
+  });
+
   return (
     <div>
       <div className="d-flex justify-content-between mb-3 flex-wrap">
@@ -263,7 +385,6 @@ export const PreApprovedVendor = () => {
           >
             <PlusIcon className="me-2" /> Create Pre-Approved Vendor
           </button>
-
           <div>
             <Offcanvas
               show={show}
@@ -502,7 +623,7 @@ export const PreApprovedVendor = () => {
                             type="submit"
                             disabled={isLoading}
                           >
-                            {isLoading ? "Submiting..." : "Submit"}
+                            {isLoading ? "Submitting..." : "Submit"}
                           </button>
                         </div>
                       </Form>
@@ -514,132 +635,15 @@ export const PreApprovedVendor = () => {
           </div>
         </div>
       </div>
-      <div className="custom-table tabledata-scroll mb-3">
-        <table className="table users-table mb-0">
-          <thead className="tablescrolling-thead-tr">
-            <tr>
-              <th scope="col">#</th>
-              <th
-                scope="col"
-                onClick={() => {
-                  handleSort("business_name");
-                }}
-              >
-                Business Name
-                <span
-                  style={{
-                    color: "rgba(48, 188, 71)",
-                    cursor: "pointer",
-                    fontSize: "20px",
-                  }}
-                >
-                  {sortDirection === "asc" && sortColumn === "business_name" ? (
-                    <BiUpArrowAlt />
-                  ) : (
-                    <BiDownArrowAlt />
-                  )}
-                </span>
-              </th>
-              <th scope="col">Service</th>
-              <th scope="col">Assessment Status</th>
-              <th scope="col" className="text-center">
-                Assessment
-              </th>
-            </tr>
-          </thead>
-          <tbody className="tablescrolling-tbody">
-            {isLoading ? (
-              // Array.from({ length: 7 }).map((_, rowIndex) => (
-              //   <tr key={rowIndex}>
-              //     {Array.from({ length: 5 }).map((_, colIndex) => (
-              //       <td key={colIndex}>
-              //         <p className="placeholder-glow">
-              //           <span className="placeholder col-12 bg-secondary"></span>
-              //         </p>
-              //       </td>
-              //     ))}
-              //   </tr>
-              // ))
-              <Loader rows={7} cols={5} />
-            ) : filteredUsers?.length > 0 ? (
-              filteredUsers?.map((data, index) => (
-                <tr key={data?.id || index}>
-                  <td>
-                    {(pageIndex?.meta?.current_page - 1) *
-                      pageIndex?.meta?.per_page +
-                      index +
-                      1}
-                  </td>
-                  <td
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(
-                        data?.business_name || "",
-                        searchVal
-                      ),
-                    }}
-                  ></td>
-                  <td>
-                    {data?.service_name.map((data) => (
-                      <span className="me-2 bg-lightgreen-badge">
-                        <small>{data}</small>
-                      </span>
-                    ))}
-                  </td>
-
-                  <td>
-                    <span
-                      className={`text-capitalize  ${
-                        data.assessment_status === "completed"
-                          ? "bg-success-badge "
-                          : data.assessment_status === "invited"
-                          ? " bg-processing-badge"
-                          : "bg-primary-badge"
-                      }`}
-                    >
-                      {data?.assessment_status}
-                    </span>
-                  </td>
-                  <td className="table-td-center">
-                    <div className="users-crud d-flex m-auto">
-                      <Link
-                        to={`/settings/pre-approved-assessment-view/${data.id}`}
-                      >
-                        <OverlayTrigger
-                          overlay={
-                            <Tooltip id="tooltip-disabled">
-                              View Assessment
-                            </Tooltip>
-                          }
-                        >
-                          <button className="btn btn-sm px-lg-3 my-1 tableborder-right">
-                            <RegulareyeIcon />
-                          </button>
-                        </OverlayTrigger>
-                      </Link>
-
-                      <DeleteComponent
-                        handleShowDelete={handleShowDelete}
-                        dataId={data?.id}
-                        handleCloseDelete={handleCloseDelete}
-                        showDelete={showDelete}
-                        handleDelete={handleDelete}
-                      />
-                    </div>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="7" className="text-center">
-                  No Users Available
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-      <div className="d-flex flex-row bd-highlight mb-3 ">
-        <div className=" bd-highlight pagennation-list">
+      <TanstackTable
+        table={table}
+        columns={columns}
+        isLoading={isLoading}
+        emptyMessage="No Users Available"
+        className="table users-table mb-0"
+      />
+      <div className="d-flex flex-row bd-highlight mb-3">
+        <div className="bd-highlight pagennation-list">
           <LimitSelector
             onLimitChange={handleLimitChange}
             filteredLength={filteredLength}
@@ -657,7 +661,6 @@ export const PreApprovedVendor = () => {
           />
         </div>
       </div>
-
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Body className="p-4">
           <div className="text-center">

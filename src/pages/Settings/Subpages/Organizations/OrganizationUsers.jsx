@@ -23,28 +23,34 @@ import {
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
-import { Loader } from "../../../../components/Table/Loader";
+import {
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import TanstackTable from "../../../../components/DataTable/TanstackTable";
 import DeleteModal from "../../../../components/Modal/DeleteModal";
 
 const NewUser = () => {
   usePageTitle("Organization Users");
-  const { id: organizationId } = useParams(); // Get the organization ID from the route
+  const { id: organizationId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [userType, setUserType] = useState("new_user");
-  const [email, setEmail] = useState(""); // New user's email
-  const [selectedUser, setSelectedUser] = useState(""); // Selected existing user
-  const [existingUsers, setExistingUsers] = useState([]); // List of existing users
+  const [email, setEmail] = useState("");
+  const [selectedUser, setSelectedUser] = useState("");
+  const [existingUsers, setExistingUsers] = useState([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [userToDelete, setUserToDelete] = useState(null); // Stores the user being deleted
-  const [setIsSuccessModalOpen] = useState(false); // Success modal state
-  const [setIsErrorModalOpen] = useState(false); // Error modal state
-  const [emailError, setEmailError] = useState(""); // Email error state for new users
-  const [userError, setUserError] = useState(""); // User error state for existing users
-  const [roleError, setRoleError] = useState(""); // Role error state
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [setIsSuccessModalOpen] = useState(false);
+  const [setIsErrorModalOpen] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [userError, setUserError] = useState("");
+  const [roleError, setRoleError] = useState("");
   const [orgName, setOrgName] = useState("");
-  const [isRoleModalOpen, setIsRoleModalOpen] = useState(false); // Modal visibility state
-  const [selectedUserForRole, setSelectedUserForRole] = useState(null); // User whose role is being edited
-  const [organizationRoles, setOrganizationRoles] = useState([]); // Available roles from API
+  const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
+  const [selectedUserForRole, setSelectedUserForRole] = useState(null);
+  const [organizationRoles, setOrganizationRoles] = useState([]);
   const [searchVal, setSearchVal] = useState("");
   const [sortColumn, setSortColumn] = useState("name");
   const [sortDirection, setSortDirection] = useState("desc");
@@ -80,8 +86,8 @@ const NewUser = () => {
           description: role.description,
         })) || []
       );
-      setSelectedUserForRole(user); // Store the user whose role is being edited
-      setSelectedRole(user.role); // Set the current role of the user being edited
+      setSelectedUserForRole(user);
+      setSelectedRole(user.role);
       setIsRoleModalOpen(true);
     } catch (error) {
       console.error("Error fetching roles:", error);
@@ -120,10 +126,12 @@ const NewUser = () => {
   };
 
   const fetchUsers = async (
-    URI = `organization-users?id=${organizationId}`
+    params = { id: organizationId }
   ) => {
     try {
       setIsLoading(true);
+      const query = new URLSearchParams(params).toString();
+      const URI = `organization-users?${query}`;
       const response = await getApi(URI);
       setOrgName(response?.data?.data);
       setFilteredUsers(response?.data?.data?.data);
@@ -151,12 +159,10 @@ const NewUser = () => {
   };
 
   const handleFormSubmit = async () => {
-    // Reset error states before validation
     setEmailError("");
     setUserError("");
     setRoleError("");
 
-    // Validation checks for required fields
     if (!selectedRole) {
       setRoleError("Role is required.");
       return;
@@ -172,7 +178,6 @@ const NewUser = () => {
       return;
     }
 
-    // Prepare payload for API call
     const payload = {
       org_id: organizationId,
       role: selectedRole.toLowerCase(),
@@ -183,7 +188,6 @@ const NewUser = () => {
     try {
       const response = await postApi("assign-user", payload);
       if (response?.status === 200 && response?.data?.success) {
-        // Handle success response
         if (response.data.message === "User already assigned") {
           setIsErrorModalOpen(true);
         } else {
@@ -191,8 +195,6 @@ const NewUser = () => {
           fetchUsers();
           toggleAssignUserModal();
         }
-      } else {
-        // Handle other error cases
       }
     } catch (error) {
       console.error("Error assigning user:", error);
@@ -224,20 +226,13 @@ const NewUser = () => {
   }, [organizationId]);
 
   useEffect(() => {
-    fetchExistingUsers(); // Fetch existing users when the component mounts
+    fetchExistingUsers();
   }, []);
 
   const debouncedFetchSearchResults = useMemo(
     () =>
       createDebouncedSearch((params) => {
-        fetchSearchResults(
-          "/organization-users",
-          params,
-          setFilteredUsers,
-          setIsLoading,
-          setFilteredLength,
-          setPageIndex
-        );
+        fetchUsers(params);
       }, 300),
     []
   );
@@ -260,11 +255,9 @@ const NewUser = () => {
           ? "desc"
           : "asc"
         : "asc";
-
     const newSortColumn = columnName;
     setSortDirection(newSortDirection);
     setSortColumn(newSortColumn);
-
     debouncedFetchSearchResults({
       search: searchVal,
       sort_by: newSortColumn,
@@ -284,6 +277,161 @@ const NewUser = () => {
       id: organizationId,
     });
   };
+
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "index",
+        header: "S.No",
+        cell: ({ row }) =>
+          (pageIndex?.meta?.current_page - 1) * pageIndex?.meta?.per_page +
+          row.index +
+          1,
+        enableSorting: false,
+      },
+      {
+        accessorKey: "name",
+        header: () => (
+          <div
+            onClick={() => handleSort("name")}
+            className="header-cell"
+            style={{ cursor: "pointer" }}
+          >
+            Name
+            <span
+              style={{
+                color: "rgba(48, 188, 71)",
+                fontSize: "20px",
+              }}
+            >
+              {sortDirection === "asc" && sortColumn === "name" ? (
+                <BiUpArrowAlt />
+              ) : (
+                <BiDownArrowAlt />
+              )}
+            </span>
+          </div>
+        ),
+        cell: ({ getValue }) => (
+          <span
+            dangerouslySetInnerHTML={{
+              __html: highlightText(getValue() || "", searchVal),
+            }}
+          />
+        ),
+      },
+      {
+        accessorKey: "email",
+        header: () => (
+          <div
+            onClick={() => handleSort("email")}
+            className="header-cell"
+            style={{ cursor: "pointer" }}
+          >
+            Email
+            <span
+              style={{
+                color: "rgba(48, 188, 71)",
+                fontSize: "20px",
+              }}
+            >
+              {sortDirection === "asc" && sortColumn === "email" ? (
+                <BiUpArrowAlt />
+              ) : (
+                <BiDownArrowAlt />
+              )}
+            </span>
+          </div>
+        ),
+        cell: ({ getValue }) => (
+          <span
+            dangerouslySetInnerHTML={{
+              __html: highlightText(getValue() || "", searchVal),
+            }}
+          />
+        ),
+      },
+      {
+        accessorKey: "role",
+        header: "Role",
+        cell: ({ row }) => (
+          <div className="d-flex">
+            <OverlayTrigger
+              overlay={<Tooltip id="tooltip-disabled">Edit</Tooltip>}
+            >
+              <div className="users-crud me-2">
+                <button
+                  type="button"
+                  className="btn btn-sm py-0 my-1"
+                  onClick={() => openRoleModal(row.original)}
+                  title="Edit Role"
+                >
+                  <PenToSquareIcon />
+                </button>
+              </div>
+            </OverlayTrigger>
+            {formatRole(row.original.role)}
+          </div>
+        ),
+        enableSorting: false,
+      },
+      {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ getValue }) => (
+          <span
+            className={`badge badge-fixedwidth ${
+              getValue() === "active"
+                ? "user-active"
+                : getValue() === "invited"
+                ? "user-invit"
+                : "bg-secondary"
+            }`}
+          >
+            {ucFirst(getValue())}
+          </span>
+        ),
+        enableSorting: false,
+      },
+      {
+        accessorKey: "action",
+        header: "Action",
+        cell: ({ row }) => (
+          <OverlayTrigger
+            overlay={<Tooltip id="tooltip-disabled">Remove</Tooltip>}
+          >
+            <div className="users-crud">
+              <button
+                className="btn btn-sm py-0 my-1"
+                onClick={() => openDeleteModal(row.original)}
+              >
+                <XmarkIcon className="text-danger" />
+              </button>
+            </div>
+          </OverlayTrigger>
+        ),
+        enableSorting: false,
+      },
+    ],
+    [searchVal, sortColumn, sortDirection, pageIndex]
+  );
+
+  const table = useReactTable({
+    data: filteredUsers || [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    manualSorting: true,
+    manualPagination: true,
+    state: {
+      sorting: [
+        {
+          id: sortColumn,
+          desc: sortDirection === "desc",
+        },
+      ],
+    },
+  });
 
   return (
     <div className="d-flex flex-column">
@@ -325,159 +473,23 @@ const NewUser = () => {
           </div>
         )}
       </div>
-      <div className="tabledata-scroll mb-3">
-        <table className="table users-table mb-0">
-          <thead className="tablescrolling-thead-tr">
-            <tr>
-              <th scope="col">S.No</th>
-              <th
-                scope="col"
-                onClick={() => {
-                  handleSort("name");
-                }}
-              >
-                Name
-                <span
-                  style={{
-                    color: "rgba(48, 188, 71)",
-                    cursor: "pointer",
-                    fontSize: "20px",
-                  }}
-                >
-                  {sortDirection === "asc" && sortColumn === "name" ? (
-                    <BiUpArrowAlt />
-                  ) : (
-                    <BiDownArrowAlt />
-                  )}
-                </span>
-              </th>
-              <th
-                scope="col"
-                onClick={() => {
-                  handleSort("email");
-                }}
-              >
-                Email
-                <span
-                  style={{
-                    color: "rgba(48, 188, 71)",
-                    cursor: "pointer",
-                    fontSize: "20px",
-                  }}
-                >
-                  {sortDirection === "asc" && sortColumn === "email" ? (
-                    <BiUpArrowAlt />
-                  ) : (
-                    <BiDownArrowAlt />
-                  )}
-                </span>
-              </th>
-              <th scope="col">Role</th>
-              <th scope="col">Status</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody className="tablescrolling-tbody">
-            {isLoading ? (
-              // Array.from({ length: 7 }).map((_, rowIndex) => (
-              //   <tr key={rowIndex}>
-              //     {Array.from({ length: 6 }).map((_, colIndex) => (
-              //       <td key={colIndex}>
-              //         <p className="placeholder-glow">
-              //           <span className="placeholder col-12 bg-secondary"></span>
-              //         </p>
-              //       </td>
-              //     ))}
-              //   </tr>
-              // ))
-              <Loader rows={7} cols={6} />
-            ) : filteredUsers?.length > 0 ? (
-              filteredUsers?.map((user, index) => (
-                <tr key={index}>
-                  <th scope="row">
-                    {(pageIndex?.meta?.current_page - 1) *
-                      pageIndex?.meta?.per_page +
-                      index +
-                      1}
-                  </th>
-                  <td
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(user?.name || "", searchVal),
-                    }}
-                  ></td>
-                  <td
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(user?.email || "", searchVal),
-                    }}
-                  ></td>
-                  <td className="d-flex ">
-                    <OverlayTrigger
-                      overlay={<Tooltip id="tooltip-disabled">Edit</Tooltip>}
-                    >
-                      <div className="users-crud me-2">
-                        <button
-                          type="button"
-                          className="btn btn-sm py-0 my-1"
-                          onClick={() => openRoleModal(user)}
-                          title="Edit Role"
-                        >
-                          <PenToSquareIcon />
-                        </button>
-                      </div>
-                    </OverlayTrigger>
-                    {formatRole(user.role)}
-                  </td>
-                  <td>
-                    <span
-                      className={`badge badge-fixedwidth ${
-                        user.status === "active"
-                          ? " user-active"
-                          : user.status === "invited"
-                          ? " user-invit"
-                          : "bg-secondary"
-                      }`}
-                    >
-                      {ucFirst(user.status)}
-                    </span>
-                  </td>
-                  <td>
-                    <OverlayTrigger
-                      overlay={<Tooltip id="tooltip-disabled">Remove</Tooltip>}
-                    >
-                      <div className="users-crud">
-                        <button
-                          className="btn btn-sm py-0 my-1"
-                          onClick={() => openDeleteModal(user)}
-                        >
-                          <XmarkIcon className="text-danger" />
-                        </button>
-                      </div>
-                    </OverlayTrigger>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6" className="text-center">
-                  No users found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-
-        <EditRoleModal
-          show={isRoleModalOpen}
-          handleClose={() => setIsRoleModalOpen(false)}
-          selectedRole={selectedRole}
-          handleRoleChange={(e) => setSelectedRole(e.target.value)}
-          organizationRoles={organizationRoles}
-          handleUpdateRole={handleUpdateRole}
-        />
-      </div>
-
-      <div className="d-flex flex-row bd-highlight mb-3 ">
-        <div className=" bd-highlight pagennation-list">
+      <TanstackTable
+        table={table}
+        columns={columns}
+        isLoading={isLoading}
+        emptyMessage="No users found."
+        className="table users-table mb-0"
+      />
+      <EditRoleModal
+        show={isRoleModalOpen}
+        handleClose={() => setIsRoleModalOpen(false)}
+        selectedRole={selectedRole}
+        handleRoleChange={(e) => setSelectedRole(e.target.value)}
+        organizationRoles={organizationRoles}
+        handleUpdateRole={handleUpdateRole}
+      />
+      <div className="d-flex flex-row bd-highlight mb-3">
+        <div className="bd-highlight pagennation-list">
           <LimitSelector
             onLimitChange={handleLimitChange}
             filteredLength={filteredLength}
@@ -496,7 +508,6 @@ const NewUser = () => {
           />
         </div>
       </div>
-
       {isDeleteModalOpen && (
         <div
           className="modal fade show"
@@ -508,21 +519,6 @@ const NewUser = () => {
         >
           <div className="modal-dialog modal-dialog-centered modal-md">
             <div className="modal-content p-3">
-              {/* <div className="modal-body text-center">
-                <div className="text-center">
-                  <div className="mb-3">
-                    <div className="warning-icon-wrapper">
-                      <TriangleExclamationIcon />
-                    </div>
-                  </div>
-                  <h5 className="fw-bold mb-2 text-muted">Discard the user?</h5>
-                  <p className="mb-2">
-                    You're going to
-                    <span className="fw-bold">"Discard this" </span>
-                    user?. Are you sure?
-                  </p>
-                </div>
-              </div> */}
               <DeleteModal msg="user" />
               <div className="d-flex justify-content-center mb-3 gap-4">
                 <Button
