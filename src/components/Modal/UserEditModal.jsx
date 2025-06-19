@@ -45,7 +45,7 @@ function UserEditModel({ data, fetchAllUser, userRolesGet }) {
         role_id: values.role,
         id: values.id,
       };
-      await postApi("user-update", payload); // API call to update the user
+      await postApi("user-update", payload);
       handleClose();
       fetchAllUser();
     } catch (err) {

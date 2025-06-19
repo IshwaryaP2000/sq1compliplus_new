@@ -409,7 +409,7 @@ const PreApprovedAssessment = () => {
                                           <>
                                             <i className="fa-solid fa-circle-exclamation fs-6 me-1 "></i>
                                             <span className="d-none d-sm-block ">
-                                              {" "}
+                              
                                               Not Answered
                                             </span>
                                           </>

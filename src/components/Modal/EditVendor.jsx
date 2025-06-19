@@ -10,7 +10,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import { postApi, getApi } from "../../services/apiService";
-import { PenToSquareIcon } from "../Icons/Icons";
+import { PenToSquareIcon, SolideditIcon } from "../Icons/Icons";
 
 function EditVendor({ Vendordata, GetVendors, areaType, handleCloseModals }) {
   const [show, setShow] = useState(false);
@@ -127,7 +127,8 @@ function EditVendor({ Vendordata, GetVendors, areaType, handleCloseModals }) {
         <Offcanvas.Header closeButton className="shadow-sm">
           <Offcanvas.Title>
             <h6 className="mb-0 fw-bold">
-              <i className="fa-solid fa-edit" /> Edit Vendor
+              <SolideditIcon />
+              Edit Vendor
             </h6>
           </Offcanvas.Title>
         </Offcanvas.Header>

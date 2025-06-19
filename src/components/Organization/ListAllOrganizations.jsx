@@ -8,6 +8,7 @@ import {
   setDomain,
   ucFirst,
 } from "../../utils/UtilsGlobalData";
+import { CircleuserIcon } from "../Icons/Icons";
 
 const ListAllOrganizations = () => {
   const navigate = useNavigate();
@@ -85,7 +86,7 @@ const ListAllOrganizations = () => {
             >
               <div className="d-flex">
                 <div className="align-content-center ">
-                  <i className="fa-regular fa-circle-user align-content-center me-2 fs-3 text-lightgreen"></i>
+                  <CircleuserIcon className="align-content-center me-2 fs-3 text-lightgreen" />
                 </div>
                 <div className="d-grid fs-18 fw-bold text-start ms-2 text-white">
                   <span className="org-contenttext">

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { CommentIcon } from "../Icons/Icons";
 
 const Chatbot = () => {
   const [userMessage, setUserMessage] = useState("");
@@ -126,11 +127,11 @@ const Chatbot = () => {
     <>
       {!showChat && (
         <div className="chat-icon" onClick={handleChatIconClick}>
-          <i className="fa-solid fa-comment text-white helping-chat px-2"></i>
+          <CommentIcon className="text-white helping-chat px-2" />
           <div className="help-chart">
             <div className="d-flex">
               <span role="img" aria-label="chat">
-                <i className="fa-solid fa-comment text-white px-2"></i>
+                <CommentIcon className="text-white helping-chat px-2" />
               </span>
               <p className="m-0 text-white ">Help</p>
             </div>
@@ -195,11 +196,11 @@ const Chatbot = () => {
 
       {showChat && isMinimized && (
         <div className="chat-icon" onClick={handleChatIconClick}>
-          <i className="fa-solid fa-comment text-white helping-chat px-2"></i>
+          <CommentIcon className="text-white helping-chat px-2" />
           <div className="help-chart">
             <div className="d-flex">
               <span role="img" aria-label="chat">
-                <i className="fa-solid fa-comment text-white px-2"></i>
+                <CommentIcon className="text-white px-2" />
               </span>
               <p className="m-0 text-white ">Help</p>
             </div>

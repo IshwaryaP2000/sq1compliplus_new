@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { postApi, getApi } from "../../../../services/apiService";
 import usePageTitle from "../../../../utils/usePageTitle";
-import { LeftarrowIcon } from "../../../../components/Icons/Icons";
+import {
+  DownloadIcon,
+  LeftarrowIcon,
+} from "../../../../components/Icons/Icons";
 
 const BulkUploadQuestion = () => {
   usePageTitle("Bulk Upload Question");
@@ -83,7 +86,8 @@ const BulkUploadQuestion = () => {
         <div className="d-flex">
           <Link to="/settings/question">
             <button className="btn mx-1 primary-btn">
-              <LeftarrowIcon className="me-1"/>Back
+              <LeftarrowIcon className="me-1" />
+              Back
             </button>
           </Link>
         </div>
@@ -147,7 +151,8 @@ const BulkUploadQuestion = () => {
               className="cursor-pointer link-btn mt-4"
               onClick={handleDownload}
             >
-              Download Sample <i className="fa-solid fa-download ms-1"></i>
+              Download Sample
+              <DownloadIcon className="me-1" />
             </div>
           </form>
         </div>

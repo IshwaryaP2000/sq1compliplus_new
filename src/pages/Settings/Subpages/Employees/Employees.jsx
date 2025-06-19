@@ -7,7 +7,7 @@ import { getApi, postApi } from "../../../../services/apiService";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
 import { email } from "../../../../components/Validationschema/commonSchema";
 import DeleteModal from "../../../../components/Modal/DeleteModal";
-import { PlusIcon } from "../../../../components/Icons/Icons";
+import { PlusIcon, UploadIcon } from "../../../../components/Icons/Icons";
 
 const Employee = () => {
   const [employees, setEmployees] = useState([]);
@@ -121,7 +121,8 @@ const Employee = () => {
           onClick={handleBulkUpload}
           disabled={isLoading}
         >
-          Bulk Upload <i className="fa-solid fa-upload ms-1"></i>
+          Bulk Upload
+          <UploadIcon className="ms-1" />
         </button>
         <button
           className="btn mx-1 ms-2 p-2 primary-btn"

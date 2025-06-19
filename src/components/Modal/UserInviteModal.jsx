@@ -6,6 +6,7 @@ import { postApi } from "../../services/apiService";
 import { PlusIcon } from "../Icons/Icons";
 import { email, role } from "../Validationschema/commonSchema";
 import { Spinner } from "../Spinner/Spinner";
+import Button from "react-bootstrap/Button";
 
 function UserInviteModel({ data, fetchAllUser }) {
   const [show, setShow] = useState(false);
@@ -119,6 +120,8 @@ function UserInviteModel({ data, fetchAllUser }) {
               </div>
 
               <div className="modal-footer border-0">
+                <Button variant="secondary" onClick={handleClose}>Close</Button>
+
                 {isLoading ? (
                   <Spinner />
                 ) : (

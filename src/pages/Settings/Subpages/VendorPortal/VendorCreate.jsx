@@ -14,7 +14,9 @@ import { getApi, postApi } from "../../../../services/apiService";
 import { ucFirst } from "../../../../utils/UtilsGlobalData";
 import {
   CheckIcon,
+  HandshakeIcon,
   LeftarrowIcon,
+  ListIcon,
   RightarrowIcon,
 } from "../../../../components/Icons/Icons";
 
@@ -168,7 +170,8 @@ const VendorCreate = () => {
       <Accordion defaultActiveKey="1">
         <Accordion.Item eventKey="0">
           <Accordion.Header>
-            <i className="fa-solid fa-list me-1"> </i> Listed Vendors
+            <ListIcon className="me-1" />
+            Listed Vendors
           </Accordion.Header>
           <Accordion.Body className="p-4">
             <div className="tabledata-scroll mb-3">
@@ -242,7 +245,8 @@ const VendorCreate = () => {
         </Accordion.Item>
         <Accordion.Item eventKey="1">
           <Accordion.Header>
-            <i className="fa-solid fa-handshake me-1"></i> Create New Vendor
+            <HandshakeIcon className="me-1" />
+            Create New Vendor
           </Accordion.Header>
           <Accordion.Body className="p-4">
             <Formik

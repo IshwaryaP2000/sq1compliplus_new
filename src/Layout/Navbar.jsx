@@ -6,7 +6,7 @@ import Logout from "../pages/Authentication/Logout";
 import { useAuthOrganization } from "../Hooks/OrganizationUserProvider";
 import ListAllOrganizations from "../components/Organization/ListAllOrganizations";
 import Subnavbar from "./Subnavbar";
-import { BellIcon } from "../components/Icons/Icons";
+import { BellIcon, CircleuserIcon, SignoutIcon } from "../components/Icons/Icons";
 import {
   getCurrentUser,
   logout,
@@ -88,7 +88,7 @@ const Navbar = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);  
+  }, []);
 
   return (
     <header>
@@ -174,7 +174,7 @@ const Navbar = () => {
                     }}
                   >
                     <div className="align-content-center ">
-                      <i className="fa-regular fa-circle-user align-content-center me-2 fs-3 text-lightgreen"></i>
+                      <CircleuserIcon className="align-content-center me-2 fs-3 text-lightgreen" />
                     </div>
 
                     <a
@@ -228,10 +228,7 @@ const Navbar = () => {
                             }}
                           >
                             Logout
-                            <i
-                              className="fa fa-sign-out ms-2"
-                              aria-hidden="true"
-                            ></i>
+                            <SignoutIcon className="ms-2" />
                           </a>
                         </div>
                       </li>

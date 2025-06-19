@@ -11,7 +11,7 @@ import {
   fetchSearchResults,
   highlightText,
 } from "../../../../components/Search/useSearchAndSort";
-import { LeftarrowIcon, PenToSquareIcon } from "../../../../components/Icons/Icons";
+import { CloudarrowdownIcon, LeftarrowIcon, PenToSquareIcon } from "../../../../components/Icons/Icons";
 import { Loader } from "../../../../components/Table/Loader";
 
 const AdminPolicy = () => {
@@ -245,7 +245,7 @@ const AdminPolicy = () => {
                           className="btn btn-sm py-0 my-1"
                           onClick={() => handleDownload(item.file_location)}
                         >
-                          <i className="fa-solid fa-cloud-arrow-down text-success"></i>
+                          <CloudarrowdownIcon className="text-success"/>
                         </button>
                       </OverlayTrigger>
                     </div>

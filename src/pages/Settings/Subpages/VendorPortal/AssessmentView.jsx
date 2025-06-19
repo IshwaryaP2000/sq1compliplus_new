@@ -15,8 +15,11 @@ import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
 import {
   CheckIcon,
   CircleinfoIcon,
+  CloseIcon,
   FolderopenIcon,
   LeftarrowIcon,
+  PaperclipIcon,
+  PaperplaneIcon,
   PlusIcon,
   RegulareyeIcon,
   TrashIcon,
@@ -532,7 +535,7 @@ const AssessmentView = () => {
                     onClick={handleShowSend}
                   >
                     Share Question
-                    <i className="fa-regular fa-paper-plane ms-2"></i>
+                    <PaperplaneIcon className="ms-2" />
                   </button>
                 </div>
               ) : null}
@@ -812,7 +815,6 @@ const AssessmentView = () => {
                                         >
                                           {item?.answer ? (
                                             <>
-                                              {/* <i className="fa-solid fa-circle-info fs-6 me-1"></i> */}
                                               <CircleinfoIcon className="fs-6 me-1" />
                                               <span className="d-none d-sm-block">
                                                 Incomplete
@@ -971,7 +973,7 @@ const AssessmentView = () => {
                                         )
                                       }
                                     >
-                                      <i className="fa-solid fa-paperclip me-1 text-muted icon"></i>
+                                      <PaperclipIcon className="me-1 text-muted icon" />
                                       {item?.documentCount?.length > 0 ? (
                                         <div
                                           className="badge rounded rounded-circle position-absolute top-0  translate-middle bg-danger text-white ms-1 upload-badge "
@@ -1254,7 +1256,8 @@ const AssessmentView = () => {
               <button onClick={toggleDiv} className={`btn primary-btn `}>
                 {isVisible ? (
                   <>
-                    <i className="fa-solid fa-close me-2"></i>Close Evidence
+                    <CloseIcon className="me-2" />
+                    Close Evidence
                   </>
                 ) : (
                   <>

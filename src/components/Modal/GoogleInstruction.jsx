@@ -251,11 +251,6 @@ function GoogleInstruction() {
 
   return (
     <>
-      {/* <i
-        className="fa-solid fa-circle-info text-primary ms-2 align-content-center"
-        onClick={handleShow}
-      ></i> */}
-
       <CircleinfoIcon
         className="text-primary ms-2 align-content-center"
         onClick={handleShow}

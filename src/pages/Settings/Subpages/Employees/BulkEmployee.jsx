@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postApi, getApi } from "../../../../services/apiService";
+import { DownloadIcon } from "../../../../components/Icons/Icons";
 
 function BulkUploadEmployees() {
   const [file, setFile] = useState(null);
@@ -146,7 +147,7 @@ function BulkUploadEmployees() {
                     style={{ cursor: "pointer" }}
                   >
                     Download Sample
-                    <i className="fa-solid fa-download ms-1"></i>
+                    <DownloadIcon className="ms-1" />
                   </span>
                 </div>
 

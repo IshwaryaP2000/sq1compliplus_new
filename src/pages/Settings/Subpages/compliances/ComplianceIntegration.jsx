@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useFormik } from "formik";
-import { getApi, postApi } from "../../../../services/apiService";
 import CreatableSelect from "react-select/creatable";
+import { getApi, postApi } from "../../../../services/apiService";
 import Searchbar from "../../../../components/Search/Searchbar";
 import usePageTitle from "../../../../utils/usePageTitle";
 import { PlusIcon } from "../../../../components/Icons/Icons";
@@ -332,6 +332,8 @@ const ComplexIntegration = () => {
                     className="btn btn-secondary"
                     onClick={handleCloseDialog}
                     disabled={loading}
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
                   >
                     Cancel
                   </button>

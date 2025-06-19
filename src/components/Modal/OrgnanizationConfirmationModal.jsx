@@ -126,10 +126,6 @@ function OrganizationConfirmationModal({ data, fetchAllOrganizations }) {
             <h5>Are you sure you want to delete this user?</h5>
           )}
           {actionType === "action" && (
-            // <h5>
-            //   Are you sure you want to
-            //   {data?.status === "active" ? "enable" : "disable"} this user?
-            // </h5>
             <EnableDisableModal status={data?.status} msg="user" />
           )}
         </Modal.Body>
