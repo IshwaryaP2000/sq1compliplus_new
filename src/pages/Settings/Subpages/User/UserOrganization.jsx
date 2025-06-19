@@ -13,7 +13,13 @@ import {
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
-import { Loader } from "../../../../components/Table/Loader";
+import {
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import TanstackTable from "../../../../components/DataTable/TanstackTable"; 
 
 function UserOrganization() {
   usePageTitle("User-Organizations");
@@ -31,9 +37,11 @@ function UserOrganization() {
   const [filteredLength, setFilteredLength] = useState([]);
   const [pageIndex, setPageIndex] = useState([]);
 
-  const getUserOrg = async (URI = `user-organizations?id=${userId}`) => {
+  const getUserOrg = async (params = { id: userId }) => {
     try {
       setIsLoading(true);
+      const query = new URLSearchParams(params).toString();
+      const URI = `user-organizations?${query}`;
       const response = await getApi(URI);
       setUserName(response.data.data.user_name);
       setData(response?.data?.data?.data);
@@ -66,11 +74,9 @@ function UserOrganization() {
           ? "desc"
           : "asc"
         : "asc";
-
     const newSortColumn = columnName;
     setSortDirection(newSortDirection);
     setSortColumn(newSortColumn);
-
     debouncedFetchSearchResults({
       search: searchVal,
       sort_by: newSortColumn,
@@ -103,13 +109,158 @@ function UserOrganization() {
     getUserOrg();
   }, []);
 
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "index",
+        header: "#",
+        cell: ({ row }) =>
+          (pageIndex?.meta?.current_page - 1) * pageIndex?.meta?.per_page +
+          row.index +
+          1,
+        enableSorting: false,
+      },
+      {
+        accessorKey: "name",
+        header: () => (
+          <div
+            onClick={() => handleSort("name")}
+            className="header-cell"
+            style={{ cursor: "pointer" }}
+          >
+            Organization Name
+            <span
+              style={{
+                color: "rgba(48, 188, 71)",
+                fontSize: "20px",
+              }}
+            >
+              {sortDirection === "asc" && sortColumn === "name" ? (
+                <BiUpArrowAlt />
+              ) : (
+                <BiDownArrowAlt />
+              )}
+            </span>
+          </div>
+        ),
+        cell: ({ getValue }) => (
+          <span
+            dangerouslySetInnerHTML={{
+              __html: highlightText(getValue() || "", searchVal),
+            }}
+          />
+        ),
+      },
+      {
+        accessorKey: "email",
+        header: () => (
+          <div
+            onClick={() => handleSort("email")}
+            className="header-cell"
+            style={{ cursor: "pointer" }}
+          >
+            Email
+            <span
+              style={{
+                color: "rgba(48, 188, 71)",
+                fontSize: "20px",
+              }}
+            >
+              {sortDirection === "asc" && sortColumn === "email" ? (
+                <BiUpArrowAlt />
+              ) : (
+                <BiDownArrowAlt />
+              )}
+            </span>
+          </div>
+        ),
+        cell: ({ getValue }) => (
+          <span
+            dangerouslySetInnerHTML={{
+              __html: highlightText(getValue() || "", searchVal),
+            }}
+          />
+        ),
+      },
+      {
+        accessorKey: "role",
+        header: () => (
+          <div
+            onClick={() => handleSort("role")}
+            className="header-cell text-center"
+            style={{ cursor: "pointer" }}
+          >
+            Role
+            <span
+              style={{
+                color: "rgba(48, 188, 71)",
+                fontSize: "20px",
+              }}
+            >
+              {sortDirection === "asc" && sortColumn === "role" ? (
+                <BiUpArrowAlt />
+              ) : (
+                <BiDownArrowAlt />
+              )}
+            </span>
+          </div>
+        ),
+        cell: ({ getValue }) => (
+          <span
+            className="Capitalize text-center"
+            dangerouslySetInnerHTML={{
+              __html: highlightText(
+                ucFirst(getValue()?.replace(/_/g, " ") || ""),
+                searchVal
+              ),
+            }}
+          />
+        ),
+      },
+      {
+        accessorKey: "action",
+        header: () => <div className="text-center">Action</div>,
+        cell: ({ row }) => (
+          <div className="table-td-center">
+            <ConfirmationModel
+              type={"UserOrganization"}
+              data={data}
+              userId={userId}
+              orgId={row.original}
+              getUserOrg={getUserOrg}
+            />
+          </div>
+        ),
+        enableSorting: false,
+      },
+    ],
+    [searchVal, sortColumn, sortDirection, pageIndex, data, userId]
+  );
+
+  const table = useReactTable({
+    data: filteredUsers || [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    manualSorting: true,
+    manualPagination: true,
+    state: {
+      sorting: [
+        {
+          id: sortColumn,
+          desc: sortDirection === "desc",
+        },
+      ],
+    },
+  });
+
   return (
     <>
       <div className="d-flex justify-content-between mb-3">
         <h5>
           {user_name} Organizations
           {data.length > 0 && (
-            <span className="badge user-active text-white ">{data.length}</span>
+            <span className="badge user-active text-white">{data.length}</span>
           )}
         </h5>
         {isSuperAdmin && (
@@ -119,136 +270,15 @@ function UserOrganization() {
           </div>
         )}
       </div>
-
-      <div className="tabledata-scroll mb-3">
-        <table className="table users-table mb-0">
-          <thead className="tablescrolling-thead-tr">
-            <tr>
-              <th scope="col">#</th>
-              <th
-                scope="col"
-                onClick={() => {
-                  handleSort("name");
-                }}
-              >
-                Organization Name
-                <span
-                  style={{
-                    color: "rgba(48, 188, 71)",
-                    cursor: "pointer",
-                    fontSize: "20px",
-                  }}
-                >
-                  {sortDirection === "asc" && sortColumn === "name" ? (
-                    <BiUpArrowAlt />
-                  ) : (
-                    <BiDownArrowAlt />
-                  )}
-                </span>
-              </th>
-              <th
-                scope="col"
-                onClick={() => {
-                  handleSort("email");
-                }}
-              >
-                Email
-                <span
-                  style={{
-                    color: "rgba(48, 188, 71)",
-                    cursor: "pointer",
-                    fontSize: "20px",
-                  }}
-                >
-                  {sortDirection === "asc" && sortColumn === "email" ? (
-                    <BiUpArrowAlt />
-                  ) : (
-                    <BiDownArrowAlt />
-                  )}
-                </span>
-              </th>
-              <th
-                scope="col"
-                className="text-center"
-                onClick={() => {
-                  handleSort("role");
-                }}
-              >
-                Role
-                <span
-                  style={{
-                    color: "rgba(48, 188, 71)",
-                    cursor: "pointer",
-                    fontSize: "20px",
-                  }}
-                >
-                  {sortDirection === "asc" && sortColumn === "role" ? (
-                    <BiUpArrowAlt />
-                  ) : (
-                    <BiDownArrowAlt />
-                  )}
-                </span>
-              </th>
-              <th scope="col" className="text-center">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody className="tablescrolling-tbody">
-            {isLoading ? (
-              <Loader rows={7} cols={5} />
-            ) : filteredUsers?.length > 0 ? (
-              filteredUsers?.map((org, index) => (
-                <tr key={index}>
-                  <th scope="row">
-                    {(pageIndex?.meta?.current_page - 1) *
-                      pageIndex?.meta?.per_page +
-                      index +
-                      1}
-                  </th>
-                  <td
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(org?.name || "", searchVal),
-                    }}
-                  ></td>
-                  <td
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(org?.email || "", searchVal),
-                    }}
-                  ></td>
-                  <td
-                    className="Capitalize text-center"
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(
-                        ucFirst(org?.role?.replace(/_/g, " ") || ""),
-                        searchVal
-                      ),
-                    }}
-                  ></td>
-                  <td className="table-td-center">
-                    <ConfirmationModel
-                      type={"UserOrganization"}
-                      data={data}
-                      userId={userId}
-                      orgId={org}
-                      getUserOrg={getUserOrg}
-                    />
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5" className="text-center">
-                  No data found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      <div className="d-flex flex-row bd-highlight mb-3 ">
-        <div className=" bd-highlight pagennation-list">
+      <TanstackTable
+        table={table}
+        columns={columns}
+        isLoading={isLoading}
+        emptyMessage="No data found."
+        className="table users-table mb-0"
+      />
+      <div className="d-flex flex-row bd-highlight mb-3">
+        <div className="bd-highlight pagennation-list">
           <LimitSelector
             onLimitChange={handleLimitChange}
             filteredLength={filteredLength}
@@ -270,4 +300,5 @@ function UserOrganization() {
     </>
   );
 }
+
 export default UserOrganization;

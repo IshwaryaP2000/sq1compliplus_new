@@ -11,8 +11,17 @@ import {
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
+
 import { PlusIcon, UploadIcon } from "../../../../components/Icons/Icons";
 import { Loader } from "../../../../components/Table/Loader";
+import {
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import TanstackTable from "../../../../components/DataTable/TanstackTable";
+
 
 const Questions = () => {
   const navigate = useNavigate();
@@ -77,11 +86,9 @@ const Questions = () => {
           ? "desc"
           : "asc"
         : "asc";
-
     const newSortColumn = columnName;
     setSortDirection(newSortDirection);
     setSortColumn(newSortColumn);
-
     debouncedFetchSearchResults({
       search: searchVal,
       sort_by: newSortColumn,
@@ -99,6 +106,195 @@ const Questions = () => {
       limit: newLimit,
     });
   };
+
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "index",
+        header: "#",
+        cell: ({ row }) =>
+          (pageIndex?.meta?.current_page - 1) * pageIndex?.meta?.per_page +
+          row.index +
+          1,
+        enableSorting: false,
+      },
+      {
+        accessorKey: "assessment_type",
+        header: () => (
+          <div
+            onClick={() => handleSort("assessment_type_id")}
+            className="header-cell"
+            style={{ cursor: "pointer" }}
+          >
+            Assessment Type
+            <span
+              style={{
+                color: "rgba(48, 188, 71)",
+                fontSize: "20px",
+              }}
+            >
+              {sortDirection === "asc" && sortColumn === "assessment_type_id" ? (
+                <BiUpArrowAlt />
+              ) : (
+                <BiDownArrowAlt />
+              )}
+            </span>
+          </div>
+        ),
+        cell: ({ getValue }) => (
+          <span
+            dangerouslySetInnerHTML={{
+              __html: highlightText(getValue() || "", searchVal),
+            }}
+          />
+        ),
+      },
+      {
+        accessorKey: "controls",
+        header: () => (
+          <div
+            onClick={() => handleSort("controls")}
+            className="header-cell"
+            style={{ cursor: "pointer" }}
+          >
+            Question
+            <span
+              style={{
+                color: "rgba(48, 188, 71)",
+                fontSize: "20px",
+              }}
+            >
+              {sortDirection === "asc" && sortColumn === "controls" ? (
+                <BiUpArrowAlt />
+              ) : (
+                <BiDownArrowAlt />
+              )}
+            </span>
+          </div>
+        ),
+        cell: ({ getValue }) => (
+          <span
+            className="text-wrap-td td-width-250"
+            dangerouslySetInnerHTML={{
+              __html: highlightText(getValue() || "", searchVal),
+            }}
+          />
+        ),
+      },
+      {
+        accessorKey: "risk_score_yes",
+        header: () => <div className="text-center">Risk Score Yes</div>,
+        cell: ({ getValue }) => (
+          <span className="badge user-active text-white text-center">
+            {getValue()}
+          </span>
+        ),
+        enableSorting: false,
+      },
+      {
+        accessorKey: "risk_score_no",
+        header: () => <div className="text-center">Risk Score No</div>,
+        cell: ({ getValue }) => (
+          <span className="badge user-active text-white text-center">
+            {getValue()}
+          </span>
+        ),
+        enableSorting: false,
+      },
+      {
+        accessorKey: "evidence_required",
+        header: () => (
+          <div
+            onClick={() => handleSort("evidence_required")}
+            className="header-cell"
+            style={{ cursor: "pointer" }}
+          >
+            Attachment Required
+            <span
+              style={{
+                color: "rgba(48, 188, 71)",
+                fontSize: "20px",
+              }}
+            >
+              {sortDirection === "asc" &&
+              sortColumn === "evidence_required" ? (
+                <BiUpArrowAlt />
+              ) : (
+                <BiDownArrowAlt />
+              )}
+            </span>
+          </div>
+        ),
+        cell: ({ getValue }) => (
+          <span
+            className="Capitalize"
+            dangerouslySetInnerHTML={{
+              __html: highlightText(
+                (getValue() || "").replace(/_/g, " "),
+                searchVal
+              ),
+            }}
+          />
+        ),
+      },
+      {
+        accessorKey: "data_access",
+        header: () => (
+          <div
+            onClick={() => handleSort("data_access")}
+            className="header-cell text-center"
+            style={{ cursor: "pointer" }}
+          >
+            Data Access
+            <span
+              style={{
+                color: "rgba(48, 188, 71)",
+                fontSize: "20px",
+              }}
+            >
+              {sortDirection === "asc" && sortColumn === "data_access" ? (
+                <BiUpArrowAlt />
+              ) : (
+                <BiDownArrowAlt />
+              )}
+            </span>
+          </div>
+        ),
+        cell: ({ getValue }) => (
+          <span
+            className={`badge badge-fixedwidth text-center ${
+              getValue() === "Low"
+                ? "user-active"
+                : getValue() === "High"
+                ? "bg-danger"
+                : "bg-secondary"
+            }`}
+            dangerouslySetInnerHTML={{
+              __html: highlightText(getValue() || "", searchVal),
+            }}
+          />
+        ),
+      },
+    ],
+    [searchVal, sortColumn, sortDirection, pageIndex]
+  );
+
+  const table = useReactTable({
+    data: filteredUsers || [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    manualSorting: true,
+    manualPagination: true,
+    state: {
+      sorting: [
+        {
+          id: sortColumn,
+          desc: sortDirection === "desc",
+        },
+      ],
+    },
+  });
 
   return (
     <div>
@@ -131,220 +327,30 @@ const Questions = () => {
           </button>
         </div>
       </div>
-      <div>
-        <div className="custom-table tabledata-scroll mb-3">
-          <table className=" table users-table mb-0">
-            <thead className="tablescrolling-thead-tr">
-              <tr>
-                <th scope="col">#</th>
-                <th
-                  scope="col"
-                  onClick={() => {
-                    handleSort("assessment_type_id");
-                  }}
-                >
-                  Assessment Type
-                  <span
-                    style={{
-                      color: "rgba(48, 188, 71)",
-                      cursor: "pointer",
-                      fontSize: "20px",
-                    }}
-                  >
-                    {sortDirection === "asc" &&
-                    sortColumn === "assessment_type_id" ? (
-                      <BiUpArrowAlt />
-                    ) : (
-                      <BiDownArrowAlt />
-                    )}
-                  </span>
-                </th>
-                <th
-                  scope="col"
-                  onClick={() => {
-                    handleSort("controls");
-                  }}
-                >
-                  Question
-                  <span
-                    style={{
-                      color: "rgba(48, 188, 71)",
-                      cursor: "pointer",
-                      fontSize: "20px",
-                    }}
-                  >
-                    {sortDirection === "asc" && sortColumn === "controls" ? (
-                      <BiUpArrowAlt />
-                    ) : (
-                      <BiDownArrowAlt />
-                    )}
-                  </span>
-                </th>
-                <th scope="col" className="text-center">
-                  Risk Score Yes
-                </th>
-                <th scope="col" className="text-center">
-                  Risk Score No
-                </th>
-                <th
-                  scope="col"
-                  className=""
-                  onClick={() => {
-                    handleSort("evidence_required");
-                  }}
-                >
-                  Attachment Required
-                  <span
-                    style={{
-                      color: "rgba(48, 188, 71)",
-                      cursor: "pointer",
-                      fontSize: "20px",
-                    }}
-                  >
-                    {sortDirection === "asc" &&
-                    sortColumn === "evidence_required" ? (
-                      <BiUpArrowAlt />
-                    ) : (
-                      <BiDownArrowAlt />
-                    )}
-                  </span>
-                </th>
-                <th
-                  scope="col"
-                  className="text-center"
-                  onClick={() => {
-                    handleSort("data_access");
-                  }}
-                >
-                  Data Access
-                  <span
-                    style={{
-                      color: "rgba(48, 188, 71)",
-                      cursor: "pointer",
-                      fontSize: "20px",
-                    }}
-                  >
-                    {sortDirection === "asc" && sortColumn === "data_access" ? (
-                      <BiUpArrowAlt />
-                    ) : (
-                      <BiDownArrowAlt />
-                    )}
-                  </span>
-                </th>
-              </tr>
-            </thead>
-
-            <tbody className="tablescrolling-tbody">
-              {isLoading ? (
-                // Array.from({ length: 7 }).map((_, rowIndex) => (
-                //   <tr key={rowIndex}>
-                //     {Array.from({ length: 7 }).map((_, colIndex) => (
-                //       <td key={colIndex}>
-                //         <p className="placeholder-glow">
-                //           <span className="placeholder col-12 bg-secondary"></span>
-                //         </p>
-                //       </td>
-                //     ))}
-                //   </tr>
-                // ))
-                <Loader rows={7} cols={7} />
-              ) : filteredUsers?.length > 0 ? (
-                filteredUsers?.map((questions, index) => (
-                  <tr key={questions?.id || index}>
-                    <th scope="row">
-                      {(pageIndex?.meta?.current_page - 1) *
-                        pageIndex?.meta?.per_page +
-                        index +
-                        1}
-                    </th>
-                    <td
-                      dangerouslySetInnerHTML={{
-                        __html: highlightText(
-                          questions?.assessment_type || "",
-                          searchVal
-                        ),
-                      }}
-                    ></td>
-                    <td
-                      className="text-wrap-td td-width-250"
-                      dangerouslySetInnerHTML={{
-                        __html: highlightText(
-                          questions?.controls || "",
-                          searchVal
-                        ),
-                      }}
-                    ></td>
-                    <td className="text-center">
-                      <span className="badge user-active text-white">
-                        {questions?.risk_score_yes}
-                      </span>
-                    </td>
-                    <td className="text-center">
-                      <span className="badge user-active text-white">
-                        {questions?.risk_score_no}
-                      </span>
-                    </td>
-
-                    <td
-                      className=" Capitalize"
-                      dangerouslySetInnerHTML={{
-                        __html: highlightText(
-                          (questions?.evidence_required || "").replace(
-                            /_/g,
-                            " "
-                          ), // Replace underscores with spaces
-                          searchVal
-                        ),
-                      }}
-                    ></td>
-                    <td className="text-center">
-                      <span
-                        className={`badge badge-fixedwidth ${
-                          questions?.data_access === "Low"
-                            ? " user-active"
-                            : questions?.data_access === "High"
-                            ? "bg-danger"
-                            : "bg-secondary"
-                        }`}
-                        dangerouslySetInnerHTML={{
-                          __html: highlightText(
-                            questions?.data_access || "",
-                            searchVal
-                          ),
-                        }}
-                      ></span>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="7" className="text-center">
-                    No Data Available...
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+      <TanstackTable
+        table={table}
+        columns={columns}
+        isLoading={isLoading}
+        emptyMessage="No Data Available..."
+        className="table users-table mb-0"
+      />
+      <div className="d-flex flex-row bd-highlight mb-3">
+        <div className="bd-highlight pagennation-list">
+          <LimitSelector
+            onLimitChange={handleLimitChange}
+            filteredLength={filteredLength}
+          />
         </div>
-
-        <div className="d-flex flex-row bd-highlight mb-3 ">
-          <div className=" bd-highlight pagennation-list">
-            <LimitSelector
-              onLimitChange={handleLimitChange}
-              filteredLength={filteredLength}
-            />
-          </div>
-          <div className="p-2 bd-highlight w-100">
-            <Pagination
-              dataFetchFunction={GetQuestions}
-              dataPaginationLinks={pageIndex?.meta}
-              filteredLength={filteredLength}
-              search={searchVal}
-              sort_by={sortColumn}
-              sort_direction={sortDirection}
-              limit={limit}
-            />
-          </div>
+        <div className="p-2 bd-highlight w-100">
+          <Pagination
+            dataFetchFunction={GetQuestions}
+            dataPaginationLinks={pageIndex?.meta}
+            filteredLength={filteredLength}
+            search={searchVal}
+            sort_by={sortColumn}
+            sort_direction={sortDirection}
+            limit={limit}
+          />
         </div>
       </div>
     </div>

@@ -14,7 +14,6 @@ import moment from "moment/moment";
 import Pagination from "../../../../components/Pagination/Pagination";
 import usePreserveQueryParams from "../../../../Hooks/UsePreserveQueryParams";
 import useQueryFilters from "../../../../Hooks/UseQueryFilters";
-import { Loader } from "../../../../components/Table/Loader";
 import {
   LimitSelector,
   createDebouncedSearch,
@@ -26,6 +25,12 @@ import {
   getOSIcon,
   getOSVersion,
 } from "../../../../utils/BrowserUtils";
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import TanstackTable from "../../../../components/DataTable/TanstackTable"
 
 const AuditLogs = () => {
   usePageTitle("Audit Logs");
@@ -36,7 +41,7 @@ const AuditLogs = () => {
   const [vendors, SetVendors] = useState([]);
   const [filteredLength, setFilteredLength] = useState([]);
   const [pageIndex, setPageIndex] = useState([]);
-  const [dateRange, setDateRange] = useState([new Date(), new Date()]); // set currect datee
+  const [dateRange, setDateRange] = useState([new Date(), new Date()]);
   const [startDate, endDate] = dateRange;
   const [show, setShow] = useState(false);
   const [logDetails, setLogDetails] = useState(null);
@@ -118,7 +123,7 @@ const AuditLogs = () => {
     };
     setFilters(newFilters);
     if (start && end) {
-      fetchLogs(newFilters); // Only fetch when both dates are selected
+      fetchLogs(newFilters);
     }
   };
 
@@ -145,7 +150,7 @@ const AuditLogs = () => {
     setSelectedUser(selectedOption);
     if (selectedOption) {
       const user = selectedOption.value;
-      const newFilters = { ...filters, user_id: user, vendor_id: null }; // Clear vendor if needed
+      const newFilters = { ...filters, user_id: user, vendor_id: null };
       setFilters(newFilters);
       fetchLogs(newFilters);
     } else {
@@ -158,8 +163,8 @@ const AuditLogs = () => {
   const filterVendors = (selectedOption) => {
     const newFilters = {
       ...filters,
-      vendor_id: selectedOption ? selectedOption.value : null, // Handle null/undefined selectedOption
-      user_id: null, // Clear user_id when filtering by vendor
+      vendor_id: selectedOption ? selectedOption.value : null,
+      user_id: null,
     };
     setSelectedVendor(selectedOption);
     setFilters(newFilters);
@@ -184,15 +189,15 @@ const AuditLogs = () => {
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected
-        ? "#bcf7c6" // Selected option background
+        ? "#bcf7c6"
         : state.isFocused
-        ? "#bcf7c6" // Hovered option background
+        ? "#bcf7c6"
         : provided.backgroundColor,
       color: state.isSelected ? "block" : "inherit",
     }),
     menu: (provided) => ({
       ...provided,
-      zIndex: 9999, // Ensure dropdown appears above other elements
+      zIndex: 9999,
     }),
   };
 
@@ -218,7 +223,6 @@ const AuditLogs = () => {
             </Badge>
           </div>
         </div>
-
         <div className="browser-info">
           <div>
             <span style={{ marginRight: "8px" }}>
@@ -228,7 +232,6 @@ const AuditLogs = () => {
             {getBrowserVersion(browserVersion)}
           </div>
         </div>
-
         <div className="os-info">
           <div>
             <span style={{ marginRight: "8px" }}>{getOSIcon(os)}</span>
@@ -265,7 +268,6 @@ const AuditLogs = () => {
       from_date: null,
       to_date: null,
     };
-
     setFilters(clearedFilters);
     setDateRange([null, null]);
     SetUsers([]);
@@ -298,20 +300,107 @@ const AuditLogs = () => {
     []
   );
 
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "index",
+        header: "#",
+        cell: ({ row }) =>
+          (pageIndex?.meta?.current_page - 1) * pageIndex?.meta?.per_page +
+          row.index +
+          1,
+        enableSorting: false,
+      },
+      {
+        accessorKey: "model_name",
+        header: "Entity",
+        cell: ({ getValue }) => getValue(),
+      },
+      {
+        accessorKey: "user.email",
+        header: "Email",
+        cell: ({ getValue }) => getValue(),
+      },
+      {
+        accessorKey: "message",
+        header: "Message",
+        cell: ({ getValue }) => (
+          <p className="logs-message">{getValue()}</p>
+        ),
+      },
+      {
+        accessorKey: "browser_os",
+        header: "IP Address, Browser & OS",
+        cell: ({ row }) => (
+          <BrowserAndOS
+            ipAddress={row.original.ip_address}
+            browser={row.original.browser}
+            browserVersion={row.original.browser_version}
+            os={row.original.os}
+            osVersion={row.original.os_version}
+          />
+        ),
+        enableSorting: false,
+      },
+      {
+        accessorKey: "created_at",
+        header: "Created At",
+        cell: ({ getValue }) => <FormattedDateTime isoString={getValue()} />,
+      },
+      {
+        accessorKey: "event",
+        header: "Event",
+        cell: ({ getValue }) => (
+          <span className={getEventBadgeClass(getValue())}>
+            {getValue()?.toUpperCase()}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "action",
+        header: "Action",
+        cell: ({ row }) => (
+          <Button
+            variant="btn btn-sm"
+            style={{
+              backgroundColor: "#37c6501a",
+              border: "1px solid #37c650",
+            }}
+            onClick={() => {
+              setLogDetails(row.original);
+              setShow(true);
+            }}
+          >
+            <FaEye color="#37c650" />
+          </Button>
+        ),
+        enableSorting: false,
+      },
+    ],
+    [pageIndex]
+  );
+
+  const table = useReactTable({
+    data: filteredUsers || [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    manualPagination: true,
+  });
+
   return (
     <>
-      <div className=" mb-3  d-flex">
+      <div className="mb-3 d-flex">
         <div>
           <h5 className="text-wrap-mode">
-            {filteredUsers?.length === 1 ? "Audit Logs" : "Audits Logs"}
+            {filteredUsers?.length === 1 ? "Audit Log" : "Audit Logs"}
             {filteredUsers?.length > 0 && (
-              <span className="badge user-active text-white m-2">
+              <Badge className="user-active text-white m-2">
                 {pageIndex?.meta?.total}
-              </span>
+              </Badge>
             )}
           </h5>
         </div>
-        <div className=" row width-fill justify-content-end">
+        <div className="row width-fill justify-content-end">
           {authuser?.user_role === "sq1_super_admin" && (
             <div className="col-md-3">
               <Select
@@ -324,8 +413,6 @@ const AuditLogs = () => {
               />
             </div>
           )}
-
-          {/* hide Select users when sq1_user login */}
           {authuser?.user_role !== "sq1_user" && (
             <div className="col-md-3">
               <Select
@@ -339,8 +426,6 @@ const AuditLogs = () => {
               />
             </div>
           )}
-
-          {/* hide Select vendors when sq1_user login */}
           {authuser?.user_role !== "sq1_user" && (
             <div className="col-md-3">
               <Select
@@ -354,7 +439,6 @@ const AuditLogs = () => {
               />
             </div>
           )}
-
           <div className="col-md-3">
             <DatePicker
               selected={startDate}
@@ -382,97 +466,17 @@ const AuditLogs = () => {
         </div>
       </div>
 
+      <TanstackTable
+        table={table}
+        columns={columns}
+        isLoading={isLoading}
+        emptyMessage="No Users Available"
+        className="table users-table mb-0"
+      />
+
       <div>
-        <div className="tabledata-scroll mb-3">
-          <table className="table users-table mb-0">
-            <thead className="tablescrolling-thead-tr">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Entity</th>
-                <th scope="col">Email</th>
-                <th scope="col">Message</th>
-                <th scope="col">IP Address, Browser & OS</th>
-                <th scope="col">Created At</th>
-                <th scope="col">Event</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody className="tablescrolling-tbody">
-              {isLoading ? (
-                // Array.from({ length: 6 }).map((_, rowIndex) => (
-                //   <tr key={rowIndex}>
-                //     {Array.from({ length: 8 }).map((_, colIndex) => (
-                //       <td key={colIndex}>
-                //         <p className="placeholder-glow">
-                //           <span className="placeholder col-12 bg-secondary"></span>
-                //         </p>
-                //       </td>
-                //     ))}
-                //   </tr>
-                // ))
-                <Loader rows={6} cols={8} />
-              ) : filteredUsers?.length > 0 ? (
-                filteredUsers.map((data, index) => (
-                  <tr key={index}>
-                    <th scope="row">
-                      {(pageIndex?.meta?.current_page - 1) *
-                        pageIndex?.meta?.per_page +
-                        index +
-                        1}
-                    </th>
-                    <td>{data?.model_name}</td>
-                    <td>{data?.user?.email}</td>
-                    <td>
-                      <p className="logs-message">{data?.message}</p>
-                    </td>
-                    <td>
-                      <BrowserAndOS
-                        ipAddress={data.ip_address}
-                        browser={data.browser}
-                        browserVersion={data.browser_version}
-                        os={data.os}
-                        osVersion={data.os_version}
-                      />
-                    </td>
-                    <td>
-                      <FormattedDateTime isoString={data?.created_at} />
-                    </td>
-                    <td>
-                      <span className={getEventBadgeClass(data?.event)}>
-                        {data?.event.toUpperCase()}
-                      </span>
-                    </td>
-                    <td>
-                      <Button
-                        variant="btn btn-sm"
-                        style={{
-                          backgroundColor: "#37c6501a",
-                          border: "1px solid #37c650",
-                        }}
-                        onClick={(e) => {
-                          setLogDetails(data);
-                          setShow(true);
-                        }}
-                      >
-                        <FaEye color="#37c650" />
-                      </Button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="8" className="text-center">
-                    No Users Available
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div>
-        <div className="d-flex flex-row bd-highlight mb-3 ">
-          <div className=" bd-highlight pagennation-list">
+        <div className="d-flex flex-row bd-highlight mb-3">
+          <div className="bd-highlight pagennation-list">
             <LimitSelector
               onLimitChange={handleLimitChange}
               filteredLength={filteredLength}

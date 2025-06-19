@@ -38,7 +38,7 @@ import DepartmentsPage from "../pages/Settings/Subpages/Compliances/DepartmentAd
 import QuestionsImport from "../pages/Settings/Subpages/Compliances/QuestionsImport";
 import SsoSetup from "../pages/Settings/Subpages/SSO/SsoSetup";
 import ReadinessAnswers from "../pages/Settings/Subpages/ComplianceReadiness/ReadinessAnswers";
-import ReadinessView from "../pages/Settings/Subpages/Readiness/ReadinessViewTable";
+import ReadinessView from "../pages/Settings/Subpages/readiness/ReadinessViewTable";
 import UserOrganization from "../pages/Settings/Subpages/User/UserOrganization";
 import NewUser from "../pages/Settings/Subpages/Organizations/OrganizationUsers";
 import EmployeeLogin from "../pages/employeePortal/Authentication/Login";

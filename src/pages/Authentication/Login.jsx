@@ -20,7 +20,12 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const authType = localStorage.getItem("organization");
-  const type = JSON.parse(authType);
+  console.log("Auth Type:", authType);
+  
+  const type = JSON.parse(authType ) ;
+  console.log(type, "type");
+  const loginType = type?.auth_type || "login"; // Default to 'login' if auth_type is not set
+  
 
   const formik = useFormik({
     initialValues: {
@@ -85,11 +90,11 @@ const Login = () => {
             </div>
             <div className="d-flex justify-content-center">
               <div className="card form-card w-75">
-                {type?.auth_type === "login" && (
+                {loginType=== "login" && (
                   <h2 className="form-heading mb-40">Login</h2>
                 )}
                 <div className="auth-log">
-                  {type?.auth_type === "login" ? (
+                  {loginType === "login" ? (
                     <>
                       <form onSubmit={formik.handleSubmit}>
                         <div className="input-wrap mb-4">
@@ -176,7 +181,7 @@ const Login = () => {
                   )}
 
                   <div className="text-center sign-with-account">
-                    {type?.auth_type === "azure" ? (
+                    {loginType === "azure" ? (
                       <Link
                         to={getCurrentOrganization()?.sso_link}
                         className="text-decoration-none mx-3 "
