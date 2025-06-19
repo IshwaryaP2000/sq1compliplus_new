@@ -22,7 +22,6 @@ import {
 } from "@tanstack/react-table";
 import TanstackTable from "../../../../components/DataTable/TanstackTable";
 
-
 const Questions = () => {
   const navigate = useNavigate();
   const [data, setData] = useState();
@@ -35,7 +34,9 @@ const Questions = () => {
   const [filteredLength, setFilteredLength] = useState([]);
   const [pageIndex, setPageIndex] = useState([]);
 
-  const GetQuestions = async (URI = "/vendor/list-questions") => {
+  const GetQuestions = async (params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    const URI = `vendor/list-questions?${query}`;
     try {
       setIsLoading(true);
       const response = await getApi(URI);
@@ -57,14 +58,15 @@ const Questions = () => {
   const debouncedFetchSearchResults = useMemo(
     () =>
       createDebouncedSearch((params) => {
-        fetchSearchResults(
-          "/vendor/list-questions",
-          params,
-          setFilteredUsers,
-          setIsLoading,
-          setFilteredLength,
-          setPageIndex
-        );
+        // fetchSearchResults(
+        //   "/vendor/list-questions",
+        //   params,
+        //   setFilteredUsers,
+        //   setIsLoading,
+        //   setFilteredLength,
+        //   setPageIndex
+        // );
+        GetQuestions(params);
       }, 300),
     []
   );
@@ -133,7 +135,8 @@ const Questions = () => {
                 fontSize: "20px",
               }}
             >
-              {sortDirection === "asc" && sortColumn === "assessment_type_id" ? (
+              {sortDirection === "asc" &&
+              sortColumn === "assessment_type_id" ? (
                 <BiUpArrowAlt />
               ) : (
                 <BiDownArrowAlt />
@@ -216,8 +219,7 @@ const Questions = () => {
                 fontSize: "20px",
               }}
             >
-              {sortDirection === "asc" &&
-              sortColumn === "evidence_required" ? (
+              {sortDirection === "asc" && sortColumn === "evidence_required" ? (
                 <BiUpArrowAlt />
               ) : (
                 <BiDownArrowAlt />
