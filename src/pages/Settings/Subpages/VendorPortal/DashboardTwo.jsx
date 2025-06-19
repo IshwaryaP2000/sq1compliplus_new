@@ -1,5 +1,7 @@
 import Dropdown from "react-bootstrap/Dropdown";
 import {
+  EllipsisverticalIcon,
+  NotificationIcon,
   RightarrowIcon,
   SharenodesIcon,
 } from "../../../../components/Icons/Icons";
@@ -23,12 +25,12 @@ const DashboardTwo = () => {
                     id="dropdown-basic"
                     className="menu-dashboard-dropdown py-1"
                   >
-                    <i className="fa-solid fa-ellipsis-vertical menu-color "></i>
+                    <EllipsisverticalIcon className="menu-color" />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item>
                       <div className="position-relative ">
-                        <i className="fa-regular fa-message message-notification me-2"></i>
+                        <NotificationIcon className="me-2" />
                         <div className="notification-dots"></div>
                         Message
                       </div>
@@ -81,12 +83,12 @@ const DashboardTwo = () => {
                     id="dropdown-basic"
                     className="menu-dashboard-dropdown py-1"
                   >
-                    <i className="fa-solid fa-ellipsis-vertical menu-color "></i>
+                    <EllipsisverticalIcon className="menu-color" />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item>
                       <div className="position-relative ">
-                        <i className="fa-regular fa-message message-notification me-2"></i>
+                        <NotificationIcon className="me-2" />
                         <div className="notification-dots"></div>
                         Message
                       </div>
@@ -138,12 +140,12 @@ const DashboardTwo = () => {
                     id="dropdown-basic"
                     className="menu-dashboard-dropdown py-1"
                   >
-                    <i className="fa-solid fa-ellipsis-vertical menu-color "></i>
+                    <EllipsisverticalIcon className="menu-color" />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item>
                       <div className="position-relative ">
-                        <i className="fa-regular fa-message message-notification me-2"></i>
+                        <NotificationIcon className="me-2" />
                         <div className="notification-dots"></div>
                         Message
                       </div>
@@ -194,12 +196,12 @@ const DashboardTwo = () => {
                     id="dropdown-basic"
                     className="menu-dashboard-dropdown py-1"
                   >
-                    <i className="fa-solid fa-ellipsis-vertical menu-color "></i>
+                    <EllipsisverticalIcon className="menu-color" />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item>
                       <div className="position-relative ">
-                        <i className="fa-regular fa-message message-notification me-2"></i>
+                        <NotificationIcon className="me-2" />
                         <div className="notification-dots"></div>
                         Message
                       </div>
@@ -250,12 +252,12 @@ const DashboardTwo = () => {
                     id="dropdown-basic"
                     className="menu-dashboard-dropdown py-1"
                   >
-                    <i className="fa-solid fa-ellipsis-vertical menu-color "></i>
+                    <EllipsisverticalIcon className="menu-color" />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item>
                       <div className="position-relative ">
-                        <i className="fa-regular fa-message message-notification me-2"></i>
+                        <NotificationIcon className="me-2" />
                         <div className="notification-dots"></div>
                         Message
                       </div>
@@ -305,12 +307,12 @@ const DashboardTwo = () => {
                     id="dropdown-basic"
                     className="menu-dashboard-dropdown py-1"
                   >
-                    <i className="fa-solid fa-ellipsis-vertical menu-color "></i>
+                    <EllipsisverticalIcon className="menu-color" />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item>
                       <div className="position-relative ">
-                        <i className="fa-regular fa-message message-notification me-2"></i>
+                        <NotificationIcon className="me-2" />
                         <div className="notification-dots"></div>
                         Message
                       </div>

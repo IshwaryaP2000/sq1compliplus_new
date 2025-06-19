@@ -9,6 +9,7 @@ import VendorChat from "../../../../components/Modal/VendorChat";
 import OverflowTooltips from "../../../../components/Tooltip/OverflowTooltips";
 import { getApi, postApi } from "../../../../services/apiService";
 import {
+  ArrowsrotateIcon,
   CheckIcon,
   LeftarrowIcon,
   RegulareyeIcon,
@@ -440,7 +441,7 @@ const VendorAssessment = () => {
                                   )
                                 }
                               >
-                                <i className="fa-solid fa-arrows-rotate"></i>
+                                <ArrowsrotateIcon />
                                 Reset
                               </button>
                             </OverlayTrigger>

@@ -15,6 +15,8 @@ import {
   highlightText,
 } from "../../../../components/Search/useSearchAndSort";
 import {
+  CloudarrowdownIcon,
+  PdfIcon,
   PenToSquareIcon,
   TrashIcon,
   TriangleExclamationIcon,
@@ -387,7 +389,7 @@ const PolicyTemplate = () => {
                           className="btn btn-sm py-0 my-1 tableborder-right"
                           onClick={() => handleDownload(item.file_location)}
                         >
-                          <i className="fa-solid fa-cloud-arrow-down text-success"></i>
+                          <CloudarrowdownIcon className="text-success" />
                         </button>
                       </OverlayTrigger>
                       <OverlayTrigger
@@ -535,7 +537,7 @@ const PolicyTemplate = () => {
                   className="primary-btn me-2"
                   onClick={() => handleDownload(location)}
                 >
-                  <i className="fa-solid fa-file-pdf"></i>
+                 <PdfIcon />
                 </span>
               )}
               <button type="submit" className="btn primary-btn me-1">

@@ -15,6 +15,7 @@ import { ucFirst } from "../../../../utils/UtilsGlobalData";
 import {
   CheckIcon,
   LeftarrowIcon,
+  ListIcon,
   RightarrowIcon,
 } from "../../../../components/Icons/Icons";
 
@@ -168,7 +169,8 @@ const VendorCreate = () => {
       <Accordion defaultActiveKey="1">
         <Accordion.Item eventKey="0">
           <Accordion.Header>
-            <i className="fa-solid fa-list me-1"> </i> Listed Vendors
+            <ListIcon className="me-1" />
+            Listed Vendors
           </Accordion.Header>
           <Accordion.Body className="p-4">
             <div className="tabledata-scroll mb-3">

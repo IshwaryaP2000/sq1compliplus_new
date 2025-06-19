@@ -20,6 +20,9 @@ import {
 } from "../../components/useSearchAndSort";
 import {
   BanIconNotallowed,
+  ListIcon,
+  MutedrepeatIcon,
+  PrintIcon,
   RegulareyeIcon,
   RepeatIcon,
   RightarrowIcon,
@@ -579,7 +582,7 @@ const Vendor = () => {
                               type="button"
                               onClick={() => Getreport(vendors?.id)}
                             >
-                              <i className={"fa-solid fa-print"}></i>
+                              <PrintIcon />
                             </span>
                           </OverlayTrigger>
                         ) : (
@@ -632,7 +635,7 @@ const Vendor = () => {
               <div className="text-center">
                 <div className="mb-3">
                   <div className="warning1-icon-wrapper">
-                    <i className="fa-solid text-muted fa-repeat"></i>
+                    <MutedrepeatIcon />
                   </div>
                 </div>
                 <h5 className="fw-bold mb-2 text-muted">Resend Invitation</h5>
@@ -742,7 +745,8 @@ const Vendor = () => {
               <Modal.Title>
                 <div className="create-vendormodel ">
                   <h6 className="fw-bold mb-0">
-                    <i className="fa-solid fa-list me-1"> </i> Listed Vendors
+                    <ListIcon className="me-1" />
+                    Listed Vendors
                   </h6>
                 </div>
               </Modal.Title>
@@ -766,8 +770,8 @@ const Vendor = () => {
               <Modal.Title>
                 <div className="create-vendormodel ">
                   <h6 className="fw-bold mb-0">
-                    <i className="fa-solid fa-user-plus me-1"> </i> Create
-                    Vendor
+                    <UserplusIcon className="me-1" />
+                    Create Vendor
                   </h6>
                 </div>
               </Modal.Title>

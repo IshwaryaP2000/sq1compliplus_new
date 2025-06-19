@@ -11,7 +11,7 @@ import {
   highlightText,
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
-import { PlusIcon } from "../../../../components/Icons/Icons";
+import { PlusIcon, UploadIcon } from "../../../../components/Icons/Icons";
 import { Loader } from "../../../../components/Table/Loader";
 
 const Questions = () => {
@@ -120,7 +120,7 @@ const Questions = () => {
             className="btn primary-btn mx-1 ms-2"
           >
             Bulk Upload
-            <i className="fa-solid fa-upload ms-2"></i>
+            <UploadIcon className="ms-2" />
           </button>
           <button
             onClick={() => navigate("/settings/add-questions")}

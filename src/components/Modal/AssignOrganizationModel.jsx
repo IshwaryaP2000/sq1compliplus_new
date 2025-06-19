@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { postApi, getApi } from "../../services/apiService";
 import { role } from "../Validationschema/commonSchema";
 import { PlusIcon } from "../Icons/Icons";
+import { Button } from "react-bootstrap";
 
 function AssignOrganizationModel({ userId, getUserOrg }) {
   const [show, setShow] = useState(false);
@@ -128,6 +129,9 @@ function AssignOrganizationModel({ userId, getUserOrg }) {
               </div>
 
               <div className="modal-footer border-0">
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
                 <button
                   type="submit"
                   className="btn primary-btn"

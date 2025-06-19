@@ -3,6 +3,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { Link, useNavigate } from "react-router-dom";
 import Subnavbar from "../../../layout/Subnavbar";
 import { postApi } from "../../../services/apiService";
+import { CircleuserIcon, SignoutIcon } from "../../../components/Icons/Icons";
 
 const EmployeeNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,7 +84,7 @@ const EmployeeNavbar = () => {
                     id="dropdown-basic"
                     className="btn-auth d-flex align-items-center user-profile-button"
                   >
-                    <i className="fa-regular fa-circle-user "></i>
+                    <CircleuserIcon />
                     <div className="user-profile-dropdown ms-2">{userName}</div>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
@@ -92,7 +93,7 @@ const EmployeeNavbar = () => {
                       <i className="fa-solid fa-user ms-2"></i>
                     </Dropdown.Item>
                     <Dropdown.Item onClick={logout}>
-                      Logout <i className="fa fa-sign-out ms-2"></i>
+                      Logout <SignoutIcon className="ms-2" />
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

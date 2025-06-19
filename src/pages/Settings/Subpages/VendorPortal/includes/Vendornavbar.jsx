@@ -2,6 +2,11 @@ import { useState, useRef, useEffect } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import { postApi } from "../../../../../services/apiService";
+import {
+  BellIcon,
+  CircleuserIcon,
+  SignoutIcon,
+} from "../../../../../components/Icons/Icons";
 
 const Vendornavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -109,7 +114,7 @@ const Vendornavbar = () => {
                     }}
                     style={{ cursor: "pointer" }}
                   >
-                    <i className="fa-solid fa-bell fs-3 text-lightgreen "></i>
+                    <BellIcon className="text-lightgreen" />
                     <span className="position-absolute translate-middle badge rounded-pill budge-notification"></span>
                   </div>
                   {isOpen && (
@@ -136,7 +141,7 @@ const Vendornavbar = () => {
                     id="dropdown-basic"
                     className="btn-auth d-flex align-items-center user-profile-button"
                   >
-                    <i className="fa-regular fa-circle-user "></i>
+                    <CircleuserIcon />
                     <div className="user-profile-dropdown ms-2">
                       {name?.name}
                     </div>
@@ -147,7 +152,7 @@ const Vendornavbar = () => {
                       <span>Profile</span>
                     </Dropdown.Item>
                     <Dropdown.Item onClick={logout}>
-                      <i className="fa fa-sign-out me-2"></i>
+                      <SignoutIcon className="me-2" />
                       <span>Logout</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>

@@ -15,6 +15,7 @@ import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
 import {
   CheckIcon,
   CircleinfoIcon,
+  CloseIcon,
   FolderopenIcon,
   LeftarrowIcon,
   PlusIcon,
@@ -812,7 +813,7 @@ const AssessmentView = () => {
                                         >
                                           {item?.answer ? (
                                             <>
-                                              {/* <i className="fa-solid fa-circle-info fs-6 me-1"></i> */}
+                                            
                                               <CircleinfoIcon className="fs-6 me-1" />
                                               <span className="d-none d-sm-block">
                                                 Incomplete
@@ -1254,7 +1255,8 @@ const AssessmentView = () => {
               <button onClick={toggleDiv} className={`btn primary-btn `}>
                 {isVisible ? (
                   <>
-                    <i className="fa-solid fa-close me-2"></i>Close Evidence
+                    <CloseIcon className="me-2" />
+                    Close Evidence
                   </>
                 ) : (
                   <>

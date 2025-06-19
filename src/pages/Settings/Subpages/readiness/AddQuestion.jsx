@@ -5,7 +5,7 @@ import Select from "react-select";
 import { Modal, Button } from "react-bootstrap";
 import usePageTitle from "../../../../utils/usePageTitle";
 import ButtonWithLoader from "../../../../components/Button/ButtonLoader";
-import { TrashIcon, TriangleExclamationIcon } from "../../../../components/Icons/Icons";
+import { DownloadIcon, TrashIcon } from "../../../../components/Icons/Icons";
 import DeleteModal from "../../../../components/Modal/DeleteModal";
 
 function AddQuestion() {
@@ -428,10 +428,6 @@ function AddQuestion() {
     fetchUploadedQuestions();
   }, []);
 
-  useEffect(() => {
-    console.error("Uploaded questions updated:", uploadedQuestions);
-  }, [uploadedQuestions]);
-
   // Helper function to check if field type allows dropdown options
   const isDropdownFieldType = (fieldType) => {
     return ["checkbox", "radio", "dropdown"].includes(fieldType);
@@ -475,7 +471,8 @@ function AddQuestion() {
               className="text-primary cursor-pointer"
               onClick={handleDownload}
             >
-              Download Sample <i className="fa-solid fa-download ms-1"></i>
+              Download Sample
+              <DownloadIcon className="ms-1" />
             </span>
             <center>
               <button
@@ -695,7 +692,7 @@ function AddQuestion() {
                               onClick={() => handleDelete(question.id)}
                               disabled={isLoading}
                             >
-                             <TrashIcon />
+                              <TrashIcon />
                             </button>
                           </td>
                         </tr>
@@ -734,7 +731,7 @@ function AddQuestion() {
               question. Are you sure?
             </p>
           </div> */}
-          <DeleteModal msg="Question"/>
+          <DeleteModal msg="Question" />
         </Modal.Body>
         <div className="d-flex justify-content-center mb-3 gap-4">
           <Button

@@ -17,12 +17,20 @@ import {
   LimitSelector,
 } from "../../../../components/Search/useSearchAndSort";
 import {
+  BanIcon,
   CheckIcon,
+  ClockIcon,
+  DownloadIcon,
+  EllipsisverticalIcon,
+  ListIcon,
+  MutedrepeatIcon,
   PlusIcon,
   RegulareyeIcon,
+  RepeatIcon,
   RightarrowIcon,
   TrashIcon,
   TriangleExclamationIcon,
+  UserplusIcon,
   XmarkIcon,
 } from "../../../../components/Icons/Icons";
 
@@ -422,7 +430,7 @@ const VendorNew = () => {
                             {vendors.assessment_status === "completed" ? (
                               <CheckIcon className="me-1" />
                             ) : (
-                              <i className="fa-solid fa-clock me-1"></i>
+                              <ClockIcon className="me-1" />
                             )}
 
                             <span>
@@ -452,7 +460,7 @@ const VendorNew = () => {
                             position: "relative",
                           }}
                         >
-                          <i className="fa-solid fa-ellipsis-vertical"></i>
+                          <EllipsisverticalIcon />
                         </div>
                       </div>
                     </div>
@@ -621,7 +629,7 @@ const VendorNew = () => {
                                 className="btn btn-sm my-1 policy-buttons"
                                 onClick={() => handleResendClick(vendors?.id)}
                               >
-                                <i className="fa-solid fa-repeat me-1 "></i>
+                                <RepeatIcon className="me-1" />
                                 Resend
                               </button>
                             ) : (
@@ -630,6 +638,7 @@ const VendorNew = () => {
                                 disabled={true}
                               >
                                 <i className={"fa-solid fa-ban me-1 "}></i>
+                                <BanIcon className="me-1" />
                                 Resend
                               </button>
                             )}
@@ -639,7 +648,7 @@ const VendorNew = () => {
                                 className="btn btn-sm my-1 policy-buttons"
                                 onClick={() => Getreport(vendors?.id)}
                               >
-                                <i className="fa-solid fa-download me-1 "></i>
+                                <DownloadIcon className="me-1" />
                                 Report
                               </button>
                             ) : (
@@ -698,7 +707,7 @@ const VendorNew = () => {
               <div className="text-center">
                 <div className="mb-3">
                   <div className="warning1-icon-wrapper">
-                    <i className="fa-solid text-muted fa-repeat"></i>
+                    <MutedrepeatIcon />
                   </div>
                 </div>
                 <h5 className="fw-bold mb-2 text-muted">Resend Invitation</h5>
@@ -820,7 +829,8 @@ const VendorNew = () => {
               <Modal.Title>
                 <div className="create-vendormodel ">
                   <h6 className="fw-bold mb-0">
-                    <i className="fa-solid fa-list me-1"> </i> Listed Vendors
+                    <ListIcon className="me-1" />
+                    Listed Vendors
                   </h6>
                 </div>
               </Modal.Title>
@@ -844,8 +854,8 @@ const VendorNew = () => {
               <Modal.Title>
                 <div className="create-vendormodel ">
                   <h6 className="fw-bold mb-0">
-                    <i className="fa-solid fa-user-plus me-1"> </i> Create
-                    Vendor
+                    <UserplusIcon className="me-1" />
+                    Create Vendor
                   </h6>
                 </div>
               </Modal.Title>

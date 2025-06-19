@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { postApi } from "../../services/apiService";
-import { CirclecheckIcon } from "../Icons/Icons";
+import { CirclecheckIcon, PaperplaneIcon } from "../Icons/Icons";
 
 function VendorChat({ updateStatus, type, vendor, unReadCount }) {
   const [show, setShow] = useState(false);
@@ -226,7 +226,7 @@ function VendorChat({ updateStatus, type, vendor, unReadCount }) {
                 </div>
               </div>
               <button className="btn vocie-icon_wrapper" onClick={sendMessage}>
-                Send <i className="fa-solid fa-paper-plane ms-1"></i>
+                <PaperplaneIcon className="ms-1" />
               </button>
             </div>
           </div>
