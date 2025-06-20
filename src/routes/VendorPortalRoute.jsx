@@ -10,15 +10,6 @@ import VendorLayout from "../pages/Settings/Subpages/VendorPortal/includes/Vendo
 function VendorPortalRoute() {
   return (
     <>
-      {/* <Routes>
-        <Route path="/dashboard" element={<VendorDashboard />} />
-        <Route path="/profile" element={<ChangePassword />} />
-        <Route path="/assessment-view" element={<AssessmentView />} />
-        <Route path="/assessment-view" element={<AssessmentView />} />
-        <Route path="/users" element={<VendorUsers />} />
-        <Route path="/new-dashboard" element={<DashboardTwo />} />
-        <Route path="*" element={<NoPage />} />
-      </Routes> */}
       <VendorLayout>
         <Routes>
           <Route path="dashboard" element={<VendorDashboard />} />

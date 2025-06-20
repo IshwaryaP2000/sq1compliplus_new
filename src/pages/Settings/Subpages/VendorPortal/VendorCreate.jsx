@@ -14,6 +14,7 @@ import { getApi, postApi } from "../../../../services/apiService";
 import { ucFirst } from "../../../../utils/UtilsGlobalData";
 import {
   CheckIcon,
+  HandshakeIcon,
   LeftarrowIcon,
   ListIcon,
   RightarrowIcon,
@@ -244,7 +245,8 @@ const VendorCreate = () => {
         </Accordion.Item>
         <Accordion.Item eventKey="1">
           <Accordion.Header>
-            <i className="fa-solid fa-handshake me-1"></i> Create New Vendor
+            <HandshakeIcon className="me-1" />
+            Create New Vendor
           </Accordion.Header>
           <Accordion.Body className="p-4">
             <Formik

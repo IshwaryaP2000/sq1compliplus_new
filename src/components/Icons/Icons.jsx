@@ -10,7 +10,9 @@ export const PdfIcon = ({ className = "" }) => (
 export const ArchiveIcon = () => <i className="fa-solid fa-archive" />;
 export const ClipboardIcon = () => <i className="fa-solid fa-clipboard" />;
 export const TasksIcon = () => <i className="fas fa-tasks" />;
-export const HandshakeIcon = () => <i className="fa-solid fa-handshake" />;
+export const HandshakeIcon = ({ className = "" }) => (
+  <i className={`fa-solid fa-handshake ${className}`.trim()} />
+);
 export const SitemapIcon = () => <i className="fa-solid fa-sitemap" />;
 export const UsersIcon = () => <i className="fa-solid fa-users" />;
 export const PoweroffIcon = () => <i className="fa-solid fa-power-off" />;
@@ -22,9 +24,9 @@ export const BellIcon = ({ className = "" }) => (
   <i className={`fa-regular fa-bell fs-3" ${className}`.trim()} />
 );
 export const QrcodeIcon = () => <i className="fa-solid fa-qrcode" />;
-export const BanIconNotallowed = () => (
-  <i className="fa-solid fa-ban not-allowed" />
-);
+export const BanIconNotallowed = ({ className = "" }) => (
+  <i className={`fa-solid fa-ban not-allowed ${className}`.trim()} />
+); 
 export const TrashIcon = ({ className = "" }) => (
   <i className={`fa-solid fa-trash ${className}`.trim()} />
 );
@@ -149,4 +151,8 @@ export const PrintIcon = ({ className = "" }) => (
 
 export const SolideditIcon = ({ className = "" }) => (
   <i className={`fa-solid fa-edit ${className}`.trim()} />
+);
+
+export const PaperclipIcon = ({ className = "" }) => (
+  <i className={`fa-solid fa-paperclip ${className}`.trim()} />
 );

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { getApi } from "../../../../services/apiService";
 
 function VendorDashboard() {
-  alert("This is a new dashboard. Please use the new dashboard for better experience.");
   const [data, setData] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 

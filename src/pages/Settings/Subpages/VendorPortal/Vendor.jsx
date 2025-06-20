@@ -18,6 +18,7 @@ import {
 } from "../../../../components/Search/useSearchAndSort";
 import {
   BanIcon,
+  BanIconNotallowed,
   CheckIcon,
   ClockIcon,
   DownloadIcon,
@@ -637,7 +638,6 @@ const VendorNew = () => {
                                 className="btn btn-sm my-1 policy-buttons not-allowed"
                                 disabled={true}
                               >
-                                <i className={"fa-solid fa-ban me-1 "}></i>
                                 <BanIcon className="me-1" />
                                 Resend
                               </button>
@@ -656,9 +656,7 @@ const VendorNew = () => {
                                 className="btn btn-sm my-1 policy-buttons"
                                 disabled={true}
                               >
-                                <i
-                                  className={"fa-solid fa-ban not-allowed me-1"}
-                                ></i>
+                                <BanIconNotallowed className="me-1" />
                                 Report
                               </button>
                             )}
